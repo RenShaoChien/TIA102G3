@@ -1,4 +1,4 @@
-package com.tia102g3order.model;
+package com.tia102g3.order.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
