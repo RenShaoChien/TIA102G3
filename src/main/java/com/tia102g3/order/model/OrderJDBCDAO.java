@@ -279,51 +279,51 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 
 	
 
-//	public static void main(String[] args) {
-//
-//		OrderJDBCDAO dao = new OrderJDBCDAO();
-//
-//		// 新增
-//		OrderVO orderVO1 = new OrderVO();
-//		orderVO1.setMemberID(00005);
-//		orderVO1.setOrderDate(java.sql.Timestamp.valueOf("2024-07-07 13:42:12"));
-//		orderVO1.setStatus("已出貨");
-//		orderVO1.setTotalPrice(499);
-//		dao.insert(orderVO1);
-//
-//		// 修改
-//		OrderVO orderVO2 = new OrderVO();
-//		orderVO2.setOrderID(1001);
-//		orderVO2.setMemberID(00002);
-//		orderVO2.setOrderDate(java.sql.Timestamp.valueOf("2024-07-01 13:42:12"));
-//		orderVO2.setStatus("已出貨");
-//		orderVO2.setTotalPrice(499);
-//		dao.update(orderVO2);
-//
-//		// 刪除
-//		dao.delete(1002);
-//
-//		// 查詢
-//		OrderVO orderVO3 = dao.findByPrimaryKey(1001);
-//		System.out.print(orderVO3.getOrderID() + ",");
-//		System.out.print(orderVO3.getMemberID() + ",");
-//		System.out.print(orderVO3.getOrderDate() + ",");
-//		System.out.print(orderVO3.getStatus() + ",");
-//		System.out.print(orderVO3.getTotalPrice() + ",");
-//		System.out.println("---------------------");
-//
-//		// 查詢
-//		List<OrderVO> list = dao.getAll();
-//		for (OrderVO aOrder : list) {
-//			System.out.print(aOrder.getOrderID() + ",");
-//			System.out.print(aOrder.getMemberID() + ",");
-//			System.out.print(aOrder.getOrderDate() + ",");
-//			System.out.print(aOrder.getStatus() + ",");
-//			System.out.print(aOrder.getTotalPrice() + ",");
-//			System.out.println();
-//		}
-//	}
-//
+	public static void main(String[] args) {
+
+		OrderJDBCDAO dao = new OrderJDBCDAO();
+
+		// 新增
+		OrderVO orderVO1 = new OrderVO();
+		orderVO1.setMemberID(00005);
+		orderVO1.setOrderDate(java.sql.Timestamp.valueOf("2024-07-07 13:42:12"));
+		orderVO1.setStatus("已出貨");
+		orderVO1.setTotalPrice(499);
+		dao.insert(orderVO1);
+
+		// 修改
+		OrderVO orderVO2 = new OrderVO();
+		orderVO2.setOrderID(1001);
+		orderVO2.setMemberID(00002);
+		orderVO2.setOrderDate(java.sql.Timestamp.valueOf("2024-07-01 13:42:12"));
+		orderVO2.setStatus("已出貨");
+		orderVO2.setTotalPrice(499);
+		dao.update(orderVO2);
+
+		// 刪除
+		dao.delete(1002);
+
+		// 查詢
+		OrderVO orderVO3 = dao.findByPrimaryKey(1001);
+		System.out.print(orderVO3.getOrderID() + ",");
+		System.out.print(orderVO3.getMemberID() + ",");
+		System.out.print(orderVO3.getOrderDate() + ",");
+		System.out.print(orderVO3.getStatus() + ",");
+		System.out.print(orderVO3.getTotalPrice() + ",");
+		System.out.println("---------------------");
+
+		// 查詢
+		List<OrderVO> list = dao.getAll();
+		for (OrderVO aOrder : list) {
+			System.out.print(aOrder.getOrderID() + ",");
+			System.out.print(aOrder.getMemberID() + ",");
+			System.out.print(aOrder.getOrderDate() + ",");
+			System.out.print(aOrder.getStatus() + ",");
+			System.out.print(aOrder.getTotalPrice() + ",");
+			System.out.println();
+		}
+	}
+
 	
 
 }
