@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="connection.datasource">java:comp/env/jdbc/tia102g3</property>
+		
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		
+		<property name="hibernate.hbm2ddl.auto">validate</property>
+		
+		<property name="hibernate.current_session_context_class">thread</property>
+		
+		<mapping class="com.tia102g3.coachcertificate.model.CoachCertificate"/>
+		<mapping class="com.tia102g3.coachcourse.model.CoachCourse"/>
+		<mapping class="com.tia102g3.coachcoursepic.model.CoachCoursePic"/>
+		<mapping class="com.tia102g3.coachspecialty.model.CoachSpecialty"/>
+		<mapping class="com.tia102g3.customizedcourse.model.CustomizedCourse"/>
+		<mapping class="com.tia102g3.sportevent.model.SportEvent"/>
+		<mapping class="com.tia102g3.systemcourse.model.SystemCourse"/>
+		<mapping class="com.tia102g3.systemcoursepic.model.SystemCoursePic"/>
+
+	</session-factory>
+</hibernate-configuration>
