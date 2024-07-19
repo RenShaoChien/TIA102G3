@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jdbcutils.JDBCUtils;
+import com.utils.JDBCUtils;
 
 /**
  * ClassName： BaseDAO
@@ -54,7 +54,7 @@ public abstract class BaseDAO<T> {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtils.closeResource(null, ps);
+            JDBCUtils.closeResource(null, ps, null);
         }
         return 0;
     }
