@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 public class OrderVO implements Serializable{
 	private Integer orderID;
 	private java.sql.Timestamp orderDate ;
-	private String orderStaus;
+	private String status;
 	private Integer totalPrice;
 	private Integer memberID;
 	
@@ -15,21 +15,21 @@ public class OrderVO implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderVO(Integer orderId, Timestamp orderDate, String orderStaus, Integer totalPrice, Integer memberId) {
+	public OrderVO(Integer orderID, Timestamp orderDate, String status, Integer totalPrice, Integer memberID) {
 		super();
-		this.orderID = orderId;
+		this.orderID = orderID;
 		this.orderDate = orderDate;
-		this.orderStaus = orderStaus;
+		this.status = status;
 		this.totalPrice = totalPrice;
-		this.memberID = memberId;
+		this.memberID = memberID;
 	}
 
-	public Integer getOrderId() {
+	public Integer getOrderID() {
 		return orderID;
 	}
 
-	public void setOrderId(Integer orderId) {
-		this.orderID = orderId;
+	public void setOrderID(Integer orderID) {
+		this.orderID = orderID;
 	}
 
 	public java.sql.Timestamp getOrderDate() {
@@ -40,12 +40,12 @@ public class OrderVO implements Serializable{
 		this.orderDate = orderDate;
 	}
 
-	public String getOrderStaus() {
-		return orderStaus;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setOrderStaus(String orderStaus) {
-		this.orderStaus = orderStaus;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public Integer getTotalPrice() {
@@ -56,13 +56,15 @@ public class OrderVO implements Serializable{
 		this.totalPrice = totalPrice;
 	}
 
-	public Integer getMemberId() {
+	public Integer getMemberID() {
 		return memberID;
 	}
 
-	public void setMemberId(Integer memberId) {
-		this.memberID = memberId;
+	public void setMemberID(Integer memberID) {
+		this.memberID = memberID;
 	}
+
+
 	
 	
 	
