@@ -1,24 +1,29 @@
-package com.tia102g3.order.model;
+package com.tia102g3.admin.model;
 
-import java.util.*;
-import java.sql.*;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class OrderJDBCDAO implements OrderDAOInterface {
+import com.tia102g3.order.model.OrderVO;
+
+public class AdminJDBCDAO implements AdminDAOInterface {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/tia102g3?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO orderid (memberID, orderDate, status, totalPrice) VALUES (?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT orderID, memberID, orderDate, status, totalPrice FROM orderid ORDER BY orderID";
-	private static final String GET_ONE_STMT = "SELECT orderID, memberID, orderDate, status, totalPrice FROM orderid WHERE orderID = ?";
-	private static final String DELETE = "DELETE FROM orderid WHERE orderID = ?";
-	private static final String UPDATE = "UPDATE orderid SET memberID = ?, orderDate = ?, status = ?, totalPrice = ? WHERE orderID = ?";
+	private static final String INSERT_STMT = "INSERT INTO adminid (adminName, adminUserName, adminPassword, adminEmail) VALUES (?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT adminID, adminName, adminUserName, adminPassword, adminEmail FROM adminid ORDER BY adminID";
+	private static final String GET_ONE_STMT = "SELECT adminID, adminName, adminUserName, adminPassword, adminEmail FROM adminid WHERE adminID = ?";
+	private static final String DELETE = "DELETE FROM adminid WHERE adminID = ?";
+	private static final String UPDATE = "UPDATE adminid SET adminName = ?, adminUserName = ?, adminPassword = ?, adminEmail = ? WHERE adminID = ?";
 
 	@Override
-	public void insert(OrderVO orderVO) {
+	public void insert(AdminVO adminVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -29,10 +34,10 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, orderVO.getMemberID());
-			pstmt.setTimestamp(2, orderVO.getOrderDate());
-			pstmt.setString(3, orderVO.getStatus());
-			pstmt.setInt(4, orderVO.getTotalPrice());
+			pstmt.setString(1, adminVO.getAdminName());
+			pstmt.setString(2, adminVO.getAdminUserName());
+			pstmt.setString(3, adminVO.getAdminPassword());
+			pstmt.setString(4, adminVO.getAdminEmail());
 
 			pstmt.executeUpdate();
 
@@ -63,7 +68,7 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 	}
 
 	@Override
-	public void update(OrderVO orderVO) {
+	public void update(AdminVO adminVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -73,11 +78,11 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setInt(1, orderVO.getOrderID());
-			pstmt.setInt(2, orderVO.getMemberID());
-			pstmt.setTimestamp(3, orderVO.getOrderDate());
-			pstmt.setString(4, orderVO.getStatus());
-			pstmt.setInt(5, orderVO.getTotalPrice());
+			pstmt.setInt(1, adminVO.getAdminID());
+			pstmt.setString(2, adminVO.getAdminName());
+			pstmt.setString(3, adminVO.getAdminUserName());
+			pstmt.setString(4, adminVO.getAdminPassword());
+			pstmt.setString(5, adminVO.getAdminEmail());
 			
 
 			pstmt.executeUpdate();
@@ -109,7 +114,7 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 	}
 
 	@Override
-	public void delete(Integer orderID) {
+	public void delete(Integer adminID) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -120,7 +125,7 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, orderID);
+			pstmt.setInt(1, adminID);
 
 			pstmt.executeUpdate();
 
@@ -151,9 +156,9 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 	}
 
 	@Override
-	public OrderVO findByPrimaryKey(Integer orderID) {
+	public AdminVO findByPrimaryKey(Integer adminID) {
 
-		OrderVO orderVO = null;
+		AdminVO adminVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -164,18 +169,18 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, orderID);
+			pstmt.setInt(1, adminID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// empVo 也稱為 Domain objects
-				orderVO = new OrderVO();
-				orderVO.setOrderID(rs.getInt("orderID"));
-				orderVO.setMemberID(rs.getInt("MemberID"));
-				orderVO.setOrderDate(rs.getTimestamp("orderDate"));
-				orderVO.setStatus(rs.getString("status"));
-				orderVO.setTotalPrice(rs.getInt("totalPrice"));
+				adminVO = new AdminVO();
+				adminVO.setAdminID(rs.getInt("adminID"));
+				adminVO.setAdminName(rs.getString("adminName"));
+				adminVO.setAdminUserName(rs.getString("adminUserName"));
+				adminVO.setAdminPassword(rs.getString("adminPassword"));
+				adminVO.setAdminEmail(rs.getString("adminEmail"));
 			}
 
 			// Handle any driver errors
@@ -208,77 +213,15 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 				}
 			}
 		}
-		return orderVO;
+		return adminVO;
 	}
-	
-	public OrderVO findByForeignKey(Integer memberID) {
-
-		OrderVO orderVO = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ONE_STMT);
-
-			pstmt.setInt(1, memberID);
-
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				// empVo 也稱為 Domain objects
-				orderVO = new OrderVO();
-				orderVO.setOrderID(rs.getInt("orderID"));
-				orderVO.setMemberID(rs.getInt("MemberID"));
-				orderVO.setOrderDate(rs.getTimestamp("orderDate"));
-				orderVO.setStatus(rs.getString("status"));
-				orderVO.setTotalPrice(rs.getInt("totalPrice"));
-			}
-
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return orderVO;
-	}
-	
-	
 	
 	
 
 	@Override
-	public List<OrderVO> getAll() {
-		List<OrderVO> list = new ArrayList<OrderVO>();
-		OrderVO orderVO = null;
+	public List<AdminVO> getAll() {
+		List<AdminVO> list = new ArrayList<AdminVO>();
+		AdminVO adminVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -293,13 +236,13 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 
 			while (rs.next()) {
 				// empVO 也稱為 Domain objects
-				orderVO = new OrderVO();
-				orderVO.setOrderID(rs.getInt("orderID"));
-				orderVO.setMemberID(rs.getInt("MemberID"));
-				orderVO.setOrderDate(rs.getTimestamp("orderDate"));
-				orderVO.setStatus(rs.getString("status"));
-				orderVO.setTotalPrice(rs.getInt("totalPrice"));
-				list.add(orderVO); // Store the row in the list
+				adminVO = new AdminVO();
+				adminVO.setAdminID(rs.getInt("adminID"));
+				adminVO.setAdminName(rs.getString("adminName"));
+				adminVO.setAdminUserName(rs.getString("adminUserName"));
+				adminVO.setAdminPassword(rs.getString("adminPassword"));
+				adminVO.setAdminEmail(rs.getString("adminEmail"));
+				list.add(adminVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -334,6 +277,7 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 		}
 		return list;
 	}
+
 }
 
 //	public static void main(String[] args) {
@@ -341,42 +285,43 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 //		OrderJDBCDAO dao = new OrderJDBCDAO();
 //
 //		// 新增
-//		OrderVO orderVO1 = new OrderVO();
-//		orderVO1.setMemberID(8);
-//		orderVO1.setOrderDate(java.sql.Timestamp.valueOf("2024-07-09 14:45:22"));
-//		orderVO1.setStatus("備貨中");
-//		orderVO1.setTotalPrice(699);
-//		dao.insert(orderVO1);
+//		AdminVO adminVO1 = new AdminVO();
+//		adminVO1.setAdminName("David");
+//		adminVO1.setAdminUserName("102david");
+//		adminVO1.setAdminPassword("a122345");
+//		adminVO1.setAdminEmail("xxx@gmail.com");
+//		dao.insert(adminVO1);
 //
 //		// 修改
-//		OrderVO orderVO2 = new OrderVO();
-//		orderVO2.setOrderID(1001);
-//		orderVO2.setMemberID(15);
-//		orderVO2.setOrderDate(java.sql.Timestamp.valueOf("2024-07-02 13:42:12"));
-//		orderVO2.setStatus("已出貨");
-//		orderVO2.setTotalPrice(799);
-//		dao.update(orderVO2);
+//		AdminVO adminVO2 = new AdminVO();
+
+//		adminVO2.setAdminID(2);
+//		adminVO2.setAdminName("Finn");
+//		adminVO2.setAdminUserName("102finn");
+//		adminVO2.setAdminPassword("b122345");
+//		adminVO2.setAdminEmail("aaa@gmail.com");
+//		dao.update(adminVO2);
 //
 //		// 刪除
-//		dao.delete(1003);
+//		dao.delete(3);
 //
 ////		// 查詢
-//		OrderVO orderVO3 = dao.findByPrimaryKey(1004);
-//		System.out.print(orderVO3.getOrderID() + ",");
-//		System.out.print(orderVO3.getMemberID() + ",");
-//		System.out.print(orderVO3.getOrderDate() + ",");
-//		System.out.print(orderVO3.getStatus() + ",");
-//		System.out.print(orderVO3.getTotalPrice() + ",");
+//		OAdminVO adminVO3 = dao.findByPrimaryKey(4);
+//		System.out.print(adminVO3.getAdminID() + ",");
+//		System.out.print(orderVO3.getAdminName() + ",");
+//		System.out.print(orderVO3.getAdminUserName() + ",");
+//		System.out.print(orderVO3.getAdminPassword() + ",");
+//		System.out.print(orderVO3.getAdminEmail() + ",");
 //		System.out.println("---------------------");
 //
 //		// 查詢
-//		List<OrderVO> list = dao.getAll();
-//		for (OrderVO aOrder : list) {
-//			System.out.print(aOrder.getOrderID() + ",");
-//			System.out.print(aOrder.getMemberID() + ",");
-//			System.out.print(aOrder.getOrderDate() + ",");
-//			System.out.print(aOrder.getStatus() + ",");
-//			System.out.print(aOrder.getTotalPrice() + ",");
+//		List<AdminVO> list = dao.getAll();
+//		for (AdminVO aOrder : list) {
+//			System.out.print(aOrder.getAdminID() + ",");
+//			System.out.print(aOrder.getAdminName() + ",");
+//			System.out.print(aOrder.getAdminUserName() + ",");
+//			System.out.print(aOrder.getAdminPassword() + ",");
+//			System.out.print(aOrder.getAdminEmail() + ",");
 //			System.out.println();
 //		}
 //	}

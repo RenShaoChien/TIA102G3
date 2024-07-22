@@ -1,24 +1,31 @@
-package com.tia102g3.order.model;
+package com.tia102g3.orderdetails.model;
 
-import java.util.*;
-import java.sql.*;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class OrderJDBCDAO implements OrderDAOInterface {
+import com.tia102g3.order.model.OrderDAOInterface;
+import com.tia102g3.order.model.OrderJDBCDAO;
+
+
+public class OrderDetailsJDBCDAO implements OrderDetailsDAOInterface{
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/tia102g3?serverTimezone=Asia/Taipei";
 	String userid = "root";
 	String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO orderid (memberID, orderDate, status, totalPrice) VALUES (?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT orderID, memberID, orderDate, status, totalPrice FROM orderid ORDER BY orderID";
-	private static final String GET_ONE_STMT = "SELECT orderID, memberID, orderDate, status, totalPrice FROM orderid WHERE orderID = ?";
-	private static final String DELETE = "DELETE FROM orderid WHERE orderID = ?";
-	private static final String UPDATE = "UPDATE orderid SET memberID = ?, orderDate = ?, status = ?, totalPrice = ? WHERE orderID = ?";
+	private static final String INSERT_STMT = "INSERT INTO ordDtlID (productID, quantity, orderID ) VALUES (?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT ordDtlID productID, quantity, orderID,  FROM ordDtlID ORDER BY ordDtlID";
+	private static final String GET_ONE_STMT = "SELECT ordDtlID productID, quantity, orderID,  FROM ordDtlID  WHERE ordDtlID  = ?";
+	private static final String DELETE = "DELETE FROM ordDtlID WHERE ordDtlID = ?";
+	private static final String UPDATE = "UPDATE ordDtlID SET productID = ?, quantity = ?, orderID = ? ordDtlID = ? WHERE ordDtlID = ?";
 
 	@Override
-	public void insert(OrderVO orderVO) {
+	public void insert(OrderDetailsVO orderDetailsVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -29,10 +36,10 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, orderVO.getMemberID());
-			pstmt.setTimestamp(2, orderVO.getOrderDate());
-			pstmt.setString(3, orderVO.getStatus());
-			pstmt.setInt(4, orderVO.getTotalPrice());
+			pstmt.setInt(1, orderDetailsVO.getProductID());
+			pstmt.setInt(2, orderDetailsVO.getQuantity());
+			pstmt.setInt(3, orderDetailsVO.getOrderID());
+			
 
 			pstmt.executeUpdate();
 
@@ -63,7 +70,7 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 	}
 
 	@Override
-	public void update(OrderVO orderVO) {
+	public void update(OrderDetailsVO orderDetailsVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -72,13 +79,11 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
-			
-			pstmt.setInt(1, orderVO.getOrderID());
-			pstmt.setInt(2, orderVO.getMemberID());
-			pstmt.setTimestamp(3, orderVO.getOrderDate());
-			pstmt.setString(4, orderVO.getStatus());
-			pstmt.setInt(5, orderVO.getTotalPrice());
-			
+
+			pstmt.setInt(1, orderDetailsVO.getOrdDtlID());
+			pstmt.setInt(2, orderDetailsVO.getProductID());
+			pstmt.setInt(3, orderDetailsVO.getQuantity());
+			pstmt.setInt(4, orderDetailsVO.getOrderID());
 
 			pstmt.executeUpdate();
 
@@ -109,7 +114,7 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 	}
 
 	@Override
-	public void delete(Integer orderID) {
+	public void delete(Integer OrdDtlID) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -120,7 +125,7 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, orderID);
+			pstmt.setInt(1, OrdDtlID);
 
 			pstmt.executeUpdate();
 
@@ -151,9 +156,9 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 	}
 
 	@Override
-	public OrderVO findByPrimaryKey(Integer orderID) {
+	public OrderDetailsVO findByPrimaryKey(Integer OrdDtlID) {
 
-		OrderVO orderVO = null;
+		OrderDetailsVO orderDetailsVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -164,18 +169,18 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, orderID);
+			pstmt.setInt(1, OrdDtlID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// empVo 也稱為 Domain objects
-				orderVO = new OrderVO();
-				orderVO.setOrderID(rs.getInt("orderID"));
-				orderVO.setMemberID(rs.getInt("MemberID"));
-				orderVO.setOrderDate(rs.getTimestamp("orderDate"));
-				orderVO.setStatus(rs.getString("status"));
-				orderVO.setTotalPrice(rs.getInt("totalPrice"));
+				orderDetailsVO = new OrderDetailsVO();
+				orderDetailsVO.setOrdDtlID(rs.getInt("ordDtlID"));
+				orderDetailsVO.setProductID(rs.getInt("productID"));
+				orderDetailsVO.setQuantity(rs.getInt("quantity"));
+				orderDetailsVO.setOrderID(rs.getInt("orderID"));
+				
 			}
 
 			// Handle any driver errors
@@ -208,77 +213,14 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 				}
 			}
 		}
-		return orderVO;
-	}
-	
-	public OrderVO findByForeignKey(Integer memberID) {
-
-		OrderVO orderVO = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ONE_STMT);
-
-			pstmt.setInt(1, memberID);
-
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				// empVo 也稱為 Domain objects
-				orderVO = new OrderVO();
-				orderVO.setOrderID(rs.getInt("orderID"));
-				orderVO.setMemberID(rs.getInt("MemberID"));
-				orderVO.setOrderDate(rs.getTimestamp("orderDate"));
-				orderVO.setStatus(rs.getString("status"));
-				orderVO.setTotalPrice(rs.getInt("totalPrice"));
-			}
-
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return orderVO;
+		return orderDetailsVO;
 	}
 	
 	
-	
-	
 
-	@Override
-	public List<OrderVO> getAll() {
-		List<OrderVO> list = new ArrayList<OrderVO>();
-		OrderVO orderVO = null;
+	public List<OrderDetailsVO> getAll() {
+		List<OrderDetailsVO> list = new ArrayList<OrderDetailsVO>();
+		OrderDetailsVO orderDetailsVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -293,13 +235,12 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 
 			while (rs.next()) {
 				// empVO 也稱為 Domain objects
-				orderVO = new OrderVO();
-				orderVO.setOrderID(rs.getInt("orderID"));
-				orderVO.setMemberID(rs.getInt("MemberID"));
-				orderVO.setOrderDate(rs.getTimestamp("orderDate"));
-				orderVO.setStatus(rs.getString("status"));
-				orderVO.setTotalPrice(rs.getInt("totalPrice"));
-				list.add(orderVO); // Store the row in the list
+				orderDetailsVO = new OrderDetailsVO();
+				orderDetailsVO.setOrdDtlID(rs.getInt("ordDtlID"));
+				orderDetailsVO.setProductID(rs.getInt("productID"));
+				orderDetailsVO.setQuantity(rs.getInt("quantity"));
+				orderDetailsVO.setOrderID(rs.getInt("orderID"));
+				list.add(orderDetailsVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -338,49 +279,44 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 
 //	public static void main(String[] args) {
 //
-//		OrderJDBCDAO dao = new OrderJDBCDAO();
+//		OrderDetailsJDBCDAO dao = new OrderDetailsJDBCDAO();
 //
 //		// 新增
-//		OrderVO orderVO1 = new OrderVO();
-//		orderVO1.setMemberID(8);
-//		orderVO1.setOrderDate(java.sql.Timestamp.valueOf("2024-07-09 14:45:22"));
-//		orderVO1.setStatus("備貨中");
-//		orderVO1.setTotalPrice(699);
-//		dao.insert(orderVO1);
+//		OrderDetailsVO orderDetailsVO1 = new OrderDetailsVO();
+//		orderDetailsVO1.setOrdDtlID(1);
+//		orderDetailsVO1.setProductID(1);
+//		orderDetailsVO1.setQuantity(10);
+//		orderDetailsVO1.setOrderID(1);
+//		dao.insert(orderDetailsVO1);
 //
 //		// 修改
-//		OrderVO orderVO2 = new OrderVO();
-//		orderVO2.setOrderID(1001);
-//		orderVO2.setMemberID(15);
-//		orderVO2.setOrderDate(java.sql.Timestamp.valueOf("2024-07-02 13:42:12"));
-//		orderVO2.setStatus("已出貨");
-//		orderVO2.setTotalPrice(799);
-//		dao.update(orderVO2);
+//		OrderDetailsVO orderDetailsVO2 = new OrderDetailsVO();
+//		orderDetailsVO2.setOrdDtlID(2);
+//		orderDetailsVO2.setProductID(2);
+//		orderDetailsVO2.setQuantity(8);
+//		orderDetailsVO2.setOrderID(2);
+//		dao.insert(orderDetailsVO2);
 //
 //		// 刪除
-//		dao.delete(1003);
+//		dao.delete(3);
 //
 ////		// 查詢
-//		OrderVO orderVO3 = dao.findByPrimaryKey(1004);
-//		System.out.print(orderVO3.getOrderID() + ",");
-//		System.out.print(orderVO3.getMemberID() + ",");
-//		System.out.print(orderVO3.getOrderDate() + ",");
-//		System.out.print(orderVO3.getStatus() + ",");
-//		System.out.print(orderVO3.getTotalPrice() + ",");
+//		OrderDetailsVO orderDetailsVO3 = dao.findByPrimaryKey(1004);
+//		System.out.print(orderDetailsVO3.getOrdDtlID() + ",");
+//		System.out.print(orderDetailsVO3.getProductID() + ",");
+//		System.out.print(orderDetailsVO3.getQuantity() + ",");
+//		System.out.print(orderDetailsVO3.getOrderID() + ",");
 //		System.out.println("---------------------");
 //
 //		// 查詢
-//		List<OrderVO> list = dao.getAll();
-//		for (OrderVO aOrder : list) {
+//		List<OrderDetailsVO> list = dao.getAll();
+//		for (OrderDetailsVO aOrder : list) {
+//			System.out.print(aOrder.getOrdDtlID() + ",");
+//			System.out.print(aOrder.getProductID() + ",");
+//			System.out.print(aOrder.getQuantity() + ",");
 //			System.out.print(aOrder.getOrderID() + ",");
-//			System.out.print(aOrder.getMemberID() + ",");
-//			System.out.print(aOrder.getOrderDate() + ",");
-//			System.out.print(aOrder.getStatus() + ",");
-//			System.out.print(aOrder.getTotalPrice() + ",");
 //			System.out.println();
 //		}
 //	}
-//
-//	
 //
 //}

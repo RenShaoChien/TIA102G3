@@ -9,6 +9,7 @@ public interface OrderDAOInterface {
 	public void update(OrderVO order);
 	public void delete(Integer orderID);
 	public OrderVO findByPrimaryKey(Integer orderID);
+	public OrderVO findByForeignKey(Integer memberID); //
 	public List<OrderVO> getAll();
 	
 	
