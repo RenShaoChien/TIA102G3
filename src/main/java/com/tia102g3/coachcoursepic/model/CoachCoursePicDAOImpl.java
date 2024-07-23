@@ -1,12 +1,10 @@
 package com.tia102g3.coachcoursepic.model;
 
-import com.tia102g3.coachcourse.model.CoachCourse;
 import com.utils.HibernateUtil;
 import com.utils.JDBCUtils;
 import com.tia102g3.basedao.BaseDAO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.util.List;

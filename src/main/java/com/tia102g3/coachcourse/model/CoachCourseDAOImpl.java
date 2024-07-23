@@ -1,5 +1,6 @@
 package com.tia102g3.coachcourse.model;
 
+import com.coach_member.model.CoachMemberVO;
 import com.tia102g3.sportevent.model.SportEvent;
 import com.utils.HibernateUtil;
 import com.utils.JDBCUtils;
@@ -38,7 +39,7 @@ public class CoachCourseDAOImpl extends BaseDAO<CoachCourse> implements CoachCou
                 "classStartTime, classEndTime, cMemberID, courseName, courseLevel, courseStartDate, courseEndDate, noOfClasses, maxCap, status, sportEventID, coursePrice) " +
                 "values(?,?,?,?,?,?,?,?,?,?,?,?)";
         return super.update(
-                conn, sql, coachCourse.getClassStartTime(), coachCourse.getClassEndTime(), coachCourse.getCMember().getCMemberID(), coachCourse.getCourseName(), coachCourse.getCourseLevel(),
+                conn, sql, coachCourse.getClassStartTime(), coachCourse.getClassEndTime(), coachCourse.getCMember().getCoachMemberID(), coachCourse.getCourseName(), coachCourse.getCourseLevel(),
                 coachCourse.getCourseStartDate(), coachCourse.getCourseEndDate(), coachCourse.getNoOfClasses(), coachCourse.getMaxCap(),
                 coachCourse.getStatus(), coachCourse.getSportEvent().getSportEventID(), coachCourse.getCoursePrice()
         );
@@ -53,7 +54,7 @@ public class CoachCourseDAOImpl extends BaseDAO<CoachCourse> implements CoachCou
                 "where coachCourseID=?";
 
         return super.update(
-                coachCourse.getClassStartTime(), coachCourse.getClassEndTime(), coachCourse.getCMember().getCMemberID(), coachCourse.getCourseName(), coachCourse.getCourseLevel(), coachCourse.getCourseStartDate(), coachCourse.getCourseEndDate(),
+                conn, sql, coachCourse.getClassStartTime(), coachCourse.getClassEndTime(), coachCourse.getCMember().getCoachMemberID(), coachCourse.getCourseName(), coachCourse.getCourseLevel(), coachCourse.getCourseStartDate(), coachCourse.getCourseEndDate(),
                 coachCourse.getNoOfClasses(), coachCourse.getMaxCap(), coachCourse.getStatus(), coachCourse.getSportEvent().getSportEventID(), coachCourse.getCoursePrice(),
                 coachCourse.getCoachCourseID()
         );
@@ -81,10 +82,10 @@ public class CoachCourseDAOImpl extends BaseDAO<CoachCourse> implements CoachCou
     }
 
     @Override
-    public List<CoachCourse> findCoursesByCMember(CMember cMember) throws Exception {
+    public List<CoachCourse> findCoursesByCMember(CoachMemberVO cMember) throws Exception {
         Connection conn = JDBCUtils.getConnection();
         String sql = "select * from CoachCourse where cMemberID=?";
-        return super.getForList(conn, sql, cMember.getCMemberID());
+        return super.getForList(conn, sql, cMember.getCoachMemberID());
     }
 
     @Override

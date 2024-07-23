@@ -1,13 +1,15 @@
 package com.tia102g3.coachcourse.model;
 
+import com.coach_member.model.CoachMemberVO;
+import com.course_order.model.CourseOrderVO;
 import com.tia102g3.coachcoursepic.model.CoachCoursePic;
 import com.tia102g3.sportevent.model.SportEvent;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * ClassName： CoachCourse
@@ -20,6 +22,9 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "coach_course")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CoachCourse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +32,7 @@ public class CoachCourse {
     private Integer coachCourseID;
     @ManyToOne
     @JoinColumn(name = "cMemberID", referencedColumnName = "cMemberID", nullable = false)
-    private CMember cMember;
+    private CoachMemberVO cMember;
     @Column(name = "courseName")
     private String courseName;
     @Column(name = "courseLevel")
@@ -56,161 +61,6 @@ public class CoachCourse {
     @OneToMany(mappedBy = "coachCourse")
     private List<CoachCoursePic> coachCoursePics;
     @OneToMany(mappedBy = "coachCourse")
-    private List<CourseOrder> courseOrders;
+    private List<CourseOrderVO> courseOrders;
 
-
-    public CoachCourse() {
-    }
-
-    public CoachCourse(Integer coachCourseID, CMember cMember, String courseName, Integer courseLevel, Date courseStartDate, Date courseEndDate, Integer noOfClasses, Integer maxCap, CourseStatus status, SportEvent sportEvent, Integer coursePrice, Time classStartTime, Time classEndTime) {
-        this.coachCourseID = coachCourseID;
-        this.cMember = cMember;
-        this.courseName = courseName;
-        this.courseLevel = courseLevel;
-        this.courseStartDate = courseStartDate;
-        this.courseEndDate = courseEndDate;
-        this.noOfClasses = noOfClasses;
-        this.maxCap = maxCap;
-        this.status = status;
-        this.sportEvent = sportEvent;
-        this.coursePrice = coursePrice;
-        this.classStartTime = classStartTime;
-        this.classEndTime = classEndTime;
-    }
-
-    public Integer getCoachCourseID() {
-        return coachCourseID;
-    }
-
-    public void setCoachCourseID(Integer coachCourseID) {
-        this.coachCourseID = coachCourseID;
-    }
-
-    public CMember getCMember() {
-        return cMember;
-    }
-
-    public void setCMember(CMember cMember) {
-        this.cMember = cMember;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public Integer getCourseLevel() {
-        return courseLevel;
-    }
-
-    public void setCourseLevel(Integer courseLevel) {
-        this.courseLevel = courseLevel;
-    }
-
-    public Date getCourseStartDate() {
-        return courseStartDate;
-    }
-
-    public void setCourseStartDate(Date courseStartDate) {
-        this.courseStartDate = courseStartDate;
-    }
-
-    public Date getCourseEndDate() {
-        return courseEndDate;
-    }
-
-    public void setCourseEndDate(Date courseEndDate) {
-        this.courseEndDate = courseEndDate;
-    }
-
-    public Integer getNoOfClasses() {
-        return noOfClasses;
-    }
-
-    public void setNoOfClasses(Integer noOfClasses) {
-        this.noOfClasses = noOfClasses;
-    }
-
-    public Integer getMaxCap() {
-        return maxCap;
-    }
-
-    public void setMaxCap(Integer maxCap) {
-        this.maxCap = maxCap;
-    }
-
-    public CourseStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(CourseStatus status) {
-        this.status = status;
-    }
-
-    public SportEvent getSportEvent() {
-        return sportEvent;
-    }
-
-    public void setSportEvent(SportEvent sportEvent) {
-        this.sportEvent = sportEvent;
-    }
-
-    public Integer getCoursePrice() {
-        return coursePrice;
-    }
-
-    public void setCoursePrice(Integer coursePrice) {
-        this.coursePrice = coursePrice;
-    }
-
-    public Time getClassStartTime() {
-        return classStartTime;
-    }
-
-    public void setClassStartTime(Time classStartTime) {
-        this.classStartTime = classStartTime;
-    }
-
-    public Time getClassEndTime() {
-        return classEndTime;
-    }
-
-    public void setClassEndTime(Time classEndTime) {
-        this.classEndTime = classEndTime;
-    }
-
-    @Override
-    public String toString() {
-        return "CoachCourse{" +
-                "coachCourseID=" + coachCourseID +
-                ", cMember=" + cMember +
-                ", courseName='" + courseName + '\'' +
-                ", courseLevel=" + courseLevel +
-                ", courseStartDate=" + courseStartDate +
-                ", courseEndDate=" + courseEndDate +
-                ", noOfClasses=" + noOfClasses +
-                ", maxCap=" + maxCap +
-                ", status=" + status +
-                ", sportEvent=" + sportEvent +
-                ", coursePrice=" + coursePrice +
-                ", classStartTime=" + classStartTime +
-                ", classEndTime=" + classEndTime +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CoachCourse that = (CoachCourse) o;
-        return Objects.equals(coachCourseID, that.coachCourseID) && Objects.equals(cMember, that.cMember) && Objects.equals(courseName, that.courseName) && Objects.equals(courseLevel, that.courseLevel) && Objects.equals(courseStartDate, that.courseStartDate) && Objects.equals(courseEndDate, that.courseEndDate) && Objects.equals(noOfClasses, that.noOfClasses) && Objects.equals(maxCap, that.maxCap) && status == that.status && Objects.equals(sportEvent, that.sportEvent) && Objects.equals(coursePrice, that.coursePrice) && Objects.equals(classStartTime, that.classStartTime) && Objects.equals(classEndTime, that.classEndTime);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(coachCourseID, cMember, courseName, courseLevel, courseStartDate, courseEndDate, noOfClasses, maxCap, status, sportEvent, coursePrice, classStartTime, classEndTime);
-    }
 }

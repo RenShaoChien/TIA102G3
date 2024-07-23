@@ -1,5 +1,6 @@
 package com.tia102g3.coachcourse.model;
 
+import com.coach_member.model.CoachMemberVO;
 import com.tia102g3.sportevent.model.SportEvent;
 
 import java.sql.Date;
@@ -53,7 +54,7 @@ public interface CoachCourseDAO {
      * @param cMember
      * @return
      */
-    List<CoachCourse> findCoursesByCMember(CMember cMember) throws Exception;
+    List<CoachCourse> findCoursesByCMember(CoachMemberVO cMember) throws Exception;
 
     /**
      * 根據課程等級來獲取課程List
