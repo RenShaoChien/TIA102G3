@@ -1,5 +1,6 @@
 package com.tia102g3.coachcourse.service;
 
+import com.coach_member.model.CoachMemberVO;
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachcourse.model.CoachCourseDAO;
 import com.tia102g3.coachcourse.model.CourseStatus;
@@ -39,7 +40,7 @@ public class CoachCourseServiceImpl implements CoachCourseService {
     }
 
     @Override
-    public List<CoachCourse> listCoursesByCoach(CMember cMember) throws Exception {
+    public List<CoachCourse> listCoursesByCoach(CoachMemberVO cMember) throws Exception {
         return coachCourseDAO.findCoursesByCMember(cMember);
     }
 

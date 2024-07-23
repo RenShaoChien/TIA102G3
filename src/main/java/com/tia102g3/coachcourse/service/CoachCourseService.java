@@ -1,5 +1,6 @@
 package com.tia102g3.coachcourse.service;
 
+import com.coach_member.model.CoachMemberVO;
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachcourse.model.CourseStatus;
 
@@ -50,13 +51,14 @@ public interface CoachCourseService {
      * @param cMember
      * @return
      */
-    List<CoachCourse> listCoursesByCoach(CMember cMember) throws Exception;
+    List<CoachCourse> listCoursesByCoach(CoachMemberVO cMember) throws Exception;
 
     /**
      * 更新課程狀態
-     * @param coachCourseID
+     * @param coachCourse
      * @param status
      * @return
+     * @throws Exception
      */
     CoachCourse updateCourseStatus(CoachCourse coachCourse, CourseStatus status) throws Exception;
 }

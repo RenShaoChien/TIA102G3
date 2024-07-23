@@ -1,6 +1,10 @@
 package com.tia102g3.coachcoursepic.model;
 
 import com.tia102g3.coachcourse.model.CoachCourse;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -16,6 +20,9 @@ import java.util.Arrays;
  */
 @Entity
 @Table(name = "coach_course_pic")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CoachCoursePic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,42 +35,4 @@ public class CoachCoursePic {
 
     @Column(name = "pic", columnDefinition = "longblob")
     private byte[] pic;
-
-    public CoachCoursePic() {
-    }
-
-    public CoachCoursePic(Integer coachCoursePicID, CoachCourse coachCourse, byte[] pic) {
-        this.coachCoursePicID = coachCoursePicID;
-        this.coachCourse = coachCourse;
-        this.pic = pic;
-    }
-
-    public Integer getCoachCoursePicID() {
-        return coachCoursePicID;
-    }
-
-    public void setCoachCoursePicID(Integer coachCoursePicID) {
-        this.coachCoursePicID = coachCoursePicID;
-    }
-
-    public CoachCourse getCoachCourse() {
-        return coachCourse;
-    }
-
-    public void setCoachCourse(CoachCourse coachCourse) {
-        this.coachCourse = coachCourse;
-    }
-
-    public byte[] getPic() {
-        return pic;
-    }
-
-    public void setPic(byte[] pic) {
-        this.pic = pic;
-    }
-
-    @Override
-    public String toString() {
-        return "CoachCoursePic{" + "coachCoursePicID=" + coachCoursePicID + ", coachCourse=" + coachCourse + ", pic=" + Arrays.toString(pic) + '}';
-    }
 }

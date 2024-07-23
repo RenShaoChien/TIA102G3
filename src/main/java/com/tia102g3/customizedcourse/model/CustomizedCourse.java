@@ -2,9 +2,9 @@ package com.tia102g3.customizedcourse.model;
 
 import com.tia102g3.member.model.Member;
 import com.tia102g3.systemcourse.model.SystemCourse;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * ClassName： CustomizedCourse
@@ -17,6 +17,11 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "customized_course")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+//@SuppressWarnings("all")
+//@NamedQuery(name = "CustomizedCourse.findAll", query = "SELECT c FROM CustomizedCourse c")
 public class CustomizedCourse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,59 +33,4 @@ public class CustomizedCourse {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberID", nullable = false, referencedColumnName = "memberID")
     private Member member;
-
-    public CustomizedCourse() {
-    }
-
-    public CustomizedCourse(Integer customizedCourseID, SystemCourse systemCourse, Member member) {
-        this.customizedCourseID = customizedCourseID;
-        this.systemCourse = systemCourse;
-        this.member = member;
-    }
-
-    public Integer getCustomizedCourseID() {
-        return customizedCourseID;
-    }
-
-    public void setCustomizedCourseID(Integer customizedCourseID) {
-        this.customizedCourseID = customizedCourseID;
-    }
-
-    public SystemCourse getSystemCourse() {
-        return systemCourse;
-    }
-
-    public void setSystemCourse(SystemCourse systemCourse) {
-        this.systemCourse = systemCourse;
-    }
-
-    public Member getMember() {
-        return member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
-
-    @Override
-    public String toString() {
-        return "CustomizedCourse{" +
-                "customizedCourseID=" + customizedCourseID +
-                ", systemCourse=" + systemCourse +
-                ", member=" + member +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CustomizedCourse that = (CustomizedCourse) o;
-        return Objects.equals(customizedCourseID, that.customizedCourseID) && Objects.equals(systemCourse, that.systemCourse) && Objects.equals(member, that.member);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(customizedCourseID, systemCourse, member);
-    }
 }

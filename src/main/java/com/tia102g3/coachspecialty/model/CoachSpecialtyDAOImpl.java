@@ -33,14 +33,14 @@ public class CoachSpecialtyDAOImpl extends BaseDAO<CoachSpecialty> implements Co
     public int insertCoachSpecialty(CoachSpecialty coachSpecialty) throws Exception {
         Connection conn = JDBCUtils.getConnection();
         String sql = "INSERT INTO coach_specialty (cMemberID, sportEventID) VALUES (?, ?)";
-        return update(conn, sql, coachSpecialty.getCMember().getCMemberID(), coachSpecialty.getSportEvent().getSportEventID());
+        return update(conn, sql, coachSpecialty.getCMember().getCoachMemberID(), coachSpecialty.getSportEvent().getSportEventID());
     }
 
     @Override
     public int updateCoachSpecialty(CoachSpecialty coachSpecialty) throws Exception {
         Connection conn = JDBCUtils.getConnection();
         String sql = "UPDATE coach_specialty SET cMemberID=?, sportEventID=? WHERE coachSpecialtyID=?";
-        return update(conn, sql, coachSpecialty.getCMember().getCMemberID(), coachSpecialty.getSportEvent().getSportEventID(), coachSpecialty.getCoachSpecialtyID());
+        return update(conn, sql, coachSpecialty.getCMember().getCoachMemberID(), coachSpecialty.getSportEvent().getSportEventID(), coachSpecialty.getCoachSpecialtyID());
     }
 
     @Override

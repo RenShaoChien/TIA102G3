@@ -33,7 +33,7 @@ public class CoachCertificateDAOImpl extends BaseDAO<CoachCertificate> implement
     public int insertCoachCertificate(CoachCertificate coachCertificate) throws Exception {
         Connection conn = JDBCUtils.getConnection();
         String sql = "INSERT INTO coach_certificate (cMemberID, certificateName, certificatePic) VALUES (?, ?, ?)";
-        int result = update(conn, sql, coachCertificate.getCMember().getCMemberID(), coachCertificate.getCertificateName(), coachCertificate.getCertificatePic());
+        int result = update(conn, sql, coachCertificate.getCMember().getCoachMemberID(), coachCertificate.getCertificateName(), coachCertificate.getCertificatePic());
         return result;
     }
 
@@ -41,7 +41,7 @@ public class CoachCertificateDAOImpl extends BaseDAO<CoachCertificate> implement
     public int updateCoachCertificate(CoachCertificate coachCertificate) throws Exception {
         Connection conn = JDBCUtils.getConnection();
         String sql = "UPDATE coach_certificate SET cMemberID=?, certificateName=?, certificatePic=? WHERE coachCertificateID=?";
-        int result = update(conn, sql, coachCertificate.getCMember().getCMemberID(), coachCertificate.getCertificateName(), coachCertificate.getCertificatePic(), coachCertificate.getCoachCertificateID());
+        int result = update(conn, sql, coachCertificate.getCMember().getCoachMemberID(), coachCertificate.getCertificateName(), coachCertificate.getCertificatePic(), coachCertificate.getCoachCertificateID());
         return result;
     }
 
