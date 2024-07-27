@@ -1,4 +1,4 @@
-package com.coach_member.model;
+package com.tia102g3.coach_member.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,4 +1,4 @@
-package com.course_order.model;
+package com.tia102g3.course_order.model;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.tia102g3.coachcourse.model;
 
-import com.coach_member.model.CoachMemberVO;
-import com.course_order.model.CourseOrderVO;
+import com.tia102g3.coach_member.model.CoachMemberVO;
+import com.tia102g3.course_order.model.CourseOrderVO;
 import com.tia102g3.coachcoursepic.model.CoachCoursePic;
 import com.tia102g3.sportevent.model.SportEvent;
 import lombok.*;

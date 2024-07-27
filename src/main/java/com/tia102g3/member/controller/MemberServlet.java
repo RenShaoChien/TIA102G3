@@ -1,4 +1,4 @@
-package com.member.controller;
+package com.tia102g3.member.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import com.member.model.MemberService;
-import com.member.model.MemberVO;
+import com.tia102g3.member.model.MemberService;
+import com.tia102g3.member.model.MemberVO;
 
 @WebServlet("/back-end/member/member.do")
 @MultipartConfig

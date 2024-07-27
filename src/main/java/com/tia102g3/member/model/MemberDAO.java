@@ -1,4 +1,4 @@
-package com.member.model;
+package com.tia102g3.member.model;
 
 import java.sql.Connection;
 import java.sql.Date;

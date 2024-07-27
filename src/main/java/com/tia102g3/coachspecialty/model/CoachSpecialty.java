@@ -1,6 +1,6 @@
 package com.tia102g3.coachspecialty.model;
 
-import com.coach_member.model.CoachMemberVO;
+import com.tia102g3.coach_member.model.CoachMemberVO;
 import com.tia102g3.sportevent.model.SportEvent;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.tia102g3.coachcourse.service;
 
-import com.coach_member.model.CoachMemberVO;
+import com.tia102g3.coach_member.model.CoachMemberVO;
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachcourse.model.CoachCourseDAO;
 import com.tia102g3.coachcourse.model.CourseStatus;
