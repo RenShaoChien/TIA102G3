@@ -199,11 +199,11 @@ public class MemberServlet extends HttpServlet {
 				errorMsgs.add("請輸入正確的註冊日期!");
 			}
 
-			Double coachMemberID = null;
+			Integer coachMemberID = null;
 			try {
-				coachMemberID = Double.valueOf(req.getParameter("coachMemberID").trim());
+				coachMemberID = Integer.valueOf(req.getParameter("coachMemberID").trim());
 			} catch (NumberFormatException e) {
-				coachMemberID = 0.0;
+				coachMemberID = 0;
 				errorMsgs.add("教練會員ID請填數字.");
 			}
 
@@ -366,11 +366,11 @@ public class MemberServlet extends HttpServlet {
 				errorMsgs.add("請輸入正確的註冊日期!");
 			}
 
-			Double coachMemberID = null;
+			Integer coachMemberID = null;
 			try {
-				coachMemberID = Double.valueOf(req.getParameter("coachMemberID").trim());
+				coachMemberID = Integer.valueOf(req.getParameter("coachMemberID").trim());
 			} catch (NumberFormatException e) {
-				coachMemberID = 0.0;
+				coachMemberID = 0;
 				errorMsgs.add("教練會員ID請填數字.");
 			}
 

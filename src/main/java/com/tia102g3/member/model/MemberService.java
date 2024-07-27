@@ -12,7 +12,7 @@ public class MemberService {
 	}
 
 	public MemberVO addMember(byte[] personalPhotos, String name, String account, String password, String email,
-			String gender, String phone, String address, Date bD, Date regDate, Double coachMemberID, String receiver,
+			String gender, String phone, String address, Date bD, Date regDate, Integer coachMemberID, String receiver,
 			String receiverAddress, String receiverPhone, String cardName, String cardValidTime, String cardLast3No,
 			String cardPhone) {
 
@@ -43,7 +43,7 @@ public class MemberService {
 	}
 
 	public MemberVO updateMember(Integer memberID , byte[] personalPhotos, String name, String account, String password, String email,
-			String gender, String phone, String address, Date bD, Date regDate, Double coachMemberID, String receiver,
+			String gender, String phone, String address, Date bD, Date regDate, Integer coachMemberID, String receiver,
 			String receiverAddress, String receiverPhone, String cardName, String cardValidTime, String cardLast3No,
 			String cardPhone) {
 

@@ -14,7 +14,7 @@ public class MemberVO {
     private String address;
     private Date bD;
     private Date regDate;
-    private double coachMemberID;
+    private int coachMemberID;
     private String receiver;
     private String receiverAddress;
     private String receiverPhone;
@@ -112,11 +112,11 @@ public class MemberVO {
         this.regDate = regDate;
     }
 
-	public double getCoachMemberID() {
+	public Integer getCoachMemberID() {
 		return coachMemberID;
 	}
 
-	public void setCoachMemberID(double coachMemberID) {
+	public void setCoachMemberID(Integer coachMemberID) {
 		this.coachMemberID = coachMemberID;
 	}
 

@@ -4,25 +4,25 @@ import java.util.Arrays;
 
 public class CoachMemberVO {
 
-	    private Double coachMemberID;
+	    private int coachMemberID;
 	    private byte[] personalPhotos;
 	    private String status;
 
 	    // Constructor
 	    public CoachMemberVO() {}
 
-	    public CoachMemberVO(Double coachMemberID, byte[] personalPhotos, String status) {
+	    public CoachMemberVO(int coachMemberID, byte[] personalPhotos, String status) {
 	        this.coachMemberID = coachMemberID;
 	        this.personalPhotos = personalPhotos;
 	        this.status = status;
 	    }
 
 	    // Getter and Setter for coachMemberID
-	    public Double getCoachMemberID() {
+	    public int getCoachMemberID() {
 	        return coachMemberID;
 	    }
 
-	    public void setCoachMemberID(Double coachMemberID) {
+	    public void setCoachMemberID(int coachMemberID) {
 	        this.coachMemberID = coachMemberID;
 	    }
 

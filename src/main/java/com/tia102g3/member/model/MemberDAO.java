@@ -48,7 +48,7 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setString(8, memberVO.getAddress());
 			pstmt.setDate(9, memberVO.getbD());
 			pstmt.setDate(10, memberVO.getRegDate());
-			pstmt.setDouble(11, memberVO.getCoachMemberID());
+			pstmt.setInt(11, memberVO.getCoachMemberID());
 			pstmt.setString(12, memberVO.getReceiver());
 			pstmt.setString(13, memberVO.getReceiverAddress());
 			pstmt.setString(14, memberVO.getReceiverPhone());
@@ -226,7 +226,7 @@ public class MemberDAO implements MemberDAO_interface {
 				memberVO.setAddress(rs.getString("address"));
 				memberVO.setbD(rs.getDate("bD"));
 				memberVO.setRegDate(rs.getDate("regDate"));
-				memberVO.setCoachMemberID(rs.getDouble("coachMemberID"));
+				memberVO.setCoachMemberID(rs.getInt("coachMemberID"));
 				memberVO.setReceiver(rs.getString("receiver"));
 				memberVO.setReceiverAddress(rs.getString("receiverAddress"));
 				memberVO.setReceiverPhone(rs.getString("receiverPhone"));
@@ -301,7 +301,7 @@ public class MemberDAO implements MemberDAO_interface {
 				memberVO.setAddress(rs.getString("address"));
 				memberVO.setbD(rs.getDate("bD"));
 				memberVO.setRegDate(rs.getDate("regDate"));
-				memberVO.setCoachMemberID(rs.getDouble("coachMemberID"));
+				memberVO.setCoachMemberID(rs.getInt("coachMemberID"));
 				memberVO.setReceiver(rs.getString("receiver"));
 				memberVO.setReceiverAddress(rs.getString("receiverAddress"));
 				memberVO.setReceiverPhone(rs.getString("receiverPhone"));

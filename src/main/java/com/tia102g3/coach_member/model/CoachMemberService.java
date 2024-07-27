@@ -22,7 +22,7 @@ public class CoachMemberService {
 		return coachMemberVO;
 	}
 
-	public CoachMemberVO updateCoachMember(Double coachMemberID, byte[] personalPhotos, String status) {
+	public CoachMemberVO updateCoachMember(int coachMemberID, byte[] personalPhotos, String status) {
 
 		CoachMemberVO coachMemberVO = new CoachMemberVO();
 
@@ -35,11 +35,11 @@ public class CoachMemberService {
 		return coachMemberVO;
 	}
 
-	public void deleteCoachMember(Double coachMemberID) {
+	public void deleteCoachMember(int coachMemberID) {
 		dao.delete(coachMemberID);
 	}
 
-	public CoachMemberVO getOneCoachMember(Double coachMemberID) {
+	public CoachMemberVO getOneCoachMember(int coachMemberID) {
 		return dao.getOne(coachMemberID);
 	}
 

@@ -84,7 +84,7 @@ public class CoachMemberDAO implements CoachMemberDAO_interface {
 
 			pstmt.setBytes(1, coachMemberVO.getPersonalPhotos());
 			pstmt.setString(2, coachMemberVO.getStatus());
-			pstmt.setDouble(3, coachMemberVO.getCoachMemberID());
+			pstmt.setInt(3, coachMemberVO.getCoachMemberID());
 
 			pstmt.executeUpdate();
 
@@ -117,7 +117,7 @@ public class CoachMemberDAO implements CoachMemberDAO_interface {
 	}
 
 	@Override
-	public void delete(Double coachMemberID) {
+	public void delete(int coachMemberID) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -128,7 +128,7 @@ public class CoachMemberDAO implements CoachMemberDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setDouble(1, coachMemberID);
+			pstmt.setInt(1, coachMemberID);
 
 			pstmt.executeUpdate();
 
@@ -161,7 +161,7 @@ public class CoachMemberDAO implements CoachMemberDAO_interface {
 	}
 
 	@Override
-	public CoachMemberVO getOne(Double coachMemberID) {
+	public CoachMemberVO getOne(int coachMemberID) {
 
 		CoachMemberVO coachMemberVO = null;
 		Connection con = null;
@@ -174,14 +174,14 @@ public class CoachMemberDAO implements CoachMemberDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setDouble(1, coachMemberID);
+			pstmt.setInt(1, coachMemberID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// coachMemberVO 也稱為 Domain objects
 				coachMemberVO = new CoachMemberVO();
-				coachMemberVO.setCoachMemberID(rs.getDouble("coachMemberID"));
+				coachMemberVO.setCoachMemberID(rs.getInt("coachMemberID"));
 				coachMemberVO.setPersonalPhotos(rs.getBytes("personalPhotos"));
 				coachMemberVO.setStatus(rs.getString("status"));
 			}
@@ -240,7 +240,7 @@ public class CoachMemberDAO implements CoachMemberDAO_interface {
 			while (rs.next()) {
 				// coachMemberVO 也稱為 Domain objects
 				coachMemberVO = new CoachMemberVO();
-				coachMemberVO.setCoachMemberID(rs.getDouble("coachMemberID"));
+				coachMemberVO.setCoachMemberID(rs.getInt("coachMemberID"));
 				coachMemberVO.setPersonalPhotos(rs.getBytes("personalPhotos"));
 				coachMemberVO.setStatus(rs.getString("status"));
 				list.add(coachMemberVO); // Store the row in the list
@@ -295,7 +295,7 @@ public class CoachMemberDAO implements CoachMemberDAO_interface {
 
 		// 修改
 		CoachMemberVO coachMemberVO2 = new CoachMemberVO();
-		coachMemberVO2.setCoachMemberID(1.0);
+		coachMemberVO2.setCoachMemberID(1);
 //		coachMemberVO2.setPersonalPhotos("");
 		coachMemberVO2.setStatus("已通過");
 
@@ -305,7 +305,7 @@ public class CoachMemberDAO implements CoachMemberDAO_interface {
 //		dao.delete(7014);
 
 		// 查詢
-		CoachMemberVO coachMemberVO3 = dao.getOne(1.0);
+		CoachMemberVO coachMemberVO3 = dao.getOne(1);
 		System.out.print(coachMemberVO3.getPersonalPhotos() + ",");
 		System.out.print(coachMemberVO3.getStatus() + ",");
 		System.out.println("---------------------");
