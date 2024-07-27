@@ -1,12 +1,10 @@
 package com.tia102g3.coachcertificate.model;
 
 
-import com.coach_member.model.CoachMemberVO;
+import com.tia102g3.coach_member.model.CoachMemberVO;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * ClassName： CoachCertificate

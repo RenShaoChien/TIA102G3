@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="com.tia102g3.member.model.MemberVO" %>
 
 <%
 //見com.member.controller.memberServlet.java第238行存入req的memberVO物件 (此為輸入格式有錯誤時的memberVO物件)

@@ -1,6 +1,6 @@
 package com.tia102g3.coachcourse.model;
 
-import com.coach_member.model.CoachMemberVO;
+import com.tia102g3.coach_member.model.CoachMemberVO;
 import com.tia102g3.sportevent.model.SportEvent;
 import com.utils.HibernateUtil;
 import com.utils.JDBCUtils;
