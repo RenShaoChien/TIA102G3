@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CustomizedCourseController {
 
     //點擊客製化課程進入
-    @GetMapping("/enter")
-    public String enterCustomizedCourse() {
-
-    }
+//    @GetMapping("/enter")
+//    public String enterCustomizedCourse() {
+//
+//    }
 }
