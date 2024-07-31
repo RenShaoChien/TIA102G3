@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import com.dept.model.DeptVO;
 //import com.emp.model.EmpRepository;
 //import com.emp.model.EmpVO;
-import com.tia102g3.food.model.FoodVO;
+//import com.tia102g3.food.model.FoodVO;
 //import com.tia102g3.food.model.FoodRepository;
 
 @SpringBootApplication
