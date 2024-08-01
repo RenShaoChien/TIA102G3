@@ -1,9 +1,11 @@
 package com.tia102g3.coachcourse.model;
 
-import com.tia102g3.coach_member.model.CoachMemberVO;
-import com.tia102g3.course_order.model.CourseOrderVO;
+import com.tia102g3.basedao.ForeignKey;
+import com.tia102g3.coachmember.model.CoachMember;
+import com.tia102g3.courseorder.model.CourseOrder;
 import com.tia102g3.coachcoursepic.model.CoachCoursePic;
 import com.tia102g3.sportevent.model.SportEvent;
+import com.tia102g3.systemcourse.model.SystemCourseLevel;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,11 +34,13 @@ public class CoachCourse {
     private Integer coachCourseID;
     @ManyToOne
     @JoinColumn(name = "cMemberID", referencedColumnName = "cMemberID", nullable = false)
-    private CoachMemberVO cMember;
+    @ForeignKey(targetEntity = CoachMember.class, keyField = "cMemberID")
+    private CoachMember cMember;
     @Column(name = "courseName")
     private String courseName;
     @Column(name = "courseLevel")
-    private Integer courseLevel;
+    @Enumerated(EnumType.ORDINAL)
+    private SystemCourseLevel courseLevel;
     @Column(name = "courseStartDate")
     private Date courseStartDate;
     @Column(name = "courseEndDate")
@@ -51,6 +55,7 @@ public class CoachCourse {
     private CourseStatus status;
     @ManyToOne
     @JoinColumn(name = "sportEventID", referencedColumnName = "sportEventID", nullable = true)
+    @ForeignKey(targetEntity = SportEvent.class, keyField = "sportEventID")
     private SportEvent sportEvent;
     @Column(name = "coursePrice")
     private Integer coursePrice;
@@ -61,6 +66,6 @@ public class CoachCourse {
     @OneToMany(mappedBy = "coachCourse")
     private List<CoachCoursePic> coachCoursePics;
     @OneToMany(mappedBy = "coachCourse")
-    private List<CourseOrderVO> courseOrders;
+    private List<CourseOrder> courseOrders;
 
 }

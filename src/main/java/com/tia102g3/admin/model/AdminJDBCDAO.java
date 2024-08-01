@@ -16,11 +16,11 @@ public class AdminJDBCDAO implements AdminDAOInterface {
 	String userid = "root";
 	String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO adminid (adminName, adminUserName, adminPassword, adminEmail) VALUES (?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT adminID, adminName, adminUserName, adminPassword, adminEmail FROM adminid ORDER BY adminID";
-	private static final String GET_ONE_STMT = "SELECT adminID, adminName, adminUserName, adminPassword, adminEmail FROM adminid WHERE adminID = ?";
-	private static final String DELETE = "DELETE FROM adminid WHERE adminID = ?";
-	private static final String UPDATE = "UPDATE adminid SET adminName = ?, adminUserName = ?, adminPassword = ?, adminEmail = ? WHERE adminID = ?";
+	private static final String INSERT_STMT = "INSERT INTO admin_id (adminName, adminUserName, adminPassword, adminEmail) VALUES (?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT adminID, adminName, adminUserName, adminPassword, adminEmail FROM admin_id ORDER BY adminID";
+	private static final String GET_ONE_STMT = "SELECT adminID, adminName, adminUserName, adminPassword, adminEmail FROM admin_id WHERE adminID = ?";
+	private static final String DELETE = "DELETE FROM admin_id WHERE adminID = ?";
+	private static final String UPDATE = "UPDATE admin_id SET adminName = ?, adminUserName = ?, adminPassword = ?, adminEmail = ? WHERE adminID = ?";
 
 	@Override
 	public void insert(AdminVO adminVO) {

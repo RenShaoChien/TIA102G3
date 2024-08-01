@@ -1,5 +1,6 @@
 package com.tia102g3.systemcourse.model;
 
+import com.tia102g3.basedao.ForeignKey;
 import com.tia102g3.customizedcourse.model.CustomizedCourse;
 import com.tia102g3.sportevent.model.SportEvent;
 import com.tia102g3.systemcoursepic.model.SystemCoursePic;
@@ -34,13 +35,15 @@ public class SystemCourse {
     private String courseName;
     @ManyToOne
     @JoinColumn(name = "sportEventID", referencedColumnName = "sportEventID", nullable = false)
-    SportEvent sportEvent;
+    @ForeignKey(targetEntity = SportEvent.class, keyField = "sportEventID")
+    private SportEvent sportEvent;
     @Column(name = "courseLevel")
-    SystemCourseLevel courseLevel;
+    @Enumerated(EnumType.ORDINAL)
+    private SystemCourseLevel courseLevel;
     @Column(name = "burnCalories")
-    Integer burnCalories;
+    private Integer burnCalories;
     @Column(name = "rps")
-    Integer rps;
+    private Integer rps;
     @Column(name = "eachExerciseTime")
     private Time eachExerciseTime;
     @Column(name = "sportTime")

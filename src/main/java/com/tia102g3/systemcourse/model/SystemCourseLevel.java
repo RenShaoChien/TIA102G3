@@ -1,5 +1,9 @@
 package com.tia102g3.systemcourse.model;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+
 /**
  * ClassName： SystemCourseLevel
  * package：com.tia102g3.systemcourse.model
@@ -9,21 +13,20 @@ package com.tia102g3.systemcourse.model;
  * @Create 2024/7/17 @{TIME}
  * @Version 1.0
  */
+@Getter
+@RequiredArgsConstructor
+@ToString
 public enum SystemCourseLevel {
-    EASY(1),
-    MEDIUM(2),
-    HARD(3),
-    VERY_HARD(4);
+    EASY(1, "初級"),
+    MEDIUM(2, "中級"),
+    HARD(3, "高級"),
+    VERY_HARD(4, "最高級");
 
     private final Integer level;
-    SystemCourseLevel(Integer level) {
-        this.level = level;
-    }
-    public Integer getLevel() {
-        return level;
-    }
+    private final String description;
+
     public static SystemCourseLevel getSystemCourseLevelByInt(Integer level) {
-        for (SystemCourseLevel systemCourseLevel : SystemCourseLevel.values()) {
+        for (SystemCourseLevel systemCourseLevel : values()) {
             if (systemCourseLevel.getLevel().equals(level)) {
                 return systemCourseLevel;
             }

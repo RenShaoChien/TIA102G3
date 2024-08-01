@@ -1,9 +1,9 @@
 package com.tia102g3.coachcourse.service;
 
-import com.tia102g3.coach_member.model.CoachMemberVO;
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachcourse.model.CoachCourseDAO;
 import com.tia102g3.coachcourse.model.CourseStatus;
+import com.tia102g3.coachmember.model.CoachMember;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ public class CoachCourseServiceImpl implements CoachCourseService {
     }
 
     @Override
-    public List<CoachCourse> listCoursesByCoach(CoachMemberVO cMember) throws Exception {
+    public List<CoachCourse> listCoursesByCoach(CoachMember cMember) throws Exception {
         return coachCourseDAO.findCoursesByCMember(cMember);
     }
 

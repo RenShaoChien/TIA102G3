@@ -1,5 +1,7 @@
 package com.tia102g3.sportevent.model;
 
+import java.util.List;
+
 /**
  * ClassName： SportEventDAO
  * package：com.tia102g3.sportevent.model
@@ -18,4 +20,6 @@ public interface SportEventDAO {
     int updateSportEvent(SportEvent sportEvent) throws Exception;
 
     SportEvent selectSportEventByID(Integer sportEventID) throws Exception;
+
+    List<SportEvent> selectAllSportEvents() throws Exception;
 }
