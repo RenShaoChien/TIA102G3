@@ -2,7 +2,8 @@ package com.tia102g3.customizedcourse.service;
 
 import com.tia102g3.customizedcourse.model.CustomizedCourse;
 import com.tia102g3.customizedcourse.model.CustomizedCourseDAO;
-import com.tia102g3.customizedcourse.model.CustomizedCourseDAOImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,7 +16,9 @@ import java.util.List;
  * @Create 2024/7/19 @{TIME}
  * @Version 1.0
  */
+@Service
 public class CustomizedCourseServiceImpl implements CustomizedCourseService {
+    @Autowired
     private CustomizedCourseDAO dao;
 
     @Override

@@ -1,9 +1,11 @@
 package com.tia102g3.coachcourse.service;
 
-import com.tia102g3.coach_member.model.CoachMemberVO;
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachcourse.model.CoachCourseDAO;
 import com.tia102g3.coachcourse.model.CourseStatus;
+import com.tia102g3.coachmember.model.CoachMember;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -16,7 +18,9 @@ import java.util.List;
  * @Create 2024/7/16 @{TIME}
  * @Version 1.0
  */
+@Service
 public class CoachCourseServiceImpl implements CoachCourseService {
+    @Autowired
     private CoachCourseDAO coachCourseDAO;
 
     @Override
@@ -40,7 +44,7 @@ public class CoachCourseServiceImpl implements CoachCourseService {
     }
 
     @Override
-    public List<CoachCourse> listCoursesByCoach(CoachMemberVO cMember) throws Exception {
+    public List<CoachCourse> listCoursesByCoach(CoachMember cMember) throws Exception {
         return coachCourseDAO.findCoursesByCMember(cMember);
     }
 

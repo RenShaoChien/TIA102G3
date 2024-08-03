@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>教練課程</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /*height: 100vh;*/
+            position: relative;
+        }
+
+        .course-container {
+            background-color: #fff;
+            padding: 20px;
+            width: 70%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slides {
+            justify-content: center;
+            margin-left: 15%;
+        }
+
+        .slides img {
+            width: 80%;
+            display: none;
+            border-radius: 5px;
+        }
+
+        .custom-text-wrapper {
+            margin-top: 20px;
+            height: 80vh;
+
+        }
+
+        .custom-text-wrapper div {
+            margin-bottom: 10px;
+        }
+
+        .custom-text-wrapper h2 {
+            text-align: center;
+            color: #76b4f8;
+        }
+
+        button.prev, button.next {
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            background-color: #76b4f8;
+            color: white;
+            font-size: 18px;
+        }
+
+        button:hover {
+            background-color: #76b4f8;
+        }
+
+        .slide-buttons {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .lightbox {
+            /*   border: 1px solid red; */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: hsla(0, 0%, 0%, .5);
+
+            display: none;
+        }
+
+        /* 元素 article 置中及基本樣式 */
+        .lightbox > article {
+            background-color: whitesmoke;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ddd;
+            padding: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .lightbox a {
+            color: red;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        button {
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            background-color: #76b4f8;
+            color: white;
+            font-size: 18px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        .button-container {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="course-container">
+    <div class="slides">
+        <img src="../images/pic3.jpg" alt="Exercise illustration 1" style="display: block;">
+        <img src="../images/pic1.jpg" alt="Exercise illustration 2">
+    </div>
+    <div class="slide-buttons">
+        <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
+        <button class="next" onclick="plusSlides(1)">&#10095;</button>
+    </div>
+
+    <div class="custom-text-wrapper">
+        <h2 style="margin-right: 25px; display: inline-block">教練：任少騫</h2>
+        <h2 style="margin-left: 25px; display: inline-block">課程：槓鈴深蹲</h2>
+        <div><span>課程難易：初級</span></div>
+        <div><span>課程類型：重量訓練</span></div>
+        <div><span>課程器具：槓鈴</span></div>
+        <div><span>開課時間：yyyy-MM-dd</span></div>
+        <div><span>結訓時間：yyyy-MM-dd</span></div>
+        <div><span>課程堂數：xx 堂</span></div>
+        <div><span>人數上限：xx 人</span></div>
+        <div><span>課程說明：Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy...</span></div>
+        <div><span>課程價格：xxx 元</span></div>
+        <div><span>課程狀態：已上架</span></div>
+
+        <div class="button-container">
+            <button class="btn_modal">購買會員列表</button>
+            <button onclick="approveCourse()">審核通過</button>
+            <button onclick="discontinueCourse()">下架</button>
+            <button onclick="replyByEmail()">Email回覆</button>
+        </div>
+
+    </div>
+</div>
+<div class="lightbox" style="z-index: 9999;">
+    <article>
+        <h1 style="text-align: center;">購買會員列表</h1>
+        <ul class="custom-course-list">
+            <li>165165</li>
+            <li>ffsfj</li>
+            <li>fdsf</li>
+        </ul>
+    </article>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    function approveCourse() {
+        // 審核通過的邏輯
+        alert('課程已通過審核！');
+    }
+
+    function discontinueCourse() {
+        // 下架課程的邏輯
+        alert('課程已下架！');
+    }
+
+    function replyByEmail() {
+        // 發送Email的邏輯
+        alert('開啟Email回覆界面！');
+    }
+
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function showSlides(n) {
+        let slides = document.getElementsByClassName("slides")[0].children;
+        if (n > slides.length) slideIndex = 1;
+        if (n < 1) slideIndex = slides.length;
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex - 1].style.display = "block";
+    }
+
+    $(".btn_modal").on("click", function () {
+        $(".lightbox").fadeIn(1000);
+    });
+
+
+    $(".btn_modal_close, .lightbox").on("click", function () {
+        $(".lightbox").fadeOut(1000);
+    });
+
+    $(".lightbox > article").on("click", function (e) {
+        e.stopPropagation();
+    });
+</script>
+
+</body>
+</html>

@@ -1,7 +1,20 @@
 package com.tia102g3.productPic.model;
-import java.sql.Date;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
+import javax.persistence.*;
+import java.sql.Date;
+@Entity
+@Table(name="product_pic")
+@NoArgsConstructor
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class Product_PICVO implements java.io.Serializable{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NonNull
 	private Integer productPicID;
 	private Integer productID;
 	private byte[] pic;

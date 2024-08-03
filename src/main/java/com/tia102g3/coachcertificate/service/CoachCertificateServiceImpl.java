@@ -1,7 +1,9 @@
 package com.tia102g3.coachcertificate.service;
 
 import com.tia102g3.coachcertificate.model.CoachCertificate;
-import com.tia102g3.coachcertificate.model.CoachCertificateDAO;
+import com.tia102g3.coachcertificate.model.CoachCertificateDAOImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,8 +16,10 @@ import java.util.List;
  * @Create 2024/7/19 @{TIME}
  * @Version 1.0
  */
+@Service
 public class CoachCertificateServiceImpl implements CoachCertificateService {
-    private CoachCertificateDAO dao;
+    @Autowired
+    private CoachCertificateDAOImpl dao;
 
     @Override
     public int insertCoachCertificate(CoachCertificate coachCertificate) throws Exception {

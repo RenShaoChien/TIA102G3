@@ -1,63 +1,30 @@
 package com.tia102g3.orderdetails.model;
 
+import com.tia102g3.order.model.OrderVO;
+import com.tia102g3.product.model.ProductVO;
+import lombok.*;
+
+import javax.persistence.*;
 import java.io.Serializable;
-
+@Entity
+@Table(name = "order_details")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class OrderDetailsVO implements Serializable{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ordDtlID", updatable = false)
+	@NonNull
 	private Integer ordDtlID;
-	private Integer productID ;
+	@ManyToOne
+	@JoinColumn(name = "orderID", referencedColumnName = "orderID", nullable = false)
+    private OrderVO orderVO;
+	@ManyToOne
+	@JoinColumn(name = "productID", referencedColumnName = "productID", nullable = false)
+    private ProductVO productVO;
 	private Integer quantity;
-	private Integer orderID;
-	
-	public OrderDetailsVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
 
-	public OrderDetailsVO(Integer ordDtlID, Integer productID, Integer quantity, Integer orderID) {
-		super();
-		this.ordDtlID = ordDtlID;
-		this.productID = productID;
-		this.quantity = quantity;
-		this.orderID = orderID;
-	}
-
-
-
-	public Integer getOrdDtlID() {
-		return ordDtlID;
-	}
-
-	public void setOrdDtlID(Integer ordDtlID) {
-		this.ordDtlID = ordDtlID;
-	}
-
-	public Integer getProductID() {
-		return productID;
-	}
-
-	public void setProductID(Integer productID) {
-		this.productID = productID;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	public Integer getOrderID() {
-		return orderID;
-	}
-
-	public void setOrderID(Integer orderID) {
-		this.orderID = orderID;
-	}
-	
-	
-	
 
 }

@@ -10,6 +10,8 @@ import java.util.List;
 
 import com.tia102g3.order.model.OrderDAOInterface;
 import com.tia102g3.order.model.OrderJDBCDAO;
+import com.tia102g3.order.model.OrderVO;
+import com.tia102g3.product.model.ProductVO;
 
 
 public class OrderDetailsJDBCDAO implements OrderDetailsDAOInterface{
@@ -18,11 +20,11 @@ public class OrderDetailsJDBCDAO implements OrderDetailsDAOInterface{
 	String userid = "root";
 	String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO ordDtlID (productID, quantity, orderID ) VALUES (?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT ordDtlID productID, quantity, orderID,  FROM ordDtlID ORDER BY ordDtlID";
-	private static final String GET_ONE_STMT = "SELECT ordDtlID productID, quantity, orderID,  FROM ordDtlID  WHERE ordDtlID  = ?";
-	private static final String DELETE = "DELETE FROM ordDtlID WHERE ordDtlID = ?";
-	private static final String UPDATE = "UPDATE ordDtlID SET productID = ?, quantity = ?, orderID = ? ordDtlID = ? WHERE ordDtlID = ?";
+	private static final String INSERT_STMT = "INSERT INTO order_details (productID, quantity, orderID ) VALUES (?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT * FROM order_details";
+	private static final String GET_ONE_STMT = "SELECT * FROM order_details  WHERE ordDtlID  = ?";
+	private static final String DELETE = "DELETE FROM order_details WHERE ordDtlID = ?";
+	private static final String UPDATE = "UPDATE order_details SET productID = ?, quantity = ?, orderID = ? WHERE ordDtlID = ?";
 
 	@Override
 	public void insert(OrderDetailsVO orderDetailsVO) {
@@ -36,9 +38,9 @@ public class OrderDetailsJDBCDAO implements OrderDetailsDAOInterface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, orderDetailsVO.getProductID());
+			pstmt.setInt(1, orderDetailsVO.getProductVO().getProductID());
 			pstmt.setInt(2, orderDetailsVO.getQuantity());
-			pstmt.setInt(3, orderDetailsVO.getOrderID());
+			pstmt.setInt(3, orderDetailsVO.getOrderVO().getOrderID());
 			
 
 			pstmt.executeUpdate();
@@ -81,9 +83,9 @@ public class OrderDetailsJDBCDAO implements OrderDetailsDAOInterface{
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setInt(1, orderDetailsVO.getOrdDtlID());
-			pstmt.setInt(2, orderDetailsVO.getProductID());
+			pstmt.setInt(2, orderDetailsVO.getProductVO().getProductID());
 			pstmt.setInt(3, orderDetailsVO.getQuantity());
-			pstmt.setInt(4, orderDetailsVO.getOrderID());
+			pstmt.setInt(4, orderDetailsVO.getOrderVO().getOrderID());
 
 			pstmt.executeUpdate();
 
@@ -177,9 +179,9 @@ public class OrderDetailsJDBCDAO implements OrderDetailsDAOInterface{
 				// empVo 也稱為 Domain objects
 				orderDetailsVO = new OrderDetailsVO();
 				orderDetailsVO.setOrdDtlID(rs.getInt("ordDtlID"));
-				orderDetailsVO.setProductID(rs.getInt("productID"));
+				orderDetailsVO.setProductVO(new ProductVO(rs.getInt("productID")));
 				orderDetailsVO.setQuantity(rs.getInt("quantity"));
-				orderDetailsVO.setOrderID(rs.getInt("orderID"));
+				orderDetailsVO.setOrderVO(new OrderVO(rs.getInt("orderID")));
 				
 			}
 
@@ -237,9 +239,9 @@ public class OrderDetailsJDBCDAO implements OrderDetailsDAOInterface{
 				// empVO 也稱為 Domain objects
 				orderDetailsVO = new OrderDetailsVO();
 				orderDetailsVO.setOrdDtlID(rs.getInt("ordDtlID"));
-				orderDetailsVO.setProductID(rs.getInt("productID"));
+				orderDetailsVO.setProductVO(new ProductVO(rs.getInt("productID")));
 				orderDetailsVO.setQuantity(rs.getInt("quantity"));
-				orderDetailsVO.setOrderID(rs.getInt("orderID"));
+				orderDetailsVO.setOrderVO(new OrderVO(rs.getInt("orderID")));
 				list.add(orderDetailsVO); // Store the row in the list
 			}
 

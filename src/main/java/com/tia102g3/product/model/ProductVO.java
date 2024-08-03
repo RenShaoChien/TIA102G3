@@ -1,7 +1,23 @@
 package com.tia102g3.product.model;
-import java.sql.Date;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.sql.Date;
+@Entity
+@Table(name="product")
+@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductVO implements java.io.Serializable{
+	@Id
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+	@NonNull
 	private Integer productID;
 	private String prodName;
 	private Integer price;

@@ -1,12 +1,12 @@
 package com.tia102g3.systemcoursepic.model;
 
+import com.tia102g3.basedao.ForeignKey;
 import com.tia102g3.systemcourse.model.SystemCourse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Arrays;
 
 /**
  * ClassName： SystemCoursePic
@@ -29,7 +29,9 @@ public class SystemCoursePic {
     private Integer systemCoursePicID;
     @ManyToOne
     @JoinColumn(name = "systemCourseID", referencedColumnName = "systemCourseID", nullable = false)
+    @ForeignKey(targetEntity = SystemCourse.class, keyField = "systemCourseID")
     private SystemCourse systemCourse;
     @Column(name = "pic", columnDefinition = "LONGBLOB")
+//    @NotEmpty(message="請上傳課程圖片")
     private byte[] pic;
 }

@@ -1,5 +1,7 @@
 package com.tia102g3.order.model;
 
+import com.tia102g3.member.model.Member;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class OrderService {
 	
 		OrderVO orderVO = new OrderVO();
 		
-		orderVO.setMemberID(memberID);
+		orderVO.setMember(new Member(memberID));
 		orderVO.setOrderDate(orderDate);
 		orderVO.setStatus(status);
 		orderVO.setTotalPrice(totalPrice);
@@ -29,7 +31,7 @@ public class OrderService {
 		OrderVO orderVO = new OrderVO();
 		
 		orderVO.setOrderID(orderID);
-		orderVO.setMemberID(memberID);
+		orderVO.setMember(new Member(memberID));
 		orderVO.setOrderDate(orderDate);
 		orderVO.setStatus(status);
 		orderVO.setTotalPrice(totalPrice);

@@ -1,339 +1,342 @@
 package com.tia102g3.order.model;
 
+import com.tia102g3.member.model.Member;
+
 import java.util.*;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class OrderJDBCDAO implements OrderDAOInterface {
-	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/tia102g3?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "123456";
+    String driver = "com.mysql.cj.jdbc.Driver";
+    String url = "jdbc:mysql://localhost:3306/tia102g3?serverTimezone=Asia/Taipei";
+    String userid = "root";
+    String passwd = "123456";
 
-	private static final String INSERT_STMT = "INSERT INTO orderid (memberID, orderDate, status, totalPrice) VALUES (?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT orderID, memberID, orderDate, status, totalPrice FROM orderid ORDER BY orderID";
-	private static final String GET_ONE_STMT = "SELECT orderID, memberID, orderDate, status, totalPrice FROM orderid WHERE orderID = ?";
-	private static final String DELETE = "DELETE FROM orderid WHERE orderID = ?";
-	private static final String UPDATE = "UPDATE orderid SET memberID = ?, orderDate = ?, status = ?, totalPrice = ? WHERE orderID = ?";
+    private static final String INSERT_STMT = "INSERT INTO orderid (memberID, orderDate, status, totalPrice) VALUES (?, ?, ?, ?)";
+    private static final String GET_ALL_STMT = "SELECT orderID, memberID, orderDate, status, totalPrice FROM orderid ORDER BY orderID";
+    private static final String GET_ONE_STMT = "SELECT orderID, memberID, orderDate, status, totalPrice FROM orderid WHERE orderID = ?";
+    private static final String GET_ONE_STMT_BY_MEMBER_ID = "SELECT orderID, memberID, orderDate, status, totalPrice FROM orderid WHERE memberID = ?";
+    private static final String DELETE = "DELETE FROM orderid WHERE orderID = ?";
+    private static final String UPDATE = "UPDATE orderid SET memberID = ?, orderDate = ?, status = ?, totalPrice = ? WHERE orderID = ?";
 
-	@Override
-	public void insert(OrderVO orderVO) {
+    @Override
+    public void insert(OrderVO orderVO) {
 
-		Connection con = null;
-		PreparedStatement pstmt = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
 
-		try {
+        try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
+            Class.forName(driver);
+            con = DriverManager.getConnection(url, userid, passwd);
+            pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, orderVO.getMemberID());
-			pstmt.setTimestamp(2, orderVO.getOrderDate());
-			pstmt.setString(3, orderVO.getStatus());
-			pstmt.setInt(4, orderVO.getTotalPrice());
+            pstmt.setInt(1, orderVO.getMember().getMemberID());
+            pstmt.setTimestamp(2, orderVO.getOrderDate());
+            pstmt.setString(3, orderVO.getStatus());
+            pstmt.setInt(4, orderVO.getTotalPrice());
 
-			pstmt.executeUpdate();
+            pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
+            // Handle any driver errors
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+            // Handle any SQL errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. " + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
 
-	}
+    }
 
-	@Override
-	public void update(OrderVO orderVO) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
+    @Override
+    public void update(OrderVO orderVO) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
 
-		try {
+        try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE);
-			
-			pstmt.setInt(1, orderVO.getOrderID());
-			pstmt.setInt(2, orderVO.getMemberID());
-			pstmt.setTimestamp(3, orderVO.getOrderDate());
-			pstmt.setString(4, orderVO.getStatus());
-			pstmt.setInt(5, orderVO.getTotalPrice());
-			
+            Class.forName(driver);
+            con = DriverManager.getConnection(url, userid, passwd);
+            pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.executeUpdate();
+            pstmt.setInt(1, orderVO.getOrderID());
+            pstmt.setInt(2, orderVO.getMember().getMemberID());
+            pstmt.setTimestamp(3, orderVO.getOrderDate());
+            pstmt.setString(4, orderVO.getStatus());
+            pstmt.setInt(5, orderVO.getTotalPrice());
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
 
-	}
+            pstmt.executeUpdate();
 
-	@Override
-	public void delete(Integer orderID) {
+            // Handle any driver errors
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+            // Handle any SQL errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. " + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
 
-		Connection con = null;
-		PreparedStatement pstmt = null;
+    }
 
-		try {
+    @Override
+    public void delete(Integer orderID) {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(DELETE);
+        Connection con = null;
+        PreparedStatement pstmt = null;
 
-			pstmt.setInt(1, orderID);
+        try {
 
-			pstmt.executeUpdate();
+            Class.forName(driver);
+            con = DriverManager.getConnection(url, userid, passwd);
+            pstmt = con.prepareStatement(DELETE);
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
+            pstmt.setInt(1, orderID);
 
-	}
+            pstmt.executeUpdate();
 
-	@Override
-	public OrderVO findByPrimaryKey(Integer orderID) {
+            // Handle any driver errors
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+            // Handle any SQL errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. " + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
 
-		OrderVO orderVO = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+    }
 
-		try {
+    @Override
+    public OrderVO findByPrimaryKey(Integer orderID) {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ONE_STMT);
+        OrderVO orderVO = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
 
-			pstmt.setInt(1, orderID);
+        try {
 
-			rs = pstmt.executeQuery();
+            Class.forName(driver);
+            con = DriverManager.getConnection(url, userid, passwd);
+            pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			while (rs.next()) {
-				// empVo 也稱為 Domain objects
-				orderVO = new OrderVO();
-				orderVO.setOrderID(rs.getInt("orderID"));
-				orderVO.setMemberID(rs.getInt("MemberID"));
-				orderVO.setOrderDate(rs.getTimestamp("orderDate"));
-				orderVO.setStatus(rs.getString("status"));
-				orderVO.setTotalPrice(rs.getInt("totalPrice"));
-			}
+            pstmt.setInt(1, orderID);
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return orderVO;
-	}
-	
-	public OrderVO findByForeignKey(Integer memberID) {
+            rs = pstmt.executeQuery();
 
-		OrderVO orderVO = null;
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+            while (rs.next()) {
+                // empVo 也稱為 Domain objects
+                orderVO = new OrderVO();
+                orderVO.setOrderID(rs.getInt("orderID"));
+                orderVO.setMember(new Member(rs.getInt("MemberID")));
+                orderVO.setOrderDate(rs.getTimestamp("orderDate"));
+                orderVO.setStatus(rs.getString("status"));
+                orderVO.setTotalPrice(rs.getInt("totalPrice"));
+            }
 
-		try {
+            // Handle any driver errors
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+            // Handle any SQL errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. " + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return orderVO;
+    }
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ONE_STMT);
+    public OrderVO findByForeignKey(Integer memberID) {
 
-			pstmt.setInt(1, memberID);
+        OrderVO orderVO = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
 
-			rs = pstmt.executeQuery();
+        try {
 
-			while (rs.next()) {
-				// empVo 也稱為 Domain objects
-				orderVO = new OrderVO();
-				orderVO.setOrderID(rs.getInt("orderID"));
-				orderVO.setMemberID(rs.getInt("MemberID"));
-				orderVO.setOrderDate(rs.getTimestamp("orderDate"));
-				orderVO.setStatus(rs.getString("status"));
-				orderVO.setTotalPrice(rs.getInt("totalPrice"));
-			}
+            Class.forName(driver);
+            con = DriverManager.getConnection(url, userid, passwd);
+            pstmt = con.prepareStatement(GET_ONE_STMT_BY_MEMBER_ID);
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return orderVO;
-	}
-	
-	
-	
-	
+            pstmt.setInt(1, memberID);
 
-	@Override
-	public List<OrderVO> getAll() {
-		List<OrderVO> list = new ArrayList<OrderVO>();
-		OrderVO orderVO = null;
+            rs = pstmt.executeQuery();
 
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+            while (rs.next()) {
+                // empVo 也稱為 Domain objects
+                orderVO = new OrderVO();
+                orderVO.setOrderID(rs.getInt("orderID"));
+                orderVO.setMember(new Member(rs.getInt("memberID")));
+                orderVO.setOrderDate(rs.getTimestamp("orderDate"));
+                orderVO.setStatus(rs.getString("status"));
+                orderVO.setTotalPrice(rs.getInt("totalPrice"));
+            }
 
-		try {
+            // Handle any driver errors
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+            // Handle any SQL errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. " + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return orderVO;
+    }
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ALL_STMT);
-			rs = pstmt.executeQuery();
 
-			while (rs.next()) {
-				// empVO 也稱為 Domain objects
-				orderVO = new OrderVO();
-				orderVO.setOrderID(rs.getInt("orderID"));
-				orderVO.setMemberID(rs.getInt("MemberID"));
-				orderVO.setOrderDate(rs.getTimestamp("orderDate"));
-				orderVO.setStatus(rs.getString("status"));
-				orderVO.setTotalPrice(rs.getInt("totalPrice"));
-				list.add(orderVO); // Store the row in the list
-			}
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		return list;
-	}
+
+
+    @Override
+    public List<OrderVO> getAll() {
+        List<OrderVO> list = new ArrayList<OrderVO>();
+        OrderVO orderVO = null;
+
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+
+            Class.forName(driver);
+            con = DriverManager.getConnection(url, userid, passwd);
+            pstmt = con.prepareStatement(GET_ALL_STMT);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // empVO 也稱為 Domain objects
+                orderVO = new OrderVO();
+                orderVO.setOrderID(rs.getInt("orderID"));
+                orderVO.setMember((Member) rs.getObject("MemberID"));
+                orderVO.setOrderDate(rs.getTimestamp("orderDate"));
+                orderVO.setStatus(rs.getString("status"));
+                orderVO.setTotalPrice(rs.getInt("totalPrice"));
+                list.add(orderVO); // Store the row in the list
+            }
+
+            // Handle any driver errors
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+            // Handle any SQL errors
+        } catch (SQLException se) {
+            throw new RuntimeException("A database error occured. " + se.getMessage());
+            // Clean up JDBC resources
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return list;
+    }
 }
 
 //	public static void main(String[] args) {
@@ -381,6 +384,6 @@ public class OrderJDBCDAO implements OrderDAOInterface {
 //		}
 //	}
 //
-//	
+//
 //
 //}

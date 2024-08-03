@@ -82,16 +82,24 @@ public abstract class BaseDAO<T> {
 
             if (rs.next()) {
                 T t = clazz.newInstance();
-                //處理結果集一行數據中的每一列
                 for (int i = 0; i < columnCount; i++) {
-                    //獲取列值
                     Object columnValue = rs.getObject(i + 1);
-                    //獲取每個列的列名
                     String columnLabel = rsmd.getColumnLabel(i + 1);
-                    //給cust物件指定的columnLabel屬性，賦值為columnvalue：通過反射
                     Field field = clazz.getDeclaredField(columnLabel);
                     field.setAccessible(true);
-                    field.set(t, columnValue);
+
+                    ForeignKey foreignKey = field.getAnnotation(ForeignKey.class);
+                    if (foreignKey != null) {
+                        Class<?> targetEntity = foreignKey.targetEntity();
+                        String keyField = foreignKey.keyField();
+                        Object foreignKeyInstance = targetEntity.newInstance();
+                        Field idField = targetEntity.getDeclaredField(keyField);
+                        idField.setAccessible(true);
+                        idField.set(foreignKeyInstance, columnValue);
+                        field.set(t, foreignKeyInstance);
+                    } else {
+                        field.set(t, columnValue);
+                    }
                 }
                 return t;
             }
@@ -131,10 +139,19 @@ public abstract class BaseDAO<T> {
                 for (int i = 0; i < columnCount; i++) {
                     Object columnValue = rs.getObject(i + 1);
                     String columnLabel = rsmd.getColumnLabel(i + 1);
-
                     Field field = clazz.getDeclaredField(columnLabel);
                     field.setAccessible(true);
-                    field.set(t, columnValue);
+                    ForeignKey foreignKey = field.getAnnotation(ForeignKey.class);
+                    if (foreignKey != null) {
+                        Class<?> targetEntity = foreignKey.targetEntity();
+                        String keyField = foreignKey.keyField();
+                        Object foreignKeyInstance = targetEntity.newInstance();
+                        Field idField = targetEntity.getDeclaredField(keyField);
+                        idField.setAccessible(true);
+                        idField.set(foreignKeyInstance, columnValue);
+                        field.set(t, foreignKeyInstance);
+                    }else
+                        field.set(t, columnValue);
                 }
                 list.add(t);
             }

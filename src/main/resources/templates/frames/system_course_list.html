@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>系統課程列表</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .courseList_table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .courseList_th, .courseList_td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .courseList_th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .courseList_tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .courseList_tr:hover {
+            background-color: #ddd;
+        }
+
+        .courseList_a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .courseList_a:hover {
+            text-decoration: underline;
+        }
+
+        .courseList_img {
+            cursor: pointer;
+        }
+
+        .courseList_header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="courseList_header">系統課程列表</div>
+    <div style="border: 0px solid red ; width: 60%; margin-left: auto; margin-bottom: 4px; text-align: right; ">
+        <form th:action="@{/fruit.do}" method="post" style="float: right">
+            <input type="hidden" name="oper" value="search">
+            <input type="text" name="keyword" th:value="${session.keyword}" placeholder="請輸入查詢關鍵字...">
+            <button type="submit" class="btn">查詢</button>
+        </form>
+        <a th:href="@{/course/addSystemCourse}" style="text-decoration: none;float: right;margin-right: 30px;">添加系統課程</a>
+    </div>
+</div>
+
+<table class="courseList_table">
+    <tr class="courseList_tr">
+        <th class="courseList_th">編號</th>
+        <th class="courseList_th">課程名稱</th>
+        <th class="courseList_th">運動項目</th>
+        <th class="courseList_th">課程等級</th>
+        <th class="courseList_th">消耗熱量</th>
+        <th class="courseList_th">每組次數</th>
+        <th class="courseList_th">每項組數</th>
+        <th class="courseList_th">每組時數</th>
+        <th class="courseList_th">每項總時數</th>
+        <th class="courseList_th">說明</th>
+        <th class="courseList_th">影片連結</th>
+        <th class="courseList_th">操作</th>
+    </tr>
+    <tr class="courseList_tr">
+        <td class="courseList_td">1</td>
+        <td class="courseList_td">運動百日遊記</td>
+        <td class="courseList_td">運動</td>
+        <td class="courseList_td">初級</td>
+        <td class="courseList_td">1500</td>
+        <td class="courseList_td">2</td>
+        <td class="courseList_td">10</td>
+        <td class="courseList_td">1</td>
+        <td class="courseList_td">10</td>
+        <td class="courseList_td">
+            運動百日遊記是一套運動百日遊記，包含了10個運動項目，每個項目可以組成10組，每組可以組成10項目，每個項目可以運動10次。
+        </td>
+        <td class="courseList_td"><a href="https://www.youtube.com/embed/dQw4w9WgXcQ?si=aRfXakY7TbVQ_Tpt"
+                                     class="courseList_a">影片連結</a></td>
+        <td class="courseList_td"><img src="../images/delet.png" class="courseList_img"
+                                       style="width: 30px;height: 30px"></td>
+    </tr>
+</table>
+
+</body>
+</html>

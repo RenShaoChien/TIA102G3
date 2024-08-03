@@ -1,6 +1,7 @@
 package com.tia102g3.coachspecialty.model;
 
-import com.tia102g3.coach_member.model.CoachMemberVO;
+import com.tia102g3.basedao.ForeignKey;
+import com.tia102g3.coachmember.model.CoachMember;
 import com.tia102g3.sportevent.model.SportEvent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,8 +30,10 @@ public class CoachSpecialty {
     private Integer coachSpecialtyID;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cMemberID", nullable = false, referencedColumnName = "cMemberID")
-    private CoachMemberVO cMember;
+    @ForeignKey(targetEntity = CoachMember.class, keyField = "cMemberID")
+    private CoachMember cMember;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sportEventID", referencedColumnName = "sportEventID", nullable = false)
+    @ForeignKey(targetEntity = SportEvent.class, keyField = "sportEventID")
     private SportEvent sportEvent;
 }

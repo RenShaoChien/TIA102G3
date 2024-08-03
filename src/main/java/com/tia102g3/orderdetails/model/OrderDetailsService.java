@@ -1,5 +1,8 @@
 package com.tia102g3.orderdetails.model;
 
+import com.tia102g3.order.model.OrderVO;
+import com.tia102g3.product.model.ProductVO;
+
 import java.util.List;
 
 public class OrderDetailsService {
@@ -13,9 +16,9 @@ private OrderDetailsJDBCDAO dao;
 	
 		OrderDetailsVO orderDetailsVO = new OrderDetailsVO();
 		
-		orderDetailsVO.setProductID(productID);
+		orderDetailsVO.setProductVO(new ProductVO(productID));
 		orderDetailsVO.setQuantity(quantity);
-		orderDetailsVO.setOrderID(orderID);
+		orderDetailsVO.setOrderVO(new OrderVO(orderID));
 		dao.insert(orderDetailsVO);
 		
 		return orderDetailsVO;
@@ -26,9 +29,9 @@ private OrderDetailsJDBCDAO dao;
 		OrderDetailsVO orderDetailsVO = new OrderDetailsVO();
 		
 		orderDetailsVO.setOrdDtlID(ordDtlID);
-		orderDetailsVO.setProductID(productID);
+		orderDetailsVO.setProductVO(new ProductVO(productID));
 		orderDetailsVO.setQuantity(quantity);
-		orderDetailsVO.setOrderID(orderID);
+		orderDetailsVO.setOrderVO(new OrderVO(orderID));
 		dao.insert(orderDetailsVO);
 		
 		return orderDetailsVO;

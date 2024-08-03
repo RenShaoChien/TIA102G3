@@ -1,5 +1,7 @@
 package com.tia102g3.coachcertificate.model;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 /**

@@ -1,9 +1,14 @@
 package com.tia102g3.admin.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
-
+@Entity
+@Table(name = "admin_id")
 public class AdminVO implements Serializable{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "adminID")
 	private Integer adminID;
 	private String adminName ;
 	private String adminUserName;

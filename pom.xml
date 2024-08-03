@@ -10,14 +10,12 @@
         <version>2.7.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.tia102g3</groupId>
+    <groupId>TIA102G3</groupId>
     <artifactId>TIA102G3</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-
-    <name>TIA102G3 Maven Webapp</name>
-    <!-- FIXME change it to the project's website -->
-    <url>http://www.example.com</url>
+    <name>TIA102G3</name>
+    <description>TIA102G3</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

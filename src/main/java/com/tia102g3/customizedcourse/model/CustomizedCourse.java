@@ -1,6 +1,7 @@
 package com.tia102g3.customizedcourse.model;
 
-import com.tia102g3.member.model.MemberVO;
+import com.tia102g3.basedao.ForeignKey;
+import com.tia102g3.member.model.Member;
 import com.tia102g3.systemcourse.model.SystemCourse;
 import lombok.*;
 
@@ -29,8 +30,10 @@ public class CustomizedCourse {
     private Integer customizedCourseID;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "systemCourseID", nullable = false, referencedColumnName = "systemCourseID")
+    @ForeignKey(targetEntity = SystemCourse.class, keyField = "systemCourseID")
     private SystemCourse systemCourse;
-        @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberID", nullable = false, referencedColumnName = "memberID")
-    private MemberVO member;
+    @ForeignKey(targetEntity = Member.class, keyField = "memberID")
+    private Member member;
 }
