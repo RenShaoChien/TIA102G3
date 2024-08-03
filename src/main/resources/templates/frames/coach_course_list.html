@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>教練課程列表</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .course-list-container {
+            width: 60%;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .filters {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-button, .browse-button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .filter-button:hover, .browse-button:hover {
+            background-color: #0056b3;
+        }
+
+        .courses {
+            margin-top: 20px;
+        }
+
+        .course-item {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .course-name {
+            font-size: 16px;
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 10px;
+        }
+        a{
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+<div class="course-list-container">
+    <div class="filters">
+        <button class="filter-button" onclick="filterCourses('finished')">已結束</button>
+        <button class="filter-button" onclick="filterCourses('pending')">未審核</button>
+    </div>
+    <div class="courses">
+        <div class="course-item">
+            <span class="course-name"> ●教練：任少騫 ●課程：少騫拳擊 ●狀態：開課中</span>
+            <div class="course-actions">
+                <button class="browse-button"><a href="curr_coach_course.html">瀏覽</a></button>
+            </div>
+        </div>
+        <div class="course-item">
+            <span class="course-name">教練課程 B</span>
+            <div class="course-actions">
+                <button class="browse-button">瀏覽</button>
+            </div>
+        </div>
+        <!-- 更多課程项 -->
+    </div>
+</div>
+
+<script>
+    function filterCourses(status) {
+        // 在这里添加过滤逻辑
+        console.log("Filtering courses that are " + status);
+    }
+</script>
+</body>
+</html>

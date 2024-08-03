@@ -1,9 +1,9 @@
 package com.tia102g3.coachcourse.model;
 
 import com.tia102g3.basedao.ForeignKey;
+import com.tia102g3.coachcoursepic.model.CoachCoursePic;
 import com.tia102g3.coachmember.model.CoachMember;
 import com.tia102g3.courseorder.model.CourseOrder;
-import com.tia102g3.coachcoursepic.model.CoachCoursePic;
 import com.tia102g3.sportevent.model.SportEvent;
 import com.tia102g3.systemcourse.model.SystemCourseLevel;
 import lombok.*;
@@ -27,10 +27,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class CoachCourse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "coachCourseID")
+    @NonNull
     private Integer coachCourseID;
     @ManyToOne
     @JoinColumn(name = "cMemberID", referencedColumnName = "cMemberID", nullable = false)

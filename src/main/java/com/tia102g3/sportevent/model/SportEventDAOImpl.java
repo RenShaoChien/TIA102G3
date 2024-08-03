@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * ClassName： SportEventDAOImpl
@@ -55,5 +57,39 @@ public class SportEventDAOImpl extends BaseDAO<SportEvent> implements SportEvent
         Connection conn = jdbcUtils.getConnection();
         String sql = "select * from sport_event";
         return super.getForList(conn, sql);
+    }
+
+    @Override
+    public Set<String> selectSportEquipmentsSet() throws Exception {
+        Connection conn = jdbcUtils.getConnection();
+        String sql = "select sportEquipment from sport_event";
+        List<SportEvent> sportEvents = super.getForList(conn, sql);
+        Set<String> sportEquipmentSet = new HashSet<>();
+        for (SportEvent sportEvent : sportEvents) {
+            sportEquipmentSet.add(sportEvent.getSportEquipment());
+        }
+        return sportEquipmentSet;
+    }
+
+    @Override
+    public Set<SportEvent> selectSportEventsNameFromTypeSet(String type) throws Exception {
+        Connection conn = jdbcUtils.getConnection();
+        String sql = "select sportEventName from sport_event where sportTypes = ?";
+        Set<SportEvent> sportEventNamesSet = new HashSet<>();
+        List<SportEvent> result = super.getForList(conn, sql, type);
+        sportEventNamesSet.addAll(result);
+        return sportEventNamesSet;
+    }
+
+    @Override
+    public Set<SportEvent> selectSportEquipmentFromTypeSet(String sportType) throws Exception {
+        Connection conn = jdbcUtils.getConnection();
+        String sql = "select sportEquipment from sport_event where sportTypes = ?";
+        Set<SportEvent> sportEquipmentSet = new HashSet<>();
+        List<SportEvent> result = super.getForList(conn, sql, sportType);
+        for (SportEvent sportEvent : result) {
+            sportEquipmentSet.add(sportEvent);
+        }
+        return sportEquipmentSet;
     }
 }

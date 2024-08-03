@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Arrays;
 
 /**
  * ClassName： SystemCoursePic
@@ -33,5 +32,6 @@ public class SystemCoursePic {
     @ForeignKey(targetEntity = SystemCourse.class, keyField = "systemCourseID")
     private SystemCourse systemCourse;
     @Column(name = "pic", columnDefinition = "LONGBLOB")
+//    @NotEmpty(message="請上傳課程圖片")
     private byte[] pic;
 }

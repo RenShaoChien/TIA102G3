@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>系統課程管理</title>
+    <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
+    <style>
+        .middle-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+            margin: 0 30%;
+        }
+
+        .middle-content div {
+            display: flex;
+            align-items: center;
+        }
+
+        .middle-content label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            width: 150px;
+            flex-shrink: 0;
+        }
+
+        .middle-content input[type="button"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex-grow: 1;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .middle-content input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+
+        #function-description-editor textarea {
+            width: 100%;
+            min-height: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="middle-content">
+    <div class="radio-group">
+        <label>功能介紹：</label>
+        <input type="button" value="修改" onclick="toggleEditor('function-description-editor', 'submit-button1')">
+        <input type="button" id="submit-button1" value="提交" style="display: none;" onclick="submitChanges('function-description')" />
+    </div>
+</div>
+<div id="function-description-editor" style="display: none;">
+    <textarea id="function-description"></textarea>
+</div>
+<div class="middle-content">
+    <div class="radio-group">
+        <label>系統課程：</label>
+        <input id="systemCourseList" type="button" value="列表" onclick="navigateToSystemCourseList()">
+    </div>
+
+</div>
+<div class="middle-content">
+    <div class="radio-group">
+        <label>教練課程：</label>
+        <input id="coachCourseList" type="button" value="列表" onclick="navigateToCoachCourseList()">
+    </div>
+</div>
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- 引入jQuery庫 -->
+
+<script th:inline="javascript">
+    let editorInstance;
+
+    function toggleEditor(editorContainerId, submitButtonId) {
+        let $container = $('#' + editorContainerId);
+        let $submitButton = $('#' + submitButtonId);
+        let $button = $('input[onclick="toggleEditor(\'' + editorContainerId + '\', \'' + submitButtonId + '\')"]');
+
+        if ($container.is(':hidden')) {
+            $container.show();
+            $submitButton.show();
+            $button.val("取消");  // 更改按钮文本为 "取消"
+
+            if (!editorInstance) {
+                ClassicEditor
+                    .create(document.querySelector('#' + editorContainerId + ' textarea'))
+                    .then(editor => {
+                        editorInstance = editor;
+                    })
+                    .catch(error => {
+                        console.error('Error creating editor:', error);
+                    });
+            }
+        } else {
+            $container.hide();
+            $submitButton.hide();
+            $button.val("修改");  // 恢复按钮文本为 "修改"
+            if (editorInstance) {
+                editorInstance.destroy();
+                editorInstance = null;
+            }
+        }
+    }
+
+    function submitChanges(textareaId) {
+        let $textarea = $('#' + textareaId);
+        if (editorInstance) {
+            console.log(editorInstance.getData());
+            editorInstance.setData('');
+        }
+    }
+
+    function navigateToSystemCourseList() {
+        window.location.href = '/course/systemCourseList';
+    }
+    function navigateToCoachCourseList() {
+        window.location.href = '/course/coachCourseList';
+    }
+</script>
+
+</body>
+</html>

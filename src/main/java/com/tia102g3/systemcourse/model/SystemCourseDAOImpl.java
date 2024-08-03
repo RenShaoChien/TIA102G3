@@ -1,10 +1,7 @@
 package com.tia102g3.systemcourse.model;
 
-import com.utils.HibernateUtil;
-import com.utils.JDBCUtils;
 import com.tia102g3.basedao.BaseDAO;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import com.utils.JDBCUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,8 +24,8 @@ public class SystemCourseDAOImpl extends BaseDAO<SystemCourse> implements System
     @Override
     public int insertSystemCourse(SystemCourse systemCourse) throws Exception {
         Connection conn = jdbcUtils.getConnection();
-        String sql = "INSERT INTO system_course (courseName, sportEventID, courseLevel, burnCalories, rps, eachExerciseTime, sportTime, swp, illustrate, video) VALUES (?,?,?,?,?,?,?,?,?,?)";
-        return super.update(conn, sql, systemCourse.getCourseName(), systemCourse.getSportEvent().getSportEventID(), systemCourse.getCourseLevel(), systemCourse.getBurnCalories(), systemCourse.getRps(), systemCourse.getEachExerciseTime(), systemCourse.getSportTime(), systemCourse.getSwp(), systemCourse.getIllustrate(), systemCourse.getVideo());
+        String sql = "INSERT INTO system_course (courseName, sportEventName, sportTypes, sportEquipment, courseLevel, burnCalories, rps, eachExerciseTime, sportTime, swp, illustrate, video) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        return super.update(conn, sql, systemCourse.getCourseName(), systemCourse.getSportEventName(), systemCourse.getSportTypes(), systemCourse.getSportEquipment(), systemCourse.getCourseLevel(), systemCourse.getBurnCalories(), systemCourse.getRps(), systemCourse.getEachExerciseTime(), systemCourse.getSportTime(), systemCourse.getSwp(), systemCourse.getIllustrate(), systemCourse.getVideo());
     }
 
     @Override
@@ -41,8 +38,8 @@ public class SystemCourseDAOImpl extends BaseDAO<SystemCourse> implements System
     @Override
     public int updateSystemCourse(SystemCourse systemCourse) throws Exception {
         Connection conn = jdbcUtils.getConnection();
-        String sql = "UPDATE system_course SET courseName=?, sportEventID=?, courseLevel=?, burnCalories=?, rps=?, eachExerciseTime=?, sportTime=?, swp=?, illustrate=?, video=? WHERE systemCourseID=?";
-        return update(conn, sql, systemCourse.getCourseName(), systemCourse.getSportEvent().getSportEventID(), systemCourse.getCourseLevel(), systemCourse.getBurnCalories(), systemCourse.getRps(), systemCourse.getEachExerciseTime(), systemCourse.getSportTime(), systemCourse.getSwp(), systemCourse.getIllustrate(), systemCourse.getVideo(), systemCourse.getSystemCourseID());
+        String sql = "UPDATE system_course SET courseName=?, sportEventName=?, sportTypes=?, sportEquipment=?, courseLevel=?, burnCalories=?, rps=?, eachExerciseTime=?, sportTime=?, swp=?, illustrate=?, video=? WHERE systemCourseID=?";
+        return update(conn, sql, systemCourse.getCourseName(), systemCourse.getSportEventName(), systemCourse.getSportTypes(), systemCourse.getSportEquipment(), systemCourse.getCourseLevel(), systemCourse.getBurnCalories(), systemCourse.getRps(), systemCourse.getEachExerciseTime(), systemCourse.getSportTime(), systemCourse.getSwp(), systemCourse.getIllustrate(), systemCourse.getVideo(), systemCourse.getSystemCourseID());
     }
 
     @Override

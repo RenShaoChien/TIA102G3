@@ -13,29 +13,29 @@ public class HibernateUtil {
 		return sessionFactory;
 	}
 
-	private static SessionFactory createSessionFactory() {
-		try {
+    private static SessionFactory createSessionFactory() {
+        try {
 
-			registry = new StandardServiceRegistryBuilder()
-					.configure()
-					.build();
+            registry = new StandardServiceRegistryBuilder()
+                    .configure()
+                    .build();
 
-			SessionFactory sessionFactory = new MetadataSources(registry)
-					.buildMetadata()
-					.buildSessionFactory();
+            SessionFactory sessionFactory = new MetadataSources(registry)
+                    .buildMetadata()
+                    .buildSessionFactory();
 
-			return sessionFactory;
+            return sessionFactory;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new ExceptionInInitializerError(e);
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ExceptionInInitializerError(e);
+        }
 
-	}
+    }
 
-	public static void shutdown() {
-		if (registry != null)
-			StandardServiceRegistryBuilder.destroy(registry);
-	}
-	
+    public static void shutdown() {
+        if (registry != null)
+            StandardServiceRegistryBuilder.destroy(registry);
+    }
+
 }

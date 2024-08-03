@@ -2,6 +2,11 @@ package com.tia102g3.sportevent.service;
 
 import com.tia102g3.sportevent.model.SportEvent;
 import com.tia102g3.sportevent.model.SportEventDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * ClassName： SportEventServiceImpl
@@ -12,8 +17,10 @@ import com.tia102g3.sportevent.model.SportEventDAO;
  * @Create 2024/7/18 @{TIME}
  * @Version 1.0
  */
+@Service
 public class SportEventServiceImpl implements SportEventService {
 
+    @Autowired
     private SportEventDAO sportEventDAO;
 
     @Override
@@ -34,5 +41,25 @@ public class SportEventServiceImpl implements SportEventService {
     @Override
     public SportEvent getSportEventByID(Integer sportEventID) throws Exception {
         return sportEventDAO.selectSportEventByID(sportEventID);
+    }
+
+    @Override
+    public Set<String> getSportEquipmentsSet() throws Exception {
+        return sportEventDAO.selectSportEquipmentsSet();
+    }
+
+    @Override
+    public List<SportEvent> getSportEventsList() throws Exception {
+        return sportEventDAO.selectAllSportEvents();
+    }
+
+    @Override
+    public Set<SportEvent> getSportEventsFromTypeSet(String sprotType) throws Exception {
+        return sportEventDAO.selectSportEventsNameFromTypeSet(sprotType);
+    }
+
+    @Override
+    public Set<SportEvent> getSportEquipmentFromTypeSet(String sportType) throws Exception {
+        return sportEventDAO.selectSportEquipmentFromTypeSet(sportType);
     }
 }

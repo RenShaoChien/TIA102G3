@@ -1,10 +1,7 @@
 package com.tia102g3.coachcertificate.model;
 
 import com.tia102g3.basedao.BaseDAO;
-import com.utils.HibernateUtil;
 import com.utils.JDBCUtils;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +20,11 @@ import java.util.List;
 @Repository
 public class CoachCertificateDAOImpl extends BaseDAO<CoachCertificate> implements CoachCertificateDAO {
     @Autowired
-   private JDBCUtils jdbcUtils;
+    private JDBCUtils jdbcUtils;
+//
+//    @Autowired
+//    private SessionFactory sessionFactory;
+
     @Override
     public int insertCoachCertificate(CoachCertificate coachCertificate) throws Exception {
         Connection conn = jdbcUtils.getConnection();
@@ -31,6 +32,7 @@ public class CoachCertificateDAOImpl extends BaseDAO<CoachCertificate> implement
         int result = update(conn, sql, coachCertificate.getCMember().getCMemberID(), coachCertificate.getCertificateName(), coachCertificate.getCertificatePic());
         return result;
     }
+
 
     @Override
     public int updateCoachCertificate(CoachCertificate coachCertificate) throws Exception {

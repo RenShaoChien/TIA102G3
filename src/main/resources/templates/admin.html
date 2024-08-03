@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-hant" xmlns:th="http://www.thymeleaf.org"> <!-- 設定文件類型和語言為繁體中文 -->
+
+<head>
+    <meta charset="UTF-8"> <!-- 設定字符編碼為UTF-8 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 設定視窗寬度以適應裝置寬度 -->
+    <title>Document</title> <!-- 設定文件標題 -->
+    <style>
+        * {
+            box-sizing: border-box; /* 設定所有元素的box-sizing為border-box，包含邊框和內邊距 */
+        }
+
+        body {
+            margin: 0; /* 設定body的邊距為0 */
+        }
+
+        img {
+            max-width: 100%; /* 設定圖片的最大寬度為100%，保持圖片比例 */
+        }
+
+        html {
+            --header-height: 100px; /* 定義CSS變數：header的高度為60px */
+            --aside-width: 240px; /* 定義CSS變數：側邊欄的寬度為240px */
+        }
+
+        button.btn_hamburger {
+            display: none; /* 設定漢堡按鈕默認為隱藏 */
+        }
+
+        @media (max-width: 767.98px) {
+            button.btn_hamburger {
+                display: inline-block !important; /* 當視窗寬度小於767.98px時顯示漢堡按鈕 */
+            }
+        }
+
+        /* ==============header區域====================== */
+        header.header {
+            border: 1px solid #e2ffeb; /* 設定header邊框為黑色實線 */
+            background-color: #e2ffeb; /* 設定header背景顏色為淺灰色 */
+            height: var(--header-height); /* 使用CSS變數設置header的高度 */
+            position: sticky; /* 設定header為粘性定位 */
+            top: 0; /* 設定header在頂部 */
+        }
+
+        /* ===============aside區域===================== */
+        aside.aside {
+            border: 1px solid #d7f5ff; /* 設定aside邊框為藍色實線 */
+            background-color: #d7f5ff; /* 設定aside背景顏色為淺藍色 */
+            width: var(--aside-width); /* 使用CSS變數設置aside的寬度 */
+            position: fixed; /* 設定aside為固定定位 */
+            top: var(--header-height); /* 設定aside頂部位置為header的高度 */
+            left: 0; /* 設定aside左側位置為0 */
+            height: calc(100% - var(--header-height)); /* 設定aside高度為視窗高度減去header的高度 */
+            overflow-y: auto; /* 設定aside的垂直溢出為自動 */
+            padding: 20px 0; /* 設定aside的內邊距為上下20px，左右0 */
+        }
+
+        aside.aside nav.nav {
+            border: 0px solid ; /* 設定nav邊框為0 */
+        }
+
+        aside.aside nav.nav ul.nav_list {
+            border: 0px solid ; /* 設定ul邊框為0 */
+            list-style: none; /* 移除ul的列表樣式 */
+            padding: 0; /* 設定ul的內邊距為0 */
+            margin: 0; /* 設定ul的外邊距為0 */
+        }
+
+        aside.aside nav.nav ul.nav_list > li {
+            border: 0px solid ; /* 設定li邊框為0 */
+        }
+
+        aside.aside nav.nav ul.nav_list > li a {
+            border: 0px solid ; /* 設定a邊框為白色實線 */
+            display: block; /* 設定a為塊級元素 */
+            text-decoration: none; /* 移除a的下劃線 */
+            text-align: center; /* 設定a的文字居中對齊 */
+            padding: 5px 0; /* 設定a的內邊距為上下5px，左右0 */
+        }
+
+        @media (max-width: 767.98px) {
+            aside.aside {
+                top: 0; /* 當視窗寬度小於767.98px時設置aside頂部位置為0 */
+                height: 100%; /* 設置aside高度為100% */
+                transform: translateX(-100%); /* 將aside移出視窗 */
+                transition: all 1s; /* 設置所有過渡效果為1秒 */
+            }
+
+            aside.aside.-on {
+                transform: translateX(0%); /* 當aside有-on類時將其移回視窗 */
+            }
+        }
+
+        /* ==============main區域============================ */
+        main.main {
+            border: 1px solid #FFFFFF; /* 設定main邊框為紅色實線 */
+            background-color: #ffffff; /* 設定main背景顏色為橙色 */
+            width: calc(100% - var(--aside-width)); /* 設定main的寬度為視窗寬度減去aside的寬度 */
+            margin-left: var(--aside-width); /* 設定main左側外邊距為aside的寬度 */
+            min-height: calc(100vh - var(--header-height)); /* 設定main的最小高度為視窗高度減去header的高度 */
+            padding: 20px; /* 設定main的內邊距為20px */
+        }
+
+        main.main ul.item_list {
+            border: 0px solid ; /* 設定ul邊框為0 */
+            list-style: none; /* 移除ul的列表樣式 */
+            padding: 0; /* 設定ul的內邊距為0 */
+            margin: 0; /* 設定ul的外邊距為0 */
+            display: flex; /* 使用Flexbox進行佈局 */
+            flex-wrap: wrap; /* 允許換行 */
+        }
+
+        main.main ul.item_list > li {
+            border: 0px solid ; /* 設定li邊框為紅色實線 */
+            width: calc((100% - 60px) / 4); /* 設定li的寬度為視窗寬度減去60px，再除以4 */
+            margin-right: 20px; /* 設定li右側外邊距為20px */
+            margin-bottom: 20px; /* 設定li下側外邊距為20px */
+        }
+
+        main.main ul.item_list > li:nth-child(4n) {
+            margin-right: 0; /* 設定每4個li的右側外邊距為0 */
+        }
+
+        main.main ul.item_list > li a {
+            display: block; /* 設定a為塊級元素 */
+            border: 0px solid white; /* 設定a邊框為白色實線 */
+            text-decoration: none; /* 移除a的下劃線 */
+        }
+
+        main.main ul.item_list > li a div.img_block {
+            border: 0px solid ; /* 設定div邊框為黑色實線 */
+            font-size: 0; /* 設定div字體大小為0 */
+        }
+
+        main.main ul.item_list > li a span.item_text {
+            display: block; /* 設定span為塊級元素 */
+            border: 0px solid ; /* 設定span邊框為綠色實線 */
+            white-space: nowrap; /* 禁止文本換行 */
+            overflow: hidden; /* 隱藏溢出的內容 */
+            text-overflow: ellipsis; /* 添加省略號 */
+        }
+
+        @media (max-width: 767.98px) {
+            main.main {
+                margin-left: 0; /* 當視窗寬度小於767.98px時設置main左側外邊距為0 */
+                width: 100%; /* 設置main寬度為100% */
+            }
+
+            main.main ul.item_list > li {
+                width: calc((100% - 20px) / 2); /* 設定li的寬度為視窗寬度減去20px，再除以2 */
+            }
+
+            main.main ul.item_list > li:nth-child(2n) {
+                margin-right: 0; /* 設定每2個li的右側外邊距為0 */
+            }
+        }
+    </style>
+</head>
+
+<body>
+<header class="header"> <!-- header區域，包含標題和按鈕 -->
+    <button type="button" class="btn_hamburger">按鈕</button> <!-- 設定漢堡按鈕 -->
+    <h1><div id="pageTitle">後台管理中心</div></h1>
+</header>
+<aside class="aside"> <!-- aside區域，包含導航連結 -->
+    <button type="button" class="btn_hamburger">按鈕</button> <!-- 設定漢堡按鈕 -->
+    <nav class="nav"> <!-- nav區域，包含列表 -->
+        <ul class="nav_list"> <!-- 未排序列表 -->
+            <li>管理員：任少騫</li>
+            <li><a href="#">會員管理</a></li> <!-- 設定列表項和連結 -->
+            <li><a href="#">教練管理</a></li> <!-- 設定列表項和連結 -->
+            <li><a th:href="@{/course/enter}">課程管理</a></li> <!-- 設定列表項和連結 -->
+            <li><a href="#">客製化菜單</a></li> <!-- 設定列表項和連結 -->
+            <li><a href="#">商品管理</a></li> <!-- 設定列表項和連結 -->
+            <li><a href="#">訂單管理</a></li> <!-- 設定列表項和連結 -->
+            <li><a href="#">客服管理中心</a></li> <!-- 設定列表項和連結 -->
+            <li><a href="#">登出</a></li> <!-- 設定列表項和連結 -->
+        </ul>
+    </nav>
+</aside>
+<main class="main"> <!-- main區域，包含影片列表 -->
+
+
+
+    <iframe id="contentFrame" style="width:100%; height:90vh; border:none;"></iframe>
+
+
+</main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- 引入jQuery庫 -->
+<script>
+    $(function () {
+        $("button.btn_hamburger").on("click", function () {
+            $("aside.aside").toggleClass("-on"); /* 當按下漢堡按鈕時，切換aside的-on類 */
+        });
+        // 綁定點擊事件到aside的連結
+        $("aside.aside a").on("click", function (e) {
+            e.preventDefault(); // 防止連結默認的跳轉行為
+            var page = $(this).attr('href'); // 獲取連結的href屬性值
+            $("#contentFrame").attr('src', page); // 設定iframe的src
+            var pageTitle = $(this).text(); // 獲取被點擊的連結文本
+            $("#pageTitle").text(pageTitle); // 更新 header 文本
+
+        });
+    });
+</script>
+</body>
+
+</html>

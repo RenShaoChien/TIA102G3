@@ -1,25 +1,13 @@
 package com;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
-
-//import com.dept.model.DeptService;
-//import com.dept.model.DeptVO;
-//import com.emp.model.EmpService;
-//import com.emp.model.EmpVO;
-//import com.tia102g3.food.model.FoodService;
-//import com.tia102g3.food.model.FoodVO;
-import java.util.*;
 
 
 
 //@PropertySource("classpath:application.properties") // 於https://start.spring.io建立Spring Boot專案時, application.properties文件預設已經放在我們的src/main/resources 目錄中，它會被自動檢測到
-@Controller
+//@Controller
 public class IndexController_inSpringBoot {
 	
 	// @Autowired (●自動裝配)(Spring ORM 課程)

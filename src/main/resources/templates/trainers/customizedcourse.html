@@ -1,0 +1,274 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-hant">
+<head>
+    <title>客製化課程選單</title>
+    <link th:href="@{/css/bootstrap.css}" rel='stylesheet' type='text/css'/>
+    <link th:href="@{/css/style.css}" rel='stylesheet' type='text/css'/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <!-- grid-slider -->
+    <script type="text/javascript" th:src="@{/js/jquery.mousewheel.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.contentcarousel.js}"></script>
+    <!-- //grid-slider -->
+    <!---calender-style---->
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.css}"/>
+    <!---//calender-style---->
+    <style>
+        .scroll-to-top-btn {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        /* 中間內容區域的樣式 */
+        .middle-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* 各部分之間的間距 */
+            padding: 20px;
+            box-sizing: border-box;
+            margin: 0 30%; /* 左右邊距各15% */
+        }
+
+        .middle-content div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .middle-content label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .middle-content select,
+        .middle-content input,
+        .middle-content button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .middle-content button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            width: 30%; /* 按鈕寬度設置為現在的30% */
+            align-self: center; /* 將按鈕置中 */
+        }
+
+        .middle-content button:hover {
+            background-color: #0056b3;
+        }
+
+        .radio-group {
+            display: flex; /* 强制使用 flex 排列 */
+            flex-direction: row !important; /* 强制改为左右排列 */
+            gap: 20px; /* 强制使用 5px 的间距 */
+            flex-wrap: wrap; /* 强制在空间不足时换行 */
+        }
+
+        .radio-group label {
+            display: flex; /* 强制让标籤与 radio 保持在一行 */
+            align-items: center; /* 强制垂直置中 */
+        }
+
+        /* 在視窗變窄時，選項上下排列 */
+        @media (max-width: 768px) {
+            .radio-group {
+                flex-direction: column; /* 强制改为上下排列 */
+                gap: 5px; /* 强制使用 5px 的间距 */
+            }
+        }
+
+    </style>
+</head>
+<body>
+<button onclick="scrollToTop()" class="scroll-to-top-btn">Top</button>
+<!-- start header_bottom -->
+<div class="header-bottom">
+    <div class="container">
+        <div class="header-bottom_left">
+            <i class="phone"> </i><span>1-200-346-2986</span>
+        </div>
+        <div class="social">
+            <ul>
+                <li class="facebook"><a href="#"><span> </span></a></li>
+                <li class="twitter"><a href="#"><span> </span></a></li>
+                <li class="pinterest"><a href="#"><span> </span></a></li>
+                <li class="google"><a href="#"><span> </span></a></li>
+                <li class="tumblr"><a href="#"><span> </span></a></li>
+                <li class="instagram"><a href="#"><span> </span></a></li>
+                <li class="rss"><a href="#"><span> </span></a></li>
+            </ul>
+        </div>
+        <div class="clear "></div>
+    </div>
+</div>
+<!-- start menu -->
+<div class="menu">
+
+    <div class="container">
+        <div class="logo">
+            <a th:href="@{/}"><img th:src="@{/images/logo.png}" alt=""/></a>
+        </div>
+        <div class="h_menu4"><!-- start h_menu4 -->
+            <a class="toggleMenu" href="#">Menu</a>
+            <ul class="nav">
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li class="active"><a th:href="@{/trainers}">專屬你的訓練</a></li>
+                <li><a href="../classes.html">Classes</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="../pricing.html">Pricing</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+            <script type="text/javascript" th:src="@{/js/nav.js}"></script>
+        </div><!-- end h_menu4 -->
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- end menu -->
+
+
+<!-- 中間內容區域 -->
+<form method="post" th:action="@{/customizedcourse/soul}">
+    <div class="middle-content">
+        <div>
+            <label>運動種類：</label>
+            <div class="radio-group">
+                <label><input type="radio" name="sportTypes" th:value="心肺運動" checked> 心肺運動</label>
+                <label><input type="radio" name="sportTypes" th:value="重量訓練"> 重量訓練</label>
+            </div>
+        </div>
+        <div>
+            <label for="exercise-item">運動器材：</label>
+            <select id="exercise-item" name="sportEquipment">
+                <option th:each="sportEquipment : ${sportEquipmentSet}" th:value="${sportEquipment}"
+                        th:text="${sportEquipment}">徒手
+                </option>
+            </select>
+        </div>
+        <div>
+            <label for="exercise-item1">運動項目：</label>
+            <select id="exercise-item1" name="sportEventName">
+                <option value="option1">選擇</option>
+                <option value="option2">選項 1</option>
+                <option value="option3">選項 2</option>
+            </select>
+        </div>
+        <div>
+            <label for="target-area">想訓練的部位：</label>
+            <input type="text" id="target-area" name="target-area" placeholder="臀部">
+        </div>
+        <div>
+            <label for="level">運動等級：</label>
+            <select id="level" name="courseLevel">
+                <option value="EASY">初級</option>
+                <option value="MEDIUM">中級</option>
+                <option value="HARD">高級</option>
+                <option value="VERY_HARD">最高級</option>
+            </select>
+        </div>
+        <div>
+            <label for="loseWeight">目標減掉幾公斤</label>
+            <input type="text" id="loseWeight" name="loseWeight" placeholder="5公斤 ">
+        </div>
+        <div>
+            <a href="customizedresult.html"><input type="button" value="完成填寫"></a>
+        </div>
+    </div>
+</form>
+
+
+<!-- start footer -->
+<div class="footer-bottom">
+    <div class="container">
+        <div class="row section group">
+            <div class="col-md-4">
+                <div class="social"
+                     style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
+                    <img th:src="@{/images/cutecatloge.png}" style="width: 100%; height: 100%"/>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="f-logo">
+                    <h1>健肌尋食</h1>
+                </div>
+                <p class="m_9">
+                    「健肌尋食」是一個簡單的概念，意思是通過運動來增強肌肉，同時尋找健康的食物來補充營養，這樣可以讓我們的身體更強壯，生活更健康愉快。</p>
+                <p class="address">Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02) 3333 4444</span>
+                </p>
+                <p class="address">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <ul class="list">
+                    <h4 class="m_7">關於我們</h4>
+                    <li><a href="#">隱私權政策</a></li>
+                    <li><a href="#">著作權聲明</a></li>
+                    <li><a href="#">聯絡我們</a></li>
+                </ul>
+                <ul class="list1">
+                    <h4 class="m_7">相關網站</h4>
+                    <li><a href="https:/www.google.com">google</a></li>
+                    <li><a href="https:/www.youtube.com">youtube</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<div class="copyright">
+    <div class="container">
+        <div class="copy">
+            <p>Copyright © 2024 健肌尋食 by TIA102G3</p>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function scrollToTop() {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    $(".btn_modal").on("click", function () {
+        $("#lightbox").fadeIn(1000);
+    });
+
+
+    $(".btn_modal_close, #lightbox").on("click", function () {
+        $("#lightbox").fadeOut(1000);
+    });
+
+    $("#lightbox > article").on("click", function (e) {
+        e.stopPropagation();
+    });
+
+</script>
+</body>
+</html>

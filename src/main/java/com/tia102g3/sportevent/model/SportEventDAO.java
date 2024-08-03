@@ -1,6 +1,7 @@
 package com.tia102g3.sportevent.model;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * ClassName： SportEventDAO
@@ -22,4 +23,10 @@ public interface SportEventDAO {
     SportEvent selectSportEventByID(Integer sportEventID) throws Exception;
 
     List<SportEvent> selectAllSportEvents() throws Exception;
+
+    Set<String> selectSportEquipmentsSet() throws Exception;
+
+    Set<SportEvent> selectSportEventsNameFromTypeSet(String type) throws Exception;
+
+    Set<SportEvent> selectSportEquipmentFromTypeSet(String sportType) throws Exception;
 }

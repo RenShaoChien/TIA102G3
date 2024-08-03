@@ -2,6 +2,8 @@ package com.tia102g3.systemcourse.service;
 
 import com.tia102g3.systemcourse.model.SystemCourse;
 
+import java.util.List;
+
 /**
  * ClassName： SystemCourseService
  * package：com.tia102g3.systemcourse.service
@@ -41,4 +43,5 @@ public interface SystemCourseService {
      */
     SystemCourse getSystemCourseById(Integer systemCourseID) throws Exception;
 
+    List<SystemCourse> getAllSystemCoursesList() throws Exception;
 }
