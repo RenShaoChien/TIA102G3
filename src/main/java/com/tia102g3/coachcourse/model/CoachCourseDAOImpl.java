@@ -1,12 +1,9 @@
 package com.tia102g3.coachcourse.model;
 
+import com.tia102g3.basedao.BaseDAO;
 import com.tia102g3.coachmember.model.CoachMember;
 import com.tia102g3.sportevent.model.SportEvent;
-import com.utils.HibernateUtil;
 import com.utils.JDBCUtils;
-import com.tia102g3.basedao.BaseDAO;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -35,9 +32,9 @@ public class CoachCourseDAOImpl extends BaseDAO<CoachCourse> implements CoachCou
                 "classStartTime, classEndTime, cMemberID, courseName, courseLevel, courseStartDate, courseEndDate, noOfClasses, maxCap, status, sportEventID, coursePrice) " +
                 "values(?,?,?,?,?,?,?,?,?,?,?,?)";
         return super.update(
-                conn, sql, coachCourse.getClassStartTime(), coachCourse.getClassEndTime(), coachCourse.getCMember().getCMemberID(), coachCourse.getCourseName(), coachCourse.getCourseLevel(),
+                conn, sql, coachCourse.getClassStartTime(), coachCourse.getClassEndTime(), coachCourse.getCMember().getCMemberID(), coachCourse.getCourseName(), coachCourse.getCourseLevel().getLevel(),
                 coachCourse.getCourseStartDate(), coachCourse.getCourseEndDate(), coachCourse.getNoOfClasses(), coachCourse.getMaxCap(),
-                coachCourse.getStatus(), coachCourse.getSportEvent().getSportEventID(), coachCourse.getCoursePrice()
+                coachCourse.getStatus().getStatus(), coachCourse.getSportEvent().getSportEventID(), coachCourse.getCoursePrice()
         );
     }
 
@@ -50,8 +47,8 @@ public class CoachCourseDAOImpl extends BaseDAO<CoachCourse> implements CoachCou
                 "where coachCourseID=?";
 
         return super.update(
-                conn, sql, coachCourse.getClassStartTime(), coachCourse.getClassEndTime(), coachCourse.getCMember().getCMemberID(), coachCourse.getCourseName(), coachCourse.getCourseLevel(), coachCourse.getCourseStartDate(), coachCourse.getCourseEndDate(),
-                coachCourse.getNoOfClasses(), coachCourse.getMaxCap(), coachCourse.getStatus(), coachCourse.getSportEvent().getSportEventID(), coachCourse.getCoursePrice(),
+                conn, sql, coachCourse.getClassStartTime(), coachCourse.getClassEndTime(), coachCourse.getCMember().getCMemberID(), coachCourse.getCourseName(), coachCourse.getCourseLevel().getLevel(), coachCourse.getCourseStartDate(), coachCourse.getCourseEndDate(),
+                coachCourse.getNoOfClasses(), coachCourse.getMaxCap(), coachCourse.getStatus().getStatus(), coachCourse.getSportEvent().getSportEventID(), coachCourse.getCoursePrice(),
                 coachCourse.getCoachCourseID()
         );
     }

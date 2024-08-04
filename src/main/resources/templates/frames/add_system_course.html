@@ -106,13 +106,14 @@
 <div class="form-container">
     <h2>新增系統課程</h2>
 
-<!--    <div th:if="${errorMessage}" class="errorblock" th:utext="${errorMessage}"></div>-->
+    <!-- 顯示錯誤信息 -->
+    <div th:if="${errorMessage}" class="errorblock" th:utext="${errorMessage}"></div>
 
     <form th:action="@{/course/addSystemCourse.do}" method="post" th:object="${systemCourse}">
         <div class="form-field">
             <label>課程名稱：</label>
-            <input type="text" th:field="*{courseName}" placeholder="輸入課程名稱" onclick="hideContent('courseName.errors');">
-            <span class="error" th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}" id="courseName.errors"></span>
+            <input type="text" th:field="*{courseName}" placeholder="輸入課程名稱" onclick="hideContent('courseName.errors');"><br/>
+            <span th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}" class="error" id="courseName.errors"></span>
         </div>
         <div class="form-field">
             <label>運動項目類型：</label>
@@ -120,7 +121,7 @@
                 <option value=""></option>
                 <option value="心肺運動">心肺訓練</option>
                 <option value="重量運動">重量訓練</option>
-            </select>
+            </select><br/>
             <span class="error" th:if="${#fields.hasErrors('sportTypes')}" th:errors="*{sportTypes}" id="sportTypes.errors"></span>
 
         </div>
@@ -128,7 +129,7 @@
             <label>關聯性運動：</label>
             <select id="sportEventName" th:field="*{sportEventName}" onclick="hideContent('sportEventName.errors');">
                 <option value="">請選擇運動項目類型</option>
-            </select>
+            </select><br/>
             <span class="error" th:if="${#fields.hasErrors('sportEventName')}" th:errors="*{sportEventName}" id="sportEventName.errors"></span>
 
         </div>
@@ -136,7 +137,7 @@
             <label>運動器材：</label>
             <select id="sportEquipment" th:field="*{sportEquipment}" onclick="hideContent('sportEquipment.errors');">
                 <option value="">請選擇運動項目類型</option>
-            </select>
+            </select><br/>
             <span class="error" th:if="${#fields.hasErrors('sportEquipment')}" th:errors="*{sportEquipment}" id="sportEquipment.errors"></span>
 
         </div>
@@ -147,13 +148,13 @@
                 <option value="MEDIUM">MEDIUM</option>
                 <option value="HARD">HARD</option>
                 <option value="VERY_HARD">VERY_HARD</option>
-            </select>
+            </select><br/>
             <span class="error" th:if="${#fields.hasErrors('courseLevel')}" th:errors="*{courseLevel}" id="courseLevel.errors"></span>
 
         </div>
         <div class="form-field">
             <label>消耗熱量：</label>
-            <input type="text" th:field="*{burnCalories}" placeholder="請輸入卡路里的消耗" onclick="hideContent('burnCalories.errors');">
+            <input type="text" th:field="*{burnCalories}" placeholder="請輸入卡路里的消耗" onclick="hideContent('burnCalories.errors');"><br/>
             <span class="error" th:if="${#fields.hasErrors('burnCalories')}" th:errors="*{burnCalories}" id="burnCalories.errors"></span>
         </div>
         <div class="form-field">
@@ -164,7 +165,7 @@
                 <option value="10">10次</option>
                 <option value="15">15次</option>
                 <option value="20">20次</option>
-            </select>
+            </select><br/>
             <span class="error" th:if="${#fields.hasErrors('rps')}" th:errors="*{rps}" id="rps.errors"></span>
         </div>
         <div class="form-field">
@@ -175,23 +176,23 @@
                 <option value="5">5次</option>
                 <option value="7">7次</option>
                 <option value="9">9次</option>
-            </select>
+            </select><br/>
             <span class="error" th:if="${#fields.hasErrors('swp')}" th:errors="*{swp}" id="swp.errors"></span>
 
         </div>
         <div class="form-field">
             <label>建議每組運動時數：</label>
-            <input type="text" th:field="*{eachExerciseTime}" placeholder="例如 '30分鐘'" onclick="hideContent('eachExerciseTime.errors');">
+            <input type="text" th:field="*{eachExerciseTime}" placeholder="例如 '30分鐘'" onclick="hideContent('eachExerciseTime.errors');"><br/>
             <span class="error" th:if="${#fields.hasErrors('eachExerciseTime')}" th:errors="*{eachExerciseTime}" id="eachExerciseTime.errors"></span>
         </div>
         <div class="form-field">
             <label>建議運動總時數：</label>
-            <input type="text" th:field="*{sportTime}" placeholder="例如 '2小時' 或 '30分鐘'" onclick="hideContent('sportTime.errors');">
+            <input type="text" th:field="*{sportTime}" placeholder="例如 '2小時' 或 '30分鐘'" onclick="hideContent('sportTime.errors');"><br/>
             <span class="error" th:if="${#fields.hasErrors('sportTime')}" th:errors="*{sportTime}" id="sportTime.errors"></span>
         </div>
         <div class="form-field">
             <label>說明：</label>
-            <textarea th:field="*{illustrate}" cols="auto" rows="auto" onclick="hideContent('illustrate.errors');"></textarea>
+            <textarea th:field="*{illustrate}" cols="auto" rows="auto" onclick="hideContent('illustrate.errors');"></textarea><br/>
             <span class="error" th:if="${#fields.hasErrors('illustrate')}" th:errors="*{illustrate}" id="illustrate.errors"></span>
         </div>
 <!--                <div class="form-field">-->
@@ -202,7 +203,7 @@
 <!--                </div>-->
         <div class="form-field">
             <label>課程影片連結：</label>
-            <input type="text" th:field="*{video}" placeholder="輸入影片URL" onclick="hideContent('video.errors');">
+            <input type="text" th:field="*{video}" placeholder="輸入影片URL" onclick="hideContent('video.errors');"><br/>
             <span class="error" th:if="${#fields.hasErrors('video')}" th:errors="*{video}" id="video.errors"></span>
         </div>
         <input type="submit" value="新增">
@@ -212,9 +213,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
-    //清除提示信息
-    function hideContent(d) {
-        document.getElementById(d).style.display = "none";
+    // 清除提示信息
+    function hideContent(id) {
+        document.getElementById(id).style.display = "none";
     }
 </script>
 <script th:inline="javascript">
