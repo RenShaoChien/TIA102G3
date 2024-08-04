@@ -61,9 +61,11 @@
 </head>
 <body>
 <div>
-    <div class="courseList_header">系統課程列表</div>
+    <div class="courseList_header">系統課程列表
+        <span th:text="${success}"></span>
+    </div>
     <div style="border: 0px solid red ; width: 60%; margin-left: auto; margin-bottom: 4px; text-align: right; ">
-        <form th:action="@{/fruit.do}" method="post" style="float: right">
+        <form action="#" method="post" style="float: right">
             <input type="hidden" name="oper" value="search">
             <input type="text" name="keyword" th:value="${session.keyword}" placeholder="請輸入查詢關鍵字...">
             <button type="submit" class="btn">查詢</button>
@@ -77,6 +79,8 @@
         <th class="courseList_th">編號</th>
         <th class="courseList_th">課程名稱</th>
         <th class="courseList_th">運動項目</th>
+        <th class="courseList_th">運動種類</th>
+        <th class="courseList_th">運動器材</th>
         <th class="courseList_th">課程等級</th>
         <th class="courseList_th">消耗熱量</th>
         <th class="courseList_th">每組次數</th>
@@ -87,22 +91,24 @@
         <th class="courseList_th">影片連結</th>
         <th class="courseList_th">操作</th>
     </tr>
-    <tr class="courseList_tr">
-        <td class="courseList_td">1</td>
-        <td class="courseList_td">運動百日遊記</td>
-        <td class="courseList_td">運動</td>
-        <td class="courseList_td">初級</td>
-        <td class="courseList_td">1500</td>
-        <td class="courseList_td">2</td>
-        <td class="courseList_td">10</td>
-        <td class="courseList_td">1</td>
-        <td class="courseList_td">10</td>
-        <td class="courseList_td">
-            運動百日遊記是一套運動百日遊記，包含了10個運動項目，每個項目可以組成10組，每組可以組成10項目，每個項目可以運動10次。
-        </td>
-        <td class="courseList_td"><a href="https://www.youtube.com/embed/dQw4w9WgXcQ?si=aRfXakY7TbVQ_Tpt"
-                                     class="courseList_a">影片連結</a></td>
-        <td class="courseList_td"><img src="../images/delet.png" class="courseList_img"
+    <tr th:if="${#lists.isEmpty(session.systemCourses)}">
+        <td colspan="14">對不起，查無符合的課程!</td>
+    </tr>
+    <tr class="courseList_tr" th:unless="${#lists.isEmpty(session.systemCourses)}" th:each="systemCourse : ${session.systemCourses}" th:object="${systemCourse}">
+        <td class="courseList_td" th:text="*{systemCourseID}">1</td>
+        <td class="courseList_td" th:text="*{courseName}">運動百日遊記</td>
+        <td class="courseList_td" th:text="*{sportEventName}">運動</td>
+        <td class="courseList_td" th:text="*{sportTypes}"></td>
+        <td class="courseList_td" th:text="*{sportEquipment}"></td>
+        <td class="courseList_td" th:text="*{courseLevel}"></td>
+        <td class="courseList_td" th:text="*{burnCalories}"></td>
+        <td class="courseList_td" th:text="*{rps}"></td>
+        <td class="courseList_td" th:text="*{swp}"></td>
+        <td class="courseList_td" th:text="*{eachExerciseTime}"></td>
+        <td class="courseList_td" th:text="*{sportTime}"></td>
+        <td class="courseList_td" th:text="*{illustrate}"></td>
+        <td class="courseList_td" th:utext="${"|<iframe width='560' height='315' src='*{video}  ' frameborder=\'0\' allow=\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\' allowfullscreen></iframe>|'}"></td>
+        <td class="courseList_td"><img th:src="@{images/delet.png}" class="courseList_img"
                                        style="width: 30px;height: 30px"></td>
     </tr>
 </table>

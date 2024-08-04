@@ -7,10 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.util.List;
 
 /**
@@ -31,11 +27,9 @@ public class SystemCourse implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "systemCourseID")
     private Integer systemCourseID;
 
-    @Column(name = "courseName")
-    @NotBlank(message = "請輸入系統課程名稱")
+    @Column(name = "courseName", length = 50)
     private String courseName;
 
 //    @ManyToOne
@@ -43,46 +37,28 @@ public class SystemCourse implements java.io.Serializable {
 //    @ForeignKey(targetEntity = SportEvent.class, keyField = "sportEventID")
 //    private SportEvent sportEvent;
 
-    @NotBlank(message = "請選擇運動項目")
     private String sportEventName;
 
-    @NotBlank(message = "請選擇運動項目")
     private String sportTypes;
 
-    @NotBlank(message = "請選擇運動器材")
     private String sportEquipment;
 
-    @Column(name = "courseLevel")
     @Enumerated(EnumType.ORDINAL)
+    @Column(name = "courseLevel")
     private SystemCourseLevel courseLevel;
 
-    @Column(name = "burnCalories")
-    @NotNull(message = "不能空白")
-    @Digits(integer = 3, fraction = 0, message = "只能輸入數字")
     private Integer burnCalories;
 
-    @Column(name = "rps")
-    @Digits(integer = 3, fraction = 0, message = "只能輸入數字")
     private Integer rps;
 
-    @Column(name = "eachExerciseTime")
-    @Pattern(regexp = "^\\d+分鐘$", message = "請輸入有效的分鐘數，例如 '30分鐘'")
     private String eachExerciseTime;
 
-    @Column(name = "sportTime")
-    @Pattern(regexp = "^\\d+(小時|分鐘)$", message = "請輸入有效的時間，例如 '2小時' 或 '30分鐘'")
     private String sportTime;
 
-    @Column(name = "swp")
-    @Digits(integer = 3, fraction = 0, message = "只能輸入數字")
     private Integer swp;
 
-    @Column(name = "illustrate", length = 10000)
-    @NotBlank(message = "請輸入運動說明")
     private String illustrate;
 
-    @Column(name = "video", length = 500)
-    @Pattern(regexp = "^http.*$", message = "請輸入以 'http' 開頭的有效網址")
     private String video;
 
 

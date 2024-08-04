@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
@@ -51,8 +52,10 @@ public class SystemCourseManagement {
         return "frames/system_course_management";
     }
 
-    @GetMapping("/systemCourseList"  )
-    public String systemCourseList(Model model){
+    @GetMapping("/systemCourseList")
+    public String systemCourseList(Model model, HttpSession session) throws Exception {
+        List<SystemCourse> allSystemCoursesList = systemCourseService.getAllSystemCoursesList();
+        session.setAttribute("systemCourses", allSystemCoursesList);
         return "frames/system_course_list";
     }
 
@@ -82,7 +85,7 @@ public class SystemCourseManagement {
 
 
     @PostMapping("/addSystemCourse.do")
-    public String addSystemCourse(ModelMap model, @Valid SystemCourse systemCourse, BindingResult result) throws Exception {
+    public String addSystemCourse(ModelMap model, @Valid SystemCourse systemCourse, BindingResult result, HttpSession session) throws Exception {
         if (result.hasErrors()) {
             return "frames/add_system_course";
         }
@@ -90,10 +93,10 @@ public class SystemCourseManagement {
         systemCourseService.insertSystemCourse(systemCourse);
 
         List<SystemCourse> systemCourses = systemCourseService.getAllSystemCoursesList();
-        model.addAttribute("systemCourses", systemCourses);
+        session.setAttribute("systemCourses", systemCourses);
         model.addAttribute("successMessage", "新增系統課程成功");
 
-        return "redirect:/course/systemCourseList";
+        return "redirect:/course/system_course_list";
     }
 
 

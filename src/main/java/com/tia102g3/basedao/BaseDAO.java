@@ -1,17 +1,14 @@
 package com.tia102g3.basedao;
 
+import com.utils.JDBCUtils;
+
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.utils.JDBCUtils;
 
 /**
  * ClassName： BaseDAO
@@ -97,6 +94,10 @@ public abstract class BaseDAO<T> {
                         idField.setAccessible(true);
                         idField.set(foreignKeyInstance, columnValue);
                         field.set(t, foreignKeyInstance);
+                    } else if (field.getType().isEnum()) {
+                        // 處理枚舉型別
+                        Object enumValue = getEnumValue(field.getType(), columnValue);
+                        field.set(t, enumValue);
                     } else {
                         field.set(t, columnValue);
                     }
@@ -150,6 +151,10 @@ public abstract class BaseDAO<T> {
                         idField.setAccessible(true);
                         idField.set(foreignKeyInstance, columnValue);
                         field.set(t, foreignKeyInstance);
+                    } else if (field.getType().isEnum()) {
+                        // 處理枚舉型別
+                        Object enumValue = getEnumValue(field.getType(), columnValue);
+                        field.set(t, enumValue);
                     }else
                         field.set(t, columnValue);
                 }
@@ -189,5 +194,27 @@ public abstract class BaseDAO<T> {
             JDBCUtils.closeResource(null, ps, rs);
         }
         return null;
+    }
+
+
+    /**
+     * 將資料庫欄位值轉換為枚舉值
+     * @param enumType
+     * @param columnValue
+     * @return
+     * @throws Exception
+     */
+    private Object getEnumValue(Class<?> enumType, Object columnValue) throws Exception {
+        Method fromValueMethod = null;
+        try {
+            fromValueMethod = enumType.getMethod("getSystemCourseLevelByInt", columnValue.getClass());
+            return fromValueMethod.invoke(null, columnValue);
+        } catch (NoSuchMethodException e) {
+            // Ignore, try valueOf
+        }
+
+        Method valueOfMethod = enumType.getMethod("valueOf", String.class);
+        Object enumObject = valueOfMethod.invoke(null, columnValue.toString());
+        return ((Enum<?>) enumObject).name(); // 返回枚舉名稱
     }
 }

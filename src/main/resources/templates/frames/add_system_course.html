@@ -106,7 +106,8 @@
 <div class="form-container">
     <h2>新增系統課程</h2>
 
-<!--    <div th:if="${errorMessage}" class="errorblock" th:utext="${errorMessage}"></div>-->
+    <!-- 顯示錯誤信息 -->
+    <div th:if="${errorMessage}" class="errorblock" th:utext="${errorMessage}"></div>
 
     <form th:action="@{/course/addSystemCourse.do}" method="post" th:object="${systemCourse}">
         <div class="form-field">

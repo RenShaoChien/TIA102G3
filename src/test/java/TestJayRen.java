@@ -1,8 +1,7 @@
 import com.Application;
 import com.tia102g3.sportevent.model.SportEvent;
-import com.tia102g3.sportevent.model.SportEventDAO;
 import com.tia102g3.sportevent.model.SportEventDAOImpl;
-import com.utils.JDBCUtils;
+import com.tia102g3.systemcourse.model.SystemCourseDAOImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +21,8 @@ import org.springframework.test.context.ContextConfiguration;
 public class TestJayRen {
     @Autowired
     private SportEventDAOImpl sportEventDAO;
+    @Autowired
+    private SystemCourseDAOImpl systemCourseDAO;
     @Test
     public void testJayRen() throws Exception {
         System.out.println(sportEventDAO.selectSportEventByID(1));
@@ -32,5 +33,13 @@ public class TestJayRen {
             System.out.println("sportEvent = " + sportEvent);
         }
 
+    }
+    @Test
+    public void testSystemCourseGetAll() {
+        try {
+            System.out.println(systemCourseDAO.getAllSystemCourses());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

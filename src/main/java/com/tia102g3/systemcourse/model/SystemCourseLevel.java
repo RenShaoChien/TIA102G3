@@ -1,6 +1,7 @@
 package com.tia102g3.systemcourse.model;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
@@ -22,8 +23,10 @@ public enum SystemCourseLevel {
     HARD(3, "高級"),
     VERY_HARD(4, "最高級");
 
+    @NonNull
     private final Integer level;
     private final String description;
+
 
     public static SystemCourseLevel getSystemCourseLevelByInt(Integer level) {
         for (SystemCourseLevel systemCourseLevel : values()) {
@@ -32,5 +35,10 @@ public enum SystemCourseLevel {
             }
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return description;
     }
 }
