@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * ClassName： SystemCourseManagement
@@ -83,8 +82,7 @@ public class SystemCourseManagement {
 
 
     @PostMapping("/addSystemCourse.do")
-    public String addSystemCourse(ModelMap model, @Valid @ModelAttribute("systemCourse") SystemCourse systemCourse, BindingResult result) throws Exception {
-        result = removeFieldError(systemCourse, result);
+    public String addSystemCourse(ModelMap model, @Valid SystemCourse systemCourse, BindingResult result) throws Exception {
         if (result.hasErrors()) {
             return "frames/add_system_course";
         }
@@ -115,21 +113,21 @@ public class SystemCourseManagement {
 
         List<FieldError> errorsListToKeep = result.getFieldErrors().stream()
                 .filter(fieldError -> !removedFieldnamesSet.contains(fieldError.getField()))
-                .collect(Collectors.toList());
+                .toList();
 
-        BindingResult newResult = new BeanPropertyBindingResult(targetObject, result.getObjectName());
+        result = new BeanPropertyBindingResult(targetObject, result.getObjectName());
         for (FieldError fieldError : errorsListToKeep) {
-            newResult.addError(fieldError);
+            result.addError(fieldError);
         }
-        return newResult;
+        return result;
     }
 
     @ExceptionHandler(value = {ConstraintViolationException.class})
-    public ModelAndView handleConstraintViolationException(HttpServletRequest req, ConstraintViolationException ex, BindingResult result) {
-        for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-            String field = violation.getPropertyPath().toString().split("\\.")[1];  // 確保獲取字段名稱
-            String message = violation.getMessage();
-            result.addError(new FieldError("systemCourse", field, message));
+    public ModelAndView handleConstraintViolationException(HttpServletRequest req, ConstraintViolationException ex, Model model) {
+        Set<ConstraintViolation<?>> violations = ex.getConstraintViolations();
+        StringBuilder strBuilder = new StringBuilder();
+        for (ConstraintViolation<?> violation : violations) {
+            strBuilder.append(violation.getMessage()).append("<br>");
         }
 
         String requestURI = req.getRequestURI();
@@ -140,9 +138,9 @@ public class SystemCourseManagement {
             viewName = "error/default_error_page";
         }
 
-        ModelAndView modelAndView = new ModelAndView(viewName);
-        modelAndView.addAllObjects(result.getModel());
-        return modelAndView;
+        model.addAttribute("errorMessage", "請修正以下錯誤:<br>" + strBuilder.toString());
+
+        return new ModelAndView(viewName, model.asMap());
     }
 
 }
