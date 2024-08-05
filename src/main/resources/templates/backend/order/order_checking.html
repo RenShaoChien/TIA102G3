@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        div.title {
+            /* border: 1px solid black; */
+            font-size: 30px;
+            font-weight: bold;
+            width: 1000px;
+            margin: 0 auto;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        header.header {
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        div.parent_container {
+            width: 1000px;
+            margin: 0 auto;
+            border: 1px solid red;
+            font-size: 0;
+            box-sizing: border-box;
+        }
+
+        div.parent_container main.main {
+            display: inline-block;
+            vertical-align: top;
+            font-size: 1rem;
+            /* 16px */
+            box-sizing: border-box;
+            width: 1000px;
+        }
+
+        div.parent_container aside.aside {
+            border: 1px solid blue;
+            width: 200px;
+            margin-right: 20px;
+        }
+
+        div.parent_container main.main {
+            border: 1px solid green;
+            width: 100%;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        #order-status {
+            text-align: left;
+            cursor: pointer;
+            /* 讓游標顯示為指示可以點選的樣式 */
+        }
+
+        .editBlock {
+            cursor: pointer;
+            /* 讓游標顯示為指示可以點選的樣式 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">
+        訂單編號1 查詢頁面
+    </div>
+
+    <div class="parent_container">
+
+        <main class="main">
+            <table>
+                <tr>
+                    <td class="abc">訂單編號</td>
+                    <td class="editBlock">1</td>
+
+                </tr>
+                <tr>
+                    <td>會員姓名</td>
+                    <td class="editBlock">王小明</td>
+                </tr>
+                <tr>
+                    <td>選購商品</td>
+                    <td class="editBlock">高蛋白粉</td>
+                </tr>
+                <tr>
+                    <td>消費金額</td>
+                    <td class="editBlock">500元</td>
+                </tr>
+                <tr>
+                    <td>訂單建立時間</td>
+                    <td class="editBlock">2024年6月2日</td>
+                </tr>
+                <tr>
+                    <td>信用卡資訊</td>
+                    <td class="editBlock">XXXXXXXXXX</td>
+                </tr>
+                <tr>
+                    <td>訂單狀態</td>
+                    <td id="order-status">
+                        已收貨<br>
+                        收件人姓名：<br>
+                        收件地址：<br>
+                        連絡電話：<br>
+                        電子信箱：<br>
+                        備註：<br>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <button onclick="window.location.href='你要跳轉的頁面.html'">匯出檔案</button>
+            <button onclick="window.location.href='你要跳轉的頁面.html'">離開頁面</button>
+
+
+        </main>
+    </div>
+
+    <script>
+        // 獲取所有具有 'editable' class 的元素
+        var editableElements = document.querySelectorAll('.editBlock');
+
+        // 為每個元素添加點選事件監聽器
+        editableElements.forEach(function (element) {
+            element.addEventListener('click', function () {
+                // 這裡可以根據需求執行編輯功能，例如顯示一個表單或啟動編輯器等
+                var userInput = prompt('請輸入新的內容', element.textContent);
+                if (userInput !== null) {
+                    element.textContent = userInput;
+                }
+            });
+        });
+
+
+        // 獲取目標區塊
+        var editBlock = document.getElementById('order-status');
+
+        // 添加點選事件監聽器
+        editBlock.addEventListener('click', function () {
+            // 這裡可以根據需求執行編輯功能，例如顯示一個表單或啟動編輯器等
+            var userInput = prompt('請輸入新的內容', editBlock.textContent);
+            if (userInput !== null) {
+                editBlock.textContent = userInput;
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
