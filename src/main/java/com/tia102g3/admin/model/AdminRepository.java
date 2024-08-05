@@ -18,3 +18,4 @@ public interface AdminRepository extends JpaRepository<AdminVO, Integer> {
 	@Query(value = "from AdminVO where admin_ID=?1 and adminName like?2 and adminUsername=?3 order by admin_ID")
 	List<AdminVO> findByOthers(int admin_ID, String adminName, String adminUsername);
 }
+

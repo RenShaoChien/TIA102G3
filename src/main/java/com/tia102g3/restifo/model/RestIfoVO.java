@@ -102,3 +102,4 @@ public class RestIfoVO implements java.io.Serializable {
 	}
 
 }
+

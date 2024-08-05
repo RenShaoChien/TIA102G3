@@ -86,3 +86,4 @@ public class HibernateUtil_CompositeQuery_rest_lfo {
 		return list;
 	}
 }
+

@@ -17,3 +17,4 @@ public interface OrderDetailsRepository extends JpaRepository<OrderDetailsVO, In
 	@Query(value = "from OrderDetailsVO where ordDtlID = ?1 and productID like?2 and quantity=?3 order by ordDtlID")
 	List<OrderDetailsVO> findByOthers(int ordDtlID , int prouductID , int quantity );
 }
+

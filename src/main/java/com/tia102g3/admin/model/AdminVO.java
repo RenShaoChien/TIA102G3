@@ -84,4 +84,5 @@ public class AdminVO implements Serializable {
 		this.adminEmail = adminEmail;
 	}
 
+	
 }

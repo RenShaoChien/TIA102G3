@@ -14,6 +14,7 @@ public interface OrderRepository extends JpaRepository<OrderVO, Integer>{
 	@Query(value = "delet from orderid where orderID = ?1", nativeQuery = true)
 	void deldetByOrderID(int orderID);
 	
+	
 	@Query(value = "from OrderVO where orderID =?1 and status like?2 and orderDate=?3 order by orderID")
 	List<OrderVO> findByOthers(int orderID , String status , java.sql.Timestamp orderDate);
 }

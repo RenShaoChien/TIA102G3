@@ -47,4 +47,5 @@ public class AdminService {
 		return HibernateUtilCompositeQuery_admin_id.getAllC(map, sessionFactory.openSession());
 	}
 
+	
 }

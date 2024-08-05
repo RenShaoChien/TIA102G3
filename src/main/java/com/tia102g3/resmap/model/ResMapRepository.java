@@ -10,3 +10,4 @@ import com.tia102g3.resmap.model.ResMapVO;
 public interface ResMapRepository extends JpaRepository<ResMapVO, Integer> {
 
 }
+

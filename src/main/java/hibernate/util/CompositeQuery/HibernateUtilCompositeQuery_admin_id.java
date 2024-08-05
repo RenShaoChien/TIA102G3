@@ -80,3 +80,4 @@ public class HibernateUtilCompositeQuery_admin_id {
 	}
 
 }
+

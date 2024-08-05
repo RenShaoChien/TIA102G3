@@ -77,3 +77,4 @@ public class ResMapVO implements java.io.Serializable {
 	}
 
 }
+
