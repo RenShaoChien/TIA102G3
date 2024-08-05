@@ -1,56 +1,46 @@
 package com.tia102g3.orderdetails.model;
 
-import com.tia102g3.order.model.OrderVO;
-import com.tia102g3.product.model.ProductVO;
-
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
-public class OrderDetailsService {
-private OrderDetailsJDBCDAO dao;
-	
-	public OrderDetailsService() {
-		dao = new OrderDetailsJDBCDAO();
-		}
-	
-	public OrderDetailsVO addOrder(Integer productID,Integer quantity, Integer orderID) {
-	
-		OrderDetailsVO orderDetailsVO = new OrderDetailsVO();
-		
-		orderDetailsVO.setProductVO(new ProductVO(productID));
-		orderDetailsVO.setQuantity(quantity);
-		orderDetailsVO.setOrderVO(new OrderVO(orderID));
-		dao.insert(orderDetailsVO);
-		
-		return orderDetailsVO;
-	}
-	
-	public OrderDetailsVO updateOrder(Integer ordDtlID, Integer productID,Integer quantity, Integer orderID) {
-		
-		OrderDetailsVO orderDetailsVO = new OrderDetailsVO();
-		
-		orderDetailsVO.setOrdDtlID(ordDtlID);
-		orderDetailsVO.setProductVO(new ProductVO(productID));
-		orderDetailsVO.setQuantity(quantity);
-		orderDetailsVO.setOrderVO(new OrderVO(orderID));
-		dao.insert(orderDetailsVO);
-		
-		return orderDetailsVO;
-	}
-	public void deleteOrder(Integer ordDtlID) {
-		dao.delete(ordDtlID);
-	}
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-	public OrderDetailsVO getOneOrder(Integer ordDtlID) {
-		return dao.findByPrimaryKey(ordDtlID);
+import hibernate.util.CompositeQuery.HibernateUtilCompositeQuery_order_details;
+
+@Service("OrderDetailsService")
+public class OrderDetailsService{
+	
+	@Autowired
+	OrderDetailsRepository repository;
+	
+	@Autowired
+	private SessionFactory sessionFactory;
+	
+	public void addOrderDetails(OrderDetailsVO orderDetailsVO) {
+		repository.save(orderDetailsVO);
 	}
 	
-//	public OrderDetailsVO getOneMember(Integer memberID) { //
-//		return dao.findByForeignKey(memberID);
+	public void updateOrderDetails(OrderDetailsVO orderDetailsVO) {
+		repository.save(orderDetailsVO);
+	}
+	
+//	public void deletOrderDetails(Integer ordDtlID) {
+//		if(repository.existsById(ordDtlID))
+//			repository.deleteByOrderDtlID;
 //	}
-	
-
-	public List<OrderDetailsVO> getAll() {
-		return dao.getAll();
+	public OrderDetailsVO getOneOrderDetails(Integer ordDtlID) {
+		Optional<OrderDetailsVO> optional = repository.findById(ordDtlID);
+		return optional.orElse(null);
 	}
-
+	
+	public List<OrderDetailsVO> getAll(){
+		return repository.findAll();
+	}
+	
+	public List<OrderDetailsVO> getAll(Map<String, String[]> map) {
+		return HibernateUtilCompositeQuery_order_details.getAllC(map,sessionFactory.openSession());
+	}
 }

@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>管理員資料修改 - update_admin_input.html</title>
+<head th:insert="~{/back-end/admin/included-fragment}"></head>
+<style type="text/css">
+button {
+	padding: 5px;
+}
+
+form {
+	display: table;
+}
+
+form div {
+	display: table-row;
+}
+
+label, input, span, select {
+	display: table-cell;
+	margin: 5px;
+	text-align: left;
+}
+
+input[type=text], input[type=password], select, textarea {
+	width: 200px;
+	margin: 5px;
+}
+
+form div div {
+	display: table-cell;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
+</head>
+<body>
+
+	<nav
+		class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		<div align="center">
+			<h2>管理員資料修改 - update_emp_input.html</h2>
+			<h3>
+				<a class="navbar-brand" th:href="@{/admin/select_page}">回查詢頁</a>
+			</h3>
+		</div>
+	</nav>
+
+	<div align="center">
+		<h3>
+			<b>所有欄位皆為必填欄位</b>
+		</h3>
+		<form th:action="@{update}" method="post" th:object="${adminVO}"
+			enctype="multipart/form-data">
+			<div>
+				<label>管理員編號:</label> <input type="text" th:field="*{sdmin_ID}"
+					style="border: 0px; font-weight: bold;" readonly /><br />
+
+			</div>
+
+			<div>
+				<label>管理員姓名:</label> <input type="text" th:field="*{adminName}"
+					onclick="hideContent('adminName.errors');" /><br /> <span
+					th:if="${#fields.hasErrors('adminName')}" th:errors="*{adminName}"
+					class="error" id="adminName.errors"></span>
+			</div>
+
+			<div>
+				<label>管理員帳號:</label> <input type="text" th:field="*{adminUsername}"
+					onclick="hideContent('adminUsername.errors');" /><br /> <span
+					th:if="${#fields.hasErrors('adminUsername')}"
+					th:errors="*{adminUsername}" class="error"
+					id="adminUsername.errors"></span>
+			</div>
+
+			<div>
+				<label>密碼:</label> <input type="text" th:field="*{adminPassword}"
+					onclick="hideContent('adminPassword.errors');" /><br /> <span
+					th:if="${#fields.hasErrors('adminPassword')}"
+					th:errors="*{adminPassword}" class="error"
+					id="adminPassword.errors"></span>
+			</div>
+
+			<div>
+				<label>信箱:</label> <input type="text" th:field="*{adminEmail}"
+					onclick="hideContent('adminEmail.errors');" /><br /> <span
+					th:if="${#fields.hasErrors('cadminEmail')}"
+					th:errors="*{adminEmail}" class="error" id="adminEmail.errors"></span>
+			</div>
+
+
+			<div>
+				<div></div>
+				<div>
+					<button type="submit" id="submit">送出修改</button>
+				</div>
+				<div></div>
+			</div>
+		</form>
+
+	</div>
+
+
+	<!-- JavaScript part -->
+	<script type="text/javascript">
+		//清除提示信息
+		function hideContent(d) {
+			document.getElementById(d).style.display = "none";
+		}
+	</script>
+
+
+</body>
+</html>

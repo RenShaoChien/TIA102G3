@@ -1,59 +1,55 @@
 package com.tia102g3.order.model;
 
-import com.tia102g3.member.model.Member;
-
-import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import hibernate.util.CompositeQuery.HibernateUtilCompositeQuery_orderid;
+
+@Service("OrderService")
 public class OrderService {
 	
-	private OrderDAOInterface dao;
+	@Autowired
+	OrderRepository repository;
 	
-	public OrderService() {
-		dao = new OrderJDBCDAO();
-		}
+	@Autowired
+	private SessionFactory sessionFactory;
 	
-	public OrderVO addOrder(Integer memberID,Timestamp orderDate, String status, Integer totalPrice) {
-	
-		OrderVO orderVO = new OrderVO();
-		
-		orderVO.setMember(new Member(memberID));
-		orderVO.setOrderDate(orderDate);
-		orderVO.setStatus(status);
-		orderVO.setTotalPrice(totalPrice);
-		dao.insert(orderVO);
-		
-		return orderVO;
+	public void addOrder(OrderVO orderVO) {
+		repository.save(orderVO);
 	}
 	
-	public OrderVO updateOrder(Integer orderID, Integer memberID,Timestamp orderDate, String status, Integer totalPrice) {
-		
-		OrderVO orderVO = new OrderVO();
-		
-		orderVO.setOrderID(orderID);
-		orderVO.setMember(new Member(memberID));
-		orderVO.setOrderDate(orderDate);
-		orderVO.setStatus(status);
-		orderVO.setTotalPrice(totalPrice);
-		dao.insert(orderVO);
-		
-		return orderVO;
-	}
-	public void deleteOrder(Integer orderID) {
-		dao.delete(orderID);
-	}
-
-	public OrderVO getOneOrder(Integer orderID) {
-		return dao.findByPrimaryKey(orderID);
+	public void updateOrder(OrderVO orderVO) {
+		repository.save(orderVO);
 	}
 	
-//	public OrderVO getOneMember(Integer memberID) { //
-//		return dao.findByForeignKey(memberID);
+//	public void deletOrder(Integer orderID) {
+//		if(repository.existsById(orderID))
+//			repository.deleteByOrderID;
 //	}
-	
-
-	public List<OrderVO> getAll() {
-		return dao.getAll();
+	public OrderVO getOneOrder(Integer orderID) {
+		Optional<OrderVO> optional = repository.findById(orderID);
+		return optional.orElse(null);
 	}
+	
+	public List<OrderVO> getAll(){
+		return repository.findAll();
+	}
+	
+	public List<OrderVO> getAll(Map<String, String[]> map) {
+		return HibernateUtilCompositeQuery_orderid.getAllC(map,sessionFactory.openSession());
+	}
+
+	public List<OrderVO> searchOrder(String query) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
 	
 }
