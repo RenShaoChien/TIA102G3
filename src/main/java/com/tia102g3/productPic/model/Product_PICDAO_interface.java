@@ -1,6 +1,6 @@
 package com.tia102g3.productPic.model;
 
-import java.util.*;
+import java.util.List;
 
 public interface Product_PICDAO_interface {
           public void insert(Product_PICVO product_PICVO);

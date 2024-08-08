@@ -1,97 +1,207 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>教練課程列表</title>
     <style>
+        /*body {*/
+        /*    font-family: 'Arial', sans-serif;*/
+        /*    background-color: #f4f4f4;*/
+        /*    margin: 0;*/
+        /*    padding: 20px;*/
+        /*    display: flex;*/
+        /*    justify-content: center;*/
+        /*    align-items: center;*/
+        /*    height: 100vh;*/
+        /*}*/
+
+        /*.course-list-container {*/
+        /*    width: 60%;*/
+        /*    background-color: #fff;*/
+        /*    padding: 20px;*/
+        /*    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+        /*    border-radius: 5px;*/
+        /*}*/
+
+        /*.filters {*/
+        /*    text-align: center;*/
+        /*    margin-bottom: 20px;*/
+        /*}*/
+
+        /*.filter-button, .browse-button {*/
+        /*    padding: 10px 20px;*/
+        /*    margin: 5px;*/
+        /*    background-color: #007bff;*/
+        /*    color: white;*/
+        /*    border: none;*/
+        /*    border-radius: 4px;*/
+        /*    cursor: pointer;*/
+        /*    transition: background-color 0.3s;*/
+        /*}*/
+
+        /*.filter-button:hover, .browse-button:hover {*/
+        /*    background-color: #0056b3;*/
+        /*}*/
+
+        /*.courses {*/
+        /*    margin-top: 20px;*/
+        /*}*/
+
+        /*.course-item {*/
+        /*    padding: 10px;*/
+        /*    border-bottom: 1px solid #ccc;*/
+        /*    display: flex;*/
+        /*    justify-content: space-between;*/
+        /*    align-items: center;*/
+        /*}*/
+
+        /*.course-name {*/
+        /*    font-size: 16px;*/
+        /*}*/
+
+        /*.course-actions {*/
+        /*    display: flex;*/
+        /*    gap: 10px;*/
+        /*}*/
+
+        /*a {*/
+        /*    text-decoration: none;*/
+        /*    color: inherit;*/
+        /*}*/
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
+            color: #333;
             margin: 0;
             padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
 
-        .course-list-container {
-            width: 60%;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-        }
-
-        .filters {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .filter-button, .browse-button {
-            padding: 10px 20px;
-            margin: 5px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .filter-button:hover, .browse-button:hover {
-            background-color: #0056b3;
-        }
-
-        .courses {
+        .courseList_table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 20px;
         }
 
-        .course-item {
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .courseList_th, .courseList_td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
         }
 
-        .course-name {
-            font-size: 16px;
+        .courseList_th {
+            background-color: #007bff;
+            color: white;
         }
 
-        .course-actions {
-            display: flex;
-            gap: 10px;
+        .courseList_tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
-        a{
+
+        .courseList_tr:hover {
+            background-color: #ddd;
+        }
+
+        .courseList_a {
+            color: #000000;
             text-decoration: none;
-            color: inherit;
+        }
+
+        .courseList_a:hover {
+            color: #007bff;
+        }
+
+        .courseList_img {
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+        }
+
+        .courseList_header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        #lightbox {
+            /*   border: 1px solid red; */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: hsla(0, 0%, 0%, .5);
+
+
+        }
+        .-on{
+            display: none;
+        }
+
+        /* 元素 article 置中及基本樣式 */
+        #lightbox > article {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ddd;
+            padding: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        button{
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-<div class="course-list-container">
-    <div class="filters">
-        <button class="filter-button" onclick="filterCourses('finished')">已結束</button>
-        <button class="filter-button" onclick="filterCourses('pending')">未審核</button>
+<div>
+    <div>
+        <div class="courseList_header">教練課程列表
+            <div id="lightbox" class="-on">
+                <article>
+                    <h1 id="messageContent" th:if="${message}" th:text="${message}" style="color: black"></h1>
+                    <button type="button" class="btn_modal_close">關閉</button>
+                </article>
+            </div>
+        </div>
+        <div style="border: 0px solid red ; width: 60%; margin-left: auto; margin-bottom: 4px; text-align: right; ">
+            <form th:action="@{/course/coachCourseList}" method="post" style="float: right">
+                <input type="hidden" name="oper" value="search">
+                <input type="text" name="keyword" th:value="${session.coachCoursesKeyword}" placeholder="請輸入查詢關鍵字...">
+                <button type="submit" class="btn">查詢</button>
+            </form>
+<!--            <a th:href="@{/course/addCoachCourse}"-->
+<!--               style="text-decoration: none;float: right;margin-right: 30px;">添加系統課程</a>-->
+        </div>
     </div>
-    <div class="courses">
-        <div class="course-item">
-            <span class="course-name"> ●教練：任少騫 ●課程：少騫拳擊 ●狀態：開課中</span>
-            <div class="course-actions">
-                <button class="browse-button"><a href="curr_coach_course.html">瀏覽</a></button>
-            </div>
+    <div class="course-list-container">
+        <div class="filters">
+            <button class="filter-button" onclick="filterCourses('finished')">已結束</button>
+            <button class="filter-button" onclick="filterCourses('pending')">未審核</button>
         </div>
-        <div class="course-item">
-            <span class="course-name">教練課程 B</span>
-            <div class="course-actions">
-                <button class="browse-button">瀏覽</button>
-            </div>
+        <div class="courses">
+            <ul style="list-style-type: none;" th:if="${#lists.isEmpty(session.coachCourses)}">
+                <li>對不起，查無符合的課程!</li>
+            </ul>
+            <ul style="list-style-type: none;" th:unless="${#lists.isEmpty(session.coachCourses)}">
+                <li th:each="coachCourse : ${session.coachCourses}">
+                    <div class="course-item">
+                        <span class="course-name" th:text="|♥  教練：*{coachMember.name}  ♦  課程：*{courseName}  ♠  狀態：*{status}|"> ●教練：任少騫 ●課程：少騫拳擊 ●狀態：開課中</span>
+                        <div class="course-actions">
+                            <button class="browse-button"><a href="curr_coach_course.html">瀏覽</a></button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <!-- 更多課程项 -->
         </div>
-        <!-- 更多課程项 -->
     </div>
 </div>
-
 <script>
     function filterCourses(status) {
         // 在这里添加过滤逻辑

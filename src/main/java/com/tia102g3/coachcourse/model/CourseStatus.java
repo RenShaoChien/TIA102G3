@@ -2,7 +2,6 @@ package com.tia102g3.coachcourse.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 /**
  * ClassName： CourseStatus
@@ -15,7 +14,6 @@ import lombok.ToString;
  */
 @Getter
 @RequiredArgsConstructor
-@ToString
 public enum CourseStatus {
     NOT_REVIEWED(0, "尚未審核"),
     IN_PROGRESS(1, "進行中"),
@@ -33,6 +31,11 @@ public enum CourseStatus {
             }
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return description;
     }
 }
 

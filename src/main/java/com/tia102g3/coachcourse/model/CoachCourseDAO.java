@@ -1,9 +1,11 @@
 package com.tia102g3.coachcourse.model;
 
-import com.tia102g3.coachmember.model.CoachMember;
-import com.tia102g3.sportevent.model.SportEvent;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.util.List;
 
 /**
@@ -15,81 +17,49 @@ import java.util.List;
  * @Create 2024/7/16 @{TIME}
  * @Version 1.0
  */
-public interface CoachCourseDAO {
-    /**
-     * 教練新增課程
-     * @param coachCourse
-     * @return
-     * @throws Exception
-     */
-    int insertCoachCourse(CoachCourse coachCourse) throws Exception;
+public interface CoachCourseDAO extends JpaRepository<CoachCourse, Integer> {
 
-    /**
-     * 教練更新課程
-     * @param coachCourse
-     */
-    int updateCoachCourse(CoachCourse coachCourse) throws Exception;
+    @Transactional(readOnly = true)
+    @Query(
+            value = "SELECT cc FROM CoachCourse cc " +
+                    "JOIN cc.cMember cm " +
+                    "WHERE " +
+                    "LOWER(cc.courseName) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cm.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.courseLevel) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.courseStartDate) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.courseEndDate) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.noOfClasses) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.maxCap) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.status) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.sportEventName) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.sportTypes) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.sportEquipment) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.coursePrice) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.classStartTime) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.classEndTime) LIKE LOWER(CONCAT('%', :keyword, '%'))"
+    )
+    List<CoachCourse> getCoachCoursesList(@Param("keyword") String keyword, Pageable pageable);
 
-    /**
-     * 獲取課程
-     * @param coachCourseID
-     * @return CoachCourse
-     */
-    CoachCourse getCoachCourseByID(Integer coachCourseID) throws Exception;
-
-    /**
-     * 刪除課程
-     * @param coachCourseID
-     */
-    int deleteCoachCourseByID(Integer coachCourseID) throws Exception;
-
-    /**
-     * 獲取所有教練課程List
-     * @return
-     */
-    List<CoachCourse> getAllCoachCoursesList() throws Exception;
-
-    /**
-     * 根據教練來獲取其所有課程List
-     * @param cMember
-     * @return
-     */
-    List<CoachCourse> findCoursesByCMember(CoachMember cMember) throws Exception;
-
-    /**
-     * 根據課程等級來獲取課程List
-     * @param courseLevel
-     * @return
-     */
-    List<CoachCourse> findCoursesByLevel(Integer courseLevel) throws Exception;
-
-    /**
-     * 根據運動項目獲取課程List
-     * @param sportEvent
-     * @return
-     */
-    List<CoachCourse> findCoursesBySportEvent(SportEvent sportEvent) throws Exception;
-
-    /**
-     * 查詢從指定日期開始的即將開設的課程List
-     * @param startDate
-     * @return
-     */
-    List<CoachCourse> findCoursesByDate(Date startDate) throws Exception;
-
-    /**
-     * 查詢在當前日期活動中的所有課程List
-     * @param currentDate
-     * @return
-     */
-    List<CoachCourse> findActiveCourses(Date currentDate) throws Exception;
-
-    /**
-     * 更新指定課程的狀態
-     * @param coachCourse
-     * @param status
-     * @return
-     * @throws Exception
-     */
-    int updateCourseStatus(CoachCourse coachCourse, CourseStatus status) throws Exception;
+    @Transactional(readOnly = true)
+    @Query(
+            "SELECT COUNT(cc) FROM CoachCourse cc " +
+                    "JOIN cc.cMember cm " +
+                    "WHERE " +
+                    "LOWER(cc.courseName) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cm.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.courseLevel) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.courseStartDate) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.courseEndDate) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.noOfClasses) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.maxCap) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.status) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.sportEventName) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.sportTypes) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.sportEquipment) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.coursePrice) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.classStartTime) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+                    "LOWER(cc.classEndTime) LIKE LOWER(CONCAT('%', :keyword, '%'))"
+    )
+    Long getCoachCourseCount(@Param("keyword") String keyword);
 }

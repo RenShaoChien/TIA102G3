@@ -1,11 +1,10 @@
 package com.tia102g3.menu.model;
 
-import java.util.List;
-
+import com.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.utils.HibernateUtil;
+import java.util.List;
 
 public class MenuDAOImpl implements MenuDAO {
 

@@ -1,6 +1,6 @@
 package com.tia102g3.coachmember.model;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * ClassName： CoachMemberDAO
@@ -11,10 +11,6 @@ import java.util.List;
  * @Create 2024/7/27 @{TIME}
  * @Version 1.0
  */
-public interface CoachMemberDAO {
-    int insetCoachMember(CoachMember coachMember) throws Exception;
-    int updateCoachMember(CoachMember coachMember) throws Exception;
-    CoachMember getCoachMemberById(Integer cMemberID) throws Exception;
-    int deleteCoachMember(Integer cMemberID) throws Exception;
-    List<CoachMember> getAllCoachMembersList() throws Exception;
+public interface CoachMemberDAO extends JpaRepository<CoachMember, Integer>  {
+
 }

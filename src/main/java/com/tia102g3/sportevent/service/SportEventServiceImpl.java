@@ -1,11 +1,9 @@
 package com.tia102g3.sportevent.service;
 
-import com.tia102g3.sportevent.model.SportEvent;
 import com.tia102g3.sportevent.model.SportEventDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,47 +17,19 @@ import java.util.Set;
  */
 @Service
 public class SportEventServiceImpl implements SportEventService {
-
     @Autowired
     private SportEventDAO sportEventDAO;
 
-    @Override
-    public int insertSportEvent(SportEvent sportEvent) throws Exception {
-        return sportEventDAO.insertSportEvent(sportEvent);
-    }
 
-    @Override
-    public int updateSportEvent(SportEvent sportEvent) throws Exception {
-        return sportEventDAO.updateSportEvent(sportEvent);
-    }
-
-    @Override
-    public int deleteSportEvent(Integer sportEventID) throws Exception {
-        return sportEventDAO.deleteSportEventByID(sportEventID);
-    }
-
-    @Override
-    public SportEvent getSportEventByID(Integer sportEventID) throws Exception {
-        return sportEventDAO.selectSportEventByID(sportEventID);
-    }
-
-    @Override
-    public Set<String> getSportEquipmentsSet() throws Exception {
+    public Set<String> getSportEquipmentsSet() {
         return sportEventDAO.selectSportEquipmentsSet();
     }
 
-    @Override
-    public List<SportEvent> getSportEventsList() throws Exception {
-        return sportEventDAO.selectAllSportEvents();
+    public Set<String> getSportEventsFromTypeSet(String sprotType) {
+        return sportEventDAO.getSetSportEventNamesBySportTypes(sprotType);
     }
 
-    @Override
-    public Set<SportEvent> getSportEventsFromTypeSet(String sprotType) throws Exception {
-        return sportEventDAO.selectSportEventsNameFromTypeSet(sprotType);
-    }
-
-    @Override
-    public Set<SportEvent> getSportEquipmentFromTypeSet(String sportType) throws Exception {
-        return sportEventDAO.selectSportEquipmentFromTypeSet(sportType);
+    public Set<String> getSportEquipmentFromTypeSet(String sportType)  {
+        return sportEventDAO.getSetSportEquipmentBySportTypes(sportType);
     }
 }

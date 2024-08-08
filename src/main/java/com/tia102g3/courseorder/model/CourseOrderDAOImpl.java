@@ -5,7 +5,6 @@ import com.utils.JDBCUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -23,39 +22,39 @@ public class CourseOrderDAOImpl extends BaseDAO<CourseOrder> implements CourseOr
     private JDBCUtils jdbcUtils;
     @Override
     public int insert(CourseOrder courseOrder) throws Exception {
-        Connection conn = jdbcUtils.getConnection();
+
         String sql = "insert into course_order (memberID, coachCourseID, orderDate, price, status) values (?,?,?,?,?)";
-        return super.update(conn, sql, courseOrder.getMember().getMemberID(), courseOrder.getCoachCourse().getCoachCourseID(), courseOrder.getOrderDate(), courseOrder.getStatus(), courseOrder.getPrice());
+        return super.update(sql, courseOrder.getMember().getMemberID(), courseOrder.getCoachCourse().getCoachCourseID(), courseOrder.getOrderDate(), courseOrder.getStatus(), courseOrder.getPrice());
     }
 
     @Override
     public int update(CourseOrder courseOrder) throws Exception {
-        Connection conn = jdbcUtils.getConnection();
+
         String sql = "update course_order set memberID=?, coachCourseID=?, orderDate=?, price=?, status=? where courseOrderID=?";
         return super.update(
-                conn, sql, courseOrder.getMember().getMemberID(), courseOrder.getCoachCourse().getCoachCourseID(),
+                sql, courseOrder.getMember().getMemberID(), courseOrder.getCoachCourse().getCoachCourseID(),
                 courseOrder.getOrderDate(), courseOrder.getPrice(), courseOrder.getStatus(), courseOrder.getCourseOrderID()
         );
     }
 
     @Override
     public int delete(CourseOrder courseOrder) throws Exception {
-        Connection conn = jdbcUtils.getConnection();
+
         String sql = "delete from course_order where courseOrderID=?";
-        return super.update(conn, sql, courseOrder.getCourseOrderID());
+        return super.update(sql, courseOrder.getCourseOrderID());
     }
 
     @Override
     public CourseOrder getCourseOrderByID(Integer courseOrderID) throws Exception {
-        Connection conn = jdbcUtils.getConnection();
+
         String sql = "SELECT * FROM course_order WHERE courseOrderID=?";
-        return super.getInstance(conn, sql, courseOrderID);
+        return super.getInstance(sql, courseOrderID);
     }
 
     @Override
     public List<CourseOrder> getCourseOrdersList() throws Exception {
-        Connection conn = jdbcUtils.getConnection();
+
         String sql = "SELECT * FROM course_order";
-        return super.getForList(conn, sql);
+        return super.getForList(sql);
     }
 }

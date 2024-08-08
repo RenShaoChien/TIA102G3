@@ -1,8 +1,8 @@
 package com.tia102g3.shoppingcart.dao;
 
-import java.util.List;
-
 import com.tia102g3.shoppingcart.entity.ShoppingCartVO;
+
+import java.util.List;
 
 public class TestHibernateDAO {
 	

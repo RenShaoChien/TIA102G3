@@ -2,10 +2,10 @@ package com.tia102g3.coachcourse.service;
 
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachcourse.model.CoachCourseDAO;
-import com.tia102g3.coachcourse.model.CourseStatus;
-import com.tia102g3.coachmember.model.CoachMember;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,36 +21,18 @@ import java.util.List;
 @Service
 public class CoachCourseServiceImpl implements CoachCourseService {
     @Autowired
-    private CoachCourseDAO coachCourseDAO;
+    private CoachCourseDAO ccDAO;
 
     @Override
-    public int createCoachCourse(CoachCourse coachCourse) throws Exception {
-        return coachCourseDAO.insertCoachCourse(coachCourse);
+    @Transactional(readOnly = true)
+    public List<CoachCourse> getCoachCoursesList(String keyword, Pageable pageable) {
+        return ccDAO.getCoachCoursesList(keyword, pageable);
     }
 
     @Override
-    public int updateCoachCourse(CoachCourse coachCourse) throws Exception {
-        return coachCourseDAO.updateCoachCourse(coachCourse);
+    @Transactional(readOnly = true)
+    public Long getCoachCourseCount(String keyword) {
+        return ccDAO.getCoachCourseCount(keyword);
     }
 
-    @Override
-    public CoachCourse getCourseById(CoachCourse coachCourse) throws Exception {
-        return coachCourseDAO.getCoachCourseByID(coachCourse.getCoachCourseID());
-    }
-
-    @Override
-    public List<CoachCourse> listAllCourses() throws Exception {
-        return coachCourseDAO.getAllCoachCoursesList();
-    }
-
-    @Override
-    public List<CoachCourse> listCoursesByCoach(CoachMember cMember) throws Exception {
-        return coachCourseDAO.findCoursesByCMember(cMember);
-    }
-
-    @Override
-    public CoachCourse updateCourseStatus(CoachCourse coachCourse, CourseStatus status) throws Exception {
-        coachCourseDAO.updateCourseStatus(coachCourse, status);
-        return coachCourse;
-    }
 }

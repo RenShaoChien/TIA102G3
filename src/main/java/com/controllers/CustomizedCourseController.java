@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Set;
@@ -31,10 +30,10 @@ public class CustomizedCourseController {
         model.addAttribute("sportEquipmentSet", sportEquipmentsSet);
         return "trainers/customizedcourse";
     }
-    @PostMapping("/soul")
-    public String soul(Model model) throws Exception {
-
-        return "customizedCourse/soul";
-    }
+//    @PostMapping("/soul")
+//    public String soul(Model model) throws Exception {
+//
+//        return "customizedCourse/soul";
+//    }
 
 }

@@ -19,29 +19,8 @@ public class SystemCoursePicServiceImpl implements SystemCoursePicService {
     @Autowired
     private SystemCoursePicDAO systemCoursePicDAO;
 
-    @Override
-    public int insertSystemCoursePic(SystemCoursePic systemCoursePic) throws Exception {
-
-        return systemCoursePicDAO.insertSystemCoursePic(systemCoursePic);
+    public SystemCoursePic selectSystemCoursePicByID(Integer systemCoursePicID) {
+        return systemCoursePicDAO.getReferenceById(systemCoursePicID);
     }
 
-    @Override
-    public int deleteSystemCoursePicByID(Integer systemCoursePicID) throws Exception {
-
-        return systemCoursePicDAO.deleteSystemCoursePicByID(systemCoursePicID);
-    }
-
-    @Override
-    public int updateSystemCoursePic(SystemCoursePic systemCoursePic) throws Exception {
-
-
-        return systemCoursePicDAO.updateSystemCoursePic(systemCoursePic);
-    }
-
-    @Override
-    public SystemCoursePic selectSystemCoursePicByID(Integer systemCoursePicID) throws Exception {
-
-
-        return systemCoursePicDAO.selectSystemCoursePicByID(systemCoursePicID);
-    }
 }

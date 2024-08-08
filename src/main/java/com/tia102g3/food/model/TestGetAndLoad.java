@@ -1,10 +1,7 @@
 package com.tia102g3.food.model;
 
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-
-import com.tia102g3.food.model.FoodVO;
 import com.utils.HibernateUtil;
+import org.hibernate.Session;
 
 public class TestGetAndLoad {
 	

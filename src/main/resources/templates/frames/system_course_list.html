@@ -38,16 +38,18 @@
         }
 
         .courseList_a {
-            color: #007bff;
+            color: #000000;
             text-decoration: none;
         }
 
         .courseList_a:hover {
-            text-decoration: underline;
+            color: #007bff;
         }
 
         .courseList_img {
             cursor: pointer;
+            width: 30px;
+            height: 30px;
         }
 
         .courseList_header {
@@ -57,61 +59,163 @@
             text-align: center;
             font-size: 24px;
         }
+
+        #lightbox {
+            /*   border: 1px solid red; */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: hsla(0, 0%, 0%, .5);
+
+
+        }
+        .-on{
+            display: none;
+        }
+
+        /* 元素 article 置中及基本樣式 */
+        #lightbox > article {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ddd;
+            padding: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        button{
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 <div>
-    <div class="courseList_header">系統課程列表
-        <span th:text="${success}"></span>
+    <div>
+        <div class="courseList_header">系統課程列表
+            <div id="lightbox" class="-on">
+                <article>
+                    <h1 id="messageContent" th:if="${message}" th:text="${message}" style="color: black"></h1>
+                    <button type="button" class="btn_modal_close">關閉</button>
+                </article>
+            </div>
+        </div>
+        <div style="border: 0px solid red ; width: 60%; margin-left: auto; margin-bottom: 4px; text-align: right; ">
+            <form th:action="@{/course/systemCourseList}" method="post" style="float: right">
+                <input type="hidden" name="oper" value="search">
+                <input type="text" name="keyword" th:value="${session.keyword}" placeholder="請輸入查詢關鍵字...">
+                <button type="submit" class="btn">查詢</button>
+            </form>
+            <a th:href="@{/course/addSystemCourse}"
+               style="text-decoration: none;float: right;margin-right: 30px;">添加系統課程</a>
+        </div>
     </div>
-    <div style="border: 0px solid red ; width: 60%; margin-left: auto; margin-bottom: 4px; text-align: right; ">
-        <form action="#" method="post" style="float: right">
-            <input type="hidden" name="oper" value="search">
-            <input type="text" name="keyword" th:value="${session.keyword}" placeholder="請輸入查詢關鍵字...">
-            <button type="submit" class="btn">查詢</button>
-        </form>
-        <a th:href="@{/course/addSystemCourse}" style="text-decoration: none;float: right;margin-right: 30px;">添加系統課程</a>
+
+    <table class="courseList_table">
+        <tr class="courseList_tr">
+            <th class="courseList_th">課程名稱</th>
+            <th class="courseList_th">運動項目</th>
+            <th class="courseList_th">運動種類</th>
+            <th class="courseList_th">運動器材</th>
+            <th class="courseList_th">課程等級</th>
+            <th class="courseList_th">消耗熱量</th>
+            <th class="courseList_th">每組次數</th>
+            <th class="courseList_th">每項組數</th>
+            <th class="courseList_th">每組時數</th>
+            <th class="courseList_th">每項總時數</th>
+            <th class="courseList_th">說明</th>
+            <th class="courseList_th">影片連結</th>
+            <th class="courseList_th">操作</th>
+        </tr>
+        <tr th:if="${#lists.isEmpty(session.systemCourses)}">
+            <td colspan="14">對不起，查無符合的課程!</td>
+        </tr>
+        <tr class="courseList_tr" th:unless="${#lists.isEmpty(session.systemCourses)}"
+            th:each="systemCourse : ${session.systemCourses}" th:object="${systemCourse}">
+            <td class="courseList_td"><a class="courseList_a" th:text="*{courseName}" th:href="@{|/course/edit?systemCourseID=*{systemCourseID}|}"></a></td>
+            <td class="courseList_td" th:text="*{sportEventName}"></td>
+            <td class="courseList_td" th:text="*{sportTypes}"></td>
+            <td class="courseList_td" th:text="*{sportEquipment}"></td>
+            <td class="courseList_td" th:text="*{courseLevel}"></td>
+            <td class="courseList_td" th:text="|*{burnCalories}卡路里|"></td>
+            <td class="courseList_td" th:if="${#strings.isEmpty(systemCourse.rps)}"></td>
+            <td class="courseList_td" th:unless="${#strings.isEmpty(systemCourse.rps)}" th:text="|*{rps}次|"></td>
+            <td class="courseList_td" th:if="${#strings.isEmpty(systemCourse.swp)}"></td>
+            <td class="courseList_td" th:unless="${#strings.isEmpty(systemCourse.swp)}" th:text="|*{swp}組|"></td>
+            <td class="courseList_td" th:if="${#strings.isEmpty(systemCourse.eachExerciseTime)}"></td>
+            <td class="courseList_td" th:unless="${#strings.isEmpty(systemCourse.eachExerciseTime)}"
+                th:text="|*{eachExerciseTime}分鐘|"></td>
+            <td class="courseList_td" th:if="${#strings.isEmpty(systemCourse.sportTime)}"></td>
+            <td class="courseList_td" th:unless="${#strings.isEmpty(systemCourse.sportTime)}"
+                th:text="|*{sportTime}小時|"></td>
+            <td class="courseList_td" th:text="*{illustrate}"></td>
+            <td class="courseList_td"
+                th:utext="|<iframe width='50' height='50' src='*{video}' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe>|"></td>
+            <td class="courseList_td"><img th:src="@{images/delet.png}" class="courseList_img"
+                                           th:onclick="|delSystemCourse(*{systemCourseID}, ${session.pageNo})|"></td>
+        </tr>
+    </table>
+    <div style="border: 0px solid red ; width: 60%; margin-left: 20% ; margin-top: 4px" class="center">
+        <input type="button" class="btn" th:onclick="page(1)" th:disabled="|${session.pageNo == 1}|" value="首  頁">
+        <input type="button" class="btn" th:onclick="|page(${session.pageNo - 1})|"
+               th:disabled="|${session.pageNo == 1}|" value="上一頁">
+        <input type="button" class="btn" th:onclick="|page(${session.pageNo + 1})|"
+               th:disabled="|${session.pageNo == session.pageCount}|" value="下一頁">
+        <input type="button" class="btn" th:onclick="|page(${session.pageCount})|"
+               th:disabled="|${session.pageNo == session.pageCount}|" value="尾  頁">
     </div>
 </div>
 
-<table class="courseList_table">
-    <tr class="courseList_tr">
-        <th class="courseList_th">編號</th>
-        <th class="courseList_th">課程名稱</th>
-        <th class="courseList_th">運動項目</th>
-        <th class="courseList_th">運動種類</th>
-        <th class="courseList_th">運動器材</th>
-        <th class="courseList_th">課程等級</th>
-        <th class="courseList_th">消耗熱量</th>
-        <th class="courseList_th">每組次數</th>
-        <th class="courseList_th">每項組數</th>
-        <th class="courseList_th">每組時數</th>
-        <th class="courseList_th">每項總時數</th>
-        <th class="courseList_th">說明</th>
-        <th class="courseList_th">影片連結</th>
-        <th class="courseList_th">操作</th>
-    </tr>
-    <tr th:if="${#lists.isEmpty(session.systemCourses)}">
-        <td colspan="14">對不起，查無符合的課程!</td>
-    </tr>
-    <tr class="courseList_tr" th:unless="${#lists.isEmpty(session.systemCourses)}" th:each="systemCourse : ${session.systemCourses}" th:object="${systemCourse}">
-        <td class="courseList_td" th:text="*{systemCourseID}">1</td>
-        <td class="courseList_td" th:text="*{courseName}">運動百日遊記</td>
-        <td class="courseList_td" th:text="*{sportEventName}">運動</td>
-        <td class="courseList_td" th:text="*{sportTypes}"></td>
-        <td class="courseList_td" th:text="*{sportEquipment}"></td>
-        <td class="courseList_td" th:text="*{courseLevel}"></td>
-        <td class="courseList_td" th:text="*{burnCalories}"></td>
-        <td class="courseList_td" th:text="*{rps}"></td>
-        <td class="courseList_td" th:text="*{swp}"></td>
-        <td class="courseList_td" th:text="*{eachExerciseTime}"></td>
-        <td class="courseList_td" th:text="*{sportTime}"></td>
-        <td class="courseList_td" th:text="*{illustrate}"></td>
-        <td class="courseList_td" th:utext="${"|<iframe width='560' height='315' src='*{video}  ' frameborder=\'0\' allow=\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\' allowfullscreen></iframe>|'}"></td>
-        <td class="courseList_td"><img th:src="@{images/delet.png}" class="courseList_img"
-                                       style="width: 30px;height: 30px"></td>
-    </tr>
-</table>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script !src="">
+    function delSystemCourse(systemCourseID, pageNo) {
+        if (confirm("確定要刪除嗎?")) {
+            document.location.href = "/course/delSystemCourse.do?systemCourseID=" + systemCourseID;
+        }
+    }
 
+    function page(pageNo) {
+        window.location.href = "/course/systemCourseList?pageNo=" + pageNo;
+    }
+    $(document).ready(function() {
+        var messageContent = $("#messageContent").text().trim();
+        console.log("檢查燈箱內容:", messageContent);
+
+        if (messageContent.length > 0) {
+            console.log("燈箱內有消息");
+
+            // 移除 -on class 並顯示燈箱
+            $("#lightbox").removeClass("-on").fadeIn(1000);
+
+            // 點擊關閉按鈕關閉燈箱
+            $("button.btn_modal_close").on("click", function() {
+                console.log("關閉按鈕被點擊");
+                $("#lightbox").fadeOut(1000, function() {
+                    $("#lightbox").addClass("-on");
+                });
+            });
+
+            // 防止點擊燈箱內部時關閉燈箱
+            $("#lightbox > article").on("click", function(e) {
+                e.stopPropagation();
+            });
+
+            // 點擊燈箱背景關閉燈箱
+            $("#lightbox").on("click", function() {
+                console.log("背景被點擊");
+                $(this).fadeOut(1000, function() {
+                    $(this).addClass("-on");
+                });
+            });
+        } else {
+            console.log("燈箱內無消息");
+        }
+    });
+
+</script>
 </body>
 </html>

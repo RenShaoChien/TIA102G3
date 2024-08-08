@@ -3,7 +3,9 @@ package com.tia102g3.customizedcourse.model;
 import com.tia102g3.basedao.ForeignKey;
 import com.tia102g3.member.model.Member;
 import com.tia102g3.systemcourse.model.SystemCourse;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 

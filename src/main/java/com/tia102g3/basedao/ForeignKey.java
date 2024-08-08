@@ -19,4 +19,5 @@ import java.lang.annotation.Target;
 public @interface ForeignKey {
     Class<?> targetEntity();
     String keyField() default "id"; // 默認主键字段為 "id"
+
 }

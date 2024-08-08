@@ -1,43 +1,34 @@
 package com.tia102g3.order.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
-
+import com.tia102g3.member.model.Member;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.io.Serializable;
 
 
 @Entity
 @Table(name = "orderid")
 public class OrderVO implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	
+
+
 	private Integer orderID;
 	private java.sql.Timestamp orderDate ;
 	private String status;
 	private Integer totalPrice;
-	private MemberVO member;
+	private Member member;
 
 
 	private byte[] upFiles;
-	
+
 	public OrderVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
+
 	@Id
 	@Column(name = "orderID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +43,7 @@ public class OrderVO implements Serializable{
 	@Column(name = "orderDate")
 	@NotNull(message="雇用日期: 請勿空白")
 	@Past(message="日期必須是在今日(含)之前")
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") 
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public java.sql.Timestamp getOrderDate() {
 		return orderDate;
 	}
@@ -83,15 +74,15 @@ public class OrderVO implements Serializable{
 		this.totalPrice = totalPrice;
 	}
 
-//	@ManyToOne
-//	@JoinColumn(name = "merberID")
-//	public MemberVO getMemberVO() {
-//		return this.getMemberVO();
-//	}
-//
-//	public void setMemberID(Integer memberID) {
-//		this.MemberVO = memberVO;
-//	}
+	@ManyToOne
+	@JoinColumn(name = "merberID")
+	public Member getMember() {
+		return this.member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
 
 
 	@Column(name = "UPFILES")
@@ -102,8 +93,8 @@ public class OrderVO implements Serializable{
 	public void setUpFiles(byte[] upFiles) {
 		this.upFiles = upFiles;
 	}
-	
 
-	
+
+
 
 }

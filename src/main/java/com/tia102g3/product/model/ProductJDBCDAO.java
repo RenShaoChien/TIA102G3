@@ -1,7 +1,8 @@
 package com.tia102g3.product.model;
 
-import java.util.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductJDBCDAO implements ProductDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
