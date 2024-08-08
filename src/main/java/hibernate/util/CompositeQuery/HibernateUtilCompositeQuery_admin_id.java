@@ -1,20 +1,18 @@
 package hibernate.util.CompositeQuery;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.tia102g3.admin.model.AdminVO;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import com.tia102g3.admin.model.AdminVO;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class HibernateUtilCompositeQuery_admin_id {
 

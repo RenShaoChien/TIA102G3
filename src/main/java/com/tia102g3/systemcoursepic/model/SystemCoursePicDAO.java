@@ -1,5 +1,10 @@
 package com.tia102g3.systemcoursepic.model;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * ClassName： SystemCoursePicDAO
  * package：com.tia102g3.systemcoursepic.model
@@ -9,32 +14,10 @@ package com.tia102g3.systemcoursepic.model;
  * @Create 2024/7/17 @{TIME}
  * @Version 1.0
  */
-public interface SystemCoursePicDAO {
-    /**
-     * 增
-     * @param systemCoursePic
-     * @return
-     */
-    int insertSystemCoursePic(SystemCoursePic systemCoursePic) throws Exception;
+public interface SystemCoursePicDAO extends JpaRepository<SystemCoursePic, Integer> {
 
-    /**
-     * 刪
-     * @param systemCoursePicID
-     * @return
-     */
-    int deleteSystemCoursePicByID(Integer systemCoursePicID) throws Exception;
-
-    /**
-     * 改
-     * @param systemCoursePic
-     * @return
-     */
-    int updateSystemCoursePic(SystemCoursePic systemCoursePic) throws Exception;
-
-    /**
-     * 查
-     * @param systemCoursePicID
-     * @return
-     */
-    SystemCoursePic selectSystemCoursePicByID(Integer systemCoursePicID) throws Exception;
+    @Transactional
+    @Modifying
+    @Query(value = "delete from system_course_pic where systemCourseID = ?1", nativeQuery = true)
+    void delBySystemCourseID(Integer systemCourseID);
 }

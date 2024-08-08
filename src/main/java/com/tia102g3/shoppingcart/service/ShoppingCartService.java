@@ -1,10 +1,10 @@
 package com.tia102g3.shoppingcart.service;
 
-import java.util.List;
-
 import com.tia102g3.shoppingcart.dao.ShoppingCartDAO;
 import com.tia102g3.shoppingcart.dao.ShoppingCartDAOImpl;
 import com.tia102g3.shoppingcart.entity.ShoppingCartVO;
+
+import java.util.List;
 
 public class ShoppingCartService {
 

@@ -1,8 +1,5 @@
 package com.tia102g3.sportevent.service;
 
-import com.tia102g3.sportevent.model.SportEvent;
-
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,16 +12,10 @@ import java.util.Set;
  * @Version 1.0
  */
 public interface SportEventService {
-    int insertSportEvent(SportEvent sportEvent) throws Exception;
-    int updateSportEvent(SportEvent sportEvent) throws Exception;
-    int deleteSportEvent(Integer sportEventID) throws Exception;
-    SportEvent getSportEventByID(Integer sportEventID) throws Exception;
 
-    Set<String> getSportEquipmentsSet() throws Exception;
+    Set<String> getSportEquipmentsSet() ;
 
-    List<SportEvent> getSportEventsList() throws Exception;
+    Set<String> getSportEventsFromTypeSet(String sportType)  ;
 
-    Set<SportEvent> getSportEventsFromTypeSet(String sportType) throws Exception ;
-
-    Set<SportEvent> getSportEquipmentFromTypeSet(String sportType) throws Exception;
+    Set<String> getSportEquipmentFromTypeSet(String sportType);
 }

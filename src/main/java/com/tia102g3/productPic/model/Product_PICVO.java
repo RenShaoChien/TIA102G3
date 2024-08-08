@@ -1,11 +1,11 @@
 package com.tia102g3.productPic.model;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
 @Entity
 @Table(name="product_pic")
 @NoArgsConstructor

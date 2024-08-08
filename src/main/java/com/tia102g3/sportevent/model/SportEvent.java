@@ -1,6 +1,5 @@
 package com.tia102g3.sportevent.model;
 
-import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachspecialty.model.CoachSpecialty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -50,8 +49,8 @@ public class SportEvent {
 
 
 
-    @OneToMany(mappedBy = "sportEvent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<CoachCourse> coachCourses;
+//    @OneToMany(mappedBy = "sportEvent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<CoachCourse> coachCourses;
 //    @OneToMany(mappedBy = "sportEvent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<SystemCourse> systemCourses;
     @OneToMany(mappedBy = "sportEvent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

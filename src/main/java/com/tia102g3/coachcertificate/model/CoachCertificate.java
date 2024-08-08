@@ -1,9 +1,10 @@
 package com.tia102g3.coachcertificate.model;
 
 
-import com.tia102g3.basedao.ForeignKey;
 import com.tia102g3.coachmember.model.CoachMember;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -28,7 +29,6 @@ public class CoachCertificate {
     private Integer coachCertificateID;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cMemberID", referencedColumnName = "cMemberID", nullable = false)
-    @ForeignKey(targetEntity = CoachMember.class, keyField = "cMemberID")
     private CoachMember cMember;
     @Column(name = "certificateName", nullable = false, length = 200)
     private String certificateName;

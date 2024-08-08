@@ -1,16 +1,12 @@
 package com.tia102g3.likefood.model;
 
-import java.util.List;
-
-import org.hibernate.Session;
-
-import com.tia102g3.menu.model.MenuDAO;
-import com.tia102g3.menu.model.MenuDAOImpl;
 import com.tia102g3.menu.model.MenuService;
 import com.tia102g3.menu.model.MenuServiceImpl;
 import com.tia102g3.menu.model.MenuVO;
-
 import com.utils.HibernateUtil;
+import org.hibernate.Session;
+
+import java.util.List;
 
 public class LikeFoodTest {
 

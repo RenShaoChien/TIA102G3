@@ -1,10 +1,9 @@
 package com.tia102g3.membermenulist.model;
 
-import java.util.List;
-
+import com.utils.HibernateUtil;
 import org.hibernate.Session;
 
-import com.utils.HibernateUtil;
+import java.util.List;
 
 public class MemberMenuListTest {
 

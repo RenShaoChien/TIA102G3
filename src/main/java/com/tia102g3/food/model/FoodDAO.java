@@ -1,6 +1,6 @@
 package com.tia102g3.food.model;
 
-import java.util.*;
+import java.util.List;
 
 public interface FoodDAO {
 	public List<FoodVO> getAll();

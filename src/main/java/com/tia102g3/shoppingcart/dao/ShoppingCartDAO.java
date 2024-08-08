@@ -1,9 +1,8 @@
 package com.tia102g3.shoppingcart.dao;
 
-import java.util.List;
-import java.util.Map;
-
 import com.tia102g3.shoppingcart.entity.ShoppingCartVO;
+
+import java.util.List;
 
 
 public interface ShoppingCartDAO {

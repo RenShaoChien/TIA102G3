@@ -1,10 +1,8 @@
 package com.utils;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,12 +19,6 @@ import java.sql.Statement;
  */
 @Component
 public class JDBCUtils {
-    @Autowired
-    private DataSource ds;
-
-    public Connection getConnection() throws Exception {
-        return ds.getConnection();
-    }
 
     /**
      * 關閉資源

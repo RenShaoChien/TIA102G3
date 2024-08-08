@@ -1,13 +1,7 @@
 package com.tia102g3.healthstatus.model;
 
-import java.util.List;
-
-import org.hibernate.Session;
-
-import com.tia102g3.foodlist.model.FoodListService;
-import com.tia102g3.foodlist.model.FoodListServiceImpl;
-
 import com.utils.HibernateUtil;
+import org.hibernate.Session;
 
 public class HealthStatusDAOtest {
 

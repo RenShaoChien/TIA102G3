@@ -1,13 +1,10 @@
 package com.tia102g3.membermenulist.model;
 
-import java.util.List;
-
+import com.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.tia102g3.healthstatus.model.HealthStatusVO;
-
-import com.utils.HibernateUtil;
+import java.util.List;
 
 public class MemberMenuListDAOImpl implements MemberMenuListDAO {
 

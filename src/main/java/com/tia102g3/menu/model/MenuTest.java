@@ -1,16 +1,9 @@
 package com.tia102g3.menu.model;
 
-import java.util.List;
-
+import com.utils.HibernateUtil;
 import org.hibernate.Session;
 
-import com.tia102g3.membermenulist.model.MemberMenuListDAO;
-import com.tia102g3.membermenulist.model.MemberMenuListDAOImpl;
-import com.tia102g3.membermenulist.model.MemberMenuListService;
-import com.tia102g3.membermenulist.model.MemberMenuListServiceImpl;
-import com.tia102g3.membermenulist.model.MemberMenuListVO;
-
-import com.utils.HibernateUtil;
+import java.util.List;
 
 public class MenuTest {
 
