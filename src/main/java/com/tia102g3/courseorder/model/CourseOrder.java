@@ -34,7 +34,7 @@ public class CourseOrder {
     @ForeignKey(targetEntity = Member.class, keyField = "memberID")
     private Member member;
     @ManyToOne
-    @JoinColumn(name = "coachCourseID", referencedColumnName = "coachCourseID")
+    @JoinColumn(name = "coachCourseID", referencedColumnName = "id")
     @ForeignKey(targetEntity = CoachCourse.class, keyField = "coachCourseID")
     private CoachCourse coachCourse;
     private Date orderDate;

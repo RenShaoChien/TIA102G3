@@ -1,6 +1,8 @@
 package com.tia102g3.coachcoursepic.service;
 
 import com.tia102g3.coachcoursepic.model.CoachCoursePicDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * ClassName： CoachCoursePicServiceImpl
@@ -11,7 +13,9 @@ import com.tia102g3.coachcoursepic.model.CoachCoursePicDAO;
  * @Create 2024/7/17 @{TIME}
  * @Version 1.0
  */
+@Service
 public class CoachCoursePicServiceImpl implements CoachCoursePicService  {
-    private CoachCoursePicDAO coachCoursePicDAO;
+    @Autowired
+    private CoachCoursePicDAO ccpDAO;
 
 }

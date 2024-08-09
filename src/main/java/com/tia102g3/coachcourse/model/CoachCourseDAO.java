@@ -1,12 +1,14 @@
 package com.tia102g3.coachcourse.model;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * ClassName： CoachCourseDAO
@@ -62,4 +64,15 @@ public interface CoachCourseDAO extends JpaRepository<CoachCourse, Integer> {
                     "LOWER(cc.classEndTime) LIKE LOWER(CONCAT('%', :keyword, '%'))"
     )
     Long getCoachCourseCount(@Param("keyword") String keyword);
+
+    @EntityGraph(attributePaths = {"coachCoursePics"})
+    Optional<CoachCourse> findWithPicById(Integer coachCourseID);
+
+    @Query("SELECT cc FROM CoachCourse cc WHERE cc.status = :status AND " +
+            "(LOWER(cc.courseName) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(cc.cMember.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(cc.sportEventName) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(cc.sportTypes) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(cc.sportEquipment) LIKE LOWER(CONCAT('%', :keyword, '%')))")
+    List<CoachCourse> findByStatusAndKeyword(@Param("status") CourseStatus status, @Param("keyword") String keyword);
 }

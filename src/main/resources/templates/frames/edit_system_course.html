@@ -230,7 +230,7 @@
             <label>已有的圖片：</label>
             <div class="image-preview" id="existingImagePreview">
                 <div th:each="pic : ${pics}">
-                    <img th:src="@{|/course/DBGifReader?picID=${pic.systemCoursePicID}|}" alt=""
+                    <img th:src="@{|/course/DBGifReader?picID=${pic.systemCoursePicID}&source=systemCoursePic|}" alt=""
                          style="height: 100px;"/>
                 </div>
             </div>

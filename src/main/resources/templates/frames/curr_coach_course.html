@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>教練課程</title>
@@ -33,11 +33,14 @@
         }
 
         .slides img {
-            width: 80%;
+            width: 80%; /* 設置圖片寬度為容器寬度 */
+            max-height: 350px; /* 設置圖片最大高度 */
+            height: 50%;
+
+            object-fit: cover; /* 保持圖片比例並填充容器 */
             display: none;
             border-radius: 5px;
         }
-
         .custom-text-wrapper {
             margin-top: 20px;
             height: 80vh;
@@ -126,27 +129,26 @@
 
 <div class="course-container">
     <div class="slides">
-        <img src="../images/pic3.jpg" alt="Exercise illustration 1" style="display: block;">
-        <img src="../images/pic1.jpg" alt="Exercise illustration 2">
+        <img  th:each="pic : ${course.coachCoursePics}" th:src="@{|/course/DBGifReader?picID=${pic.id}&source=coachCoursePic|}" alt="Exercise illustration 1">
     </div>
     <div class="slide-buttons">
         <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
         <button class="next" onclick="plusSlides(1)">&#10095;</button>
     </div>
 
-    <div class="custom-text-wrapper">
-        <h2 style="margin-right: 25px; display: inline-block">教練：任少騫</h2>
-        <h2 style="margin-left: 25px; display: inline-block">課程：槓鈴深蹲</h2>
-        <div><span>課程難易：初級</span></div>
-        <div><span>課程類型：重量訓練</span></div>
-        <div><span>課程器具：槓鈴</span></div>
-        <div><span>開課時間：yyyy-MM-dd</span></div>
-        <div><span>結訓時間：yyyy-MM-dd</span></div>
-        <div><span>課程堂數：xx 堂</span></div>
-        <div><span>人數上限：xx 人</span></div>
-        <div><span>課程說明：Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy...</span></div>
-        <div><span>課程價格：xxx 元</span></div>
-        <div><span>課程狀態：已上架</span></div>
+    <div class="custom-text-wrapper" th:object="${course}">
+        <h2 style="margin-right: 25px; display: inline-block" th:text="|教練：${course.cMember.name}|">教練：任少騫</h2>
+        <h2 style="margin-left: 25px; display: inline-block" th:text="|課程：${course.courseName}|">課程：槓鈴深蹲</h2>
+        <div><span th:text="|課程難易：${course.courseLevel}|">課程難易：初級</span></div>
+        <div><span th:text="|課程類型：${course.sportTypes}|">課程類型：重量訓練</span></div>
+        <div><span th:text="|課程器具：${course.sportEquipment}|">課程器具：槓鈴</span></div>
+        <div><span th:text="|開課時間：${course.courseStartDate}|">開課時間：yyyy-MM-dd</span></div>
+        <div><span th:text="|結訓時間：${course.courseEndDate}|">結訓時間：yyyy-MM-dd</span></div>
+        <div><span th:text="|課程堂數：${course.noOfClasses}堂|">課程堂數：xx 堂</span></div>
+        <div><span th:text="|人數上限：${course.maxCap}人|">人數上限：xx 人</span></div>
+        <div><span th:text="|課程說明：${course.illustrate}|">課程說明：Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy...</span></div>
+        <div><span th:text="|課程價格：${course.coursePrice}元|">課程價格：xxx 元</span></div>
+        <div><span th:text="|課程狀態：${course.status}|">課程狀態：已上架</span></div>
 
         <div class="button-container">
             <button class="btn_modal">購買會員列表</button>
