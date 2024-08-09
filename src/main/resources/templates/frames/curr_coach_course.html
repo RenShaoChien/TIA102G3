@@ -137,24 +137,25 @@
     </div>
 
     <div class="custom-text-wrapper" th:object="${course}">
-        <h2 style="margin-right: 25px; display: inline-block" th:text="|教練：${course.cMember.name}|">教練：任少騫</h2>
-        <h2 style="margin-left: 25px; display: inline-block" th:text="|課程：${course.courseName}|">課程：槓鈴深蹲</h2>
-        <div><span th:text="|課程難易：${course.courseLevel}|">課程難易：初級</span></div>
-        <div><span th:text="|課程類型：${course.sportTypes}|">課程類型：重量訓練</span></div>
-        <div><span th:text="|課程器具：${course.sportEquipment}|">課程器具：槓鈴</span></div>
-        <div><span th:text="|開課時間：${course.courseStartDate}|">開課時間：yyyy-MM-dd</span></div>
-        <div><span th:text="|結訓時間：${course.courseEndDate}|">結訓時間：yyyy-MM-dd</span></div>
-        <div><span th:text="|課程堂數：${course.noOfClasses}堂|">課程堂數：xx 堂</span></div>
-        <div><span th:text="|人數上限：${course.maxCap}人|">人數上限：xx 人</span></div>
-        <div><span th:text="|課程說明：${course.illustrate}|">課程說明：Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy...</span></div>
-        <div><span th:text="|課程價格：${course.coursePrice}元|">課程價格：xxx 元</span></div>
-        <div><span th:text="|課程狀態：${course.status}|">課程狀態：已上架</span></div>
+        <h2 style="margin-right: 25px; display: inline-block" th:text="|教練：${course.cMember.name}|"></h2>
+        <h2 style="margin-left: 25px; display: inline-block" th:text="|課程：${course.courseName}|"></h2>
+        <div><span th:text="|課程難易：${course.courseLevel}|"></span></div>
+        <div><span th:text="|課程類型：${course.sportTypes}|"></span></div>
+        <div><span th:text="|課程器具：${course.sportEquipment}|"></span></div>
+        <div><span th:text="|開課時間：${course.courseStartDate}|"></span></div>
+        <div><span th:text="|結訓時間：${course.courseEndDate}|"></span></div>
+        <div><span th:text="|課程堂數：${course.noOfClasses}堂|"></span></div>
+        <div><span th:text="|人數上限：${course.maxCap}人|"></span></div>
+        <div><span th:text="|課程說明：${course.illustrate}|"></span></div>
+        <div><span th:text="|課程價格：${course.coursePrice}元|"></span></div>
+        <div><span th:text="|課程狀態：${course.status}|"></span></div>
 
         <div class="button-container">
-            <button class="btn_modal">購買會員列表</button>
+            <button class="btn_modal" th:data-course-id="${course.id}">購買會員列表</button>
             <button onclick="approveCourse()">審核通過</button>
             <button onclick="discontinueCourse()">下架</button>
             <button onclick="replyByEmail()">Email回覆</button>
+            <button onclick="history.back()">回上頁</button>
         </div>
 
     </div>
@@ -171,6 +172,41 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
+    $(".btn_modal").on("click", function () {
+        let requestData = $(this).data('course-id');
+
+        $.ajax({
+            url: '/course/getMemberList',
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            data: {id: requestData},
+            success: function (data) {
+                let $list = $(".custom-course-list");
+                $list.empty();
+                if (data && data.length > 0) {
+                    data.forEach(function (member) {
+                        $list.append('<li>' + '♠ 會員姓名：\t' + member.name + '\t♣會員電話：\t' + member.phone + '</li>');
+                    });
+                } else {
+                    $list.append('<li>未找到相關會員資料。</li>');
+                }
+                $(".lightbox").fadeIn(1000);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('请求失败：', jqXHR.responseText);  // 使用正确的变量名称
+                alert('请求失败，请检查输入数据或联系管理员。');
+            }
+        });
+    });
+
+    $(".btn_modal_close, .lightbox").on("click", function () {
+        $(".lightbox").fadeOut(1000);
+    });
+
+    $(".lightbox > article").on("click", function (e) {
+        e.stopPropagation();
+    });
+
     function approveCourse() {
         // 審核通過的邏輯
         alert('課程已通過審核！');
@@ -202,19 +238,6 @@
         }
         slides[slideIndex - 1].style.display = "block";
     }
-
-    $(".btn_modal").on("click", function () {
-        $(".lightbox").fadeIn(1000);
-    });
-
-
-    $(".btn_modal_close, .lightbox").on("click", function () {
-        $(".lightbox").fadeOut(1000);
-    });
-
-    $(".lightbox > article").on("click", function (e) {
-        e.stopPropagation();
-    });
 </script>
 
 </body>

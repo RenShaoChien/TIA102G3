@@ -197,7 +197,7 @@
     var currentPage = 1;
     var totalPages = 1;
 
-    filterCourses(currentStatus, null, 1, 5, keyword); // 初次加載時傳遞關鍵字
+    filterCourses(currentStatus, null, 1, 5, keyword);
 
     function updatePageButtons() {
         $('#firstPageBtn').prop('disabled', currentPage === 1);
@@ -207,13 +207,13 @@
     }
 
     function page(pageNo) {
-        console.log("Page function called with pageNo:", pageNo);  // 添加調試輸出
+        console.log("Page function called with pageNo:", pageNo);
         if (pageNo < 1 || pageNo > totalPages) {
-            console.log("Invalid pageNo:", pageNo);  // 調試輸出
-            return; // 防止超出範圍的頁碼
+            console.log("Invalid pageNo:", pageNo);
+            return;
         }
         currentPage = pageNo;
-        filterCourses(currentStatus, null, pageNo); // 調用filterCourses
+        filterCourses(currentStatus, null, pageNo);
     }
 
 
@@ -252,7 +252,7 @@
         $.ajax({
             url: '/course/filterCourses',
             method: 'GET',
-            data: {status: status, keyword: keyword, pageNo: pageNo, pageSize: pageSize},
+            data: {status: currentStatus, keyword: keyword, pageNo: currentPage, pageSize: pageSize},
             success: function (response) {
                 // console.log("Received response:", response);
                 $('#coachCourses').empty();

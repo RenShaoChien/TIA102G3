@@ -2,6 +2,7 @@ package com.controllers.admincontrollers.adminjayren;
 
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
+import com.tia102g3.member.model.Member;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -12,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -67,8 +69,15 @@ public class CoachCourseManagement {
         return coursePageDTO;
     }
 
-
-
+    @PostMapping("/getMemberList")
+    @ResponseBody
+    public List<Member> getMemberList(@RequestParam("id") Integer currCoachCourseId){
+        System.out.println("currCoachCourseId = " + currCoachCourseId);
+        if (currCoachCourseId != null){
+            return ccService.getMemberList(currCoachCourseId);
+        }
+        return Collections.emptyList();
+    }
 
 
     @Data

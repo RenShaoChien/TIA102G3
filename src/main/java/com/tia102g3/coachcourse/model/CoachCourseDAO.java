@@ -1,9 +1,11 @@
 package com.tia102g3.coachcourse.model;
 
+import com.tia102g3.member.model.Member;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -63,9 +65,11 @@ public interface CoachCourseDAO extends JpaRepository<CoachCourse, Integer> {
 //    )
 //    Long getCoachCourseCount(@Param("keyword") String keyword);
 
+    @Transactional(readOnly = true)
     @EntityGraph(attributePaths = {"coachCoursePics"})
     Optional<CoachCourse> findWithPicById(Integer coachCourseID);
 
+    @Transactional(readOnly = true)
     @Query("SELECT cc FROM CoachCourse cc WHERE cc.status = :status AND " +
             "(LOWER(cc.courseName) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(cc.cMember.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
@@ -74,6 +78,7 @@ public interface CoachCourseDAO extends JpaRepository<CoachCourse, Integer> {
             "LOWER(cc.sportEquipment) LIKE LOWER(CONCAT('%', :keyword, '%')))")
     List<CoachCourse> findByStatusAndKeyword(CourseStatus status, String keyword, Pageable pageable);
 
+    @Transactional(readOnly = true)
     @Query("SELECT COUNT(cc) FROM CoachCourse cc WHERE cc.status = :status AND " +
             "(LOWER(cc.courseName) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(cc.cMember.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
@@ -81,4 +86,9 @@ public interface CoachCourseDAO extends JpaRepository<CoachCourse, Integer> {
             "LOWER(cc.sportTypes) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(cc.sportEquipment) LIKE LOWER(CONCAT('%', :keyword, '%')))")
     long getCountByStatusAndKeyword(CourseStatus status, String keyword);
+
+    @Transactional(readOnly = true)
+//    @Query("SELECT co.member FROM CourseOrder co WHERE co.coachCourse.id = :currCoachCourseId")
+    @Query("SELECT co.member FROM CourseOrder co WHERE co.coachCourse.id = :currCoachCourseId")
+    List<Member> getMemberList(Integer currCoachCourseId);
 }

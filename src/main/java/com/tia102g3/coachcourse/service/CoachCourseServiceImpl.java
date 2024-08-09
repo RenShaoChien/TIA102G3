@@ -5,6 +5,7 @@ import com.tia102g3.coachcourse.model.CoachCourseDAO;
 import com.tia102g3.coachcourse.model.CourseStatus;
 import com.tia102g3.coachcoursepic.model.CoachCoursePic;
 import com.tia102g3.coachcoursepic.model.CoachCoursePicDAO;
+import com.tia102g3.member.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -63,6 +64,12 @@ public class CoachCourseServiceImpl implements CoachCourseService {
     @Transactional(readOnly = true)
     public long getCoachCourseCountByStatusAndKeyword(String status, String keyword) {
         return ccDAO.getCountByStatusAndKeyword(CourseStatus.fromDescription(status), keyword);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Member> getMemberList(Integer currCoachCourseId) {
+        return ccDAO.getMemberList(currCoachCourseId);
     }
 
 }

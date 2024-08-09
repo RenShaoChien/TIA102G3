@@ -1,6 +1,5 @@
 package com.tia102g3.courseorder.model;
 
-import com.tia102g3.basedao.ForeignKey;
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.member.model.Member;
 import lombok.AllArgsConstructor;
@@ -27,15 +26,12 @@ import java.sql.Date;
 public class CourseOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "courseOrderID")
     private Integer courseOrderID;
     @ManyToOne
     @JoinColumn(name = "memberID", referencedColumnName = "memberID")
-    @ForeignKey(targetEntity = Member.class, keyField = "memberID")
     private Member member;
     @ManyToOne
     @JoinColumn(name = "coachCourseID", referencedColumnName = "id")
-    @ForeignKey(targetEntity = CoachCourse.class, keyField = "coachCourseID")
     private CoachCourse coachCourse;
     private Date orderDate;
     private Integer price;
