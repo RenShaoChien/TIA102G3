@@ -259,8 +259,7 @@
         $('#sportTypes').change(function () {
             var sportType = $(this).val();
             $.ajax({
-                url: '/course/getSportEventsAndEquipment', // 呼叫合併後的 API
-                type: 'GET',
+                url: '/course/getSportEventsAndEquipment',
                 data: { sportType: sportType },
                 dataType: 'json',
                 success: function (data) {
@@ -273,7 +272,7 @@
                     // 處理運動項目名稱
                     $.each(data.sportEvents, function (index, sportEventName) {
                         $sportEventSelect.append($('<option>', {
-                            value: sportEventName, // 根據你的 SportEvent 物件屬性調整
+                            value: sportEventName,
                             text: sportEventName
                         }));
                     });
@@ -281,7 +280,7 @@
                     // 處理運動器材
                     $.each(data.sportEquipment, function (index, sportEquipment) {
                         $sportEquipmentSelect.append($('<option>', {
-                            value: sportEquipment, // 根據你的 SportEvent 物件屬性調整
+                            value: sportEquipment,
                             text: sportEquipment
                         }));
                     });

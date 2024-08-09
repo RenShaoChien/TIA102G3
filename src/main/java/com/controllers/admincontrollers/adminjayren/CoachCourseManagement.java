@@ -1,15 +1,16 @@
-package com.controllers.admincontrollers;
+package com.controllers.admincontrollers.adminjayren;
 
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
+import com.tia102g3.coachmember.model.CoachMember;
 import com.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -58,14 +59,41 @@ public class CoachCourseManagement {
 
         session.setAttribute("pageNo", pageNo);
 
+
         Pageable pageable = PageRequest.of(pageNo - 1, 5);
         List<CoachCourse> coachCourseList = ccService.getCoachCoursesList(coachCoursesKeyword, pageable);
-        session.setAttribute("coachCourses", coachCourseList);
+        session.setAttribute("coachCourseList", coachCourseList);
 
+        for (CoachCourse course : coachCourseList) {
+            System.out.println("Course Name: " + course.getCourseName());
+            CoachMember member = course.getCMember();
+            if (member != null) {
+                System.out.println("Coach Name: " + member.getName());
+            } else {
+                System.out.println("No Coach Member associated.");
+            }
+        }
         Long totalRecords = ccService.getCoachCourseCount(coachCoursesKeyword);
         int pageCount = (int) Math.ceil((double) totalRecords / 5);
         session.setAttribute("pageCount", pageCount);
 
         return "frames/coach_course_list";
     }
+
+    @GetMapping("/currCoachCourse")
+    public String currCoachCourse(@RequestParam Integer coachCourseID, ModelMap model){
+        ccService.findWithPicById(coachCourseID).ifPresent(course -> model.put("course", course));
+
+        return "frames/curr_coach_course";
+    }
+
+    @GetMapping("/filterCourses")
+    @ResponseBody
+    public List<CoachCourse> filterCourses(@RequestParam String status, @RequestParam(required = false) String keyword){
+        if (keyword == null) {
+            keyword = "";
+        }
+        return ccService.getCoachCoursesByStatusAndKeyword(status, keyword);
+    }
+
 }
