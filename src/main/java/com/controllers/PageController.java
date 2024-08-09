@@ -16,7 +16,7 @@ public class PageController {
 
     @GetMapping("/")
     public String index(Model model) {
-        return "index";
+        return "adminLogin";
     }
 
     @GetMapping("/trainers")
@@ -35,3 +35,4 @@ public class PageController {
     }
 
 }
+
