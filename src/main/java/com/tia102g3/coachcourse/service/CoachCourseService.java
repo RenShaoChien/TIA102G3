@@ -2,6 +2,7 @@ package com.tia102g3.coachcourse.service;
 
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachcoursepic.model.CoachCoursePic;
+import com.tia102g3.member.model.Member;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -18,13 +19,17 @@ import java.util.Optional;
  */
 public interface CoachCourseService {
 
-    List<CoachCourse> getCoachCoursesList(String keyword, Pageable pageable);
-
-    Long getCoachCourseCount(String keyword);
+//    List<CoachCourse> getCoachCoursesList(String keyword, Pageable pageable);
+//
+//    Long getCoachCourseCount(String keyword);
 
     Optional<CoachCourse> findWithPicById(Integer coachCourseID);
 
     CoachCoursePic selectCoachCoursePicByID(Integer coachCoursePicID);
 
-    List<CoachCourse> getCoachCoursesByStatusAndKeyword(String status, String keyword);
+    List<CoachCourse> getCoachCoursesByStatusAndKeyword(String status, String keyword, Pageable pageable);
+
+    long getCoachCourseCountByStatusAndKeyword(String status, String keyword);
+
+    List<Member> getMemberList(Integer currCoachCourseId);
 }

@@ -172,15 +172,15 @@
         <tr class="courseList_tr" th:unless="${#lists.isEmpty(session.systemCourses)}"
             th:each="systemCourse : ${session.systemCourses}" th:object="${systemCourse}">
             <td class="courseList_td"><a class="courseList_a" th:text="*{courseName}" th:href="@{|/course/edit?systemCourseID=*{systemCourseID}|}"></a></td>
-            <td class="courseList_td" th:text="*{sportEventName}"></td>
+            <td class="courseList_td" th:text="${systemCourse.sportEventName}"></td>
             <td class="courseList_td" th:text="*{sportTypes}"></td>
             <td class="courseList_td" th:text="*{sportEquipment}"></td>
             <td class="courseList_td" th:text="*{courseLevel}"></td>
-            <td class="courseList_td" th:text="|*{burnCalories}卡路里|"></td>
+            <td class="courseList_td" th:text="|*{burnCalories}卡路里|">0卡路里</td>
             <td class="courseList_td" th:if="${#strings.isEmpty(systemCourse.rps)}"></td>
-            <td class="courseList_td" th:unless="${#strings.isEmpty(systemCourse.rps)}" th:text="|*{rps}次|"></td>
+            <td class="courseList_td" th:unless="${#strings.isEmpty(systemCourse.rps)}" th:text="|${systemCourse.rps}次|">10次</td>
             <td class="courseList_td" th:if="${#strings.isEmpty(systemCourse.swp)}"></td>
-            <td class="courseList_td" th:unless="${#strings.isEmpty(systemCourse.swp)}" th:text="|*{swp}組|"></td>
+            <td class="courseList_td" th:unless="${#strings.isEmpty(systemCourse.swp)}" th:text="|*{swp} 組|">10組</td>
             <td class="courseList_td" th:if="${#strings.isEmpty(systemCourse.eachExerciseTime)}"></td>
             <td class="courseList_td" th:unless="${#strings.isEmpty(systemCourse.eachExerciseTime)}"
                 th:text="|*{eachExerciseTime}分鐘|"></td>

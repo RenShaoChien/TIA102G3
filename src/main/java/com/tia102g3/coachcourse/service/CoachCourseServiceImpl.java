@@ -5,6 +5,7 @@ import com.tia102g3.coachcourse.model.CoachCourseDAO;
 import com.tia102g3.coachcourse.model.CourseStatus;
 import com.tia102g3.coachcoursepic.model.CoachCoursePic;
 import com.tia102g3.coachcoursepic.model.CoachCoursePicDAO;
+import com.tia102g3.member.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,17 +30,17 @@ public class CoachCourseServiceImpl implements CoachCourseService {
     @Autowired
     CoachCoursePicDAO ccpDAO;
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<CoachCourse> getCoachCoursesList(String keyword, Pageable pageable) {
-        return ccDAO.getCoachCoursesList(keyword, pageable);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Long getCoachCourseCount(String keyword) {
-        return ccDAO.getCoachCourseCount(keyword);
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<CoachCourse> getCoachCoursesList(String keyword, Pageable pageable) {
+//        return ccDAO.getCoachCoursesList(keyword, pageable);
+//    }
+//
+//    @Override
+//    @Transactional(readOnly = true)
+//    public Long getCoachCourseCount(String keyword) {
+//        return ccDAO.getCoachCourseCount(keyword);
+//    }
 
     @Override
     @Transactional(readOnly = true)
@@ -55,8 +56,20 @@ public class CoachCourseServiceImpl implements CoachCourseService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CoachCourse> getCoachCoursesByStatusAndKeyword(String status, String keyword) {
-        return ccDAO.findByStatusAndKeyword(CourseStatus.fromDescription(status), keyword);
+    public List<CoachCourse> getCoachCoursesByStatusAndKeyword(String status, String keyword, Pageable pageable) {
+        return ccDAO.findByStatusAndKeyword(CourseStatus.fromDescription(status), keyword, pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public long getCoachCourseCountByStatusAndKeyword(String status, String keyword) {
+        return ccDAO.getCountByStatusAndKeyword(CourseStatus.fromDescription(status), keyword);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Member> getMemberList(Integer currCoachCourseId) {
+        return ccDAO.getMemberList(currCoachCourseId);
     }
 
 }

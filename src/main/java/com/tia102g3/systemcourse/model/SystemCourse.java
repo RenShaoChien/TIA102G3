@@ -35,8 +35,10 @@ public class SystemCourse implements java.io.Serializable {
 
     @NotBlank(message = "運動項目不能為空")
     private String sportEventName;
+
     @NotBlank(message = "運動項目類型不能為空")
     private String sportTypes;
+
     @NotBlank(message = "運動器材不能為空")
     private String sportEquipment;
 
@@ -71,6 +73,7 @@ public class SystemCourse implements java.io.Serializable {
 
     @OneToMany(mappedBy = "systemCourse")
     private List<CustomizedCourse> customizedCourses;
+
     @OneToMany(mappedBy = "systemCourse")
     private List<SystemCoursePic> systemCoursePics;
 

@@ -2,18 +2,18 @@ package com.controllers.admincontrollers.adminjayren;
 
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
-import com.tia102g3.coachmember.model.CoachMember;
-import com.utils.StringUtil;
+import com.tia102g3.member.model.Member;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,48 +35,7 @@ public class CoachCourseManagement {
 
 
     @RequestMapping(value = "/coachCourseList", method = {RequestMethod.GET, RequestMethod.POST})
-    public String coachCourseList(String oper, String coachCoursesKeyword, Integer pageNo, HttpServletRequest req) {
-        HttpSession session = req.getSession();
-
-        if (pageNo == null || pageNo < 1) {
-            pageNo = 1;
-        }
-
-        if (StringUtil.isNotEmpty(oper) && oper.equals("search")) {
-            pageNo = 1;
-            if (StringUtil.isEmpty(coachCoursesKeyword)) {
-                coachCoursesKeyword = "";
-            }
-            session.setAttribute("coachCoursesKeyword", coachCoursesKeyword);
-        } else {
-            Object keywordObj = session.getAttribute("keyword");
-            if (keywordObj != null) {
-                coachCoursesKeyword = keywordObj.toString();
-            } else {
-                coachCoursesKeyword = "";
-            }
-        }
-
-        session.setAttribute("pageNo", pageNo);
-
-
-        Pageable pageable = PageRequest.of(pageNo - 1, 5);
-        List<CoachCourse> coachCourseList = ccService.getCoachCoursesList(coachCoursesKeyword, pageable);
-        session.setAttribute("coachCourseList", coachCourseList);
-
-        for (CoachCourse course : coachCourseList) {
-            System.out.println("Course Name: " + course.getCourseName());
-            CoachMember member = course.getCMember();
-            if (member != null) {
-                System.out.println("Coach Name: " + member.getName());
-            } else {
-                System.out.println("No Coach Member associated.");
-            }
-        }
-        Long totalRecords = ccService.getCoachCourseCount(coachCoursesKeyword);
-        int pageCount = (int) Math.ceil((double) totalRecords / 5);
-        session.setAttribute("pageCount", pageCount);
-
+    public String coachCourseList(Model model) {
         return "frames/coach_course_list";
     }
 
@@ -89,11 +48,52 @@ public class CoachCourseManagement {
 
     @GetMapping("/filterCourses")
     @ResponseBody
-    public List<CoachCourse> filterCourses(@RequestParam String status, @RequestParam(required = false) String keyword){
+    public CoursePageDTO filterCourses(@RequestParam String status,
+                                           @RequestParam(required = false) String keyword,
+                                           @RequestParam(defaultValue = "1") int pageNo,
+                                           @RequestParam(defaultValue = "5") int pageSize) {
         if (keyword == null) {
             keyword = "";
         }
-        return ccService.getCoachCoursesByStatusAndKeyword(status, keyword);
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        List<CoachCourse> courses = ccService.getCoachCoursesByStatusAndKeyword(status, keyword, pageable);
+
+        long totalRecords = ccService.getCoachCourseCountByStatusAndKeyword(status, keyword);
+        int totalPages = (int) Math.ceil((double) totalRecords / pageSize);
+
+        CoursePageDTO coursePageDTO = new CoursePageDTO();
+        coursePageDTO.setCourses(courses);
+        coursePageDTO.setTotalRecords(totalRecords);
+        coursePageDTO.setTotalPages(totalPages);
+
+        return coursePageDTO;
+    }
+
+    @PostMapping("/getMemberList")
+    @ResponseBody
+    public List<Member> getMemberList(@RequestParam("id") Integer currCoachCourseId){
+        System.out.println("currCoachCourseId = " + currCoachCourseId);
+        if (currCoachCourseId != null){
+            return ccService.getMemberList(currCoachCourseId);
+        }
+        return Collections.emptyList();
+    }
+
+
+    @Data
+    public static class CoursePageDTO {
+        private List<CoachCourse> courses;
+        private long totalRecords;
+        private int totalPages;
+
+        @Override
+        public String toString() {
+            return "CoursePageDTO{" +
+                    "totalRecords=" + totalRecords +
+                    ", totalPages=" + totalPages +
+                    ", courses=" + (courses != null ? courses.size() : "null") +
+                    '}';
+        }
     }
 
 }
