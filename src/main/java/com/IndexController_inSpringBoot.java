@@ -84,6 +84,8 @@ public class IndexController_inSpringBoot {
 //    	List<FoodVO> list = foodSvc.getAll();
 //		return list;
 //	}
+    //================ member test ====================
+    
 	
 	
 }
