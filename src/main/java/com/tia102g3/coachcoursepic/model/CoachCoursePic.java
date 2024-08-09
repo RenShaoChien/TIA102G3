@@ -24,11 +24,10 @@ import javax.persistence.*;
 public class CoachCoursePic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "coachCoursePicID")
-    private Integer coachCoursePicID;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "coachCourseID", referencedColumnName = "coachCourseID", nullable = false)
+    @JoinColumn(name = "coachCourseID", referencedColumnName = "id", nullable = false)
     private CoachCourse coachCourse;
 
     @Column(name = "pic", columnDefinition = "longblob")

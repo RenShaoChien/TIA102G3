@@ -1,5 +1,6 @@
 package com.tia102g3.coachcourse.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -14,10 +15,11 @@ import lombok.RequiredArgsConstructor;
  */
 @Getter
 @RequiredArgsConstructor
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum CourseStatus {
-    NOT_REVIEWED(0, "尚未審核"),
+    NOT_REVIEWED(0, "未審核"),
     IN_PROGRESS(1, "進行中"),
-    COMPLETED(2, "已完成"),
+    COMPLETED(2, "已結束"),
     CANCELLED(3, "已取消"),
     POSTPONED(4, "已延期");
 
@@ -31,6 +33,14 @@ public enum CourseStatus {
             }
         }
         return null;
+    }
+    public static CourseStatus fromDescription(String description) {
+        for (CourseStatus status : CourseStatus.values()) {
+            if (status.getDescription().equals(description)) {
+                return status;
+            }
+        }
+        throw new IllegalArgumentException("沒有定義的 " + description);
     }
 
     @Override

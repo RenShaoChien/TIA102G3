@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
@@ -21,12 +22,12 @@ import java.sql.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CoachMember {
+public class CoachMember implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cMemberID")
     private Integer cMemberID;
-    private byte[] profilePic;
+    private byte[] personalPhotos;
     private Integer status;
     private String name;
     private String account;

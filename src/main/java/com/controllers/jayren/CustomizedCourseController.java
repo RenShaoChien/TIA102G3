@@ -1,4 +1,4 @@
-package com.controllers;
+package com.controllers.jayren;
 
 import com.tia102g3.sportevent.service.SportEventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

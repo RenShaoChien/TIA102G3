@@ -49,7 +49,8 @@ CREATE TABLE coach_course
     sportEquipment  VARCHAR(100) COMMENT '運動器材',
     coursePrice     INT COMMENT '課程價格',
     classStartTime  time NOT NULL comment "上課時間",
-    classEndTime    time NOT NULL comment "下課時間"
+    classEndTime    time NOT NULL comment "下課時間",
+    illustrate      varchar(10000) comment "課程說明"
 ) COMMENT ='教練課程表';
 
 CREATE TABLE customized_course
@@ -63,7 +64,6 @@ CREATE TABLE system_course
 (
     systemCourseID   INT AUTO_INCREMENT PRIMARY KEY COMMENT '系統課程ID。主鍵，自動遞增',
     courseName       VARCHAR(50) NOT NULL COMMENT '課程名稱',
-#     sportEventID INT NOT NULL COMMENT '運動項目ID。外鍵，關連到sport_event表的sportEventID',
     sportEventName   varchar(100),
     sportTypes       varchar(100),
     sportEquipment   VARCHAR(100),
@@ -301,5 +301,5 @@ ALTER TABLE system_course_pic
 
 ALTER TABLE coach_course_pic
     ADD CONSTRAINT fk_coach_course_pic_coachCourseID
-        FOREIGN KEY (coachCourseID) REFERENCES Coach_Course (coachCourseID);
+        FOREIGN KEY (coachCourseID) REFERENCES Coach_Course (id);
 
