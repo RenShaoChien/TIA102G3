@@ -2,8 +2,6 @@ package com.controllers.admincontrollers.adminjayren;
 
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
-import com.tia102g3.coachmember.model.CoachMember;
-import com.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,45 +36,58 @@ public class CoachCourseManagement {
     public String coachCourseList(String oper, String coachCoursesKeyword, Integer pageNo, HttpServletRequest req) {
         HttpSession session = req.getSession();
 
-        if (pageNo == null || pageNo < 1) {
-            pageNo = 1;
-        }
-
-        if (StringUtil.isNotEmpty(oper) && oper.equals("search")) {
-            pageNo = 1;
-            if (StringUtil.isEmpty(coachCoursesKeyword)) {
-                coachCoursesKeyword = "";
-            }
-            session.setAttribute("coachCoursesKeyword", coachCoursesKeyword);
-        } else {
-            Object keywordObj = session.getAttribute("keyword");
-            if (keywordObj != null) {
-                coachCoursesKeyword = keywordObj.toString();
-            } else {
-                coachCoursesKeyword = "";
-            }
-        }
-
-        session.setAttribute("pageNo", pageNo);
-
-
-        Pageable pageable = PageRequest.of(pageNo - 1, 5);
-        List<CoachCourse> coachCourseList = ccService.getCoachCoursesList(coachCoursesKeyword, pageable);
-        session.setAttribute("coachCourseList", coachCourseList);
-
-        for (CoachCourse course : coachCourseList) {
-            System.out.println("Course Name: " + course.getCourseName());
-            CoachMember member = course.getCMember();
-            if (member != null) {
-                System.out.println("Coach Name: " + member.getName());
-            } else {
-                System.out.println("No Coach Member associated.");
-            }
-        }
-        Long totalRecords = ccService.getCoachCourseCount(coachCoursesKeyword);
-        int pageCount = (int) Math.ceil((double) totalRecords / 5);
-        session.setAttribute("pageCount", pageCount);
-
+//        if (pageNo == null || pageNo < 1) {
+//            pageNo = 1;
+//        }
+//
+//        if (StringUtil.isNotEmpty(oper) && oper.equals("search")) {
+//            pageNo = 1;
+//            if (StringUtil.isEmpty(coachCoursesKeyword)) {
+//                coachCoursesKeyword = "";
+//            }
+//            session.setAttribute("coachCoursesKeyword", coachCoursesKeyword);
+//        } else {
+//            Object keywordObj = session.getAttribute("keyword");
+//            if (keywordObj != null) {
+//                coachCoursesKeyword = keywordObj.toString();
+//            } else {
+//                coachCoursesKeyword = "";
+//            }
+//        }
+//
+//        session.setAttribute("pageNo", pageNo);
+//
+//
+//        Pageable pageable = PageRequest.of(pageNo - 1, 5);
+//        List<CoachCourse> coachCourseList = ccService.getCoachCoursesList(coachCoursesKeyword, pageable);
+//        session.setAttribute("coachCourseList", coachCourseList);
+//
+//        for (CoachCourse course : coachCourseList) {
+//            System.out.println("Course Name: " + course.getCourseName());
+//            CoachMember member = course.getCMember();
+//            if (member != null) {
+//                System.out.println("Coach Name: " + member.getName());
+//            } else {
+//                System.out.println("No Coach Member associated.");
+//            }
+//        }
+//        Long totalRecords = ccService.getCoachCourseCount(coachCoursesKeyword);
+//        int pageCount = (int) Math.ceil((double) totalRecords / 5);
+//        session.setAttribute("pageCount", pageCount);
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//        if (StringUtil.isNotEmpty(oper) && oper.equals("search")) {
+//            if (StringUtil.isEmpty(coachCoursesKeyword)) {
+//                coachCoursesKeyword = "";
+//            }
+//            session.setAttribute("coachCoursesKeyword", coachCoursesKeyword);
+//        } else {
+//            Object keywordObj = session.getAttribute("keyword");
+//            if (keywordObj != null) {
+//                coachCoursesKeyword = keywordObj.toString();
+//            } else {
+//                coachCoursesKeyword = "";
+//            }
+//        }
         return "frames/coach_course_list";
     }
 
@@ -89,11 +100,15 @@ public class CoachCourseManagement {
 
     @GetMapping("/filterCourses")
     @ResponseBody
-    public List<CoachCourse> filterCourses(@RequestParam String status, @RequestParam(required = false) String keyword){
+    public List<CoachCourse> filterCourses(@RequestParam String status,
+                                           @RequestParam(required = false) String keyword,
+                                           @RequestParam(defaultValue = "1") int pageNo,
+                                           @RequestParam(defaultValue = "5") int pageSize) {
         if (keyword == null) {
             keyword = "";
         }
-        return ccService.getCoachCoursesByStatusAndKeyword(status, keyword);
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return ccService.getCoachCoursesByStatusAndKeyword(status, keyword, pageable);
     }
 
 }

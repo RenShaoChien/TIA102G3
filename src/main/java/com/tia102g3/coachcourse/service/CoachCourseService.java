@@ -18,13 +18,13 @@ import java.util.Optional;
  */
 public interface CoachCourseService {
 
-    List<CoachCourse> getCoachCoursesList(String keyword, Pageable pageable);
-
-    Long getCoachCourseCount(String keyword);
+//    List<CoachCourse> getCoachCoursesList(String keyword, Pageable pageable);
+//
+//    Long getCoachCourseCount(String keyword);
 
     Optional<CoachCourse> findWithPicById(Integer coachCourseID);
 
     CoachCoursePic selectCoachCoursePicByID(Integer coachCoursePicID);
 
-    List<CoachCourse> getCoachCoursesByStatusAndKeyword(String status, String keyword);
+    List<CoachCourse> getCoachCoursesByStatusAndKeyword(String status, String keyword, Pageable pageable);
 }

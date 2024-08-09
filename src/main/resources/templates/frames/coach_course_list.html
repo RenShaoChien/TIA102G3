@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>教練課程列表</title>
     <style>
+        .filter-button.-onfocus {
+            background-color: #0056b3; /* 或任何你希望的高亮顏色 */
+            color: #fff;
+        }
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
@@ -166,9 +170,9 @@
     </div>
     <div class="course-list-container">
         <div class="filters">
-            <button class="filter-button" onclick="filterCourses('進行中')">進行中</button>
-            <button class="filter-button" onclick="filterCourses('已結束')">已結束</button>
-            <button class="filter-button" onclick="filterCourses('未審核')">未審核</button>
+            <button class="filter-button" onclick="filterCourses('進行中', this)">進行中</button>
+            <button class="filter-button" onclick="filterCourses('已結束', this)">已結束</button>
+            <button class="filter-button" onclick="filterCourses('未審核', this)">未審核</button>
         </div>
         <div class="courses">
             <ul id="coachCourses" style="list-style-type: none;">
@@ -188,16 +192,20 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script !src="">
+    var currentStatus = '進行中';
     function page(pageNo) {
-        window.location.href = "/course/coachCourseList?pageNo=" + pageNo;
+        filterCourses(currentStatus, null, pageNo);
     }
 
-    function filterCourses(status){
-        var keyword = $('input[name="coachCoursesKeyword"]').val(); // 獲取當前的搜索關鍵字
+    function filterCourses(status, button, pageNo = 1, pageSize = 5){
+        currentStatus = status;
+        $('.filter-button').removeClass('-onfocus');
+        $(button).addClass('-onfocus');
+        var keyword = $('input[name="coachCoursesKeyword"]').val();
         $.ajax({
-            url: '/course/filterCourses', // 指向後端的處理URL
+            url: '/course/filterCourses',
             method: 'GET',
-            data: { status: status, keyword: keyword }, // 傳遞過濾條件和搜索關鍵字
+            data: { status: status, keyword: keyword, pageNo: pageNo, pageSize: pageSize},
             success: function(response) {
                 $('#coachCourses').empty();
                 if (response.length > 0) {
@@ -226,7 +234,7 @@
 
 
     $(document).ready(function() {
-        filterCourses('進行中');
+        filterCourses(currentStatus);
 
         var messageContent = $("#messageContent").text().trim();
         console.log("檢查燈箱內容:", messageContent);
