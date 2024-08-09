@@ -4,7 +4,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -73,5 +72,13 @@ public interface CoachCourseDAO extends JpaRepository<CoachCourse, Integer> {
             "LOWER(cc.sportEventName) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(cc.sportTypes) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(cc.sportEquipment) LIKE LOWER(CONCAT('%', :keyword, '%')))")
-    List<CoachCourse> findByStatusAndKeyword(@Param("status") CourseStatus status, @Param("keyword") String keyword, Pageable pageable);
+    List<CoachCourse> findByStatusAndKeyword(CourseStatus status, String keyword, Pageable pageable);
+
+    @Query("SELECT COUNT(cc) FROM CoachCourse cc WHERE cc.status = :status AND " +
+            "(LOWER(cc.courseName) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(cc.cMember.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(cc.sportEventName) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(cc.sportTypes) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(cc.sportEquipment) LIKE LOWER(CONCAT('%', :keyword, '%')))")
+    long getCountByStatusAndKeyword(CourseStatus status, String keyword);
 }

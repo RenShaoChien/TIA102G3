@@ -8,6 +8,7 @@
             background-color: #0056b3; /* 或任何你希望的高亮顏色 */
             color: #fff;
         }
+
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
@@ -161,9 +162,9 @@
             </div>
         </div>
         <div class="search-container">
-            <form th:action="@{/course/coachCourseList}" method="post" style="float: right">
-                <input type="hidden" name="oper" value="search">
-                <input class="search-input" type="text" name="coachCoursesKeyword" th:value="${session.coachCoursesKeyword}" placeholder="請輸入查詢關鍵字...">
+            <form id="searchForm" method="post" style="float: right">
+                <input id="coachCoursesKeyword" class="search-input" type="text" name="coachCoursesKeyword"
+                       placeholder="請輸入查詢關鍵字...">
                 <button type="submit" class="btn">查詢</button>
             </form>
         </div>
@@ -172,6 +173,8 @@
         <div class="filters">
             <button class="filter-button" onclick="filterCourses('進行中', this)">進行中</button>
             <button class="filter-button" onclick="filterCourses('已結束', this)">已結束</button>
+            <button class="filter-button" onclick="filterCourses('已取消', this)">已取消</button>
+            <button class="filter-button" onclick="filterCourses('已延期', this)">已延期</button>
             <button class="filter-button" onclick="filterCourses('未審核', this)">未審核</button>
         </div>
         <div class="courses">
@@ -181,35 +184,80 @@
         </div>
     </div>
     <div style="border: 0px solid red ; width: 60%; margin-left: 20% ; margin-top: 4px" class="center">
-        <input type="button" class="btn" th:onclick="page(1)" th:disabled="|${session.pageNo == 1}|" value="首  頁">
-        <input type="button" class="btn" th:onclick="|page(${session.pageNo - 1})|"
-               th:disabled="|${session.pageNo == 1}|" value="上一頁">
-        <input type="button" class="btn" th:onclick="|page(${session.pageNo + 1})|"
-               th:disabled="|${session.pageNo == session.pageCount}|" value="下一頁">
-        <input type="button" class="btn" th:onclick="|page(${session.pageCount})|"
-               th:disabled="|${session.pageNo == session.pageCount}|" value="尾  頁">
+        <input type="button" class="btn" id="firstPageBtn" value="首  頁">
+        <input type="button" class="btn" id="prevPageBtn" value="上一頁">
+        <input type="button" class="btn" id="nextPageBtn" value="下一頁">
+        <input type="button" class="btn" id="lastPageBtn" value="尾  頁">
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script !src="">
+    var keyword = $('#coachCoursesKeyword').val();
     var currentStatus = '進行中';
-    function page(pageNo) {
-        filterCourses(currentStatus, null, pageNo);
+    var currentPage = 1;
+    var totalPages = 1;
+
+    filterCourses(currentStatus, null, 1, 5, keyword); // 初次加載時傳遞關鍵字
+
+    function updatePageButtons() {
+        $('#firstPageBtn').prop('disabled', currentPage === 1);
+        $('#prevPageBtn').prop('disabled', currentPage === 1);
+        $('#nextPageBtn').prop('disabled', currentPage === totalPages);
+        $('#lastPageBtn').prop('disabled', currentPage === totalPages);
     }
 
-    function filterCourses(status, button, pageNo = 1, pageSize = 5){
+    function page(pageNo) {
+        console.log("Page function called with pageNo:", pageNo);  // 添加調試輸出
+        if (pageNo < 1 || pageNo > totalPages) {
+            console.log("Invalid pageNo:", pageNo);  // 調試輸出
+            return; // 防止超出範圍的頁碼
+        }
+        currentPage = pageNo;
+        filterCourses(currentStatus, null, pageNo); // 調用filterCourses
+    }
+
+
+    $('#searchForm').on('submit', function (event) {
+        event.preventDefault(); // 阻止表單的默認提交動作
+        filterCourses(currentStatus, null, 1, 5, $('#coachCoursesKeyword').val());
+    });
+
+    $('#firstPageBtn').on('click', function () {
+        page(1);
+        console.log("First page button clicked");
+    });
+    $('#prevPageBtn').on('click', function () {
+        page(currentPage - 1);
+        console.log("Previous page button clicked");
+    });
+    $('#nextPageBtn').on('click', function () {
+        page(currentPage + 1);
+        console.log("Next page button clicked");
+    });
+    $('#lastPageBtn').on('click', function () {
+        page(totalPages);
+        console.log("Last page button clicked");
+    });
+
+    function filterCourses(status, button, pageNo = 1, pageSize = 5, keyword = '') {
+        console.log("Status selected:", status);
         currentStatus = status;
+        currentPage = pageNo;
         $('.filter-button').removeClass('-onfocus');
-        $(button).addClass('-onfocus');
-        var keyword = $('input[name="coachCoursesKeyword"]').val();
+        if (button) {
+            $(button).addClass('-onfocus');
+        }
+        keyword = keyword || $('#coachCoursesKeyword').val();
+
         $.ajax({
             url: '/course/filterCourses',
             method: 'GET',
-            data: { status: status, keyword: keyword, pageNo: pageNo, pageSize: pageSize},
-            success: function(response) {
+            data: {status: status, keyword: keyword, pageNo: pageNo, pageSize: pageSize},
+            success: function (response) {
+                // console.log("Received response:", response);
                 $('#coachCourses').empty();
-                if (response.length > 0) {
-                    $.each(response, function(index, course) {
+                if (response.courses.length > 0) {
+                    $.each(response.courses, function (index, course) {
                         // console.log(course);
                         var courseItem = `
                     <li>
@@ -225,16 +273,17 @@
                 } else {
                     $('#coachCourses').append('<li>對不起，目前尚無課程!</li>');
                 }
+                totalPages = response.totalPages || 1; // 假設API返回了總頁數
+                updatePageButtons(); // 更新按鈕狀態
             },
-            error: function() {
+            error: function () {
                 alert('無法加載內容，請稍後再試。');
             }
         });
     }
 
+    $(document).ready(function () {
 
-    $(document).ready(function() {
-        filterCourses(currentStatus);
 
         var messageContent = $("#messageContent").text().trim();
         console.log("檢查燈箱內容:", messageContent);
@@ -246,30 +295,29 @@
             $("#lightbox").removeClass("-on").fadeIn(1000);
 
             // 點擊關閉按鈕關閉燈箱
-            $("button.btn_modal_close").on("click", function() {
+            $("button.btn_modal_close").on("click", function () {
                 console.log("關閉按鈕被點擊");
-                $("#lightbox").fadeOut(1000, function() {
+                $("#lightbox").fadeOut(1000, function () {
                     $("#lightbox").addClass("-on");
                 });
             });
 
             // 防止點擊燈箱內部時關閉燈箱
-            $("#lightbox > article").on("click", function(e) {
+            $("#lightbox > article").on("click", function (e) {
                 e.stopPropagation();
             });
 
             // 點擊燈箱背景關閉燈箱
-            $("#lightbox").on("click", function() {
+            $("#lightbox").on("click", function () {
                 console.log("背景被點擊");
-                $(this).fadeOut(1000, function() {
+                $(this).fadeOut(1000, function () {
                     $(this).addClass("-on");
                 });
             });
         } else {
             console.log("燈箱內無消息");
         }
-    });
-
+    })
 </script>
 </body>
 </html>

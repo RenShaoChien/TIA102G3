@@ -27,4 +27,6 @@ public interface CoachCourseService {
     CoachCoursePic selectCoachCoursePicByID(Integer coachCoursePicID);
 
     List<CoachCourse> getCoachCoursesByStatusAndKeyword(String status, String keyword, Pageable pageable);
+
+    long getCoachCourseCountByStatusAndKeyword(String status, String keyword);
 }

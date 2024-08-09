@@ -59,4 +59,10 @@ public class CoachCourseServiceImpl implements CoachCourseService {
         return ccDAO.findByStatusAndKeyword(CourseStatus.fromDescription(status), keyword, pageable);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public long getCoachCourseCountByStatusAndKeyword(String status, String keyword) {
+        return ccDAO.getCountByStatusAndKeyword(CourseStatus.fromDescription(status), keyword);
+    }
+
 }
