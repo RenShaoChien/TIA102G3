@@ -1,7 +1,6 @@
 package com.tia102g3.systemcourse.model;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
@@ -18,12 +17,12 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @ToString
 public enum SystemCourseLevel {
+    SO_EASY(0, "超簡單"),
     EASY(1, "初級"),
     MEDIUM(2, "中級"),
     HARD(3, "高級"),
     VERY_HARD(4, "最高級");
 
-    @NonNull
     private final Integer level;
     private final String description;
 

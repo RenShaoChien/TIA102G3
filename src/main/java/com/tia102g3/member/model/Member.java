@@ -1,11 +1,8 @@
 package com.tia102g3.member.model;
 
-import com.tia102g3.basedao.ForeignKey;
-import com.tia102g3.coachmember.model.CoachMember;
 import com.tia102g3.courseorder.model.CourseOrder;
 import com.tia102g3.customizedcourse.model.CustomizedCourse;
 import com.tia102g3.order.model.OrderVO;
-import com.tia102g3.shoppingcart.entity.ShoppingCartVO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -44,14 +41,11 @@ public class Member {
     private String address;
     private Date bD;
     private Date regDate;
-    @OneToOne(mappedBy = "member")
-    @JoinColumn(name = "cMemberID" ,referencedColumnName = "cMemberID")
-    @ForeignKey(targetEntity = CoachMember.class, keyField = "cMemberID")
-    private CoachMember coachMember;
     private String receiver;
     private String receiverAddress;
     private String receiverPhone;
     private String cardName;
+    private String cardNumber;
     private String cardValidTime;
     private String cardLast3No;
     private String cardPhone;

@@ -1,14 +1,11 @@
 package com.tia102g3.coachcoursepic.model;
 
-import com.tia102g3.basedao.ForeignKey;
 import com.tia102g3.coachcourse.model.CoachCourse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Arrays;
 
 /**
  * ClassName： CoachCoursePic
@@ -27,12 +24,10 @@ import java.util.Arrays;
 public class CoachCoursePic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "coachCoursePicID")
-    private Integer coachCoursePicID;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "coachCourseID", referencedColumnName = "coachCourseID", nullable = false)
-    @ForeignKey(targetEntity = CoachCourse.class, keyField = "coachCourseID")
+    @JoinColumn(name = "coachCourseID", referencedColumnName = "id", nullable = false)
     private CoachCourse coachCourse;
 
     @Column(name = "pic", columnDefinition = "longblob")

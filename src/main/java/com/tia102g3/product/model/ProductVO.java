@@ -1,4 +1,5 @@
 package com.tia102g3.product.model;
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -8,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
 @Entity
 @Table(name="product")
 @RequiredArgsConstructor

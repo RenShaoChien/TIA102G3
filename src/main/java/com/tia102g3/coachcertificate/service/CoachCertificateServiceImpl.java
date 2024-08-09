@@ -1,11 +1,8 @@
 package com.tia102g3.coachcertificate.service;
 
-import com.tia102g3.coachcertificate.model.CoachCertificate;
-import com.tia102g3.coachcertificate.model.CoachCertificateDAOImpl;
+import com.tia102g3.coachcertificate.model.CoachCertificateDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * ClassName： CoachCertificateServiceImpl
@@ -19,35 +16,7 @@ import java.util.List;
 @Service
 public class CoachCertificateServiceImpl implements CoachCertificateService {
     @Autowired
-    private CoachCertificateDAOImpl dao;
+    private CoachCertificateDAO dao;
 
-    @Override
-    public int insertCoachCertificate(CoachCertificate coachCertificate) throws Exception {
-        return dao.insertCoachCertificate(coachCertificate);
-    }
 
-    @Override
-    public int updateCoachCertificate(CoachCertificate coachCertificate) throws Exception {
-        return dao.updateCoachCertificate(coachCertificate);
-    }
-
-    @Override
-    public int deleteCoachCertificateByID(Integer coachCertificateID) throws Exception {
-        return dao.deleteCoachCertificateByID(coachCertificateID);
-    }
-
-    @Override
-    public CoachCertificate getCoachCertificateById(Integer coachCertificateID) throws Exception {
-        return dao.selectCoachCertificateById(coachCertificateID);
-    }
-
-    @Override
-    public List<CoachCertificate> getCoachCertificatesList() throws Exception {
-        return dao.getCoachCertificateList();
-    }
-
-    @Override
-    public List<CoachCertificate> getCoachCertificatesListByCMemberID(Integer cMemberID) throws Exception {
-        return dao.getCoachCertificateListByCMemberId(cMemberID);
-    }
 }

@@ -1,5 +1,11 @@
 package com.tia102g3.systemcourse.model;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 /**
@@ -11,35 +17,45 @@ import java.util.List;
  * @Create 2024/7/17 @{TIME}
  * @Version 1.0
  */
-public interface SystemCourseDAO {
-    /**
-     * 新增課程
-     * @param systemCourse
-     */
-    int insertSystemCourse(SystemCourse systemCourse) throws Exception;
+public interface SystemCourseDAO extends JpaRepository<SystemCourse, Integer> {
 
-    /**
-     * 根據ID獲取課程
-     * @param systemCourseID
-     * @return
-     */
-    SystemCourse getSystemCourseById(Integer systemCourseID) throws Exception;
+    @Transactional
+    @Modifying
+    @Query(value = "delete from system_course where systemCourseID = ?1", nativeQuery = true)
+    int deleteSystemCourse(Integer systemCourseID);
 
-    /**
-     * 更新課程
-     * @param systemCourse
-     */
-    int updateSystemCourse(SystemCourse systemCourse) throws Exception;
+    @Transactional(readOnly = true)
+    @Query(
+            value = "SELECT * FROM system_course WHERE " +
+                    "courseName LIKE CONCAT('%', :keyword, '%') OR " +
+                    "sportEventName LIKE CONCAT('%', :keyword, '%') OR " +
+                    "sportTypes LIKE CONCAT('%', :keyword, '%') OR " +
+                    "sportEquipment LIKE CONCAT('%', :keyword, '%') OR " +
+                    "courseLevel LIKE CONCAT('%', :keyword, '%') OR " +
+                    "burnCalories LIKE CONCAT('%', :keyword, '%') OR " +
+                    "rps LIKE CONCAT('%', :keyword, '%') OR " +
+                    "eachExerciseTime LIKE CONCAT('%', :keyword, '%') OR " +
+                    "sportTime LIKE CONCAT('%', :keyword, '%') OR " +
+                    "swp LIKE CONCAT('%', :keyword, '%') OR " +
+                    "illustrate LIKE CONCAT('%', :keyword, '%') " +
+                    "LIMIT :offset, 5",
+            nativeQuery = true)
+    List<Object[]> getSystemCoursesList(@Param("keyword") String keyword, Integer offset);
 
-    /**
-     * 刪除課程
-     * @param systemCourseID
-     */
-    int deleteSystemCourse(Integer systemCourseID) throws Exception;
-
-    /**
-     * 獲取所有課程
-     * @return List<SystemCourse>
-     */
-    List<SystemCourse> getAllSystemCourses() throws Exception;
+    @Transactional(readOnly = true)
+    @Query(
+            value = "SELECT count(*) FROM system_course WHERE " +
+                    "courseName LIKE CONCAT('%', :keyword, '%') OR " +
+                    "sportEventName LIKE CONCAT('%', :keyword, '%') OR " +
+                    "sportTypes LIKE CONCAT('%', :keyword, '%') OR " +
+                    "sportEquipment LIKE CONCAT('%', :keyword, '%') OR " +
+                    "courseLevel LIKE CONCAT('%', :keyword, '%') OR " +
+                    "burnCalories LIKE CONCAT('%', :keyword, '%') OR " +
+                    "rps LIKE CONCAT('%', :keyword, '%') OR " +
+                    "eachExerciseTime LIKE CONCAT('%', :keyword, '%') OR " +
+                    "sportTime LIKE CONCAT('%', :keyword, '%') OR " +
+                    "swp LIKE CONCAT('%', :keyword, '%') OR " +
+                    "illustrate LIKE CONCAT('%', :keyword, '%') ",
+            nativeQuery = true)
+    Long getSystemCourseCount(@Param("keyword") String keyword);
 }

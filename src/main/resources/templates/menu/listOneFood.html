@@ -1,0 +1,49 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>員工資料 - listOneFood.html</title>
+
+<head th:insert="~{/menu/included-fragment}"></head>
+<style type="text/css">
+	
+    span {
+		display: inline-block;
+		width: 150px;
+		text-align: left;
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-success justify-content-center">
+		 <div align="center"> <h2>員工個人資料 - listOneEmp.html</h2>
+		 <h3><a class="navbar-brand" th:href="@{/food/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div>
+</nav>
+
+	<div align="center" th:fragment="listOneFood-div"> <!-- 此div被select_page.html第158行insert用 -->
+		<h3><span>查詢結果 :</span></h3>
+		<span>食材編號:</span><span th:text="${foodVO.foodNumber}"></span><br/>
+		<span>食材類型編號:</span><span th:text="${foodVO.foodTypeNumber}"></span><br/>
+		<span>食材名稱:</span><span th:text="${foodVO.foodName}"></span><br/>
+		<span>食材熱量:</span><span th:text="${foodVO.foodCalories}"></span><br/>
+<!-- 		<span>薪水:</span><span th:text="${empVO.sal}"></span><br/> -->
+<!-- 		<span>獎金:</span><span th:text="${empVO.comm}"></span><br/> -->
+<!-- 		<span>部門:</span><span th:text="${empVO.deptVO.deptno} + '-[' + ${empVO.deptVO.dname} + ']'"></span><br/> -->
+<!-- 		<span>照片:</span><span><img th:src="@{/emp/DBGifReader} + '?empno=' + ${empVO.empno}" width="100px"></span><br/> -->
+	</div>
+
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>教練課程列表</title>
@@ -7,20 +7,29 @@
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
+            color: #333;
             margin: 0;
             padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
 
         .course-list-container {
             width: 60%;
+            max-width: 1200px;
             background-color: #fff;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
+            margin: 20px auto;
+        }
+
+        .courseList_header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 24px;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
 
         .filters {
@@ -28,7 +37,7 @@
             margin-bottom: 20px;
         }
 
-        .filter-button, .browse-button {
+        .filter-button, .browse-button, .btn {
             padding: 10px 20px;
             margin: 5px;
             background-color: #007bff;
@@ -36,11 +45,14 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            font-size: 16px;
+            height: 40px; /* 設置按鈕高度 */
         }
 
-        .filter-button:hover, .browse-button:hover {
+        .filter-button:hover, .browse-button:hover, .btn:hover {
             background-color: #0056b3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .courses {
@@ -63,40 +75,198 @@
             display: flex;
             gap: 10px;
         }
-        a{
+
+        .course-actions a {
             text-decoration: none;
             color: inherit;
+        }
+
+        #lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: hsla(0, 0%, 0%, .5);
+        }
+
+        #lightbox.-on {
+            display: none;
+        }
+
+        #lightbox > article {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ddd;
+            padding: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn_modal_close {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .btn_modal_close:hover {
+            background-color: #0056b3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 60%;
+            margin-left: auto;
+            margin-bottom: 4px;
+        }
+
+        .search-input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 20px; /* 設置輸入框高度 */
+            font-size: 16px;
+            margin-right: 5px; /* 與按鈕之間的間距 */
+        }
+
+        button {
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-<div class="course-list-container">
-    <div class="filters">
-        <button class="filter-button" onclick="filterCourses('finished')">已結束</button>
-        <button class="filter-button" onclick="filterCourses('pending')">未審核</button>
+<div>
+    <div>
+        <div class="courseList_header">教練課程列表
+            <div id="lightbox" class="-on">
+                <article>
+                    <h1 id="messageContent" th:if="${message}" th:text="${message}" style="color: black"></h1>
+                    <button type="button" class="btn_modal_close">關閉</button>
+                </article>
+            </div>
+        </div>
+        <div class="search-container">
+            <form th:action="@{/course/coachCourseList}" method="post" style="float: right">
+                <input type="hidden" name="oper" value="search">
+                <input class="search-input" type="text" name="coachCoursesKeyword" th:value="${session.coachCoursesKeyword}" placeholder="請輸入查詢關鍵字...">
+                <button type="submit" class="btn">查詢</button>
+            </form>
+        </div>
     </div>
-    <div class="courses">
-        <div class="course-item">
-            <span class="course-name"> ●教練：任少騫 ●課程：少騫拳擊 ●狀態：開課中</span>
-            <div class="course-actions">
-                <button class="browse-button"><a href="curr_coach_course.html">瀏覽</a></button>
-            </div>
+    <div class="course-list-container">
+        <div class="filters">
+            <button class="filter-button" onclick="filterCourses('進行中')">進行中</button>
+            <button class="filter-button" onclick="filterCourses('已結束')">已結束</button>
+            <button class="filter-button" onclick="filterCourses('未審核')">未審核</button>
         </div>
-        <div class="course-item">
-            <span class="course-name">教練課程 B</span>
-            <div class="course-actions">
-                <button class="browse-button">瀏覽</button>
-            </div>
+        <div class="courses">
+            <ul id="coachCourses" style="list-style-type: none;">
+
+            </ul>
         </div>
-        <!-- 更多課程项 -->
+    </div>
+    <div style="border: 0px solid red ; width: 60%; margin-left: 20% ; margin-top: 4px" class="center">
+        <input type="button" class="btn" th:onclick="page(1)" th:disabled="|${session.pageNo == 1}|" value="首  頁">
+        <input type="button" class="btn" th:onclick="|page(${session.pageNo - 1})|"
+               th:disabled="|${session.pageNo == 1}|" value="上一頁">
+        <input type="button" class="btn" th:onclick="|page(${session.pageNo + 1})|"
+               th:disabled="|${session.pageNo == session.pageCount}|" value="下一頁">
+        <input type="button" class="btn" th:onclick="|page(${session.pageCount})|"
+               th:disabled="|${session.pageNo == session.pageCount}|" value="尾  頁">
     </div>
 </div>
-
-<script>
-    function filterCourses(status) {
-        // 在这里添加过滤逻辑
-        console.log("Filtering courses that are " + status);
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script !src="">
+    function delSystemCourse(id, pageNo) {
+        if (confirm("確定要刪除嗎?")) {
+            document.location.href = "/course/delCoachCourse.do?systemCourseID=" + id;
+        }
     }
+    function page(pageNo) {
+        window.location.href = "/course/coachCourseList?pageNo=" + pageNo;
+    }
+
+    function filterCourses(status){
+        var keyword = $('input[name="coachCoursesKeyword"]').val(); // 獲取當前的搜索關鍵字
+        $.ajax({
+            url: '/course/filterCourses', // 指向後端的處理URL
+            method: 'GET',
+            data: { status: status, keyword: keyword }, // 傳遞過濾條件和搜索關鍵字
+            success: function(response) {
+                $('#coachCourses').empty();
+                if (response.length > 0) {
+                    $.each(response, function(index, course) {
+                        // console.log(course);
+                        var courseItem = `
+                    <li>
+                        <div class="course-item">
+                            <span class="course-name">♥ 教練：${course.cmember.name} ♦ 課程：${course.courseName || '未定義'} ♠ 狀態：${course.status.description || '未定義'}</span>
+                            <div class="course-actions">
+                                <button class="browse-button"><a href="/course/currCoachCourse?coachCourseID=${course.id}">瀏覽</a></button>
+                            </div>
+                        </div>
+                    </li>`;
+                        $('#coachCourses').append(courseItem);
+                    });
+                } else {
+                    $('#coachCourses').append('<li>對不起，目前尚無課程!</li>');
+                }
+            },
+            error: function() {
+                alert('無法加載內容，請稍後再試。');
+            }
+        });
+    }
+
+
+    $(document).ready(function() {
+        filterCourses('進行中');
+
+        var messageContent = $("#messageContent").text().trim();
+        console.log("檢查燈箱內容:", messageContent);
+
+        if (messageContent.length > 0) {
+            console.log("燈箱內有消息");
+
+            // 移除 -on class 並顯示燈箱
+            $("#lightbox").removeClass("-on").fadeIn(1000);
+
+            // 點擊關閉按鈕關閉燈箱
+            $("button.btn_modal_close").on("click", function() {
+                console.log("關閉按鈕被點擊");
+                $("#lightbox").fadeOut(1000, function() {
+                    $("#lightbox").addClass("-on");
+                });
+            });
+
+            // 防止點擊燈箱內部時關閉燈箱
+            $("#lightbox > article").on("click", function(e) {
+                e.stopPropagation();
+            });
+
+            // 點擊燈箱背景關閉燈箱
+            $("#lightbox").on("click", function() {
+                console.log("背景被點擊");
+                $(this).fadeOut(1000, function() {
+                    $(this).addClass("-on");
+                });
+            });
+        } else {
+            console.log("燈箱內無消息");
+        }
+    });
+
 </script>
 </body>
 </html>

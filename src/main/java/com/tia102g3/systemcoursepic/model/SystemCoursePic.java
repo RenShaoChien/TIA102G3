@@ -1,12 +1,11 @@
 package com.tia102g3.systemcoursepic.model;
 
-import com.tia102g3.basedao.ForeignKey;
 import com.tia102g3.systemcourse.model.SystemCourse;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.IOException;
 
 /**
  * ClassName： SystemCoursePic
@@ -22,16 +21,24 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class SystemCoursePic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "systemCoursePicID", updatable = false)
+    @NonNull
     private Integer systemCoursePicID;
     @ManyToOne
     @JoinColumn(name = "systemCourseID", referencedColumnName = "systemCourseID", nullable = false)
-    @ForeignKey(targetEntity = SystemCourse.class, keyField = "systemCourseID")
+    @NonNull
     private SystemCourse systemCourse;
     @Column(name = "pic", columnDefinition = "LONGBLOB")
 //    @NotEmpty(message="請上傳課程圖片")
     private byte[] pic;
+
+    public SystemCoursePic(SystemCourse systemCourse, MultipartFile courseImages) throws IOException {
+        this.systemCourse = systemCourse;
+        this.pic = courseImages.getBytes();
+    }
+
 }
