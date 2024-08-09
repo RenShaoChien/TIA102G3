@@ -36,4 +36,3 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         return admin != null && adminPassword.equals(admin.getAdminPassword());
     }
 }
-

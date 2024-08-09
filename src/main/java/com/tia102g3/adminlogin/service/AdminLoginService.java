@@ -5,4 +5,3 @@ public interface AdminLoginService {
     void registerAdmin(String adminName, String adminUsername, String adminPassword, String adminEmail);
     boolean validateAdmin(String adminUsername, String adminPassword);
 }
-
