@@ -1,13 +1,14 @@
 package com.tia102g3.admin.model;
 
-import hibernate.util.CompositeQuery.HibernateUtilCompositeQuery_admin_id;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import hibernate.util.CompositeQuery.HibernateUtil_CompositeQuery_admin_id;
 
 @Service("adminService")
 public class AdminService {
@@ -28,11 +29,11 @@ public class AdminService {
 
 	public void deleteAdmin(Integer admin_ID) {
 		if (repository.existsById(admin_ID))
-			repository.deleteByEmpno(admin_ID);
+			repository.deleteByAdmin_ID(admin_ID);
 //		    repository.deleteById(admin_ID);
 	}
 
-	public AdminVO getOneEmp(Integer admin_ID) {
+	public AdminVO getOneAdmin(Integer admin_ID) {
 		Optional<AdminVO> optional = repository.findById(admin_ID);
 //		return optional.get();
 		return optional.orElse(null); // public T orElse(T other) : 如果值存在就回傳其值，否則回傳other的值
@@ -43,8 +44,7 @@ public class AdminService {
 	}
 
 	public List<AdminVO> getAll(Map<String, String[]> map) {
-		return HibernateUtilCompositeQuery_admin_id.getAllC(map, sessionFactory.openSession());
+		return HibernateUtil_CompositeQuery_admin_id.getAllC(map, sessionFactory.openSession());
 	}
 
-	
 }

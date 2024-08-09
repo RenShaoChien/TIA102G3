@@ -108,4 +108,3 @@ ALTER TABLE coach_course
 ADD CONSTRAINT fk_coach_course_cMemberID
 FOREIGN KEY (cMemberID) REFERENCES coach_member(cMemberID)
 -- COMMENT '外鍵，關聯到coach_member表的cMemberID，指定課程的教練會員';
-
