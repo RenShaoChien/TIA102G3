@@ -22,3 +22,4 @@ public class AdminLogin {
     private String adminPassword;
     private String adminEmail; 
 }
+
