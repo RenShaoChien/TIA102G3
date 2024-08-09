@@ -1,6 +1,13 @@
 package com.tia102g3.food.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "food")
@@ -13,8 +20,10 @@ public class FoodVO implements java.io.Serializable {
 	@Column(name ="foodTypeNumber")
 	private Integer foodTypeNumber;
 	@Column(name = "foodName")
+	@NotEmpty(message="食物名稱: 請勿空白")
 	private String foodName;
 	@Column(name = "foodCalories")
+	@NotNull(message="食物熱量: 請勿空白")
 	private Integer foodCalories;
 	
 	

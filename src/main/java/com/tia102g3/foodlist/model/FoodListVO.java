@@ -1,6 +1,17 @@
 package com.tia102g3.foodlist.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import com.tia102g3.food.model.FoodVO;
+import com.tia102g3.menu.model.MenuVO;
 
 @Entity
 @Table(name="foodlist")
@@ -10,10 +21,16 @@ public class FoodListVO implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="foodListSN")
 	private Integer foodListSN;
-	@Column(name="menuNumber")
-	private Integer menuNumber;
-	@Column(name="foodNumber")
-	private Integer foodNumber;
+	
+	@OneToOne
+    @JoinColumn(name = "menuNumber", referencedColumnName = "menuNumber")
+	private MenuVO menuVO;
+	
+	@ManyToOne
+    @JoinColumn(name = "foodNumber", referencedColumnName = "foodNumber")
+	private FoodVO foodVO;
+	
+	
 	@Column(name="foodWeight")
 	private Integer foodWeight;
 	
@@ -21,45 +38,49 @@ public class FoodListVO implements java.io.Serializable {
 	public FoodListVO() {
 		super();
 	}
-	
-	public FoodListVO(Integer foodListSN, Integer menuNumber, Integer foodNumber, Integer foodWeight) {
-		super();
-		this.foodListSN = foodListSN;
-		this.menuNumber = menuNumber;
-		this.foodNumber = foodNumber;
-		this.foodWeight = foodWeight;
-	}
 
-	public Integer getFoodListSN() {
-		return foodListSN;
-	}
-	public void setFoodListSN(Integer foodListSN) {
-		this.foodListSN = foodListSN;
-	}
-	public Integer getMenuNumber() {
-		return menuNumber;
-	}
-	public void setMenuNumber(Integer menuNumber) {
-		this.menuNumber = menuNumber;
-	}
-	public Integer getFoodNumber() {
-		return foodNumber;
-	}
-	public void setFoodNumber(Integer foodNumber) {
-		this.foodNumber = foodNumber;
-	}
-	public Integer getFoodWeight() {
-		return foodWeight;
-	}
-	public void setFoodWeight(Integer foodWeight) {
-		this.foodWeight = foodWeight;
-	}
+
+    public Integer getFoodListSN() {
+        return foodListSN;
+    }
+
+
+    public void setFoodListSN(Integer foodListSN) {
+        this.foodListSN = foodListSN;
+    }
+
+
+    public MenuVO getMenuVO() {
+        return menuVO;
+    }
+
+
+    public void setMenuVO(MenuVO menuVO) {
+        this.menuVO = menuVO;
+    }
+
+
+    public FoodVO getFoodVO() {
+        return foodVO;
+    }
+
+
+    public void setFoodVO(FoodVO foodVO) {
+        this.foodVO = foodVO;
+    }
+
+
+    public Integer getFoodWeight() {
+        return foodWeight;
+    }
+
+
+    public void setFoodWeight(Integer foodWeight) {
+        this.foodWeight = foodWeight;
+    }
+
+
 	
-	@Override
-	public String toString() {
-		return "FoodListVO [foodListSN=" + foodListSN + ", menuNumber=" + menuNumber + ", foodNumber=" + foodNumber
-		        + ", foodWeight=" + foodWeight + "]";
-	}
 	
 	
 }
