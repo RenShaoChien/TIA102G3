@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name = "likefood")
 public class LikeFoodVO implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "memberID", updatable = false)
 	private Integer memberID;
 	@Column(name = "foodNumber")

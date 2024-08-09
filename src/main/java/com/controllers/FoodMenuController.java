@@ -6,9 +6,11 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +21,8 @@ import com.tia102g3.foodlist.model.FoodListService;
 import com.tia102g3.foodlist.model.FoodListVO;
 import com.tia102g3.healthstatus.model.HealthStatusService;
 import com.tia102g3.healthstatus.model.HealthStatusVO;
+import com.tia102g3.likefood.model.LikeFoodService;
+import com.tia102g3.likefood.model.LikeFoodVO;
 
 @Controller
 @RequestMapping("/menu")
@@ -32,6 +36,9 @@ public class FoodMenuController {
     
     @Autowired
     HealthStatusService healthStatusSvc;
+    
+    @Autowired
+    LikeFoodService likeFoodSvc;
 
     @GetMapping("/backstage")
     public String backstage(ModelMap model) {
@@ -52,6 +59,13 @@ public class FoodMenuController {
         model.addAttribute("healthStatusVO", healthStatusVO);
         return "menu/addHealthStatus";
     }
+    
+    @GetMapping("/addLikeFood")
+    public String addLikeFood(ModelMap model) {
+        LikeFoodVO likeFoodVO = new LikeFoodVO();
+        model.addAttribute("likeFoodVO", likeFoodVO);
+        return "menu/addLikeFood";
+    }
 
     @GetMapping("/listAllFood")
     public String listAllFood(ModelMap model) {
@@ -71,6 +85,13 @@ public class FoodMenuController {
 //        model.addAttribute("allMenu", allMenu);
         System.out.println(allMenuNum);
         return "menu/listAllMenu";
+    }
+    
+    @GetMapping("/listAllLikeFood")
+    public String listAllLikeFood(ModelMap model) {
+        List<LikeFoodVO> list = likeFoodSvc.getAll();
+        model.addAttribute("likeFoodListData", list);
+        return "menu/listAllLikeFood";
     }
 
     // =======================================
@@ -174,6 +195,37 @@ public class FoodMenuController {
 
 //        return "redirect:/food/listAllFood"; // 新增成功後重導至IndexController_inSpringBoot.java的第58行@GetMapping("/emp/listAllEmp")
         return "menu/backstage"; // 新增成功後重導至IndexController_inSpringBoot.java的第58行@GetMapping("/emp/listAllEmp")
+    }
+    
+    
+    @PostMapping("insertLikeFood")
+    public String insert(LikeFoodVO likeFoodVO, BindingResult result, ModelMap model) {
+
+        /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+        // 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
+        
+        if (result.hasErrors()) {
+            return "menu/addLikeFood";
+        }
+
+        /*************************** 2.開始新增資料 *****************************************/
+        // EmpService empSvc = new EmpService();
+        likeFoodSvc.addLikeFood(likeFoodVO);
+        /*************************** 3.新增完成,準備轉交(Send the Success view) **************/
+        List<LikeFoodVO> list = likeFoodSvc.getAll();
+        model.addAttribute("likeFoodListData", list);
+        model.addAttribute("success", "- (新增成功)");
+
+//        return "redirect:/food/listAllFood"; // 新增成功後重導至IndexController_inSpringBoot.java的第58行@GetMapping("/emp/listAllEmp")
+        return "menu/listAllLikeFood"; // 新增成功後重導至IndexController_inSpringBoot.java的第58行@GetMapping("/emp/listAllEmp")
+    }
+    
+    
+    @ModelAttribute("FoodListData")  // for select_page.html 第97 109行用 // for listAllEmp.html 第85行用
+    protected List<FoodVO> referenceListData(Model model) {
+        
+        List<FoodVO> list = foodSvc.getAll();
+        return list;
     }
 
 }
