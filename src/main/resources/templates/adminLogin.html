@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>管理人員登入</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .login-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>管理人員登入</h1>
+        <form th:action="@{/adminLogin}" method="post">
+            <div class="form-group">
+                <label for="adminUsername">使用者名稱：</label>
+                <input type="text" class="form-control" id="adminUsername" name="adminUsername" required/>
+            </div>
+            <div class="form-group">
+                <label for="adminPassword">密碼：</label>
+                <input type="password" class="form-control" id="adminPassword" name="adminPassword" required/>
+            </div>
+            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <button type="submit" class="btn btn-primary btn-block">登入</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="/adminRegister">註冊</a>
+        </div>
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
