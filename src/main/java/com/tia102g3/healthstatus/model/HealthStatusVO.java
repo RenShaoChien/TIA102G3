@@ -1,9 +1,16 @@
 package com.tia102g3.healthstatus.model;
 
-import org.hibernate.annotations.CreationTimestamp;
-
-import javax.persistence.*;
 import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "healthStatus")
@@ -14,16 +21,19 @@ public class HealthStatusVO implements java.io.Serializable {
 	@Column(name = "healthSN", updatable = false)
 	private Integer healthSN;
 	@Column(name = "memberID")
+	@NotNull(message="會員編號: 請勿空白")
 	private Integer memberID;
 	@Column(name = "height")
+	@NotNull(message="會員身高: 請勿空白")
 	private Integer height;
 	@Column(name = "weight")
+	@NotNull(message="會員體重: 請勿空白")
 	private Integer weight;
 	@Column(name = "bmi")
 	private Double bmi;
-	@Column(name = "BMR")
+	@Column(name = "bmr")
 	private Integer bmr;
-	@Column(name = "TDEE")
+	@Column(name = "tdee")
 	private Integer tdee;
 	@Column(name = "intensity")
 	private Integer intensity;
