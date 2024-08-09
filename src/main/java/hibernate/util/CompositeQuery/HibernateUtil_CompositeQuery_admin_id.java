@@ -1,20 +1,22 @@
 package hibernate.util.CompositeQuery;
 
-import com.tia102g3.admin.model.AdminVO;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-public class HibernateUtilCompositeQuery_admin_id {
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.tia102g3.admin.model.AdminVO;
+
+public class HibernateUtil_CompositeQuery_admin_id {
 
 	public static Predicate get_aPredicate_For_AnyDB(CriteriaBuilder builder, Root<AdminVO> root, String columnName,
 			String value) {
@@ -52,6 +54,13 @@ public class HibernateUtilCompositeQuery_admin_id {
 				String value = map.get(key)[0];
 				if (value != null && value.trim().length() != 0 && !"action".equals(key)) {
 					count++;
+					Predicate predicate = get_aPredicate_For_AnyDB(builder, root, key, value.trim());
+                    if (predicate != null) {
+                        predicateList.add(predicate);
+                        System.out.println("有送出查詢資料的欄位數count = " + count);
+                    } else {
+                        System.out.println("欄位 " + key + " 的值 " + value + " 產生的 Predicate 為 null");
+                    }//確保不是null
 					predicateList.add(get_aPredicate_For_AnyDB(builder, root, key, value.trim()));
 					System.out.println("有送出查詢資料的欄位數count = " + count);
 				}
@@ -78,4 +87,3 @@ public class HibernateUtilCompositeQuery_admin_id {
 	}
 
 }
-
