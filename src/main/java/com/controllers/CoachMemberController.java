@@ -31,9 +31,6 @@ public class CoachMemberController {
 	@Autowired
 	CoachMemberService coachMemberSvc; // 注入CoachMemberService
 
-//    @Autowired
-//    DeptService deptSvc; // 注入DeptService
-
 	/*
 	 * 顯示添加員工的頁面
 	 */
