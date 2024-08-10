@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>首頁 - Spring Boot + Spring MVC + Thymeleaf</title>
+
+<!-- 引入Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+
+<style type="text/css">
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5; /* 淺灰色背景 */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #343a40; /* 深灰色背景 */
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar h2 {
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.navbar .navbar-brand {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 100px auto; /* 上邊距預留空間給固定的navbar */
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+h3 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #333;
+}
+
+a.btn {
+    text-decoration: none;
+    color: #ffffff; /* 白色文字 */
+    background-color: #007bff; /* 藍色背景 */
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+a.btn:hover {
+    text-decoration: none;
+    background-color: #0056b3; /* 更深的藍色 */
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #343a40; /* 深灰色背景 */
+    color: #ffffff;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container img {
+    max-width: 100px;
+    margin: 10px 0;
+}
+h2 {
+    padding-left: 350px;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark">
+    <h2>會員 & 課程訂單管理</h2>
+</nav>
+
+<div class="container">
+    <h3><a class="btn" th:href="@{/member/select_page}">會員資料</a></h3>
+    <h3><a class="btn" th:href="@{/course_order/select_page}">課程訂單資料</a></h3>
+</div>
+
+<div class="footer">
+    &copy; 健肌尋食 後台系統
+</div>
+
+</body>
+</html>

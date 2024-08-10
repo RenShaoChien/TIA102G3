@@ -35,5 +35,9 @@ public class PageController {
         return "menu";
     }
 
+    @GetMapping("/memberPage")
+    public String member(Model model) {
+        return "member";
+    }
 }
 

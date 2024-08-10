@@ -11,15 +11,6 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
-/**
- * ClassName： Member
- * package：com.tia102g3.member.model
- * Description：
- *
- * @Author 任少騫
- * @Create 2024/7/27 下午8:08
- * @Version 1.0
- */
 @Entity
 @Table(name = "member")
 @Data
@@ -29,6 +20,7 @@ import java.util.Set;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "memberID")
     @NonNull
     private Integer memberID;
     private byte[] personalPhotos;
