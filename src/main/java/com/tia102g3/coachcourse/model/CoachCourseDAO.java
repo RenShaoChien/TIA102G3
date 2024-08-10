@@ -88,7 +88,6 @@ public interface CoachCourseDAO extends JpaRepository<CoachCourse, Integer> {
     long getCountByStatusAndKeyword(CourseStatus status, String keyword);
 
     @Transactional(readOnly = true)
-//    @Query("SELECT co.member FROM CourseOrder co WHERE co.coachCourse.id = :currCoachCourseId")
     @Query("SELECT co.member FROM CourseOrder co WHERE co.coachCourse.id = :currCoachCourseId")
     List<Member> getMemberList(Integer currCoachCourseId);
 }
