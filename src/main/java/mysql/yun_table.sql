@@ -40,7 +40,7 @@ create TABLE order_details(
    CONSTRAINT fk_order_details_productID
    FOREIGN KEY (productID) REFERENCES product (productID),
    CONSTRAINT fk_order_details_orderID
-   FOREIGN KEY (orderID) REFERENCES order (orderID),
+   FOREIGN KEY (orderID) REFERENCES orderID (orderID)
 );
 
 --之前為了測試建立的臨時member table
