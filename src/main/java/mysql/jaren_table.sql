@@ -35,7 +35,7 @@ CREATE TABLE coach_course_pic
 
 CREATE TABLE coach_course
 (
-    coachCourseID   INT AUTO_INCREMENT PRIMARY KEY COMMENT '教練課程ID。主鍵，自動遞增',
+    id              INT AUTO_INCREMENT PRIMARY KEY COMMENT '教練課程ID。主鍵，自動遞增',
     cMemberID       INT  NOT NULL COMMENT '教練會員ID。外鍵，關連到coach_member表的cMemberID',
     courseName      VARCHAR(50) COMMENT '課程名稱',
     courseLevel     INT COMMENT '課程等級',
@@ -204,7 +204,7 @@ CREATE TABLE orderID
 (
     orderID    INT AUTO_INCREMENT PRIMARY KEY COMMENT '訂單ID。主鍵，自動遞增',
     memberID   INT NOT NULL COMMENT '會員ID。外鍵，關聯到member表的memberID',
-    orderDate  DATETIME COMMENT '訂單日期',
+    orderDate  DATE COMMENT '訂單日期',
     status     VARCHAR(20) COMMENT '訂單狀態',
     totalPrice INT COMMENT '總金額'
 ) COMMENT ='訂單表。存儲會員的訂單基本信息';
@@ -303,3 +303,4 @@ ALTER TABLE coach_course_pic
     ADD CONSTRAINT fk_coach_course_pic_coachCourseID
         FOREIGN KEY (coachCourseID) REFERENCES Coach_Course (id);
 
+SELECT * FROM member WHERE memberID IN (SELECT memberID FROM course_order);

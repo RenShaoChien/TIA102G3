@@ -1,5 +1,6 @@
 package com.tia102g3.member.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tia102g3.courseorder.model.CourseOrder;
 import com.tia102g3.customizedcourse.model.CustomizedCourse;
 import com.tia102g3.order.model.OrderVO;
@@ -28,7 +29,6 @@ import java.util.Set;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "memberID")
     @NonNull
     private Integer memberID;
     private byte[] personalPhotos;
@@ -50,9 +50,12 @@ public class Member {
     private String cardLast3No;
     private String cardPhone;
     @OneToMany(mappedBy = "member")
+    @JsonIgnore
     private List<CustomizedCourse> customizedCoursesList;
     @OneToMany(mappedBy = "member")
+    @JsonIgnore
     private Set<OrderVO> orderSet;
     @OneToMany(mappedBy = "member")
+    @JsonIgnore
     private List<CourseOrder> courseOrderList;
 }
