@@ -140,12 +140,12 @@
             </div>
         </div>
         <div class="search-container">
-            <form th:action="@{/course/systemCourseList}" method="post" style="float: right">
+            <form th:action="@{/prouct/productList}" method="post" style="float: right">
                 <input type="hidden" name="oper" value="search">
                 <input type="text" name="keyword" th:value="${session.keyword}" placeholder="請輸入查詢關鍵字..." class="search-input">
                 <button type="submit" class="btn">查詢</button>
             </form>
-            <a th:href="@{/course/addSystemCourse}"
+            <a th:href="@{/prouct/addProduct}"
                style="text-decoration: none;float: right;margin-right: 30px;">添加商品</a>
         </div>
     </div>
@@ -164,11 +164,11 @@
             <td colspan="14">對不起，查無符合的商品!</td>
         </tr>
         <tr class="courseList_tr" th:unless="${#lists.isEmpty(session.productList)}"
-            th:each="systemCourse : ${session.productList}" th:object="${productVO}">
-            <td class="courseList_td"><a class="courseList_a" th:text="*{productID}" th:href="@{|/course/edit?systemCourseID=*{systemCourseID}|}"></a></td>
+            th:each="productVO : ${session.productList}" th:object="${productVO}">
+            <td class="courseList_td"><a class="courseList_a" th:text="*{productID}" th:href="@{|/prouct/edit?productID=*{productID}|}"></a></td>
             <td class="courseList_td" th:text="${productVO.prodName}"></td>
             <td class="courseList_td">
-                <img th:src="${productVO.productPic}" alt="Product Image" width="100" height="100">
+                <img th:src="@{|/course/DBGifReader?picID=${productVO.productID}&source=productPic|}" alt="Product Image" width="100" height="100">
             </td>
             <td class="courseList_td" th:text="*{price}"></td>
             <td class="courseList_td" th:text="*{productQuantity}"></td>
@@ -190,14 +190,14 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script !src="">
-    function delSystemCourse(systemCourseID, pageNo) {
+    function delProductID(productID) {
         if (confirm("確定要刪除嗎?")) {
-            document.location.href = "/course/delSystemCourse.do?systemCourseID=" + systemCourseID;
+            document.location.href = "/prouct/delProduct.do?productID=" + productID;
         }
     }
 
     function page(pageNo) {
-        window.location.href = "/course/systemCourseList?pageNo=" + pageNo;
+        window.location.href = "/prouct/productList?pageNo=" + pageNo;
     }
     $(document).ready(function() {
         var messageContent = $("#messageContent").text().trim();

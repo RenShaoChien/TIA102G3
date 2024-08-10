@@ -1,13 +1,11 @@
 package com.tia102g3.product.model;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 public interface ProductRepository extends JpaRepository<ProductVO, Integer> {
 
@@ -19,7 +17,7 @@ public interface ProductRepository extends JpaRepository<ProductVO, Integer> {
                     "prodName LIKE CONCAT('%', :keyword, '%') OR " +
                     "price LIKE CONCAT('%', :keyword, '%') OR " +
                     "productQuantity LIKE CONCAT('%', :keyword, '%') OR " +
-                    "intro LIKE CONCAT('%', :keyword, '%') OR " +
+                    "intro LIKE CONCAT('%', :keyword, '%') " +
                     "LIMIT :offset, 5",
             nativeQuery = true)
 	List<Object[]> getProductList(@Param("keyword") String keyword, Integer offset);
@@ -27,7 +25,7 @@ public interface ProductRepository extends JpaRepository<ProductVO, Integer> {
 
     @Transactional(readOnly = true)
     @Query(
-            value = "SELECT * FROM product WHERE " +
+            value = "SELECT count(*) FROM product WHERE " +
                     "productID LIKE CONCAT('%', :keyword, '%') OR " +
                     "prodName LIKE CONCAT('%', :keyword, '%') OR " +
                     "price LIKE CONCAT('%', :keyword, '%') OR " +

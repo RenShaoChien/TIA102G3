@@ -1,15 +1,12 @@
 package com.tia102g3.product.model;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.tia102g3.shoppingcart.model.ShoppingCartVO;
-import com.tia102g3.systemcourse.model.SystemCourse;
-import com.tia102g3.systemcourse.model.SystemCourseLevel;
+import java.io.IOException;
+import java.util.List;
 
 @Service("productService")
 public class ProductService {
@@ -17,51 +14,41 @@ public class ProductService {
 	@Autowired
 	ProductRepository repository;
 
-	public void insertProduct(ProductVO productVO) {
-
-		repository.save(productVO);
+	public void deleteProduct(Integer productID) {
+		repository.deleteById(productID);
 	}
 
-	public void updateProduct(ProductVO productVO) {
-
-		repository.save(productVO);
+	public Long getProductCount(String keyword) {
+		return repository.getProductCount(keyword);
 	}
 
-	public void deleteProduct(Integer productVO) {
-		repository.deleteById(productVO);
+	@Transactional
+	public void updateProduct(ProductVO pd, MultipartFile productImage) throws IOException {
+		pd.setProductPic(productImage.getBytes());
+		repository.save(pd);
 	}
 
-	public ProductVO findByPrimaryKey(Integer productID) {
-		Optional<ProductVO> optional = repository.findById(productID);
-//	      return optional.get();
-		return optional.orElse(null); // public T orElse(T other) : 如果值存在就回傳其值，否則回傳other的值
+	public ProductVO findProductById(Integer productID) {
+		return repository.getReferenceById(productID);
+	}
+
+	public List<ProductVO> getProductList(String keyword, int offset) {
+		List<Object[]> productObjList = repository.getProductList(keyword, offset);
+		return productObjList.stream().map(this::convertToProductVO).toList();
+	}
+
+	private ProductVO convertToProductVO(Object[] row) {
+		ProductVO pd = new ProductVO();
+        pd.setProductID((Integer) row[0]);
+        pd.setProdName((String) row[1]);
+        pd.setPrice((Integer) row[2]);
+        pd.setProductQuantity((Integer) row[3]);
+        pd.setIntro((String) row[4]);
+        pd.setProductPic((byte[]) row[5]);
+        return pd;
 	}
 
 	public List<ProductVO> getAll() {
 		return repository.findAll();
-	}
-
-//    @Override
-    @Transactional
-	public List<ProductVO> getProductList(String keyword, Integer pageNo) {
-        List<Object[]> rawData = repository.getProductList(keyword, pageNo);
-        System.out.println(rawData.size());
-        return rawData.stream()
-                .map(this::convertToProduct)
-                .toList();
-	}
-    private ProductVO convertToProduct(Object[] row) {
-    	ProductVO productVO = new ProductVO();
-    	productVO.setProductID((Integer) row[0]);
-    	productVO.setProdName((String) row[1]);
-    	productVO.setProductPic((byte[]) row[2]);
-    	productVO.setPrice((Integer) row[3]);
-    	productVO.setProductQuantity((Integer) row[4]);
-    	productVO.setIntro((String) row[5]);
-        return productVO;
-    }
-
-	public Long getProductCount(String keyword) {
-		return repository.getProductCount(keyword);
 	}
 }
