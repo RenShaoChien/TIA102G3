@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>所有課程訂單資料 - listAllCourseOrder.html</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" />
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#example').DataTable({
+			"lengthMenu": [5, 10, 20, 50, 100],
+			"searching": true,
+			"paging": true,
+			"ordering": true,
+			"language": {
+				"processing": "處理中...",
+				"loadingRecords": "載入中...",
+				"lengthMenu": "顯示 _MENU_ 筆結果",
+				"zeroRecords": "沒有符合的結果",
+				"info": "顯示第 _START_ 至 _END_ 筆結果，共 <font color=red> _TOTAL_ </font> 筆",
+				"infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+				"infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+				"search": "搜尋:",
+				"paginate": {
+					"first": "第一頁",
+					"previous": "上一頁",
+					"next": "下一頁",
+					"last": "最後一頁"
+				}
+			}
+		});
+	});
+</script>
+<style type="text/css">
+body {
+	margin-top: 80px; /* To avoid overlapping with fixed navbar */
+	font-family: Arial, sans-serif;
+	background-color: #f4f7f6; /* Light background for the whole page */
+}
+
+.navbar {
+	background-color: #007bff; /* Bootstrap primary color */
+}
+
+.navbar h2 {
+	color: #ffffff;
+}
+
+.navbar .btn {
+	margin-left: 1rem;
+	padding: 0.5rem 2rem; /* Adjust padding to make button wider */
+	font-size: 1rem; /* Adjust font size to make text more readable */
+	white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.table-container {
+	margin-top: 2rem;
+}
+
+.table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
+thead th {
+	background-color: #e9ecef; /* Light gray background for table header */
+	color: #495057; /* Bootstrap text color */
+	text-align: center;
+}
+
+tbody td {
+	background-color: #ffffff; /* White background for table cells */
+	text-align: center;
+	vertical-align: middle; /* Center align vertically */
+}
+
+.btn {
+	font-size: 0.9rem;
+	padding: 0.5rem 1rem;
+	margin: 0.2rem;
+}
+
+.btn-warning {
+	background-color: #ffc107;
+	color: #212529;
+	border: none;
+}
+
+.btn-danger {
+	background-color: #dc3545;
+	color: #ffffff;
+	border: none;
+}
+
+.btn-info {
+	background-color: #17a2b8;
+	color: #ffffff;
+	border: none;
+}
+h2{
+	padding-right: 100px;
+}
+</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top">
+		<div class="container">
+			<a class="btn btn-outline-light" th:href="@{/course_order/select_page}" role="button">
+				<span class="font-weight-bold">回查詢頁</span>
+			</a>
+			<div class="text-center w-100">
+				<h2 class="text-light">所有課程訂單資料</h2>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container table-container">
+		<table id="example" class="display table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>課程訂單ID</th>
+					<th>會員ID</th>
+					<th>教練課程ID</th>
+					<th>金額</th>
+					<th>訂單日期</th>
+					<th>訂單狀態</th>
+					<th>修改</th>
+					<th>刪除</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="courseOrder : ${courseOrderListData}">
+					<tr>
+						<td th:text="${courseOrder.courseOrderID}"></td>
+						<td th:text="${courseOrder.memberID}"></td>
+						<td th:text="${courseOrder.coachCourse.id}"></td>
+						<td th:text="${courseOrder.price}"></td>
+						<td th:text="${courseOrder.orderDate}"></td>
+						<td th:text="${courseOrder.status}"></td>
+						<td>
+							<form method="post" th:action="@{/course_order/getOne_For_Update}" style="margin-bottom: 0px;">
+								<input type="submit" class="btn btn-warning btn-sm" value="修改"> 
+								<input type="hidden" name="courseOrderID" th:value="${courseOrder.courseOrderID}">
+							</form>
+						</td>
+						<td>
+							<form method="post" th:action="@{/course_order/delete}" style="margin-bottom: 0px;">
+								<input type="submit" class="btn btn-danger btn-sm" value="刪除"> 
+								<input type="hidden" name="courseOrderID" th:value="${courseOrder.courseOrderID}">
+							</form>
+						</td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>會員詳細資料</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+    }
+    .container {
+        max-width: 700px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+    .btn-back {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #ffffff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s;
+        z-index: 1000;
+    }
+    .btn-back img {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+    }
+    .btn-back:hover {
+        background-color: #0056b3;
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .header img.profile-pic {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto;
+    }
+    .header h2 {
+        margin: 10px 0;
+        font-size: 24px;
+    }
+    .profile-info {
+        margin-top: 20px;
+    }
+    .profile-info p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        background-color: #fafafa;
+    }
+    .profile-info p span {
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <a class="btn-back" th:href="@{/member/listAllMember}">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/left.png" alt="Back"> 返回列表
+            <label th:text="${success}"></label>
+        </a>
+        <div class="header">
+            <img th:src="@{/member/DBGifReader} + '?memberID=' + ${member.memberID}" class="profile-pic" alt="Profile Picture">
+            <h2>會員詳細資料</h2>
+        </div>
+        <div class="profile-info">
+            <p><span>會員ID:</span> <span th:text="${member.memberID}"></span></p>
+            <p><span>姓名:</span> <span th:text="${member.name}"></span></p>
+            <p><span>帳號:</span> <span th:text="${member.account}"></span></p>
+            <p><span>密碼:</span> <span th:text="${member.password}"></span></p>
+            <p><span>電子郵件:</span> <span th:text="${member.email}"></span></p>
+            <p><span>性別:</span> <span th:text="${member.gender}"></span></p>
+            <p><span>手機:</span> <span th:text="${member.phone}"></span></p>
+            <p><span>地址:</span> <span th:text="${member.address}"></span></p>
+            <p><span>生日:</span> <span th:text="${member.bD}"></span></p>
+            <p><span>註冊日期:</span> <span th:text="${member.regDate}"></span></p>
+            <p><span>收件人姓名:</span> <span th:text="${member.receiver}"></span></p>
+            <p><span>收件人地址:</span> <span th:text="${member.receiverAddress}"></span></p>
+            <p><span>收件人電話:</span> <span th:text="${member.receiverPhone}"></span></p>
+            <p><span>持卡人姓名:</span> <span th:text="${member.cardName}"></span></p>
+            <p><span>信用卡號碼:</span> <span th:text="${member.cardNumber}"></span></p>
+            <p><span>有效日期:</span> <span th:text="${member.cardValidTime}"></span></p>
+            <p><span>安全碼:</span> <span th:text="${member.cardLast3No}"></span></p>
+            <p><span>卡片綁定號碼:</span> <span th:text="${member.cardPhone}"></span></p>
+        </div>
+    </div>
+</body>
+</html>
