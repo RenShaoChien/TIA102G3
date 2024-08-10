@@ -19,9 +19,7 @@ import lombok.RequiredArgsConstructor;
 public enum CourseStatus {
     NOT_REVIEWED(0, "未審核"),
     IN_PROGRESS(1, "進行中"),
-    COMPLETED(2, "已結束"),
-    CANCELLED(3, "已取消"),
-    POSTPONED(4, "已延期");
+    COMPLETED(2, "已結束");
 
     private final Integer status;
     private final String description;

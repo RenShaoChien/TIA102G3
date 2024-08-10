@@ -8,9 +8,11 @@ import com.tia102g3.coachcoursepic.model.CoachCoursePicDAO;
 import com.tia102g3.member.model.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,4 +74,29 @@ public class CoachCourseServiceImpl implements CoachCourseService {
         return ccDAO.getMemberList(currCoachCourseId);
     }
 
+    @Override
+    @Transactional
+    public boolean updateCourseStatus(Integer coachCourseId, CourseStatus newStatus) {
+        return ccDAO.findById(coachCourseId)
+                .map(course -> {
+                    course.setStatus(newStatus); // 更新课程状态
+                    ccDAO.save(course); // 保存更新后的课程
+                    return true; // 返回成功标志
+                })
+                .orElse(false); // 如果未找到课程，返回false
+    }
+
+    @Override
+    @Transactional
+    @Scheduled(cron = "0 0 0 * * ?")
+    public void updateCourseStatusByDate() {
+        LocalDate today = LocalDate.now();
+        List<CoachCourse> courses = ccDAO.findAll();
+        for (CoachCourse course : courses) {
+            if (course.getCourseEndDate().toLocalDate().isBefore(today) && course.getStatus() != CourseStatus.fromDescription("已結束")) {
+                course.setStatus(CourseStatus.fromDescription("已結束"));
+                ccDAO.save(course);
+            }
+        }
+    }
 }

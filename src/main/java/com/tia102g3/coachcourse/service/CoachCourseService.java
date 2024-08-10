@@ -1,6 +1,7 @@
 package com.tia102g3.coachcourse.service;
 
 import com.tia102g3.coachcourse.model.CoachCourse;
+import com.tia102g3.coachcourse.model.CourseStatus;
 import com.tia102g3.coachcoursepic.model.CoachCoursePic;
 import com.tia102g3.member.model.Member;
 import org.springframework.data.domain.Pageable;
@@ -32,4 +33,8 @@ public interface CoachCourseService {
     long getCoachCourseCountByStatusAndKeyword(String status, String keyword);
 
     List<Member> getMemberList(Integer currCoachCourseId);
+
+    boolean updateCourseStatus(Integer coachCourseId, CourseStatus courseStatus);
+
+    void updateCourseStatusByDate();
 }
