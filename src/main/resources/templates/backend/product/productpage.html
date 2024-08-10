@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>系統課程列表</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .courseList_table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .courseList_th, .courseList_td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .courseList_th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .courseList_tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .courseList_tr:hover {
+            background-color: #ddd;
+        }
+
+        .courseList_a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .courseList_a:hover {
+            color: #007bff;
+        }
+
+        .courseList_img {
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+        }
+
+        .courseList_header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        #lightbox {
+            /*   border: 1px solid red; */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: hsla(0, 0%, 0%, .5);
+
+
+        }
+        .-on{
+            display: none;
+        }
+
+        /* 元素 article 置中及基本樣式 */
+        #lightbox > article {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ddd;
+            padding: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        button{
+            cursor: pointer;
+        }
+        .filter-button, .browse-button, .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            font-size: 16px;
+            height: 40px; /* 設置按鈕高度 */
+        }
+
+        .filter-button:hover, .browse-button:hover, .btn:hover {
+            background-color: #0056b3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .search-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 60%;
+            margin-left: auto;
+            margin-bottom: 4px;
+        }
+
+        .search-input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 20px; /* 設置輸入框高度 */
+            font-size: 16px;
+            margin-right: 5px; /* 與按鈕之間的間距 */
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <div>
+        <div class="courseList_header">商品列表
+            <div id="lightbox" class="-on">
+                <article>
+                    <h1 id="messageContent" th:if="${message}" th:text="${message}" style="color: black"></h1>
+                    <button type="button" class="btn_modal_close">關閉</button>
+                </article>
+            </div>
+        </div>
+        <div class="search-container">
+            <form th:action="@{/course/systemCourseList}" method="post" style="float: right">
+                <input type="hidden" name="oper" value="search">
+                <input type="text" name="keyword" th:value="${session.keyword}" placeholder="請輸入查詢關鍵字..." class="search-input">
+                <button type="submit" class="btn">查詢</button>
+            </form>
+            <a th:href="@{/course/addSystemCourse}"
+               style="text-decoration: none;float: right;margin-right: 30px;">添加商品</a>
+        </div>
+    </div>
+
+    <table class="courseList_table">
+        <tr class="courseList_tr">
+            <th class="courseList_th">商品編號</th>
+            <th class="courseList_th">商品名稱</th>
+            <th class="courseList_th">商品圖片</th>
+            <th class="courseList_th">商品價格</th>
+            <th class="courseList_th">商品數量</th>
+            <th class="courseList_th">商品簡介</th>
+            <th class="courseList_th">操作</th>
+        </tr>
+        <tr th:if="${#lists.isEmpty(session.productList)}">
+            <td colspan="14">對不起，查無符合的商品!</td>
+        </tr>
+        <tr class="courseList_tr" th:unless="${#lists.isEmpty(session.productList)}"
+            th:each="systemCourse : ${session.productList}" th:object="${productVO}">
+            <td class="courseList_td"><a class="courseList_a" th:text="*{productID}" th:href="@{|/course/edit?systemCourseID=*{systemCourseID}|}"></a></td>
+            <td class="courseList_td" th:text="${productVO.prodName}"></td>
+            <td class="courseList_td">
+                <img th:src="${productVO.productPic}" alt="Product Image" width="100" height="100">
+            </td>
+            <td class="courseList_td" th:text="*{price}"></td>
+            <td class="courseList_td" th:text="*{productQuantity}"></td>
+            <td class="courseList_td" th:text="*{intro}"></td>
+            <td class="courseList_td"><img th:src="@{images/delet.png}" class="courseList_img"
+                                           th:onclick="|delProductID(*{productID}, ${session.pageNo})|"></td>
+        </tr>
+    </table>
+    <div style="border: 0px solid red ; width: 60%; margin-left: 20% ; margin-top: 4px" class="center">
+        <input type="button" class="btn" th:onclick="page(1)" th:disabled="|${session.pageNo == 1}|" value="首  頁">
+        <input type="button" class="btn" th:onclick="|page(${session.pageNo - 1})|"
+               th:disabled="|${session.pageNo == 1}|" value="上一頁">
+        <input type="button" class="btn" th:onclick="|page(${session.pageNo + 1})|"
+               th:disabled="|${session.pageNo == session.pageCount}|" value="下一頁">
+        <input type="button" class="btn" th:onclick="|page(${session.pageCount})|"
+               th:disabled="|${session.pageNo == session.pageCount}|" value="尾  頁">
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script !src="">
+    function delSystemCourse(systemCourseID, pageNo) {
+        if (confirm("確定要刪除嗎?")) {
+            document.location.href = "/course/delSystemCourse.do?systemCourseID=" + systemCourseID;
+        }
+    }
+
+    function page(pageNo) {
+        window.location.href = "/course/systemCourseList?pageNo=" + pageNo;
+    }
+    $(document).ready(function() {
+        var messageContent = $("#messageContent").text().trim();
+        console.log("檢查燈箱內容:", messageContent);
+
+        if (messageContent.length > 0) {
+            console.log("燈箱內有消息");
+
+            // 移除 -on class 並顯示燈箱
+            $("#lightbox").removeClass("-on").fadeIn(1000);
+
+            // 點擊關閉按鈕關閉燈箱
+            $("button.btn_modal_close").on("click", function() {
+                console.log("關閉按鈕被點擊");
+                $("#lightbox").fadeOut(1000, function() {
+                    $("#lightbox").addClass("-on");
+                });
+            });
+
+            // 防止點擊燈箱內部時關閉燈箱
+            $("#lightbox > article").on("click", function(e) {
+                e.stopPropagation();
+            });
+
+            // 點擊燈箱背景關閉燈箱
+            $("#lightbox").on("click", function() {
+                console.log("背景被點擊");
+                $(this).fadeOut(1000, function() {
+                    $(this).addClass("-on");
+                });
+            });
+        } else {
+            console.log("燈箱內無消息");
+        }
+    });
+
+</script>
+</body>
+</html>
