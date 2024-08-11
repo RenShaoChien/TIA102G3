@@ -5,6 +5,7 @@ import com.tia102g3.coachcourse.model.CourseStatus;
 import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
 import com.tia102g3.email.EmailServiceImpl;
 import com.tia102g3.member.model.Member;
+import com.tia102g3.member.service.MemberService;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,8 @@ public class CoachCourseManagement {
     CoachCourseServiceImpl ccService;
     @Autowired
     private EmailServiceImpl emailService;
+    @Autowired
+    private MemberService memberSvc;
 
 
     @RequestMapping(value = "/coachCourseList", method = {RequestMethod.GET, RequestMethod.POST})
@@ -131,5 +134,4 @@ public class CoachCourseManagement {
                     '}';
         }
     }
-
 }

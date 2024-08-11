@@ -154,42 +154,42 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
 <!-- 中間內容區域 -->
-<form method="post" th:action="@{/customizedcourse/soul}">
+<form method="post" th:action="@{/trainers/customized.do}">
     <div class="middle-content">
         <div>
             <label>運動種類：</label>
             <div class="radio-group">
-                <label><input type="radio" name="sportTypes" th:value="心肺運動" checked> 心肺運動</label>
-                <label><input type="radio" name="sportTypes" th:value="重量訓練"> 重量訓練</label>
+                <label><input type="radio" name="sportTypes" value="心肺運動" checked> 心肺運動</label>
+                <label><input type="radio" name="sportTypes" value="重量運動"> 重量訓練</label>
             </div>
-        </div>
-        <div>
-            <label for="exercise-item">運動器材：</label>
-            <select id="exercise-item" name="sportEquipment">
-                <option th:each="sportEquipment : ${sportEquipmentSet}" th:value="${sportEquipment}"
-                        th:text="${sportEquipment}">徒手
-                </option>
-            </select>
         </div>
         <div>
             <label for="exercise-item1">運動項目：</label>
             <select id="exercise-item1" name="sportEventName">
-                <option value="option1">選擇</option>
+                <option value="option1">選項</option>
                 <option value="option2">選項 1</option>
                 <option value="option3">選項 2</option>
             </select>
         </div>
         <div>
+            <label for="exercise-item">運動器材：</label>
+            <select id="exercise-item" name="sportEquipment">
+                <option>選項</option>
+                <option>選項1</option>
+                <option>選項2</option>
+            </select>
+        </div>
+        <div>
             <label for="target-area">想訓練的部位：</label>
-            <input type="text" id="target-area" name="target-area" placeholder="臀部">
+            <input type="text" id="target-area" name="target-area" placeholder="ex:臀部">
         </div>
         <div>
             <label for="level">運動等級：</label>
             <select id="level" name="courseLevel">
-                <option value="EASY">初級</option>
-                <option value="MEDIUM">中級</option>
-                <option value="HARD">高級</option>
-                <option value="VERY_HARD">最高級</option>
+                <option value="初級">初級</option>
+                <option value="中級">中級</option>
+                <option value="高級">高級</option>
+                <option value="最高級">最高級</option>
             </select>
         </div>
         <div>
@@ -197,7 +197,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <input type="text" id="loseWeight" name="loseWeight" placeholder="5公斤 ">
         </div>
         <div>
-            <a href="customizedresult.html"><input type="button" value="完成填寫"></a>
+            <input type="submit" value="完成填寫">
         </div>
     </div>
 </form>
@@ -250,8 +250,67 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="clear"></div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
+    $(document).ready(function () {
+
+        $('input[name="sportTypes"]').change(function () {
+            var selectType = $("input[name='sportTypes']:checked").val();
+
+            $.ajax({
+                url: '/course/getSportEventsAndEquipment',
+                data: {sportType: selectType},
+                dataType: 'json',
+                success: function (data) {
+                    var $sportEventSelect = $('#exercise-item1');
+                    // var $sportEquipmentSelect = $('#exercise-item');
+
+                    $sportEventSelect.empty();
+                    // $sportEquipmentSelect.empty();
+
+                    // 處理運動項目名稱
+                    $.each(data.sportEvents, function (index, sportEventName) {
+                        $sportEventSelect.append($('<option>', {
+                            value: sportEventName,
+                            text: sportEventName
+                        }));
+                    });
+                    $sportEventSelect.trigger('change');
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('您的網路有問題：', jqXHR.responseText);
+                    alert('您的網路有問題，請稍後再試1111。');
+                }
+            });
+        });
+        $('input[name="sportTypes"]:checked').trigger('change');
+    });
+
+
+    $('#exercise-item1').change(function () {
+        let selectedSportEvent = $(this).val();
+        $.ajax({
+            url: '/trainers/getEquipmentBySportEvent',
+            data: {sportEventName: selectedSportEvent},
+            dataType: 'json',
+            success: function (data) {
+                let $sportEquipmentSelect = $('#exercise-item');
+                $sportEquipmentSelect.empty();
+                $.each(data, function (index, sportEquipment) {
+                    $sportEquipmentSelect.append($('<option>', {
+                        value: sportEquipment,
+                        text: sportEquipment
+                    }));
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('您的網路有問題：', jqXHR.responseText);
+                alert('您的網路有問題，請稍後再試。');
+            }
+        });
+    });
+
+
     function scrollToTop() {
         window.scrollTo({top: 0, behavior: 'smooth'});
     }

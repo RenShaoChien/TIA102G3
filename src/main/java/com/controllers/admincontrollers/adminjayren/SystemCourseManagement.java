@@ -97,7 +97,7 @@ public class SystemCourseManagement {
     }
 
     @GetMapping("/addSystemCourse")
-    public String addSystemCourse(ModelMap model) { // 添加 RedirectAttributes 參數
+    public String addSystemCourse(ModelMap model) {
         SystemCourse systemCourse = new SystemCourse();
         model.addAttribute("systemCourse", systemCourse);
         return "frames/add_system_course";
