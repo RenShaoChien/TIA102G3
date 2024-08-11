@@ -35,6 +35,14 @@ public enum SystemCourseLevel {
         }
         return null;
     }
+    public static SystemCourseLevel fromDescription(String description) {
+        for (SystemCourseLevel status : SystemCourseLevel.values()) {
+            if (status.getDescription().equals(description)) {
+                return status;
+            }
+        }
+        throw new IllegalArgumentException("未定義的 ： " + description);
+    }
 
     @Override
     public String toString() {

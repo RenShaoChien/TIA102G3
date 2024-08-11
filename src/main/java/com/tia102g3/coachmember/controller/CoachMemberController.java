@@ -1,4 +1,4 @@
-package com.controllers;
+package com.tia102g3.coachmember.controller;
 
 import java.io.IOException;
 import java.util.List;

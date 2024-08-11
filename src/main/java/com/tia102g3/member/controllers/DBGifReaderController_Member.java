@@ -1,4 +1,4 @@
-package com.controllers;
+package com.tia102g3.member.controllers;
 
 import java.io.IOException;
 

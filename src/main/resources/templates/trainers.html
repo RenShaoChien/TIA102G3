@@ -202,13 +202,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         }
 
         .block_inner2 {
-            border: 2px solid gray;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
             position: absolute;
             right: 10px;
             bottom: 10px;
-            background-color: #007bff;
-            color: #000;
             z-index: 2;
+        }
+
+        .block_inner2:hover {
+            background-color: #0056b3;
         }
 
         .scroll-to-top-btn {
@@ -271,7 +278,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             /*display: block; !* 使每個 span 元素成為區塊元素，確保每行都獨立 *!*/
             margin-bottom: 5px; /* 控制 span 內的間距 */
         }
-
+        .custom-limited-text h2#course-description {
+            max-width: 300px;
+            word-wrap: break-word;
+            word-break: break-all;
+            white-space: normal;
+        }
     </style>
 </head>
 <body>
@@ -386,11 +398,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                  style="display: block">
                             <!-- 功能介紹圖片 -->
                         </div>
-                        <div class="right-panel">
+                        <div class="right-panel custom-limited-text">
                             <h1 id="course-title">客製化課程</h1>
                             <h2 id="course-description">功能介紹</h2>
                         </div>
-                        <a th:href="@{/trainers/enter.do}">
+                        <a href="/trainers/enter.do">
                             <input class="block_inner2" type="button" value="使用功能">
                         </a>
                     </div>
@@ -630,17 +642,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- 引入jQuery庫 -->
 <script>
     $(document).ready(function() {
-        $.ajax({
-            url: '/course/getFrontEndPageDescription',
-            type: 'GET',
-            success: function(response) {
-                $('#course-description').html(response);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error('無法加載描述信息：', errorThrown);
-                $('#course-description').text('功能介紹'); // 顯示預設文字
-            }
-        });
+        function loadDescription() {
+            $.ajax({
+                url: '/course/getFrontEndPageDescription',
+                type: 'GET',
+                success: function (response) {
+                    $('#course-description').html(response);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('無法加載描述信息：', errorThrown);
+                    $('#course-description').text('功能介紹');
+                }
+            });
+        }
+        loadDescription();
+        setInterval(loadDescription, 100);
     });
 
     function scrollToTop() {
