@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service("productService")
 public class ProductService {
@@ -23,8 +24,8 @@ public class ProductService {
 	}
 
 	@Transactional
-	public void updateProduct(ProductVO pd, MultipartFile productImage) throws IOException {
-		pd.setProductPic(productImage.getBytes());
+	public void updateProduct(ProductVO pd, MultipartFile productPic) throws IOException {
+		pd.setProductPic(productPic.getBytes());
 		repository.save(pd);
 	}
 
@@ -51,4 +52,12 @@ public class ProductService {
 	public List<ProductVO> getAll() {
 		return repository.findAll();
 	}
+
+//	public byte[] getProductPic(Integer productID) {
+//		// 使用Repository获取ProductVO
+//        Optional<ProductVO> productOptional = repository.findById(productID);
+//        // 如果Product存在，则返回图片，否则返回null
+//        return productOptional.map(ProductVO::getProductPic).orElse(null);
+//
+//	}
 }
