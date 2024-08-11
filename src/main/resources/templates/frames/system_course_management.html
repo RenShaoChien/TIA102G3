@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>系統課程管理</title>
@@ -59,7 +59,8 @@
     <div class="radio-group">
         <label>功能介紹：</label>
         <input type="button" value="修改" onclick="toggleEditor('function-description-editor', 'submit-button1')">
-        <input type="button" id="submit-button1" value="提交" style="display: none;" onclick="submitChanges('function-description')" />
+        <input type="button" id="submit-button1" value="提交" style="display: none;"
+               onclick="submitChanges('function-description')"/>
     </div>
 </div>
 <div id="function-description-editor" style="display: none;">
@@ -80,12 +81,58 @@
 </div>
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script>
+    function submitChanges(textareaId) {
+        if (editorInstance) {
+            const content = editorInstance.getData();
+            const $submitButton = $('#' + textareaId).next('input[type="button"]');
+            console.log('#' + textareaId);
+            console.log('Textarea ID:', textareaId);
+            $submitButton.prop('disabled', true);
+            $.ajax({
+                url: '/course/editFrontEndPage',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({description: content}),
+                success: function (response) {
+                    alert("客製化課程功能介紹設置成功");
+                    toggleEditor('function-description-editor', 'submit-button1');
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('保存失敗：', errorThrown);
+                    displayErrorMessage('保存失敗，請稍後再試。');
+                },
+                complete: function() {
+                    $submitButton.prop('disabled', false);
+                }
+            });
+        }
+    }
+
+    function displayErrorMessage(message) {
+        const $errorDiv = $('<div class="error-message"></div>').text(message).css({
+            'color': 'red',
+            'margin-top': '10px',
+            'font-weight': 'bold'
+        });
+
+        if ($('.error-message').length) {
+            $('.error-message').text(message);
+        } else {
+            $('body').append($errorDiv);
+        }
+
+        // 3秒後自動消失
+        setTimeout(function() {
+            $errorDiv.fadeOut(500, function() {
+                $(this).remove();
+            });
+        }, 3000);
+    }
 
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- 引入jQuery庫 -->
-
-<script th:inline="javascript">
     let editorInstance;
 
     function toggleEditor(editorContainerId, submitButtonId) {
@@ -119,20 +166,14 @@
         }
     }
 
-    function submitChanges(textareaId) {
-        let $textarea = $('#' + textareaId);
-        if (editorInstance) {
-            console.log(editorInstance.getData());
-            editorInstance.setData('');
-        }
-    }
-
     function navigateToSystemCourseList() {
         window.location.href = '/course/systemCourseList';
     }
+
     function navigateToCoachCourseList() {
         window.location.href = '/course/coachCourseList';
     }
+
 </script>
 
 </body>

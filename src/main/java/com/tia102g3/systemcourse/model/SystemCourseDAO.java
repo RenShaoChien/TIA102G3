@@ -58,4 +58,40 @@ public interface SystemCourseDAO extends JpaRepository<SystemCourse, Integer> {
                     "illustrate LIKE CONCAT('%', :keyword, '%') ",
             nativeQuery = true)
     Long getSystemCourseCount(@Param("keyword") String keyword);
+
+    @Transactional(readOnly = true)
+    @Query("select sc from SystemCourse sc where " +
+            "(:sportTypes is null or sc.sportTypes = :sportTypes) and " +
+            "(:sportEventName is null or sc.sportEventName = :sportEventName) and " +
+            "(:sportEquipment is null or sc.sportEquipment = :sportEquipment) and " +
+            "(:keyword is null or Lower(sc.illustrate) like Lower(concat('%', :keyword, '%'))) and " +
+            "(:courseLevel is null or sc.courseLevel = :courseLevel)")
+    List<SystemCourse> getListByReqPara(
+            @Param("sportTypes") String sportTypes,
+            @Param("sportEventName") String sportEventName,
+            @Param("sportEquipment") String sportEquipment,
+            @Param("keyword") String keyword,
+            @Param("courseLevel") SystemCourseLevel systemCourseLevel);
+
+
+    @Transactional(readOnly = true)
+    @Query("select sc from SystemCourse sc where " +
+            "(:sportTypes is null or sc.sportTypes = :sportTypes) and " +
+            "(:sportEventName is null or sc.sportEventName = :sportEventName) and " +
+            "(:sportEquipment is null or sc.sportEquipment = :sportEquipment) and " +
+            "(:keyword is null or Lower(sc.illustrate) like Lower(concat('%', :keyword, '%')))")
+    List<SystemCourse> getListByReqPara(
+            @Param("sportTypes") String sportTypes,
+            @Param("sportEventName") String sportEventName,
+            @Param("sportEquipment") String sportEquipment,
+            @Param("keyword") String keyword);
+
+
+    @Transactional(readOnly = true)
+    @Query("select sc from SystemCourse sc where " +
+            "(:sportTypes is null or sc.sportTypes = :sportTypes) and " +
+            "(:sportEventName is null or sc.sportEventName = :sportEventName)")
+    List<SystemCourse> getListByReqPara(
+            @Param("sportTypes") String sportTypes,
+            @Param("sportEventName") String sportEventName);
 }

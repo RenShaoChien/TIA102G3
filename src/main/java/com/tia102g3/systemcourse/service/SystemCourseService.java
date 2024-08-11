@@ -28,7 +28,8 @@ public interface SystemCourseService {
 
     void updateSystemCourse(SystemCourse systemCourse, MultipartFile[] courseImages) throws Exception;
 
-    void addSystemCourse(SystemCourse systemCourse);
-
     Long getSystemCourseCount(String keyword);
+
+    List<SystemCourse> getSystemCoursesByReqPara(String sportTypes, String sportEventName, String sportEquipment, String keyword, String courseLevel);
+
 }

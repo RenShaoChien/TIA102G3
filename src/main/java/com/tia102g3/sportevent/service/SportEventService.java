@@ -18,4 +18,6 @@ public interface SportEventService {
     Set<String> getSportEventsFromTypeSet(String sportType)  ;
 
     Set<String> getSportEquipmentFromTypeSet(String sportType);
+
+    Set<String> getEquipmentBySportEvent(String sportEventName);
 }

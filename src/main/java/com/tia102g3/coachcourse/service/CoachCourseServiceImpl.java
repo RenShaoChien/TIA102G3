@@ -79,11 +79,11 @@ public class CoachCourseServiceImpl implements CoachCourseService {
     public boolean updateCourseStatus(Integer coachCourseId, CourseStatus newStatus) {
         return ccDAO.findById(coachCourseId)
                 .map(course -> {
-                    course.setStatus(newStatus); // 更新课程状态
-                    ccDAO.save(course); // 保存更新后的课程
-                    return true; // 返回成功标志
+                    course.setStatus(newStatus);
+                    ccDAO.save(course);
+                    return true;
                 })
-                .orElse(false); // 如果未找到课程，返回false
+                .orElse(false);
     }
 
     @Override
