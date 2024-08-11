@@ -114,18 +114,11 @@
                 <li th:each="error : ${validationErrors}" th:text="${error}" style="color: red"></li>
             </ul>
         </div>
-<!--        <div class="form-field">-->
-<!--            <label>課程名稱：</label>-->
-<!--            <input type="text" th:field="*{courseName}" placeholder="輸入課程名稱"><br/>-->
-<!--            <span th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}" class="error" id="courseName.errors"></span>-->
-<!--        </div>-->
-
-        <div>
-            <label>員工姓名:</label>
-            <input  th:field="*{courseName}" type="text"/><br/>
-            <span class="error" id="courseName.errors" th:errors="*{courseName}" th:if="${#fields.hasErrors('courseName')}"></span>
+        <div class="form-field">
+            <label>課程名稱：</label>
+            <input type="text" th:field="*{courseName}" placeholder="輸入課程名稱"><br/>
+            <span th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}" class="error" id="courseName.errors"></span>
         </div>
-
         <div class="form-field">
             <label>運動項目類型：</label>
             <select th:field="*{sportTypes}" id="sportTypes">
