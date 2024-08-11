@@ -15,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tia102g3.coachcourse.model.CoachCourse;
@@ -35,12 +37,16 @@ public class ProductVO implements java.io.Serializable{
 	@NonNull
 	private Integer productID;
 	
+	@NotBlank(message = "商品名稱不能為空")
 	private String prodName;
 	
+	@NotNull(message = "商品價格不能為空")
 	private Integer price;
 	
+	@NotNull(message = "商品數量不能為空")
 	private Integer productQuantity;
 	
+	@NotBlank(message = "商品簡介不能為空")
 	private String intro;
 	
 	@Column(name = "productPic", columnDefinition = "longblob")

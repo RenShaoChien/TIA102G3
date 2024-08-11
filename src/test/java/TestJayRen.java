@@ -1,3 +1,9 @@
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+
 import com.Application;
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachcoursepic.model.CoachCoursePic;
@@ -10,9 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import com.Application;
+import com.tia102g3.coachcourse.model.CoachCourse;
+import com.tia102g3.coachcoursepic.model.CoachCoursePic;
+import com.tia102g3.coachcoursepic.model.CoachCoursePicDAO;
+import com.tia102g3.product.model.ProductRepository;
+import com.tia102g3.product.model.ProductVO;
 
 /**
  * ClassName： TestJayRen
@@ -28,8 +37,12 @@ import java.io.IOException;
 public class TestJayRen {
     @Autowired
     CoachCoursePicDAO ccpDAO;
+    
+    @Autowired
+    ProductRepository pr;
     @Autowired
     ProductRepository dao;
+
 
     @Test
     public void testInsert() throws IOException {
@@ -56,6 +69,20 @@ public class TestJayRen {
         ccpDAO.save(ccp2);
     }
 
+   
+
+    @Test
+    public void testInsert2() throws IOException {
+        File file = new File("C:\\Users\\T14 Gen 3\\Desktop\\專題\\dogfood.png");
+        FileInputStream fis = new FileInputStream(file);
+        byte[] bytes = fis.readAllBytes();
+        ProductVO pvo = new ProductVO();
+        pvo.setProductPic(bytes);
+//        ppic.setProductVO(new CoachCourse(21));       
+        pr.save(pvo);
+    }
+
+
     @Test
     public void testProduct() throws IOException {
         File file1 = new File("C:\\Users\\monke.JAYRENSCAR16\\Desktop\\forproject\\south1.jpeg");
@@ -76,4 +103,5 @@ public class TestJayRen {
     public void test() {
         System.out.println(SystemCourseLevel.fromDescription("最高級"));
     }
+
 }

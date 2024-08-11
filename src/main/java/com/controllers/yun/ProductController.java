@@ -2,6 +2,7 @@ package com.controllers.yun;
 
 import com.tia102g3.product.model.ProductService;
 import com.tia102g3.product.model.ProductVO;
+import com.tia102g3.systemcoursepic.model.SystemCoursePic;
 import com.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -82,14 +83,16 @@ public class ProductController {
         if (productID != null) {
 
             ProductVO pd = productservice.findProductById(productID);
+//            byte[] pics = productservice.getProductPic(productID);
 
             model.addAttribute("product", pd);
+//            model.addAttribute("pics", pics);
 
             return "backend/product/editProduct";
         }
         return "error";
     }
-
+	
     @PostMapping("/addProduct.do")
     public String addSystemCourse(@Valid ProductVO pd, BindingResult result, @RequestParam("productImage") MultipartFile productImage, RedirectAttributes redirectAttributes) throws Exception {
 
@@ -98,24 +101,26 @@ public class ProductController {
         }
         try {
             productservice.updateProduct(pd, productImage);
-            redirectAttributes.addFlashAttribute("message", "課程新增成功！"); // 將成功訊息添加到 model 中
+            redirectAttributes.addFlashAttribute("message", "商品新增成功！"); // 將成功訊息添加到 model 中
         } catch (Exception e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("message", "操作失敗"); // 將失敗訊息添加到 model 中
         }
-        return "redirect:/prouct/productList";
+        return "redirect:/product/productList";
     }
-
+    
+    
+    
     @PostMapping("/edit.do")
     public String editSystemCourseFinish(@Valid ProductVO pd, BindingResult result, @RequestParam("productImage") MultipartFile productImage, RedirectAttributes redirectAttributes) throws IOException {
         if (result.hasErrors()) {
-            return "backend/prouct/editProduct";
+            return "backend/product/editProduct";
         }
 
         productservice.updateProduct(pd, productImage);
         redirectAttributes.addFlashAttribute("message", "商品修改成功！"); // 將成功訊息添加到 model 中
 
-        return "redirect:/prouct/productList";
+        return "redirect:/product/productList";
     }
 
 
@@ -144,7 +149,7 @@ public class ProductController {
             pageNo = 1; // 如果刪除後沒有任何課程，設置頁碼為1
         }
 
-        return "redirect:/product/productpage?pageNo=" + pageNo + (keyword != null ? "&keyword=" + keyword : "");
+        return "redirect:/product/productList?pageNo=" + pageNo + (keyword != null ? "&keyword=" + keyword : "");
     }
 
 
@@ -163,8 +168,8 @@ public class ProductController {
         model.addAttribute("productVO", pd);
 
         String requestURI = req.getRequestURI();
-        if (requestURI.contains("/addSystemCourse")) {
-            return new ModelAndView("frames/add_system_course", model.asMap());
+        if (requestURI.contains("/addProduct")) {
+            return new ModelAndView("backend/product/addProduct", model.asMap());
         } else {
             return new ModelAndView("error/default_error_page", model.asMap());
         }
