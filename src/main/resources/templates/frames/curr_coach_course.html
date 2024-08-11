@@ -224,7 +224,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
+<script th:inline="javascript">
 
     $("#replyByEmail").on("click", function () {
         $(".email-lightbox").fadeIn(1000);
@@ -277,7 +277,7 @@
                 $list.empty();
                 if (data && data.length > 0) {
                     data.forEach(function (member) {
-                        $list.append('<li>' + '♠ 會員姓名：\t' + member.name + '\t♣會員電話：\t' + member.phone + '</li>');
+                        $list.append('<li>' + '<a href="/member/details?memberID=' + member.memberID + '">' + '♠ 會員姓名：\t' + member.name + '</a>' + '\t♣會員電話：\t' + member.phone + '</li>');
                     });
                 } else {
                     $list.append('<li>未找到相關會員資料。</li>');

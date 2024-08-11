@@ -32,4 +32,9 @@ public class SportEventServiceImpl implements SportEventService {
     public Set<String> getSportEquipmentFromTypeSet(String sportType)  {
         return sportEventDAO.getSetSportEquipmentBySportTypes(sportType);
     }
+
+    @Override
+    public Set<String> getEquipmentBySportEvent(String sportEventName) {
+        return sportEventDAO.getSetSportEquipmentBySportEventName(sportEventName);
+    }
 }
