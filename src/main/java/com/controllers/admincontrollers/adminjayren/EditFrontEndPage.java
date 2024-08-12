@@ -1,10 +1,14 @@
 package com.controllers.admincontrollers.adminjayren;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -44,6 +48,23 @@ public class EditFrontEndPage {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/urlContent")
+    public ResponseEntity<Map<String, String>> loadUrlContent(@RequestBody Map<String, String> req) throws IOException {
+        String url = req.get("url");
+        // 使用 Jsoup來抓取網頁內容
+        Document doc = Jsoup.connect(url).get();
+        String title = doc.title();
+        String image = doc.select("meta[property=og:image]").first().attr("content");
+        String content = doc.select("meta[property=og:description]").attr("content");
+
+        Map<String, String> response = new HashMap<>();
+        response.put("title", title);
+        response.put("image", image);
+        response.put("content", content);
+
+        return ResponseEntity.ok(response);
     }
 }
 

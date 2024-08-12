@@ -646,50 +646,60 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- 引入jQuery庫 -->
 <script>
-    $(document).ready(function () {
-        function loadCoachMember() {
-            $.ajax({
-                url: '/trainers/getCoachMemberList',
-                type: 'GET',
+    (function () {
+        $(document).ready(function () {
 
+            function loadCoachMember() {
+                $.ajax({
+                    url: '/trainers/getCoachMemberList',
+                    method: 'GET',
+                    success: function (res) {
+                        console.log("Coach member list loaded.");
+                        res.forEach(coachMember => {
+                            $('#coachName').append(`<div>${coachMember.name}</div>`);
+                        });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("Failed to load coach member list:", errorThrown);
+                    }
+                });
+            }
+
+
+            function loadDescription() {
+                $.ajax({
+                    url: '/course/getFrontEndPageDescription',
+                    type: 'GET',
+                    success: function (response) {
+                        $('#course-description').html(response);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error('Failed to load description:', errorThrown);
+                        $('#course-description').text('功能介紹');
+                    }
+                });
+            }
+
+            loadDescription();
+            setInterval(loadDescription, 5000);
+
+            window.scrollToTop = function () {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            };
+
+            $(".btn_modal").on("click", function () {
+                $(".lightbox").fadeIn(1000);
             });
-        }
 
-
-        function loadDescription() {
-            $.ajax({
-                url: '/course/getFrontEndPageDescription',
-                type: 'GET',
-                success: function (response) {
-                    $('#course-description').html(response);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.error('無法加載描述信息：', errorThrown);
-                    $('#course-description').text('功能介紹');
-                }
+            $(".btn_modal_close, .lightbox").on("click", function () {
+                $(".lightbox").fadeOut(1000);
             });
-        }
 
-        loadDescription();
-        setInterval(loadDescription, 100);
-    });
-
-    function scrollToTop() {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    }
-
-    $(".btn_modal").on("click", function () {
-        $(".lightbox").fadeIn(1000);
-    });
-
-
-    $(".btn_modal_close, .lightbox").on("click", function () {
-        $(".lightbox").fadeOut(1000);
-    });
-
-    $(".lightbox > article").on("click", function (e) {
-        e.stopPropagation();
-    });
+            $(".lightbox > article").on("click", function (e) {
+                e.stopPropagation();
+            });
+        });
+    })();
 
 </script>
 

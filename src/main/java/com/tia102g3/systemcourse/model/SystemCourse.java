@@ -1,5 +1,6 @@
 package com.tia102g3.systemcourse.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tia102g3.customizedcourse.model.CustomizedCourse;
 import com.tia102g3.systemcoursepic.model.SystemCoursePic;
 import lombok.*;
@@ -72,9 +73,11 @@ public class SystemCourse implements java.io.Serializable {
 
 
     @OneToMany(mappedBy = "systemCourse")
+    @JsonIgnore
     private List<CustomizedCourse> customizedCourses;
 
     @OneToMany(mappedBy = "systemCourse")
+    @JsonIgnore
     private List<SystemCoursePic> systemCoursePics;
 
 }
