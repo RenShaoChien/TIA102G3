@@ -8,14 +8,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>專屬你的訓練</title>
-    <link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css'/>
-    <link th:href="@{css/style.css}" rel='stylesheet' type='text/css'/>
+    <link th:href="@{css/bootstrap.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{css/style.css}" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800}' rel='stylesheet'
-          type='text/css'>
-    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700}' rel='stylesheet'
-          type='text/css'>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link th:href="@{http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800}" rel="stylesheet"
+          type="text/css">
+    <link th:href="@{http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700}" rel="stylesheet"
+          type="text/css">
     <script type="application/x-javascript"> addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
     }, false);
@@ -29,7 +29,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <script type="text/javascript" th:src="@{js/jquery.contentcarousel.js}"></script>
     <!-- //grid-slider -->
     <!---calender-style---->
-    <link rel="stylesheet" th:href="@{css/jquery-ui.css}"/>
+    <link rel="stylesheet" th:href="@{css/jquery-ui.css}">
     <!---//calender-style---->
     <style>
         * {
@@ -316,7 +316,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     <div class="container">
         <div class="logo">
-            <a href="index.html"><img src="images/logo.png" alt=""/></a>
+            <a th:href="@{/index}"><img th:src="@{images/logo.png}" alt=""></a>
         </div>
         <div class="h_menu4"><!-- start h_menu4 -->
             <a class="toggleMenu" href="#">Menu</a>
@@ -431,167 +431,105 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="container">
         <div class="classes_wrapper">
             <div class="row class_box">
-                <div class="col-md-6">
-                    <div class="class_left">
-                        <a href="single_class.html"><img src="images/c7.jpg" class="img-responsive" alt=""
-                                                         title="continue"></a>
-                    </div>
-                    <div class="class_right">
-                        <h3>少騫拳擊</h3>
-                        <p>教你當一拳超人</p>
-                        <div class="class_img">
-                            <img src="images/jayren.jpg" alt=""/>
-                            <div class="class_desc">
-                                <h4>教練</h4>
-                                <h5>任少騫</h5>
-                                <p>專長：重量訓練</p>
-                            </div>
-                            <div class="clear"></div>
-                            <ul class="buttons_class">
-                                <li class="btn6">
-                                    <a class="btn_modal">教練課程</a>
-                                    <div class="lightbox" style="z-index: 9999;">
-                                        <article>
-                                            <h1 style="text-align: center;">這裡是當前教練的所有課程</h1>
-                                            <ul class="custom-course-list">
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">少騫的拳擊課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">少騫的拳擊課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">少騫的拳擊課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">少騫的拳擊課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">少騫的拳擊課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">少騫的拳擊課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">少騫的拳擊課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">少騫的拳擊課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                            </ul>
-                                        </article>
-                                    </div>
-                                </li>
-                                <div class="clear"></div>
-                            </ul>
+                <div th:each="coachCourse, iterStat : ${coachCourseList}">
+                    <div class="col-md-6" th:if="${iterStat.index % 2 == 0}">
+                        <div class="class_left" th:if="${!#lists.isEmpty(coachCourse.coachCoursePics)}">
+                            <img th:src="@{|/course/DBGifReader?picID=${coachCourse.coachCoursePics[0].id}&amp;source=coachCourse|}"
+                                 class="img-responsive" alt="" title="continue">
                         </div>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-                <div class="col-md-6">
-                    <div class="class_left">
-                        <a href="single_class.html"><img src="images/c7.jpg" class="img-responsive" alt=""
-                                                         title="continue"></a>
-                    </div>
-                    <div class="class_right1">
-                        <h3>少騫拳擊</h3>
-                        <p>教你當一拳超人</p>
-                        <div class="class_img">
-                            <img src="images/jayren.jpg" alt=""/>
-                            <div class="class_desc1">
-                                <h4>教練</h4>
-                                <h5>任少騫</h5>
-                                <p>專長：重量訓練</p>
-                            </div>
-                            <div class="clear"></div>
-                            <ul class="buttons_class">
-                                <li class="btn8">
-                                    <a class="btn_modal">教練課程</a>
-                                    <div class="lightbox" style="z-index: 9999;">
-                                        <article>
-                                            <h1 style="text-align: center;">這裡是當前教練的所有課程</h1>
-                                            <ul class="custom-course-list">
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">宗能的皮拉提斯課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">宗能的皮拉提斯課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">宗能的皮拉提斯課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">宗能的皮拉提斯課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">宗能的皮拉提斯課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">宗能的皮拉提斯課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">宗能的皮拉提斯課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                                <li>
-                                                    <span>課程名稱：<a
-                                                            href="trainers/coachcourse.html">宗能的皮拉提斯課程</a></span>
-                                                    <span>課程難度：<span>地獄</span></span>
-                                                    <span>課程狀態：<span>已開課</span></span>
-                                                </li>
-                                            </ul>
-                                        </article>
+                        <div class="class_right">
+                            <h3 th:text="${coachCourse.courseName}">少騫拳擊</h3>
+                            <p th:text="${coachCourse.courseIntro}">教你當一拳超人</p>
+                            <div class="class_img">
+                                <img th:src="@{|/course/DBGifReader?picID=${coachCourse.cMember.cMemberID}&amp;source=cMember|}"
+                                     alt="">
+                                <div class="class_desc">
+                                    <h4>教練</h4>
+                                    <h5 th:text="${coachCourse.cMember.name}">任少騫</h5>
+                                    <div th:if="${!#lists.isEmpty(coachCourse.cMember.coachSpecialties)}">
+                                        <p th:text="${coachCourse.cMember.coachSpecialties[0].sportEvent.sportEventName}">
+                                            專長：重量訓練</p>
                                     </div>
-                                </li>
+                                </div>
                                 <div class="clear"></div>
-                            </ul>
+                                <ul class="buttons_class">
+                                    <li class="btn6">
+                                        <a class="btn_modal">教練課程</a>
+                                        <div class="lightbox" style="z-index: 9999;">
+                                            <article>
+                                                <h1 style="text-align: center;">這裡是當前教練的所有課程</h1>
+                                                <div th:if="${coachCourse != null and coachCourse.cMember != null}">
+                                                    <ul class="custom-course-list"
+                                                        th:each="currCoachCourse : ${coachCourse.cMember.coachCourses}">
+                                                        <li th:if="${currCoachCourse.status.description.equals('進行中')}">
+                                                            <span>課程名稱：<a
+                                                                    th:href="@{|/trainers/currCoachCourse?id=${currCoachCourse.id}|}"
+                                                                    th:text="${currCoachCourse.courseName}">宗能的皮拉提斯課程</a></span>
+                                                            <span>課程難度：<span
+                                                                    th:text="${currCoachCourse.courseLevel.description}">地獄</span></span>
+                                                            <span>課程價錢：<span
+                                                                    th:text="|${currCoachCourse.coursePrice}  元|">1000元</span></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="clear"></div>
+                            </div>
                         </div>
+                        <div class="clear"></div>
                     </div>
-                    <div class="clear"></div>
+                    <div class="col-md-6" th:if="${iterStat.index % 2 == 1}">
+                        <div class="class_left" th:if="${!#lists.isEmpty(coachCourse.coachCoursePics)}">
+                            <img th:src="@{|/course/DBGifReader?picID=${coachCourse.coachCoursePics[0].id}&amp;source=coachCourse|}"
+                                 class="img-responsive" alt="" title="continue">
+                        </div>
+                        <div class="class_right1">
+                            <h3 th:text="${coachCourse.courseName}">少騫拳擊</h3>
+                            <p th:text="${coachCourse.courseIntro}">教你當一拳超人</p>
+                            <div class="class_img">
+                                <img th:src="@{|/course/DBGifReader?picID=${coachCourse.cMember.cMemberID}&amp;source=cMember|}"
+                                     alt="">
+                                <div class="class_desc1">
+                                    <h4>教練</h4>
+                                    <h5 th:text="${coachCourse.cMember.name}">任少騫</h5>
+                                    <div th:if="${!#lists.isEmpty(coachCourse.cMember.coachSpecialties)}">
+                                        <p th:text="${coachCourse.cMember.coachSpecialties[0].sportEvent.sportEventName}">
+                                            專長：重量訓練</p>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                <ul class="buttons_class">
+                                    <li class="btn8">
+                                        <a class="btn_modal">教練課程</a>
+                                        <div class="lightbox" style="z-index: 9999;">
+                                            <article>
+                                                <h1 style="text-align: center;">這裡是當前教練的所有課程</h1>
+                                                <div th:if="${coachCourse != null and coachCourse.cMember != null}">
+                                                    <ul class="custom-course-list"
+                                                        th:each="currCoachCourse : ${coachCourse.cMember.coachCourses}">
+                                                        <li th:if="${currCoachCourse.status.description.equals('進行中')}">
+                                                            <span>課程名稱：<a
+                                                                    th:href="@{|/trainers/currCoachCourse?id=${currCoachCourse.id}|}"
+                                                                    th:text="${currCoachCourse.courseName}">宗能的皮拉提斯課程</a></span>
+                                                            <span>課程難度：<span
+                                                                    th:text="${currCoachCourse.courseLevel.description}">地獄</span></span>
+                                                            <span>課程價錢：<span
+                                                                    th:text="|${currCoachCourse.coursePrice}  元|">1000元</span></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -604,7 +542,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="col-md-4">
                 <div class="social"
                      style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
-                    <img src="images/cutecatloge.png" style="width: 100%; height: 100%"/>
+                    <img src="images/cutecatloge.png" style="width: 100%; height: 100%">
                 </div>
             </div>
             <div class="col-md-4">
@@ -648,22 +586,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script>
     (function () {
         $(document).ready(function () {
-
-            function loadCoachMember() {
-                $.ajax({
-                    url: '/trainers/getCoachMemberList',
-                    method: 'GET',
-                    success: function (res) {
-                        console.log("Coach member list loaded.");
-                        res.forEach(coachMember => {
-                            $('#coachName').append(`<div>${coachMember.name}</div>`);
-                        });
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.error("Failed to load coach member list:", errorThrown);
-                    }
-                });
-            }
 
 
             function loadDescription() {

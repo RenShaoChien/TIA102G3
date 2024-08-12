@@ -1,5 +1,7 @@
 package com.tia102g3.coachcoursepic.service;
 
+import com.tia102g3.coachcoursepic.model.CoachCoursePic;
+
 /**
  * ClassName： CoachCoursePicService
  * package：com.tia102g3.coachcoursepic.service
@@ -11,4 +13,5 @@ package com.tia102g3.coachcoursepic.service;
  */
 public interface CoachCoursePicService {
 
+    CoachCoursePic findCoachCoursePicById(Integer picID);
 }

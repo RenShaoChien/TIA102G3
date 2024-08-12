@@ -6,6 +6,7 @@ import com.tia102g3.systemcourse.service.SystemCourseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,8 +30,11 @@ public class CustomizedCourseController {
     @Autowired
     private SystemCourseServiceImpl scService;
 
+
     @GetMapping("/enter.do")
-    public String customizedCourse() {
+    public String customizedCourse(ModelMap model) {
+
+
 
         return "trainers/customizedcourse";
     }
@@ -55,4 +59,5 @@ public class CustomizedCourseController {
     public Set<String> getEquipmentBySportEvent(@RequestParam String sportEventName) {
         return seService.getEquipmentBySportEvent(sportEventName);
     }
+
 }

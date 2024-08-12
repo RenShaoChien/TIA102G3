@@ -50,7 +50,8 @@ CREATE TABLE coach_course
     coursePrice     INT COMMENT '課程價格',
     classStartTime  time NOT NULL comment "上課時間",
     classEndTime    time NOT NULL comment "下課時間",
-    illustrate      varchar(10000) comment "課程說明"
+    illustrate      varchar(10000) comment "課程說明",
+    courseIntro           varchar(100) comment "課程簡介"
 ) COMMENT ='教練課程表';
 
 CREATE TABLE customized_course
