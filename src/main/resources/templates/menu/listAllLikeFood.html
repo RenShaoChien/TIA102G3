@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>所有食材資料 - listAllFood.html</title>
+<title>食材喜好資料 - listAllLikeFood.html</title>
 
 <!-- <head th:insert="~{/back-end/emp/included-fragment}"></head> -->
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
@@ -63,10 +63,11 @@ body {
 <!-- 		 <div align="center"> <h2>所有食材資料 - listAllFood.html</h2> -->
 <!-- 		 <h3><a class="navbar-brand" th:href="@{/food/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div> -->
 <!-- </nav> -->
-<div align="center"> <h2>所有食材資料</h2></div>
+<div align="center"> <h2>食材喜好資料</h2></div>
 <table id="example" class="display" style="width: 100%">
   <thead >
 	<tr style="background-color:#428bca">
+	    <th>會員編號</th>
 		<th>食材</th>
 		<th>喜好</th>
 <!-- 		<th>食材名稱</th> -->
@@ -84,7 +85,8 @@ body {
   <tbody>
 		<th:block th:each="foodLike : ${likeFoodListData}">
 			<tr>
-				<td th:text="${foodLike.foodNumber}"></td>
+			    <td th:text="${foodLike.memberID}"></td>
+				<td th:text="${foodLike.getFoodVO.getFoodName}"></td>
 <!-- 				<td th:text="${foodLike.foodPreference}"></td> -->
                 <td>
                     <span th:if="${foodLike.foodPreference}" th:text="'喜歡'"></span>

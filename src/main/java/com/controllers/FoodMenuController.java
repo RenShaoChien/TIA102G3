@@ -66,6 +66,15 @@ public class FoodMenuController {
         model.addAttribute("likeFoodVO", likeFoodVO);
         return "menu/addLikeFood";
     }
+    
+    @GetMapping("/addFoodList")
+    public String addFoodList(ModelMap model) {
+        FoodListVO foodListVO = new FoodListVO();
+        model.addAttribute("foodListVO", foodListVO);
+        return "menu/addFoodList";
+    }
+    
+    
 
     @GetMapping("/listAllFood")
     public String listAllFood(ModelMap model) {
@@ -199,7 +208,8 @@ public class FoodMenuController {
     
     
     @PostMapping("insertLikeFood")
-    public String insert(LikeFoodVO likeFoodVO, BindingResult result, ModelMap model) {
+    public String insert(LikeFoodVO likeFoodVO, BindingResult result, ModelMap model, 
+            @RequestParam("foodNumber") String foodNumber) {
 
         /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
         // 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
@@ -209,7 +219,13 @@ public class FoodMenuController {
         }
 
         /*************************** 2.開始新增資料 *****************************************/
-        // EmpService empSvc = new EmpService();
+        FoodVO foodVO = new FoodVO();
+        foodVO = foodSvc.getOneFood(Integer.valueOf(foodNumber));
+        likeFoodVO.setFoodVO(foodVO);
+//        System.out.print("foodNumber: ");
+//        System.out.println(foodNumber);
+//        System.out.print("likeFoodVO: ");
+//        System.out.println(likeFoodVO);
         likeFoodSvc.addLikeFood(likeFoodVO);
         /*************************** 3.新增完成,準備轉交(Send the Success view) **************/
         List<LikeFoodVO> list = likeFoodSvc.getAll();

@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.tia102g3.food.model.FoodRepository;
+import com.tia102g3.food.model.FoodVO;
 import com.tia102g3.foodlist.model.FoodListRepository;
 import com.tia102g3.healthstatus.model.HealthStatusRepository;
 import com.tia102g3.likefood.model.LikeFoodRepository;
@@ -145,24 +146,38 @@ public class Test_Application_CommandLineRunnerMark implements CommandLineRunner
 //            System.out.println();
 //        }
         
-        
+//        FoodVO foodVO = new FoodVO();
 //        LikeFoodVO likeFoodVO = new LikeFoodVO();
 //        likeFoodVO.setMemberID(2);
-//        likeFoodVO.setFoodNumber(5);
+////        likeFoodVO.setFoodVO(foodVO.setFoodNumber(20));;
 //        likeFoodVO.setFoodPreference(true);
 //        likeFoodRepository.save(likeFoodVO);
         
         
         
         //-----------------Like food getAll-------------------
-        List<LikeFoodVO> likeFoodList = likeFoodRepository.findAll();
-        for (LikeFoodVO likefood : likeFoodList) {
-            
-            System.out.print(likefood.getMemberID() + ",");
-            System.out.print(likefood.getFoodNumber() + ",");
-            System.out.print(likefood.getFoodPreference() + ",");
-            System.out.println();
-        }
+//        List<LikeFoodVO> likeFoodList = likeFoodRepository.findAll();
+//        for (LikeFoodVO likefood : likeFoodList) {
+//            
+//            System.out.print(likefood.getMemberID() + ",");
+//            System.out.print(likefood.getFoodVO().getFoodName() + ",");
+//            System.out.print(likefood.getFoodPreference() + ",");
+//            System.out.println();
+//        }
+        
+//        // test add LikeFood data
+//        // 从数据库获取 FoodVO 对象
+//        FoodVO foodVO = foodRepository.findById(13)
+//                                      .orElseThrow(() -> new IllegalArgumentException("Invalid food number"));
+//
+//        // 创建 LikeFoodVO 对象并设置属性
+//        LikeFoodVO likeFoodVO = new LikeFoodVO();
+//        likeFoodVO.setMemberID(3);
+//        likeFoodVO.setFoodVO(foodVO); // 设置 foodVO，这里自动将 foodNumber 保存到 likefood 表中
+//        likeFoodVO.setFoodPreference(true);
+//
+//        // 保存 LikeFoodVO 对象
+//        likeFoodRepository.save(likeFoodVO);
         
         
       //-----------------Menu getAll-------------------
