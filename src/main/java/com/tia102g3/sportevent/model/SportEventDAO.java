@@ -40,4 +40,8 @@ public interface SportEventDAO extends JpaRepository<SportEvent, Integer> {
     @Transactional(readOnly = true)
     @Query(value = "select DISTINCT sportEquipment from sport_event", nativeQuery = true)
     Set<String> selectSportEquipmentsSet();
+
+    @Transactional(readOnly = true)
+    @Query("SELECT DISTINCT se.sportEquipment FROM SportEvent se WHERE se.sportEventName = :sportEventName")
+    Set<String> getSetSportEquipmentBySportEventName(String sportEventName);
 }

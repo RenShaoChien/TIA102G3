@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>課程訂單資料</title>
+<style type="text/css">
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e6f7ff; /* 淺藍色背景 */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #0099ff; /* 淺藍色的背景 */
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar h2 {
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+}
+
+.navbar .btn-return {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #007acc; /* 深藍色的返回按鈕 */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.navbar .btn-return:hover {
+    background-color: #005999; /* 更深的藍色 */
+}
+
+.container {
+    max-width: 800px;
+    margin: 80px auto; /* 上邊距預留空間給固定的navbar */
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.field {
+    background-color: #f0f8ff; /* 淺藍色方框背景 */
+    border: 1px solid #0099ff; /* 藍色邊框 */
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: block; /* 讓每個 span 占據整行 */
+}
+
+.field span {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    padding: 5px 0; /* 增加上下內邊距 */
+}
+
+.field .value {
+    color: #333;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #e6f7ff; /* 輕微淺藍色背景 */
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="btn-return" th:href="@{/course_order/select_page}">返回</a>
+    <h2>課程訂單資料</h2>
+</nav>
+
+<div class="container" th:fragment="listOneCourseOrder-div"> <!-- 此div被select_page.html第158行insert用 -->
+    <h3><span>查詢結果 :</span></h3>
+    <div class="field">
+        <span>課程訂單ID:</span>
+        <span class="value" th:text="${courseOrder.courseOrderID}"></span>
+    </div>
+    <div class="field">
+        <span>會員ID:</span>
+        <span class="value" th:text="${courseOrder.memberID}"></span>
+    </div>
+    <div class="field">
+        <span>教練課程ID:</span>
+        <span class="value" th:text="${courseOrder.coachCourse.id}"></span>
+    </div>
+    <div class="field">
+        <span>金額:</span>
+        <span class="value" th:text="${courseOrder.price}"></span>
+    </div>
+    <div class="field">
+        <span>訂單日期:</span>
+        <span class="value" th:text="${courseOrder.orderDate}"></span>
+    </div>
+    <div class="field">
+        <span>訂單狀態:</span>
+        <span class="value" th:text="${courseOrder.status}"></span>
+    </div>
+</div>
+
+</body>
+</html>

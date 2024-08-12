@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>課程訂單資料修改</title>
+<style type="text/css">
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* 淺藍色背景 */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #0056b3; /* 深藍色背景 */
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar h2 {
+    margin: 0;
+    text-align: center;
+}
+
+.navbar .return-button {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    background-color: #007bff; /* 藍色返回按鈕 */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.navbar .return-button:hover {
+    background-color: #0056b3; /* 更深的藍色 */
+}
+
+.container {
+    width: 80%;
+    margin: 80px auto 20px auto; /* 調整上邊距以適應固定的navbar */
+}
+
+.container h3 {
+    text-align: center;
+    color: #0056b3; /* 深藍色標題 */
+}
+
+.form-container {
+    background-color: white;
+    border: 1px solid #007bff; /* 淺藍色邊框 */
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-container label {
+    font-weight: bold;
+    color: #0056b3; /* 深藍色標籤 */
+}
+
+input[type=text], input[type=password], select, textarea, input[type=date] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #007bff; /* 淺藍色邊框 */
+    border-radius: 5px;
+}
+
+input[type=submit], button {
+    background-color: #007bff; /* 藍色按鈕 */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+input[type=submit]:hover, button:hover {
+    background-color: #0056b3; /* 更深的藍色 */
+}
+
+.error {
+    color: red;
+    display: block;
+    margin-top: 5px;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="return-button" th:href="@{/course_order/select_page}">返回</a>
+    <h2>課程訂單資料修改</h2>
+</nav>
+
+<div class="container">
+    <h3><b>所有欄位皆為必填欄位</b></h3>
+    <div class="form-container">
+        <form th:action="@{update}" method="post" th:object="${courseOrderVO}" enctype="multipart/form-data">
+            <div>
+                <label>課程訂單ID:</label>
+                <input type="text" th:field="*{courseOrderID}" style="border: 0; font-weight: bold;" readonly />
+            </div>
+
+            <div>
+                <label>會員ID:</label>
+                <input type="text" th:field="*{memberID}" onclick="hideContent('memberID.errors');" />
+                <span th:if="${#fields.hasErrors('memberID')}" th:errors="*{memberID}" class="error" id="memberID.errors"></span>
+            </div>
+
+            <div>
+                <label>教練課程ID:</label>
+                <input type="text" th:field="*{coachCourse.coachCourseID}" onclick="hideContent('coachCourse.coachCourseID.errors');" />
+                <span th:if="${#fields.hasErrors('coachCourse.coachCourseID')}" th:errors="*{coachCourse.coachCourseID}" class="error" id="coachCourse.coachCourseID.errors"></span>
+            </div>
+
+            <div>
+                <label>金額:</label>
+                <input type="text" th:field="*{price}" onclick="hideContent('price.errors');" />
+                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error" id="price.errors"></span>
+            </div>
+
+            <div>
+                <label>訂單日期:</label>
+                <input type="date" th:field="*{orderDate}" onclick="hideContent('orderDate.errors');" />
+                <span th:if="${#fields.hasErrors('orderDate')}" th:errors="*{orderDate}" class="error" id="orderDate.errors"></span>
+            </div>
+
+            <div>
+                <label>課程狀態:</label>
+                <input type="text" th:field="*{status}" onclick="hideContent('status.errors');" />
+                <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="error" id="status.errors"></span>
+            </div>
+
+            <div>
+                <button type="submit" id="submit">送出修改</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript part -->
+<script type="text/javascript">
+    // 清除提示信息
+    function hideContent(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+</script>
+
+</body>
+</html>

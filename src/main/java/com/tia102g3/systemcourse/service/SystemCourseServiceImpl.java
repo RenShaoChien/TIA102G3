@@ -71,16 +71,29 @@ public class SystemCourseServiceImpl implements SystemCourseService {
         }
     }
 
-    @Override
-    @Transactional
-    public void addSystemCourse(SystemCourse systemCourse) {
-        systemCourseDAO.save(systemCourse);
-    }
 
     @Override
     @Transactional
     public Long getSystemCourseCount(String keyword) {
         return systemCourseDAO.getSystemCourseCount(keyword);
+    }
+
+    @Override
+    @Transactional
+    public List<SystemCourse> getSystemCoursesByReqPara(String sportTypes, String sportEventName, String sportEquipment, String keyword, String courseLevel) {
+
+        List<SystemCourse> listByReqPara;
+
+        if (!(listByReqPara = systemCourseDAO.getListByReqPara(sportTypes, sportEventName, sportEquipment, keyword, SystemCourseLevel.fromDescription(courseLevel))).isEmpty()) {
+            return listByReqPara;
+        }
+        if (!(listByReqPara = systemCourseDAO.getListByReqPara(sportTypes, sportEventName, sportEquipment, keyword)).isEmpty()){
+            return listByReqPara;
+        }
+        if (!(listByReqPara = systemCourseDAO.getListByReqPara(sportTypes, sportEventName)).isEmpty()){
+            return listByReqPara;
+        }
+        return List.of();
     }
 
     @Override

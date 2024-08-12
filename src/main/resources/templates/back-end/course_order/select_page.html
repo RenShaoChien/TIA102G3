@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>課程訂單資料管理</title>
+<head th:insert="~{/back-end/course_order/included-fragment}"></head>
+<!-- 使用included-fragment.html網頁的全部 -->
+<style type="text/css">
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.navbar h2 {
+    margin: 0;
+    text-align: center;
+}
+
+.navbar a {
+    position: absolute;
+    top: 10px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #007bff;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+.navbar a:hover {
+    background-color: #0056b3;
+}
+
+.navbar .return-button {
+    left: 20px;
+}
+
+.navbar .order-button {
+    right: 20px;
+}
+
+.button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.form-container {
+    background-color: white;
+    border: 1px solid #007bff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-container h4 {
+    margin-top: 0;
+}
+
+.errorblock {
+    color: red;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 15px;
+}
+
+input[type=text], input[type=password], select, textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+}
+
+input[type=submit] {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+input[type=submit]:hover {
+    background-color: #0056b3;
+}
+
+.select-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.select-container select {
+    margin-left: 10px;
+}
+
+h2 {
+    padding-left: 350px;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark">
+    <a class="button return-button" th:href="@{/member/member_courseOrder_index}">返回首頁</a>
+    <a class="button order-button" th:href="@{/member/select_page}">會員管理</a>
+    <div>
+        <h2>課程訂單資料管理</h2>
+    </div>
+</nav>
+
+<div class="container">
+    <h4>
+        <span>資料查詢:</span>
+    </h4>
+
+    <!-- 錯誤表列 -->
+    <div class="errorblock" th:utext="${errorMessage}">${errorMessage}</div>
+
+    <div class="form-container">
+        <ul>
+            <li><h5>
+                    <a class="button" href='listAllCourseOrder'>所有課程訂單資料</a>
+                </h5></li>
+
+            <li>
+                <form method="post" th:action="@{getOne_For_Display}">
+                    輸入課程訂單ID: 
+                    <input type="text" name="courseOrderID" th:value="${param.courseOrderID}">
+                    <input type="submit" value="送出" class="button">
+                </form>
+            </li>
+
+            <li>
+                <form method="post" th:action="@{getOne_For_Display}">
+                    選擇課程訂單ID:
+                    <div class="select-container">
+                        <select name="courseOrderID">
+                            <option th:each="courseOrder : ${courseOrderListData}"
+                                th:value="${courseOrder.courseOrderID}" th:text="${courseOrder.courseOrderID}" />
+                        </select>
+                        <input type="submit" value="送出" class="button">
+                    </div>
+                </form>
+            </li>
+
+            <li>
+                <form method="post" th:action="@{getOne_For_Display}">
+                    選擇會員ID:
+                    <div class="select-container">
+                        <select name="courseOrderID">
+                            <option th:each="courseOrder : ${courseOrderListData}"
+                                th:value="${courseOrder.courseOrderID}" th:text="${courseOrder.memberID}" />
+                        </select>
+                        <input type="submit" value="送出" class="button">
+                    </div>
+                </form>
+            </li>
+
+            <!-- 萬用複合查詢 -->
+            <li>
+                <form method="post" th:action="@{listCourseOrders_ByCompositeQuery}">
+                    <font color="blue">萬用複合查詢:</font><br>
+                    輸入課程訂單ID: <input type="text" name="courseOrderID" placeholder="課程訂單ID"><br>
+                    輸入會員ID: <input type="text" name="memberID" placeholder="會員ID"><br>
+                    輸入教練課程ID: <input type="text" name="coachCourseID" placeholder="教練課程ID"><br>
+                    訂單日期: <input name="orderDate" type="date">
+                    <input type="submit" value="送出" class="button">
+                </form>
+            </li>
+        </ul>
+
+        <h4>
+            <span>課程訂單管理</span>
+        </h4>
+        <ul>
+            <li><h5>
+                    <a class="button" th:href='addCourseOrder'>Add New Course Order</a>
+                </h5></li>
+        </ul>
+    </div>
+
+    <!-- 旗標getOne_For_Display見CourseOrdernoController.java的第74行 -->
+    <div class="form-container" th:if="${getOne_For_Display}">
+        <!-- 使用listOneCourseOrder.html網頁的listOneCourseOrder-div片段 -->
+        <div th:insert="~{/back-end/course_order/listOneCourseOrder :: listOneCourseOrder-div}"></div>
+    </div>
+</div>
+
+</body>
+</html>

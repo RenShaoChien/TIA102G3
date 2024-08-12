@@ -19,6 +19,11 @@ public class PageController {
     public String index(Model model) {
         return "adminLogin";
     }
+    
+    @GetMapping("/index")
+    public String about(Model model) {
+        return "index";
+    }
 
     @GetMapping("/trainers")
     public String trainers(Model model) {
@@ -35,5 +40,8 @@ public class PageController {
         return "menu";
     }
 
+    @GetMapping("/member")
+    public String member(Model model) {
+        return "member";
+    }
 }
-

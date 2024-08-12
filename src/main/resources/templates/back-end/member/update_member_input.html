@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>會員資料修改</title>
+<head th:insert="~{/back-end/member/included-fragment}"></head>
+<style type="text/css">
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #0056b3;
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar h2 {
+    margin: 0;
+    text-align: center;
+}
+
+.navbar .return-button {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.navbar .return-button:hover {
+    background-color: #0056b3;
+}
+
+.container {
+    width: 80%;
+    margin: 80px auto 20px auto; /* Adjust top margin to account for fixed navbar */
+}
+
+.container h3 {
+    text-align: center;
+    color: #0056b3;
+}
+
+.form-container {
+    background-color: white;
+    border: 1px solid #007bff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-container label {
+    font-weight: bold;
+    color: #0056b3;
+}
+
+input[type=text], input[type=password], select, textarea, input[type=date] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+}
+
+input[type=submit], button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+input[type=submit]:hover, button:hover {
+    background-color: #0056b3;
+}
+
+.error {
+    color: red;
+    display: block;
+    margin-top: 5px;
+}
+h2{
+	padding-left: 510px;
+}
+</style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark">
+        <a class="return-button" th:href="@{/member/select_page}">返回查詢頁</a>
+        <div>
+            <h2>會員資料修改</h2>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h3><b>所有欄位皆為必填欄位</b></h3>
+        <form th:action="@{update}" method="post" th:object="${member}" enctype="multipart/form-data">
+            <div>
+                <label>會員ID:</label>
+                <input type="text" th:field="*{memberID}" style="border: 0; font-weight: bold;" readonly />
+            </div>
+
+            <div>
+                <label>個人照片:</label>
+                <input type="file" th:field="*{personalPhotos}" onclick="previewImage()" multiple="multiple" onchange="hideContent('personalPhotos.errors');" />
+                <span class="error" th:utext="${errorMessage}" id="personalPhotos.errors">${errorMessage}</span>
+                <div id="blob_holder"></div>
+            </div>
+
+            <div>
+                <label>姓名:</label>
+                <input type="text" th:field="*{name}" onclick="hideContent('name.errors');" />
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error" id="name.errors"></span>
+            </div>
+
+           <div>
+                <label>帳號:</label>
+                <input type="text" id="account" th:field="*{account}" onclick="hideContent('account.errors')" />
+                <span th:if="${#fields.hasErrors('account')}" th:errors="*{account}" class="error" id="account.errors"></span>
+            </div>
+
+            <div>
+                <label>密碼:</label>
+                <input type="password" id="password" th:field="*{password}" onclick="hideContent('password.errors')" />
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error" id="password.errors"></span>
+            </div>
+
+            <div>
+                <label>電子郵件:</label>
+                <input type="text" id="email" th:field="*{email}" onclick="hideContent('email.errors')" />
+                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error" id="email.errors"></span>
+            </div>
+
+            <div>
+                <label>性別:</label>
+                <input type="text" id="gender" th:field="*{gender}" onclick="hideContent('gender.errors')" />
+                <span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="error" id="gender.errors"></span>
+            </div>
+
+            <div>
+                <label>手機:</label>
+                <input type="text" id="phone" th:field="*{phone}" onclick="hideContent('phone.errors')" />
+                <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error" id="phone.errors"></span>
+            </div>
+
+            <div>
+                <label>地址:</label>
+                <input type="text" id="address" th:field="*{address}" onclick="hideContent('address.errors')" />
+                <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error" id="address.errors"></span>
+            </div>
+
+            <div>
+                <label>生日:</label>
+                <input type="date" id="bD" th:field="*{bD}" onclick="hideContent('bD.errors')" />
+                <span th:if="${#fields.hasErrors('bD')}" th:errors="*{bD}" class="error" id="bD.errors"></span>
+            </div>
+
+            <div>
+                <label>註冊日期:</label>
+                <input type="date" id="regDate" th:field="*{regDate}" onclick="hideContent('regDate.errors')" />
+                <span th:if="${#fields.hasErrors('regDate')}" th:errors="*{regDate}" class="error" id="regDate.errors"></span>
+            </div>
+
+            <div>
+                <label>收件人姓名:</label>
+                <input type="text" id="receiver" th:field="*{receiver}" onclick="hideContent('receiver.errors')" />
+                <span th:if="${#fields.hasErrors('receiver')}" th:errors="*{receiver}" class="error" id="receiver.errors"></span>
+            </div>
+
+            <div>
+                <label>收件人地址:</label>
+                <input type="text" id="receiverAddress" th:field="*{receiverAddress}" onclick="hideContent('receiverAddress.errors')" />
+                <span th:if="${#fields.hasErrors('receiverAddress')}" th:errors="*{receiverAddress}" class="error" id="receiverAddress.errors"></span>
+            </div>
+
+            <div>
+                <label>收件人電話:</label>
+                <input type="text" id="receiverPhone" th:field="*{receiverPhone}" onclick="hideContent('receiverPhone.errors')" />
+                <span th:if="${#fields.hasErrors('receiverPhone')}" th:errors="*{receiverPhone}" class="error" id="receiverPhone.errors"></span>
+            </div>
+
+            <div>
+                <label>信用卡持有人姓名:</label>
+                <input type="text" id="cardName" th:field="*{cardName}" onclick="hideContent('cardName.errors')" />
+                <span th:if="${#fields.hasErrors('cardName')}" th:errors="*{cardName}" class="error" id="cardName.errors"></span>
+            </div>
+
+            <div>
+                <label>信用卡號碼:</label>
+                <input type="text" id="cardNumber" th:field="*{cardNumber}" onclick="hideContent('cardNumber.errors')" />
+                <span th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}" class="error" id="cardNumber.errors"></span>
+            </div>
+
+            <div>
+                <label>有效日期:</label>
+                <input type="text" id="cardValidTime" th:field="*{cardValidTime}" onclick="hideContent('cardValidTime.errors')" />
+                <span th:if="${#fields.hasErrors('cardValidTime')}" th:errors="*{cardValidTime}" class="error" id="cardValidTime.errors"></span>
+            </div>
+
+            <div>
+                <label>安全碼:</label>
+                <input type="text" id="cardLast3No" th:field="*{cardLast3No}" onclick="hideContent('cardLast3No.errors')" />
+                <span th:if="${#fields.hasErrors('cardLast3No')}" th:errors="*{cardLast3No}" class="error" id="cardLast3No.errors"></span>
+            </div>
+
+            <div>
+                <label>卡片綁定電話:</label>
+                <input type="text" id="cardPhone" th:field="*{cardPhone}" onclick="hideContent('cardPhone.errors')" />
+                <span th:if="${#fields.hasErrors('cardPhone')}" th:errors="*{cardPhone}" class="error" id="cardPhone.errors"></span>
+            </div>
+            
+            <div>
+                <button type="submit">送出修改</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- JavaScript part -->
+    <script type="text/javascript">
+        //清除提示信息
+        function hideContent(d) {
+            document.getElementById(d).style.display = "none";
+        }
+
+        //照片上傳-預覽用
+        var filereader_support = typeof FileReader != 'undefined';
+        if (!filereader_support) {
+            alert("No FileReader support");
+        }
+        acceptedTypes = {
+            'image/png' : true,
+            'image/jpeg' : true,
+            'image/gif' : true
+        };
+        function previewImage() {
+            var personalPhotos1 = document.getElementById("personalPhotos");
+            personalPhotos1.addEventListener("change", function(event) {
+                var files = event.target.files || event.dataTransfer.files;
+                for (var i = 0; i < files.length; i++) {
+                    previewfile(files[i]);
+                }
+            }, false);
+        }
+        function previewfile(file) {
+            if (filereader_support === true && acceptedTypes[file.type] === true) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    var image = new Image();
+                    image.src = event.target.result;
+                    image.width = 100;
+                    image.height = 75;
+                    image.border = 2;
+                    if (blob_holder.hasChildNodes()) {
+                        blob_holder.removeChild(blob_holder.childNodes[0]);
+                    }
+                    blob_holder.appendChild(image);
+                };
+                reader.readAsDataURL(file);
+                document.getElementById('submit').disabled = false;
+            } else {
+                blob_holder.innerHTML = "<div style='text-align: left;'>"
+                        + "● filename: "
+                        + file.name
+                        + "<br>"
+                        + "● ContentTyp: "
+                        + file.type
+                        + "<br>"
+                        + "● size: "
+                        + file.size
+                        + "bytes"
+                        + "<br>"
+                        + "● 上傳ContentType限制: <b><font color=red>image/png、image/jpeg、image/gif</font></b></div>";
+                document.getElementById('submit').disabled = true;
+            }
+        }
+    </script>
+
+</body>
+</html>
