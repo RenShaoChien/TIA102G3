@@ -13,11 +13,7 @@ create TABLE shopping_cart(
    memberID INT NOT NULL,
    productID INT NOT NULL,
    quantity INT NOT NULL,
-   PRIMARY KEY ( shoppingCartID ),
-   CONSTRAINT fk_shopping_cart_memberID
-   FOREIGN KEY (memberID) REFERENCES member (memberID),
-   CONSTRAINT fk_shopping_cart_productID
-   FOREIGN KEY (productID) REFERENCES product (productID)
+   PRIMARY KEY ( shoppingCartID )
 );
 
 create TABLE orderID(
@@ -26,9 +22,7 @@ create TABLE orderID(
    orderDate DATETIME NOT NULL,
    status VARCHAR(20) NOT NULL,
    totalPrice INT NOT NULL,
-   PRIMARY KEY ( orderID ),
-   CONSTRAINT fk_order_memberID
-   FOREIGN KEY (memberID) REFERENCES member (memberID)
+   PRIMARY KEY ( orderID )
 );
 
 create TABLE order_details(
@@ -36,15 +30,5 @@ create TABLE order_details(
    productID INT NOT NULL,
    quantity INT NOT NULL,
    orderID INT NOT NULL,
-   PRIMARY KEY ( ordDtIID ),
-   CONSTRAINT fk_order_details_productID
-   FOREIGN KEY (productID) REFERENCES product (productID),
-   CONSTRAINT fk_order_details_orderID
-   FOREIGN KEY (orderID) REFERENCES orderID (orderID)
+   PRIMARY KEY ( ordDtIID )
 );
-
---之前為了測試建立的臨時member table
---create TABLE member(
---   memberID INT AUTO_INCREMENT,   
---   PRIMARY KEY ( memberID )
---);

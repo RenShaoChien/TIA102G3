@@ -44,4 +44,9 @@ public class PageController {
     public String member(Model model) {
         return "member";
     }
+    
+    @GetMapping("/pricing")
+    public String pricing(Model model) {
+        return "pricing";
+    }
 }
