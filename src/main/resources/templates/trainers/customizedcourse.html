@@ -166,17 +166,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div>
             <label for="exercise-item1">運動項目：</label>
             <select id="exercise-item1" name="sportEventName">
-                <option value="option1">選項</option>
-                <option value="option2">選項 1</option>
-                <option value="option3">選項 2</option>
+
             </select>
         </div>
         <div>
             <label for="exercise-item">運動器材：</label>
             <select id="exercise-item" name="sportEquipment">
-                <option>選項</option>
-                <option>選項1</option>
-                <option>選項2</option>
+
             </select>
         </div>
         <div>
@@ -255,7 +251,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     $(document).ready(function () {
 
         $('input[name="sportTypes"]').change(function () {
-            var selectType = $("input[name='sportTypes']:checked").val();
+            let selectType = $("input[name='sportTypes']:checked").val();
 
             $.ajax({
                 url: '/course/getSportEventsAndEquipment',

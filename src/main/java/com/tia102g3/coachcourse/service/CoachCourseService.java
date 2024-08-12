@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * ClassName： CoachCourseService
@@ -37,4 +38,7 @@ public interface CoachCourseService {
     boolean updateCourseStatus(Integer coachCourseId, CourseStatus courseStatus);
 
     void updateCourseStatusByDate();
+
+    Set<CoachCourse> findAllByStatus(CourseStatus status);
+
 }

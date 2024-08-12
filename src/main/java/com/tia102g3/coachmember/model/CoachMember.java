@@ -1,5 +1,8 @@
 package com.tia102g3.coachmember.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.tia102g3.coachcourse.model.CoachCourse;
+import com.tia102g3.coachspecialty.model.CoachSpecialty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "coach_member")
@@ -37,4 +41,11 @@ public class CoachMember implements Serializable {
     private String cardValidTime;
     private String cardLast3No;
     private String cardPhone;
+
+    @OneToMany(mappedBy = "cMember" )
+    @JsonBackReference
+    private List<CoachSpecialty> coachSpecialties;
+    @OneToMany(mappedBy = "cMember" )
+    @JsonBackReference
+    private List<CoachCourse> coachCourses;
 }

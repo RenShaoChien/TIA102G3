@@ -146,10 +146,10 @@
         <div class="form-field">
             <label>課程等級：</label>
             <select th:field="*{courseLevel}">
-                <option value="EASY">EASY</option>
-                <option value="MEDIUM">MEDIUM</option>
-                <option value="HARD">HARD</option>
-                <option value="VERY_HARD">VERY_HARD</option>
+                <option value="EASY">初級</option>
+                <option value="MEDIUM">中級</option>
+                <option value="HARD">高級</option>
+                <option value="VERY_HARD">最高級</option>
             </select><br/>
             <span class="error" th:if="${#fields.hasErrors('courseLevel')}" th:errors="*{courseLevel}" id="courseLevel.errors"></span>
 
