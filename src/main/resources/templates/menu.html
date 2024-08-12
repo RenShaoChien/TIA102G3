@@ -74,10 +74,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
 					<li><a href="/">Home</a></li>
-					<li><a href="about.html">About</a></li>
-					<li><a href="trainers.html">Trainers</a></li>
+					<li><a th:href="@{member}">會員專區</a></li>
+					<li><a th:href="@{trainers}">專屬你的訓練</a></li>
 					<li><a href="classes.html">Classes</a></li>
-					<li class="active"><a href="menu">Menu</a></li>
+					<li><a th:href="@{menu}">健康餐</a></li>
 					<li><a href="pricing.html">Pricing</a></li>
 					<li><a href="contact.html">Contact</a></li>
 				</ul>
@@ -88,7 +88,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>
 	<!-- end menu -->
 	<div class="main">
-        <div style="text-align: center;">
+        <div style="text-align: center; background-color: #72D0F4;">
 		  <h2> 健康餐</h2>
         </div>
         
@@ -100,25 +100,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="row">
 				<div class="col-md-3">
 					<img class="menu_images" src="images/menu/菜飯餐盒_630_486.png">
-					<div style="background-color: orange;">
+					<div>
 						<h2 class="menu_text">菜飯餐盒</h2>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<img class="menu_images" src="images/menu/日式壽喜牛便當.png">
-					<div style="background-color: orange;">
+					<div>
 						<h2 class="menu_text">日式壽喜牛便當</h2>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<img class="menu_images" src="images/menu/水煮嫩雞胸_630_486.png">
-					<div style="background-color: orange;">
+					<div>
 						<h2 class="menu_text">水煮嫩雞胸</h2>
 					</div>
 				</div>
 				<div class="col-md-3">
 					<img class="menu_images" src="images/menu/清滷牛腱_630_486.png">
-					<div style="background-color: orange;">
+					<div>
 						<h2 class="menu_text">清滷牛腱</h2>
 					</div>
 				</div>

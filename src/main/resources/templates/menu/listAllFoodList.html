@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>所有食材資料 - listAllFood.html</title>
+<title>所有餐點清單資料 - listAllFoodList.html</title>
 
 <!-- <head th:insert="~{/back-end/emp/included-fragment}"></head> -->
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>                                    <!-- ●●js  for jquery datatables 用 -->
@@ -63,7 +63,7 @@ body {
 <!-- 		 <div align="center"> <h2>所有食材資料 - listAllFood.html</h2> -->
 <!-- 		 <h3><a class="navbar-brand" th:href="@{/food/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁<label th:text="${success}"></label></a></h3></div> -->
 <!-- </nav> -->
-<div align="center"> <h2>所有食材資料</h2></div>
+<div align="center"> <h2>所有餐點清單資料</h2></div>
 <table id="example" class="display" style="width: 100%">
   <thead >
 	<tr style="background-color:#428bca">
@@ -84,14 +84,14 @@ body {
   </thead>
 	
   <tbody>
-		<th:block th:each="menu : ${menuListData}">
+		<th:block th:each="foodList : ${foodListData}">
 			<tr>
-				<td th:text="${menu.getMenuVO.getMenuNumber}"></td>
-				<td th:text="${menu.getMenuVO.getImageNumber}"></td>
-				<td th:text="${menu.getFoodVO.getFoodNumber}"></td>
-				<td th:text="${menu.getFoodVO.getFoodName}"></td>
-				<td th:text="${menu.getFoodWeight}"></td>
-				<td th:text="${menu.getFoodVO.getFoodCalories}"></td>
+				<td th:text="${foodList.getMenuVO.getMenuNumber}"></td>
+				<td th:text="${foodList.getMenuVO.getImageNumber}"></td>
+				<td th:text="${foodList.getFoodVO.getFoodNumber}"></td>
+				<td th:text="${foodList.getFoodVO.getFoodName}"></td>
+				<td th:text="${foodList.getFoodWeight}"></td>
+				<td th:text="${foodList.getFoodVO.getFoodCalories}"></td>
 				
 				
 <!-- 				<td th:text="${empVO.hiredate}"></td> -->
