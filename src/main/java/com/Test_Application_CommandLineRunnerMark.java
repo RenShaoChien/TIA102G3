@@ -1,18 +1,20 @@
 package com;
 
+import java.util.Arrays;
 import java.util.List;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.tia102g3.food.model.FoodRepository;
-import com.tia102g3.food.model.FoodVO;
 import com.tia102g3.foodlist.model.FoodListRepository;
+import com.tia102g3.foodlist.model.FoodListVO;
+import com.tia102g3.foodlist.model.HibernateUtil_CompositeQuery_FoodList;
 import com.tia102g3.healthstatus.model.HealthStatusRepository;
 import com.tia102g3.likefood.model.LikeFoodRepository;
-import com.tia102g3.likefood.model.LikeFoodVO;
 import com.tia102g3.membermenulist.model.MemberMenuListRepository;
 import com.tia102g3.menu.model.MenuRepository;
 
@@ -37,8 +39,8 @@ public class Test_Application_CommandLineRunnerMark implements CommandLineRunner
 	@Autowired
 	MemberMenuListRepository memberMenuListRepository;
 	
-//	@Autowired
-//    private SessionFactory sessionFactory;
+	@Autowired
+    private SessionFactory sessionFactory;
 	
 	public static void main(String[] args) {
         SpringApplication.run(Test_Application_CommandLineRunnerMark.class);
@@ -202,6 +204,26 @@ public class Test_Application_CommandLineRunnerMark implements CommandLineRunner
 //            System.out.print(memberMenu.getMemberID() + ",");
 //            System.out.println();
 //        }
+        
+        
+
+        
+//        List<Integer> foodNumbers = Arrays.asList(1, 2, 3);
+//        List<FoodListVO> results = HibernateUtil_CompositeQuery_FoodList
+//                .findByFoodNumbers(foodNumbers, sessionFactory.openSession());
+//
+//        for (FoodListVO food : results) {
+//            System.out.println(food.toString());
+//        }
+        
+        
+        List<Integer> foodNumbers = Arrays.asList(1, 2, 3);
+        List<FoodListVO> results = HibernateUtil_CompositeQuery_FoodList
+                .findByFoodNumbersExcludingMenus(foodNumbers, sessionFactory.openSession());
+
+        for (FoodListVO food : results) {
+            System.out.println(food.toString());
+        }
         
         
     }

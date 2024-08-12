@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="panel-body">
-                    <form th:action="@{insertLikeFood}" method="post" th:object="${LikeFoodVO}"
+                    <form th:action="@{insertFoodList}" method="post" th:object="${LikeFoodVO}"
                         enctype="multipart/form-data">
                         <label for=""><p class="menu-text-title">健康餐編號</p></label> 
                         <input class="form-control input-width-50" type="text" name="menuNumber"> 
@@ -93,9 +93,9 @@
 <!--                         <input type="radio" id="radio_2" name="foodPreference" value="0"> -->
 <!--                         <label for="radio_2">不喜歡</label> -->
 <!--                         <br>  -->
-<!--                         <div class="text-center"> -->
-<!--                             <input class="btn btn-default" type="submit" value="submit"> -->
-<!--                         </div> -->
+                        <div class="text-center">
+                            <input class="btn btn-default" type="submit" value="submit">
+                        </div>
                     </form>
                 </div>
             </div>

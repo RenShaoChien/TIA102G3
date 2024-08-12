@@ -31,8 +31,8 @@ public class FoodMenuController {
     @Autowired
     FoodService foodSvc;
     
-    @Autowired
-    FoodListService foodListSvc;
+//    @Autowired
+//    FoodListService foodListSvc;
     
     @Autowired
     HealthStatusService healthStatusSvc;
@@ -67,12 +67,12 @@ public class FoodMenuController {
         return "menu/addLikeFood";
     }
     
-    @GetMapping("/addFoodList")
-    public String addFoodList(ModelMap model) {
-        FoodListVO foodListVO = new FoodListVO();
-        model.addAttribute("foodListVO", foodListVO);
-        return "menu/addFoodList";
-    }
+//    @GetMapping("/addFoodList")
+//    public String addFoodList(ModelMap model) {
+//        FoodListVO foodListVO = new FoodListVO();
+//        model.addAttribute("foodListVO", foodListVO);
+//        return "menu/addFoodList";
+//    }
     
     
 
@@ -83,18 +83,18 @@ public class FoodMenuController {
         return "menu/listAllFood";
     }
     
-    @GetMapping("/listAllMenu")
-    public String listAllMenu(ModelMap model) {
-//        List<FoodListVO> list = foodListSvc.getOneByMenuNum(1);
-        List<FoodListVO> list = foodListSvc.getAll();
-        List<Integer> allMenuNum = foodListSvc.getAllMenuNum();
-
-        model.addAttribute("menuListData", list);
-        model.addAttribute("allMenuNum", allMenuNum);
-//        model.addAttribute("allMenu", allMenu);
-        System.out.println(allMenuNum);
-        return "menu/listAllMenu";
-    }
+//    @GetMapping("/listAllFoodList")
+//    public String listAllMenu(ModelMap model) {
+////        List<FoodListVO> list = foodListSvc.getOneByMenuNum(1);
+//        List<FoodListVO> list = foodListSvc.getAll();
+//        List<Integer> allMenuNum = foodListSvc.getAllMenuNum();
+//
+//        model.addAttribute("menuListData", list);
+//        model.addAttribute("allMenuNum", allMenuNum);
+////        model.addAttribute("allMenu", allMenu);
+//        System.out.println(allMenuNum);
+//        return "menu/listAllFoodList";
+//    }
     
     @GetMapping("/listAllLikeFood")
     public String listAllLikeFood(ModelMap model) {
@@ -219,8 +219,7 @@ public class FoodMenuController {
         }
 
         /*************************** 2.開始新增資料 *****************************************/
-        FoodVO foodVO = new FoodVO();
-        foodVO = foodSvc.getOneFood(Integer.valueOf(foodNumber));
+        FoodVO foodVO = foodSvc.getOneFood(Integer.valueOf(foodNumber));
         likeFoodVO.setFoodVO(foodVO);
 //        System.out.print("foodNumber: ");
 //        System.out.println(foodNumber);

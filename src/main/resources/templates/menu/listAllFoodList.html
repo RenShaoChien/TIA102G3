@@ -84,14 +84,14 @@ body {
   </thead>
 	
   <tbody>
-		<th:block th:each="menu : ${menuListData}">
+		<th:block th:each="foodList : ${foodListData}">
 			<tr>
-				<td th:text="${menu.getMenuVO.getMenuNumber}"></td>
-				<td th:text="${menu.getMenuVO.getImageNumber}"></td>
-				<td th:text="${menu.getFoodVO.getFoodNumber}"></td>
-				<td th:text="${menu.getFoodVO.getFoodName}"></td>
-				<td th:text="${menu.getFoodWeight}"></td>
-				<td th:text="${menu.getFoodVO.getFoodCalories}"></td>
+				<td th:text="${foodList.getMenuVO.getMenuNumber}"></td>
+				<td th:text="${foodList.getMenuVO.getImageNumber}"></td>
+				<td th:text="${foodList.getFoodVO.getFoodNumber}"></td>
+				<td th:text="${foodList.getFoodVO.getFoodName}"></td>
+				<td th:text="${foodList.getFoodWeight}"></td>
+				<td th:text="${foodList.getFoodVO.getFoodCalories}"></td>
 				
 				
 <!-- 				<td th:text="${empVO.hiredate}"></td> -->
