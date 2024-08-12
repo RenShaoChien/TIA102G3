@@ -92,25 +92,47 @@
             transform: scale(1.1);
         }
 
+        /*.lightbox {*/
+        /*    display: none;*/
+        /*    position: fixed;*/
+        /*    top: 0;*/
+        /*    left: 0;*/
+        /*    width: 100%;*/
+        /*    height: 100vh;*/
+        /*    background-color: rgba(0, 0, 0, 0.8);*/
+        /*    justify-content: center;*/
+        /*    align-items: center;*/
+        /*    z-index: 1000;*/
+        /*}*/
+
+        /*.lightbox img {*/
+        /*    max-width: 70%;*/
+        /*    max-height: 70%;*/
+        /*    transform: translate(27.5%, 25%);*/
+        /*}*/
         .lightbox {
             display: none;
+            justify-content: center;
+            align-items: center;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
+            min-height: calc(100vh - 100px);
             background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
             z-index: 1000;
         }
 
         .lightbox img {
-            max-width: 70%;
-            max-height: 70%;
-            transform: translate(27.5%, 25%);
+            max-width: 90%;
+            max-height: 90%;
+            display: block;
+            margin: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
-
         .error {
             color: #ff0000;
             font-style: italic;
@@ -255,10 +277,32 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script th:inline="javascript" th:onload="loadSportEventsAndEquipment()">
+
     $(document).ready(function () {
+
+        const $lightbox = $('#lightbox');
+        const $lightboxImg = $('#lightboxImage');
+        const $images = $('.image-preview img');
+
+        $images.on('click', function () {
+            const fullSizeSrc = $(this).attr('data-full');
+            $lightbox.css('display', 'flex');
+            $lightboxImg.attr('src', ''); // 清空之前的圖片
+            setTimeout(() => {
+                $lightboxImg.attr('src', fullSizeSrc); // 延遲加載新圖片
+            }, 100); // 可以根據需要調整延遲時間
+        });
+
+        $lightbox.on('click', function () {
+            $lightbox.css('display', 'none');
+            $lightboxImg.attr('src', ''); // 清空圖片
+        });
+
+
+
         $('#uploadImages').change(function () {
-            var preview = $('#imagePreview');
-            var files = this.files;
+            let preview = $('#imagePreview');
+            let files = this.files;
             preview.empty();
 
             if (files.length > 3) {
@@ -269,7 +313,7 @@
 
             $.each(files, function (i, file) {
                 if (/\.(jpe?g|png|gif)$/i.test(file.name)) {
-                    var reader = new FileReader();
+                    let reader = new FileReader();
 
                     reader.onload = function (e) {
                         var img = $('<img>', {
@@ -286,7 +330,7 @@
         });
         // 點擊圖片放大
         $('.image-preview, .existing-image').on('click', 'img', function () {
-            var src = $(this).attr('src');
+            let src = $(this).attr('src');
             $('#lightboxImage').attr('src', src);
             $('#lightbox').fadeIn();
         });
@@ -299,19 +343,19 @@
 
     });
     // 在頁面載入後獲取 sportEventName 和 sportEquipment 的值
-    var initialSportEventName = /*[[${systemCourse.sportEventName}]]*/ '';
-    var initialSportEquipment = /*[[${systemCourse.sportEquipment}]]*/ '';
+    let initialSportEventName = /*[[${systemCourse.sportEventName}]]*/ '';
+    let initialSportEquipment = /*[[${systemCourse.sportEquipment}]]*/ '';
 
     function loadSportEventsAndEquipment() {
-        var sportType = $('#sportTypes').val();
+        let sportType = $('#sportTypes').val();
         $.ajax({
             url: '/course/getSportEventsAndEquipment', // 呼叫合併後的 API
             type: 'GET',
             data: {sportType: sportType},
             dataType: 'json',
             success: function (data) {
-                var $sportEventSelect = $('#sportEventName');
-                var $sportEquipmentSelect = $('#sportEquipment');
+                let $sportEventSelect = $('#sportEventName');
+                let $sportEquipmentSelect = $('#sportEquipment');
                 $sportEventSelect.empty();
                 $sportEquipmentSelect.empty();
                 // 處理運動項目名稱

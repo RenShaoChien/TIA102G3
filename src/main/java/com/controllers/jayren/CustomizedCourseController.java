@@ -5,6 +5,7 @@ import com.tia102g3.systemcourse.model.SystemCourse;
 import com.tia102g3.systemcourse.service.SystemCourseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,17 +31,21 @@ public class CustomizedCourseController {
 
     @GetMapping("/enter.do")
     public String customizedCourse() {
+
         return "trainers/customizedcourse";
     }
 
 
     @PostMapping("/customized.do")
-    public String getCustomizedCourse(
-            @RequestParam("sportTypes") String sportTypes, @RequestParam("sportEventName") String sportEventName,
-            @RequestParam("sportEquipment") String sportEquipment, @RequestParam("target-area") String keyword,
-            @RequestParam("courseLevel") String courseLevel, @RequestParam("loseWeight") String loseWeight) {
+    public String getCustomizedCourse(Model model,
+                                      @RequestParam("sportTypes") String sportTypes, @RequestParam("sportEventName") String sportEventName,
+                                      @RequestParam("sportEquipment") String sportEquipment, @RequestParam("target-area") String keyword,
+                                      @RequestParam("courseLevel") String courseLevel, @RequestParam("loseWeight") String loseWeight) {
 
         List<SystemCourse> customizedCourses = scService.getSystemCoursesByReqPara(sportTypes, sportEventName, sportEquipment, keyword, courseLevel);
+
+        model.addAttribute("systemCourse", customizedCourses.get(0));
+
 
         return "trainers/customizedresult";
     }

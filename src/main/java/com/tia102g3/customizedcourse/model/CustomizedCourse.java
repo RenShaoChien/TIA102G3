@@ -28,7 +28,7 @@ import javax.persistence.*;
 public class CustomizedCourse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer customizeCourseID;
+    private Integer id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "systemCourseID", nullable = false, referencedColumnName = "systemCourseID")
     @ForeignKey(targetEntity = SystemCourse.class, keyField = "systemCourseID")

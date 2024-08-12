@@ -25,8 +25,7 @@ import javax.persistence.*;
 public class CoachSpecialty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "coachSpecialtyID", updatable = false)
-    private Integer coachSpecialtyID;
+    private Integer id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cMemberID", nullable = false, referencedColumnName = "cMemberID")
     private CoachMember cMember;

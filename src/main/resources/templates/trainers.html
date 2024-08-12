@@ -12,8 +12,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link th:href="@{css/style.css}" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800}' rel='stylesheet' type='text/css'>
-    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700}' rel='stylesheet' type='text/css'>
+    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800}' rel='stylesheet'
+          type='text/css'>
+    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700}' rel='stylesheet'
+          type='text/css'>
     <script type="application/x-javascript"> addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
     }, false);
@@ -278,6 +280,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             /*display: block; !* 使每個 span 元素成為區塊元素，確保每行都獨立 *!*/
             margin-bottom: 5px; /* 控制 span 內的間距 */
         }
+
         .custom-limited-text h2#course-description {
             max-width: 300px;
             word-wrap: break-word;
@@ -318,8 +321,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="h_menu4"><!-- start h_menu4 -->
             <a class="toggleMenu" href="#">Menu</a>
             <ul class="nav">
-                <li><a th:href="@{/}">Home</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a th:href="@{/index}">Home</a></li>
+                <li><a th:href="@{member/account_information}">會員專區</a></li>
                 <li class="active"><a th:href="@{trainers}">專屬你的訓練</a>
                     <ul>
                         <li><a href="#sportimportant">運動須知</a></li>
@@ -328,8 +331,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </ul>
                 </li>
                 <li><a href="classes.html">Classes</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="menu">Menu</a></li>
+                <li><a th:href="@{pricing}">Pricing</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <script type="text/javascript" th:src="@{js/nav.js}"></script>
@@ -358,11 +361,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <div class="preparation-box-content">
                                     <p><img th:src="@{warm-up.png}" alt="運動前 | 暖身"
                                             style="width: 100%; height: auto; object-fit: cover;"></p>
-                                    <p>在展開運動前適當的暖身，正常的暖身可促進血液循環、提高體溫、減輕肌肉及關節的粘滯性，避免肌肉拉傷的危險。</p>
+                                    <p>
+                                        在展開運動前適當的暖身，正常的暖身可促進血液循環、提高體溫、減輕肌肉及關節的粘滯性，避免肌肉拉傷的危險。</p>
                                 </div>
                                 <div class="preparation-box-footer">
                                     <a href="#" class="details-btn" style="float: left; pointer-events: none;">推薦</a>
-                                    <a href="https://sport.heho.com.tw/archives/283292" target="_blank" class="advice-btn" style="float: right; width: 80%;">你做的運動不同，暖身方法也不同，請尋求專業的建議</a>
+                                    <a href="https://sport.heho.com.tw/archives/283292" target="_blank"
+                                       class="advice-btn"
+                                       style="float: right; width: 80%;">你做的運動不同，暖身方法也不同，請尋求專業的建議</a>
                                 </div>
                             </div>
                             <div class="preparation-box class_left">
@@ -370,12 +376,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                     運動後 | 收操 Cool Down
                                 </div>
                                 <div class="preparation-box-content">
-                                    <p><img th:src="@{cool-down.png}" alt="運動後 | 收操" style="width: 100%; height: auto; object-fit: cover;"></p>
-                                    <p>突然停止運動可能會造成暈眩及不適。不過運動過後適當的收操、能促進血液回流，避免因血液滯留在四肢而造成頭暈、疲勞。</p>
+                                    <p><img th:src="@{cool-down.png}" alt="運動後 | 收操"
+                                            style="width: 100%; height: auto; object-fit: cover;"></p>
+                                    <p>
+                                        突然停止運動可能會造成暈眩及不適。不過運動過後適當的收操、能促進血液回流，避免因血液滯留在四肢而造成頭暈、疲勞。</p>
                                 </div>
                                 <div class="preparation-box-footer">
                                     <a href="#" class="details-btn" style="float: left; pointer-events: none;">推薦</a>
-                                    <a href="https://sport.heho.com.tw/archives/283303" target="_blank" class="advice-btn" style="float: right; width: 80%;">收操的動作可不同，請尋求專業的建議</a>
+                                    <a href="https://sport.heho.com.tw/archives/283303" target="_blank"
+                                       class="advice-btn"
+                                       style="float: right; width: 80%;">收操的動作可不同，請尋求專業的建議</a>
                                 </div>
                             </div>
                         </div>
@@ -421,8 +431,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="container">
         <div class="classes_wrapper">
             <div class="row class_box">
-
-
                 <div class="col-md-6">
                     <div class="class_left">
                         <a href="single_class.html"><img src="images/c7.jpg" class="img-responsive" alt=""
@@ -504,8 +512,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>
                     <div class="clear"></div>
                 </div>
-
-
                 <div class="col-md-6">
                     <div class="class_left">
                         <a href="single_class.html"><img src="images/c7.jpg" class="img-responsive" alt=""
@@ -578,7 +584,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                                     <span>課程狀態：<span>已開課</span></span>
                                                 </li>
                                             </ul>
-                                            <!--                                            <button type="button" class="btn_modal_close">關閉</button>-->
                                         </article>
                                     </div>
                                 </li>
@@ -641,7 +646,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> <!-- 引入jQuery庫 -->
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
+        function loadCoachMember() {
+            $.ajax({
+                url: '/trainers/getCoachMemberList',
+                type: 'GET',
+
+            });
+        }
+
+
         function loadDescription() {
             $.ajax({
                 url: '/course/getFrontEndPageDescription',
@@ -655,6 +669,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 }
             });
         }
+
         loadDescription();
         setInterval(loadDescription, 100);
     });

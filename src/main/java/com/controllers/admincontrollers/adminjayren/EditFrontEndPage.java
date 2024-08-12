@@ -22,7 +22,6 @@ public class EditFrontEndPage {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    // 接收 AJAX 提交的功能介紹並保存到 Redis 中
     @PostMapping("/editFrontEndPage")
     public ResponseEntity<String> editFrontEndPage(@RequestBody Map<String, String> requestData) {
         String description = requestData.get("description");
