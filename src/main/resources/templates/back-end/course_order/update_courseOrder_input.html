@@ -112,7 +112,7 @@ input[type=submit]:hover, button:hover {
 <div class="container">
     <h3><b>所有欄位皆為必填欄位</b></h3>
     <div class="form-container">
-        <form th:action="@{update}" method="post" th:object="${courseOrderVO}" enctype="multipart/form-data">
+        <form th:action="@{update}" method="post" th:object="${courseOrder}" enctype="multipart/form-data">
             <div>
                 <label>課程訂單ID:</label>
                 <input type="text" th:field="*{courseOrderID}" style="border: 0; font-weight: bold;" readonly />
@@ -126,8 +126,8 @@ input[type=submit]:hover, button:hover {
 
             <div>
                 <label>教練課程ID:</label>
-                <input type="text" th:field="*{coachCourse.coachCourseID}" onclick="hideContent('coachCourse.coachCourseID.errors');" />
-                <span th:if="${#fields.hasErrors('coachCourse.coachCourseID')}" th:errors="*{coachCourse.coachCourseID}" class="error" id="coachCourse.coachCourseID.errors"></span>
+                <input type="text" th:field="*{coachCourse.id}" onclick="hideContent('coachCourse.coachCourseID.errors');" />
+                <span th:if="${#fields.hasErrors('coachCourse.id')}" th:errors="*{coachCourse.id}" class="error" id="coachCourse.id.errors"></span>
             </div>
 
             <div>

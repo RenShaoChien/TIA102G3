@@ -39,11 +39,6 @@ public class PageController {
     public String menu(Model model) {
         return "menu";
     }
-
-    @GetMapping("/member")
-    public String member(Model model) {
-        return "member";
-    }
     
     @GetMapping("/pricing")
     public String pricing(Model model) {
