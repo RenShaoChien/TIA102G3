@@ -22,4 +22,5 @@ public interface CoachMemberRepository extends JpaRepository<CoachMember, Intege
 	                               @Param("name") String name, 
 	                               @Param("regDate") java.sql.Date regDate);
 
+	CoachMember findByAccount(String account);
 }

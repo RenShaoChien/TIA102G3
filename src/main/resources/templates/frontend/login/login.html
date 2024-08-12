@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>健肌尋食-會員註冊</title>
+<link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css' />
+<link th:href="@{css/style.css}" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<script th:src="@{js/jquery.min.js}"></script>
+<style>
+input[type="button"] {
+	float: right;
+	background: #00BFF0;
+	border: none;
+	color: #FFF;
+	padding: 10px 20px;
+	cursor: pointer;
+	font-family: 'Open Sans', sans-serif;
+	outline: none;
+	font-size: 1em;
+	border-radius: 5px;
+	transition: background 0.3s;
+}
+</style>
+</head>
+
+<body>
+	<!-- start header_bottom -->
+	<div class="header-bottom">
+		<div class="container">
+			<div class="header-bottom_left">
+				<i class="phone"> </i><span>1-200-346-2986</span>
+			</div>
+			<div class="social">
+				<ul>
+					<li class="facebook"><a href="#"><span> </span></a></li>
+					<li class="google"><a href="#"><span> </span></a></li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<!-- start menu -->
+	<div class="menu">
+		<div class="container">
+			<div class="logo">
+				<a href="index.html"><img src="images/logo.png" alt="" /></a>
+			</div>
+			<div class="h_menu4">
+				<!-- start h_menu4 -->
+				<a class="toggleMenu" href="#">Menu</a>
+				<ul class="nav">
+					<li><a th:href="@{index}">主頁</a></li>
+					<li class="active"><a th:href="@{login}">會員專區</a></li>
+					<li><a href="trainers.html">課程</a></li>
+					<li><a href="classes.html">教室</a></li>
+					<li><a href="blog.html">健康飲食</a></li>
+					<li><a href="pricing.html">線上商城</a></li>
+					<li><a href="contact.html">健康地圖</a></li>
+				</ul>
+				<script type="text/javascript" src="js/nav.js"></script>
+			</div>
+			<!-- end h_menu4 -->
+			<div class="clear"></div>
+		</div>
+	</div>
+	<!-- end menu -->
+	<div class="main">
+		<div class="login_top">
+			<div class="container">
+				<div class="col-md-6">
+					<div class="login-page">
+						<h4 class="title">歡迎加入健肌尋食</h4>
+						<p>
+							1.健身新手？加入我們，讓你成為健身達人！ <br> 2.你的健康，我們的使命。立即加入健身之旅！ <br>
+							3.強健體魄，從這裡開始！ <br> 4.健康生活，從健身網站開始。 <br> 5.加入我們，成為更好的自己！
+							<br> 6.突破自我，挑戰極限！ <br> 7.健康，力量，自信，一站搞定！ <br>
+							8.加入我們，一起變強壯！ <br> 9.健身無限可能，現在開始！ <br>
+							10.專業指導，健康無憂。立即註冊！
+						</p>
+						<div class="button1">
+							<a th:href="@{register}"> <input type="submit" name="Submit"
+								value="創建一個帳戶">
+							</a>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<!-- 登入頁面區塊 -->
+					<div class="login-page">
+						<!-- 登入標題 -->
+						<div class="login-title">
+							<h4 class="title">會員登入</h4>
+							<!-- 登入表單容器 -->
+							<div id="loginbox" class="loginbox">
+								<!-- 表單開始 -->
+								<form name="login" id="login-form" method="post" action="/login">
+									<fieldset class="input">
+										<!-- 帳號/電子郵件輸入區 -->
+										<p id="login-form-username">
+											<label for="username">帳號</label> <input id="username"
+												type="text" name="username" class="inputbox" size="18"
+												autocomplete="off" required>
+										</p>
+										<!-- 密碼輸入區 -->
+										<p id="login-form-password">
+											<label for="password">密碼</label> <input id="password"
+												type="password" name="password" class="inputbox" size="18"
+												autocomplete="off" required>
+										</p>
+										<!-- 記住我和忘記密碼 -->
+										<div class="remember">
+											<p id="login-form-remember">
+												<label for="modlgn_remember"><a
+													th:href="@{password_verify_email}">忘記密碼?</a></label>
+											</p>
+											<!-- 登入按鈕 -->
+											<input type="submit" value="登入">
+											<div class="clear"></div>
+										</div>
+									</fieldset>
+								</form>
+								<!-- 表單結束 -->
+							</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<div class="container">
+			<div class="row section group">
+				<div class="col-md-4">
+					<h4 class="m_7">訂閱電子報</h4>
+					<!-- 簡短描述新聞訂閱 -->
+					<p class="m_8">關於我們有關的飲食通知</p>
+					<!-- 訂閱表單 -->
+					<form class="subscribe">
+						<!-- 電子郵件輸入框 -->
+						<input type="text" value="輸入電子郵件" onfocus="this.value = '';"
+							onblur="if (this.value == '') {this.value = '輸入電子郵件';}">
+					</form>
+					<!-- 提交按鈕 -->
+					<div class="subscribe1">
+						<a href="#">送出電子郵件<i class="but_arrow"> </i></a>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="f-logo">
+						<img src="images/logo.png" alt="" />
+					</div>
+					<p class="m_9">
+						關於現代人對於健康越來越有意識，但時常沒有正確的觀念來執行，導致會讓人無法繼續維持下去。 <br>
+						於是乎我們就想要建立一個可以幫助大家 & 功能方便網站，可以透過此網站來學習正確的觀念，並且記錄自己的生活是否有達到健康的水準。
+					</p>
+					<p class="address">
+						電話 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(00)
+							222 666 444</span>
+					</p>
+					<p class="address">
+						電子郵件 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">info[at]mycompany.com</span>
+					</p>
+				</div>
+				<div class="col-md-4">
+					<ul class="list">
+						<h4 class="m_7">Menu</h4>
+						<li><a href="#">會員</a></li>
+						<li><a href="#">Trainers</a></li>
+						<li><a href="#">Classes</a></li>
+						<li><a href="#">Pricing</a></li>
+						<li><a href="#">Privacy</a></li>
+						<li><a href="#">Contact</a></li>
+					</ul>
+					<ul class="list1">
+						<h4 class="m_7">Community</h4>
+						<li><a href="#">部落格</a></li>
+						<li><a href="#">Forum</a></li>
+						<li><a href="#">Support</a></li>
+						<li><a href="#">Newsletter</a></li>
+					</ul>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<div class="copyright">
+		<div class="container">
+			<div class="copy">
+				<p>
+					© 2014 Template by <a href="http://w3layouts.com" target="_blank">
+						w3layouts</a>
+				</p>
+			</div>
+			<div class="social">
+				<ul>
+					<li class="facebook"><a href="#"><span> </span></a></li>
+					<li class="google"><a href="#"><span> </span></a></li>
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+
+	<script>
+		window.onload = function() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const error = urlParams.get('error');
+			const success = urlParams.get('success');
+
+			if (error === 'invalid') {
+				alert('登入失敗，請檢查帳號和密碼是否正確。');
+			} else if (error === 'error') {
+				alert('發生錯誤，請稍後再試。');
+			}
+
+			if (success === 'login') {
+				alert('登入成功！');
+			}
+		};
+	</script>
+
+</body>
+
+</html>

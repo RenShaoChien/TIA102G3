@@ -1,0 +1,402 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"> <!-- 設定文件類型和語言為繁體中文 -->
+<head>
+<title>健肌尋食-會員專區</title>
+<link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css' />
+<link th:href="@{css/style.css}" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<script th:src="@{js/jquery.min.js}"></script>
+
+<!-- grid-slider -->
+<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="js/jquery.contentcarousel.js"></script>
+<!-- //grid-slider -->
+<!---calender-style---->
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<!---//calender-style---->
+<style>
+    .btn-login {
+        margin: bottom 50px;
+        float: right;
+        padding-right: 20px;
+        padding-top: 5px;
+        padding-bottom: 10px;
+        border: 1px solid black;
+        background-color: white;
+    }
+
+    .social {
+        padding-top: 4px;
+        padding-right: 10px;
+    }
+
+    .container-data {
+        height: auto;
+        width: auto;
+        margin: auto;
+        /* padding: 20px; */
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: row;
+        /* gap: 20px; */
+        /* flex-wrap: wrap; */
+        background-color: #e0f7f9;
+        /* place-items: center; */
+        /* background-color: red; */
+    }
+
+    .sidebar {
+        width: 20%;
+        height: auto;
+        padding-top: 50px;
+        /* padding-right: 20px; */
+        border-right: 1px solid #d0e5d2;
+        background-color: #eaf5e1;
+        color: #4b6e4f;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        /* border: 1px solid black; */
+    }
+
+    .sidebar a {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 50px;
+    }
+
+    h2 {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        padding: 20px;
+        border-bottom: 3px solid black;
+    }
+
+    .form-container {
+        width: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .content-data {
+        width: 100%;
+    }
+
+    .content-data input {
+        border-radius: 30px;
+    }
+
+
+    .form-row {
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        flex-wrap: wrap;
+        /* background-color: yellow; */
+        border-color: black;
+    }
+
+    .form-row2 {
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        flex-wrap: wrap;
+        /* background-color: rebeccapurple; */
+        border-color: black;
+    }
+
+    .form-section2 {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        /* background-color: #4b6e4f; */
+    }
+
+    .form-section2 select {
+        border-radius: 30px;
+        margin-top: 10px;
+        margin-right: 10px;
+        width: 130px;
+        border: 2px solid black;
+    }
+
+    .form-section3 input {
+        width: 250px;
+    }
+
+    .button0 input {
+        margin-right: 100px;
+        float: right;
+        background: #00BFF0;
+        border: none;
+        color: #FFF;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-family: 'Open Sans', sans-serif;
+        outline: none;
+        font-size: 1em;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+
+    .clear {
+        clear: both;
+    }
+</style>
+</head>
+
+<body>
+    <!-- start header_bottom -->
+    <div class="header-bottom">
+        <div class="btn-login">
+            <a href="login.html">Log In</a>
+        </div>
+        <div class="container">
+            <div class="header-bottom_left">
+                <i class="phone"> </i><span>1-200-346-2986</span>
+            </div>
+            <div class="social">
+                <ul>
+                    <li class="facebook"><a href="#"><span> </span></a></li>
+                    <li class="google"><a href="#"><span> </span></a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!-- start menu -->
+    <div class="menu">
+        <div class="container">
+            <div class="h_menu4"><!-- start h_menu4 -->
+                <a class="toggleMenu" href="#">Menu</a>
+                <ul class="nav">
+                    <li><a href="index.html">主頁</a></li>
+                    <li class="active"><a th:href="@{/receipt_information}">會員專區</a></li>
+                    <li><a href="trainers.html">課程</a></li>
+                    <li><a href="classes.html">教室</a></li>
+                    <li><a href="blog.html">健康飲食</a></li>
+                    <li><a href="pricing.html">線上商城</a></li>
+                    <li><a href="contact.html">健康地圖</a></li>
+                </ul>
+                <script type="text/javascript" src="js/nav.js"></script>
+            </div>
+            <!-- end h_menu4 -->
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="container-data">
+        <div class="sidebar">
+            <a th:href="@{/account_information}">修改帳戶資料</a>
+			<a th:href="@{/change_password}">修改密碼</a>
+			<a th:href="@{/historical_orders}">歷史訂單</a>
+			<a th:href="@{/receipt_information}">常用收件資訊</a>
+			<a th:href="@{/acc_information}">新增信用卡資訊</a>
+        </div>
+        <div class="content-data">
+            <h2>一般會員 (XXX) 點數: XX</h2>
+            <form action="/submit" method="POST">
+                <div class="form-container">
+                    <div class="form-row">
+                        <div class="form-section">
+                            <label for="username">收件人姓名:</label>
+                            <br>
+                            <input type="text" id="custom-input" name="username" placeholder="請輸入收件者姓名">
+                        </div>
+                        <div class="form-section">
+                            <label for="name">收件人電話:</label>
+                            <br>
+                            <input type="text" id="name" name="name" placeholder="請輸入收件者電話">
+                        </div>
+                        <div class="form-section">
+                            <label for="birthday">預設信用卡(不可修改):</label>
+                            <br>
+                            <input type="text" id="birthday" name="birthday" placeholder="YYYY-MM-DD" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row2">
+                        <div class="form-section">
+                            <label for="nation">收件國家:</label>
+                            <br>
+                            <input type="text" id="nation" name="nation" value="台灣" readonly>
+                        </div>
+                        <div class="form-section2">
+                            <div class="city">
+                                <label for="county">縣市:</label>
+                                <select id="county" name="county" onchange="updateDistricts()">
+                                    <option value="">請選擇縣市</option>
+                                    <option value="台北市">台北市</option>
+                                    <option value="新北市">新北市</option>
+                                    <option value="桃園市">桃園市</option>
+                                    <option value="台中市">台中市</option>
+                                    <option value="台南市">台南市</option>
+                                    <option value="高雄市">高雄市</option>
+                                    <option value="基隆市">基隆市</option>
+                                    <option value="新竹市">新竹市</option>
+                                    <option value="嘉義市">嘉義市</option>
+                                    <option value="新竹縣">新竹縣</option>
+                                    <option value="苗栗縣">苗栗縣</option>
+                                    <option value="彰化縣">彰化縣</option>
+                                    <option value="南投縣">南投縣</option>
+                                    <option value="雲林縣">雲林縣</option>
+                                    <option value="嘉義縣">嘉義縣</option>
+                                    <option value="屏東縣">屏東縣</option>
+                                    <option value="宜蘭縣">宜蘭縣</option>
+                                    <option value="花蓮縣">花蓮縣</option>
+                                    <option value="台東縣">台東縣</option>
+                                    <option value="澎湖縣">澎湖縣</option>
+                                    <option value="金門縣">金門縣</option>
+                                    <option value="連江縣">連江縣</option>
+                                </select>
+                            </div>
+                            <div class="area">
+                                <label for="district">地區:</label>
+                                <select id="district" name="district">
+                                    <option value="">請先選擇縣市</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-section3">
+                            <label for="address">地址:</label>
+                            <br>
+                            <input type="text" id="address" name="address" placeholder="請輸入地址與樓層戶號">
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <div class="button0">
+                    <input type="submit" name="Submit" value="儲存">
+                </div>
+                <div class="clear"></div>
+            </form>
+        </div>
+    </div>
+    <!-- end menu -->
+    <div class="main">
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row section group">
+                    <div class="col-md-4">
+                        <h4 class="m_7">訂閱電子報</h4>
+                        <!-- 簡短描述新聞訂閱 -->
+                        <p class="m_8">關於我們有關的飲食通知</p>
+                        <!-- 訂閱表單 -->
+                        <form class="subscribe">
+                            <!-- 電子郵件輸入框 -->
+                            <input type="text" value="輸入電子郵件" onfocus="this.value = '';"
+                                onblur="if (this.value == '') {this.value = '輸入電子郵件';}">
+                        </form>
+                        <!-- 提交按鈕 -->
+                        <div class="subscribe1">
+                            <a href="#">送出電子郵件<i class="but_arrow"> </i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="f-logo">
+                            <img src="images/logo.png" alt="" />
+                        </div>
+                        <p class="m_9">關於現代人對於健康越來越有意識，但時常沒有正確的觀念來執行，導致會讓人無法繼續維持下去。
+                            <br>
+                            於是乎我們就想要建立一個可以幫助大家 & 功能方便網站，可以透過此網站來學習正確的觀念，並且記錄自己的生活是否有達到健康的水準。
+                        </p>
+                        <p class="address">電話 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(00) 222 666
+                                444</span>
+                        </p>
+                        <p class="address">電子郵件 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                class="m_10">info[at]mycompany.com</span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list">
+                            <h4 class="m_7">主頁</h4>
+                            <li><a href="#">會員</a></li>
+                            <li><a href="#">教練介紹</a></li>
+                            <li><a href="#">教室</a></li>
+                            <li><a href="#">點數</a></li>
+                            <li><a href="#">商城</a></li>
+                            <li><a href="#">健康地圖</a></li>
+                        </ul>
+                        <ul class="list1">
+                            <h4 class="m_7">Community</h4>
+                            <li><a href="#">部落格</a></li>
+                            <li><a href="#">Forum</a></li>
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">Newsletter</a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="copy">
+                    <p>© 2014 Template by <a href="http://w3layouts.com" target="_blank"> w3layouts</a></p>
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="facebook"><a href="#"><span> </span></a></li>
+                        <li class="google"><a href="#"><span> </span></a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const districtData = {
+            "台北市": ["中正區", "大同區", "中山區", "松山區", "大安區", "萬華區", "信義區", "士林區", "北投區", "內湖區", "南港區", "文山區"],
+            "新北市": ["板橋區", "新莊區", "中和區", "永和區", "土城區", "樹林區", "三峽區", "鶯歌區", "三重區", "蘆洲區", "五股區", "泰山區", "林口區", "八里區", "淡水區", "三芝區", "石門區", "金山區", "萬里區", "汐止區", "瑞芳區", "貢寮區", "平溪區", "雙溪區", "新店區", "深坑區", "石碇區", "坪林區", "烏來區"],
+            "桃園市": ["桃園區", "中壢區", "平鎮區", "八德區", "楊梅區", "蘆竹區", "大溪區", "龍潭區", "龜山區", "大園區", "觀音區", "新屋區", "復興區"],
+            "台中市": ["中區", "東區", "南區", "西區", "北區", "北屯區", "西屯區", "南屯區", "太平區", "大里區", "霧峰區", "烏日區", "豐原區", "后里區", "石岡區", "東勢區", "和平區", "新社區", "潭子區", "大雅區", "神岡區", "大肚區", "沙鹿區", "龍井區", "梧棲區", "清水區", "大甲區", "外埔區", "大安區"],
+            "台南市": ["中西區", "東區", "南區", "北區", "安平區", "安南區", "永康區", "歸仁區", "新化區", "左鎮區", "玉井區", "楠西區", "南化區", "仁德區", "關廟區", "龍崎區", "官田區", "麻豆區", "佳里區", "西港區", "七股區", "將軍區", "學甲區", "北門區", "新營區", "後壁區", "白河區", "東山區", "六甲區", "下營區", "柳營區", "鹽水區", "善化區", "大內區", "山上區", "新市區", "安定區"],
+            "高雄市": ["新興區", "前金區", "苓雅區", "鹽埕區", "鼓山區", "旗津區", "前鎮區", "三民區", "楠梓區", "小港區", "左營區", "仁武區", "大社區", "岡山區", "路竹區", "阿蓮區", "田寮區", "燕巢區", "橋頭區", "梓官區", "彌陀區", "永安區", "湖內區", "鳳山區", "大寮區", "林園區", "鳥松區", "大樹區", "旗山區", "美濃區", "六龜區", "內門區", "杉林區", "甲仙區", "桃源區", "那瑪夏區", "茂林區", "茄萣區"],
+            "基隆市": ["中正區", "七堵區", "暖暖區", "仁愛區", "中山區", "安樂區", "信義區"],
+            "新竹市": ["東區", "北區", "香山區"],
+            "嘉義市": ["東區", "西區"],
+            "新竹縣": ["竹北市", "竹東鎮", "新埔鎮", "關西鎮", "湖口鄉", "新豐鄉", "芎林鄉", "橫山鄉", "北埔鄉", "寶山鄉", "峨眉鄉", "尖石鄉", "五峰鄉"],
+            "苗栗縣": ["苗栗市", "竹南鎮", "頭份市", "後龍鎮", "通霄鎮", "苑裡鎮", "卓蘭鎮", "造橋鄉", "西湖鄉", "頭屋鄉", "公館鄉", "銅鑼鄉", "三義鄉", "大湖鄉", "獅潭鄉", "三灣鄉", "南庄鄉", "泰安鄉"],
+            "彰化縣": ["彰化市", "鹿港鎮", "和美鎮", "線西鄉", "伸港鄉", "福興鄉", "秀水鄉", "花壇鄉", "芬園鄉", "員林市", "溪湖鎮", "田中鎮", "大村鄉", "埔鹽鄉", "埔心鄉", "永靖鄉", "社頭鄉", "二水鄉", "北斗鎮", "二林鎮", "田尾鄉", "埤頭鄉", "芳苑鄉", "大城鄉", "竹塘鄉", "溪州鄉"],
+            "南投縣": ["南投市", "埔里鎮", "草屯鎮", "竹山鎮", "集集鎮", "名間鄉", "鹿谷鄉", "中寮鄉", "魚池鄉", "國姓鄉", "水里鄉", "信義鄉", "仁愛鄉"],
+            "雲林縣": ["斗六市", "斗南鎮", "虎尾鎮", "西螺鎮", "土庫鎮", "北港鎮", "古坑鄉", "大埤鄉", "莿桐鄉", "林內鄉", "二崙鄉", "崙背鄉", "麥寮鄉", "東勢鄉", "褒忠鄉", "臺西鄉", "元長鄉", "四湖鄉", "口湖鄉", "水林鄉"],
+            "嘉義縣": ["太保市", "朴子市", "布袋鎮", "大林鎮", "民雄鄉", "溪口鄉", "新港鄉", "六腳鄉", "東石鄉", "義竹鄉", "鹿草鄉", "水上鄉", "中埔鄉", "竹崎鄉", "梅山鄉", "番路鄉", "大埔鄉", "阿里山鄉"],
+            "屏東縣": ["屏東市", "潮州鎮", "東港鎮", "恆春鎮", "萬丹鄉", "長治鄉", "麟洛鄉", "九如鄉", "里港鄉", "鹽埔鄉", "高樹鄉", "萬巒鄉", "內埔鄉", "竹田鄉", "新埤鄉", "枋寮鄉", "新園鄉", "崁頂鄉", "林邊鄉", "南州鄉", "佳冬鄉", "琉球鄉", "車城鄉", "滿州鄉", "枋山鄉", "霧臺鄉", "瑪家鄉", "泰武鄉", "來義鄉", "春日鄉", "獅子鄉", "牡丹鄉", "三地門鄉"],
+            "宜蘭縣": ["宜蘭市", "羅東鎮", "蘇澳鎮", "頭城鎮", "礁溪鄉", "壯圍鄉", "員山鄉", "冬山鄉", "五結鄉", "三星鄉", "大同鄉", "南澳鄉"],
+            "花蓮縣": ["花蓮市", "鳳林鎮", "玉里鎮", "新城鄉", "吉安鄉", "壽豐鄉", "光復鄉", "豐濱鄉", "瑞穗鄉", "富里鄉", "秀林鄉", "萬榮鄉", "卓溪鄉"],
+            "台東縣": ["台東市", "成功鎮", "關山鎮", "卑南鄉", "鹿野鄉", "池上鄉", "東河鄉", "長濱鄉", "太麻里鄉", "大武鄉", "綠島鄉", "海端鄉", "延平鄉", "金峰鄉", "達仁鄉", "蘭嶼鄉"],
+            "澎湖縣": ["馬公市", "湖西鄉", "白沙鄉", "西嶼鄉", "望安鄉", "七美鄉"],
+            "金門縣": ["金沙鎮", "金湖鎮", "金寧鄉", "金城鎮", "烈嶼鄉", "烏坵鄉"],
+            "連江縣": ["南竿鄉", "北竿鄉", "莒光鄉", "東引鄉"]
+        };
+
+        function updateDistricts() {
+            const countySelect = document.getElementById('county');
+            const districtSelect = document.getElementById('district');
+            const selectedCounty = countySelect.value;
+
+            districtSelect.innerHTML = '<option value="">請選擇地區</option>'; // 清空地區選單
+
+            if (selectedCounty) {
+                const districts = districtData[selectedCounty];
+                districts.forEach(function (district) {
+                    const option = document.createElement('option');
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

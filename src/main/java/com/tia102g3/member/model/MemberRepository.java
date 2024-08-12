@@ -19,4 +19,6 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 	//● (自訂)條件查詢
 	@Query(value = "from Member where memberID=?1 and name like?2 and regDate=?3 order by memberID")
 	List<Member> findByOthers(int memberID , String name , java.sql.Date regDate);
+	
+	Member findByAccount(String account);
 }
