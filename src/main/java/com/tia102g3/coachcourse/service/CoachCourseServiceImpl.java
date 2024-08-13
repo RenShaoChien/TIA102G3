@@ -33,17 +33,6 @@ public class CoachCourseServiceImpl implements CoachCourseService {
     @Autowired
     CoachCoursePicDAO ccpDAO;
 
-//    @Override
-//    @Transactional(readOnly = true)
-//    public List<CoachCourse> getCoachCoursesList(String keyword, Pageable pageable) {
-//        return ccDAO.getCoachCoursesList(keyword, pageable);
-//    }
-//
-//    @Override
-//    @Transactional(readOnly = true)
-//    public Long getCoachCourseCount(String keyword) {
-//        return ccDAO.getCoachCourseCount(keyword);
-//    }
 
     @Override
     @Transactional(readOnly = true)
@@ -102,7 +91,14 @@ public class CoachCourseServiceImpl implements CoachCourseService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Set<CoachCourse> findAllByStatus(CourseStatus status) {
         return ccDAO.findAllByStatus(status);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<CoachCourse> findOneAllAttr(Integer courseID) {
+        return ccDAO.findOneAllAttr(courseID);
     }
 }

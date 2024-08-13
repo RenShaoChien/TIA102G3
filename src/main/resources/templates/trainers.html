@@ -331,7 +331,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </ul>
                 </li>
                 <li><a href="classes.html">Classes</a></li>
-                <li><a href="menu">Menu</a></li>
+                <li><a th:href="@{menu}">Menu</a></li>
                 <li><a th:href="@{pricing}">Pricing</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -431,7 +431,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="container">
         <div class="classes_wrapper">
             <div class="row class_box">
-                <div th:each="coachCourse, iterStat : ${coachCourseList}">
+                <div th:if="${#lists.isEmpty(coachCourseList)}">目前尚無任何教練課程，敬請期待 ！</div>
+                <div th:if="${!#lists.isEmpty(coachCourseList)}" th:each="coachCourse, iterStat : ${coachCourseList}">
                     <div class="col-md-6" th:if="${iterStat.index % 2 == 0}">
                         <div class="class_left" th:if="${!#lists.isEmpty(coachCourse.coachCoursePics)}">
                             <img th:src="@{|/course/DBGifReader?picID=${coachCourse.coachCoursePics[0].id}&amp;source=coachCourse|}"
@@ -454,8 +455,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <div class="clear"></div>
                                 <ul class="buttons_class">
                                     <li class="btn6">
-                                        <a class="btn_modal">教練課程</a>
-                                        <div class="lightbox" style="z-index: 9999;">
+                                        <a class="btn_modal" th:data-lightbox-id="'lightbox-' + ${coachCourse.cMember.cMemberID}">教練課程</a>
+                                        <div class="lightbox" th:id="'lightbox-' + ${coachCourse.cMember.cMemberID}" style="z-index: 9999;">
                                             <article>
                                                 <h1 style="text-align: center;">這裡是當前教練的所有課程</h1>
                                                 <div th:if="${coachCourse != null and coachCourse.cMember != null}">
@@ -503,8 +504,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <div class="clear"></div>
                                 <ul class="buttons_class">
                                     <li class="btn8">
-                                        <a class="btn_modal">教練課程</a>
-                                        <div class="lightbox" style="z-index: 9999;">
+                                        <a class="btn_modal" th:data-lightbox-id="'lightbox-' + ${coachCourse.cMember.cMemberID}">教練課程</a>
+                                        <div class="lightbox" th:id="'lightbox-' + ${coachCourse.cMember.cMemberID}" style="z-index: 9999;">
                                             <article>
                                                 <h1 style="text-align: center;">這裡是當前教練的所有課程</h1>
                                                 <div th:if="${coachCourse != null and coachCourse.cMember != null}">
@@ -542,7 +543,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="col-md-4">
                 <div class="social"
                      style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
-                    <img src="images/cutecatloge.png" style="width: 100%; height: 100%">
+                    <img th:src="@{images/cutecatloge.png}" style="width: 100%; height: 100%">
                 </div>
             </div>
             <div class="col-md-4">
@@ -610,7 +611,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             };
 
             $(".btn_modal").on("click", function () {
-                $(".lightbox").fadeIn(1000);
+                var lightboxId = $(this).attr("data-lightbox-id");
+                $("#" + lightboxId).fadeIn(1000);
             });
 
             $(".btn_modal_close, .lightbox").on("click", function () {

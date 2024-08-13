@@ -98,4 +98,13 @@ public interface CoachCourseDAO extends JpaRepository<CoachCourse, Integer> {
             "LEFT JOIN FETCH cc.coachCoursePics cp " +
             "WHERE cc.status = :courseStatus")
     Set<CoachCourse> findAllByStatus(CourseStatus courseStatus);
+
+
+    @Transactional(readOnly = true)
+    @Query("SELECT cc FROM CoachCourse cc " +
+            "LEFT JOIN FETCH cc.cMember cm " +
+            "LEFT JOIN FETCH cc.coachCoursePics cp " +
+//            "LEFT JOIN fetch cc.courseOrders co " +
+            "WHERE cc.id = :courseID")
+    Optional<CoachCourse> findOneAllAttr(Integer courseID);
 }
