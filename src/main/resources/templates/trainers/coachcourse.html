@@ -248,7 +248,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <div class="custom-container" th:object="${currCourse}">
     <div class="custom-content">
         <div class="custom-image-wrapper">
-            <!--            <img src="images/c7.jpg" class="custom-image" alt="" title="continue">-->
             <div th:if="${!#lists.isEmpty(currCourse.coachCoursePics)}">
                 <div class="image-slider">
                     <img th:each="pic : *{coachCoursePics}"
@@ -304,7 +303,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <a href="javascript:void(0);" onclick="history.back();" class="custom-btn block3_inner1">前一頁</a>
                 <form th:action="@{/trainers/orderCoachCourse}" method="post">
                     <input class="block3_inner2 custom-btn" type="submit" value="購買課程">
-                    <input type="hidden" name="memberID" th:value="${session.memberID}">
                     <input type="hidden" name="coachCourseID" th:value="${currCourse.id}">
                 </form>
             </div>
@@ -360,7 +358,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="clear"></div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
     function scrollToTop() {
         window.scrollTo({top: 0, behavior: 'smooth'});

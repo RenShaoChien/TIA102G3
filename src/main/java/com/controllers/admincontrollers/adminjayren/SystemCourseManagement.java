@@ -235,8 +235,7 @@ public class SystemCourseManagement {
     }
 
     @GetMapping("/DBGifReader")
-    public void dBGifReader(@RequestParam("picID") Integer picID, @RequestParam("source") String source, HttpServletRequest req, HttpServletResponse res)
-            throws IOException {
+    public void dBGifReader(@RequestParam("picID") Integer picID, @RequestParam("source") String source, HttpServletResponse res) throws IOException {
         res.setContentType("image/*");
         ServletOutputStream out = res.getOutputStream();
 
