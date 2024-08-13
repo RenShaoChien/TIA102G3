@@ -273,7 +273,7 @@
 			<a th:href="@{coach_course_products}">登入課程商品</a>
         </div>
         <div class="content-data">
-            <h2>教練會員 (XXX) 點數: XX</h2>
+            <h2>教練會員 (<span th:text="${name}"></span>)</h2>
             <form action="" method="POST" enctype="multipart/form-data">
                 <h3>新增/修改教練技能</h3>
                 <!-- 表單容器 -->

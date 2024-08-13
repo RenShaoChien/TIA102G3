@@ -26,12 +26,16 @@ public class MemberService {
 	public void addMember(Member member) {
 		repository.save(member); // 使用 repository 保存會員資料
 	}
+	
+	public Member findById(Integer memberID) {
+		return repository.findById(memberID).orElse(null);
+	}
 
 	// 更新會員資料的方法
 	public void updateMember(Member member) {
 		repository.save(member); // 使用 repository 更新會員資料
 	}
-
+	
 	// 刪除會員的方法，根據會員 ID
 	public void deleteMember(Integer memberID) {
 		if (repository.existsById(memberID)) // 檢查該會員 ID 是否存在

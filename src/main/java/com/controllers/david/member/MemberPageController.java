@@ -1,20 +1,16 @@
 package com.controllers.david.member;
 
-import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.tia102g3.coachmember.model.CoachMember;
-import com.tia102g3.coachmember.service.CoachMemberService;
-import com.tia102g3.courseorder.model.CourseOrder;
-import com.tia102g3.courseorder.service.CourseOrderService;
 import com.tia102g3.member.model.Member;
 import com.tia102g3.member.service.MemberService;
 
@@ -85,12 +81,34 @@ public class MemberPageController {
 	
 	// 前台會員頁面Controller
 	@GetMapping("account_information")
-    public String account_information(Model model) {
+	public String account_information(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute("user");
+
+        if (member != null) {
+            Integer memberID = member.getMemberID();
+            Member memberDetails = memberSvc.findById(memberID);
+            
+            if (memberDetails != null) {
+                model.addAttribute("name", memberDetails.getName());
+            }
+        }
         return "frontend/member/account_information";
     }
 	
 	@GetMapping("change_password")
-    public String change_password(Model model) {
+	public String change_password(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute("user");
+
+        if (member != null) {
+            Integer memberID = member.getMemberID();
+            Member memberDetails = memberSvc.findById(memberID);
+            
+            if (memberDetails != null) {
+                model.addAttribute("name", memberDetails.getName());
+            }
+        }
         return "frontend/member/change_password";
     }
 	
@@ -100,12 +118,34 @@ public class MemberPageController {
 	}
 	
 	@GetMapping("receipt_information")
-	public String receipt_information(Model model) {
+	public String receipt_information(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute("user");
+
+        if (member != null) {
+            Integer memberID = member.getMemberID();
+            Member memberDetails = memberSvc.findById(memberID);
+            
+            if (memberDetails != null) {
+                model.addAttribute("name", memberDetails.getName());
+            }
+        }
 		return "frontend/member/receipt_information";
 	}
 	
 	@GetMapping("acc_information")
-	public String acc_information(Model model) {
+	public String acc_information(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute("user");
+
+        if (member != null) {
+            Integer memberID = member.getMemberID();
+            Member memberDetails = memberSvc.findById(memberID);
+            
+            if (memberDetails != null) {
+                model.addAttribute("name", memberDetails.getName());
+            }
+        }
 		return "frontend/member/acc_information";
 	}
 }

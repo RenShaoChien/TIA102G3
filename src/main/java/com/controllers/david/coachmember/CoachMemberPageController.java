@@ -2,6 +2,9 @@ package com.controllers.david.coachmember;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,17 +55,50 @@ public class CoachMemberPageController {
 	
 	// 前台教練會員頁面Controller
 	@GetMapping("coach_account_information")
-	public String coach_account_information() {
+	public String coach_account_information(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+        CoachMember coachMember = (CoachMember) session.getAttribute("user");
+
+        if (coachMember != null) {
+            Integer cMemberID = coachMember.getCMemberID();
+            CoachMember coachMemberDetails = coachMemberSvc.findById(cMemberID);
+            
+            if (coachMemberDetails != null) {
+                model.addAttribute("name", coachMemberDetails.getName());
+            }
+        }
 		return "frontend/coach_member/coach_account_information";
 	}
 	
 	@GetMapping("coach_account_skill")
-	public String coach_account_skill() {
+	public String coach_account_skill(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+        CoachMember coachMember = (CoachMember) session.getAttribute("user");
+
+        if (coachMember != null) {
+            Integer cMemberID = coachMember.getCMemberID();
+            CoachMember coachMemberDetails = coachMemberSvc.findById(cMemberID);
+            
+            if (coachMemberDetails != null) {
+                model.addAttribute("name", coachMemberDetails.getName());
+            }
+        }
 		return "frontend/coach_member/coach_account_skill";
 	}
 	
 	@GetMapping("coach_change_password")
-	public String coach_change_password() {
+	public String coach_change_password(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+        CoachMember coachMember = (CoachMember) session.getAttribute("user");
+
+        if (coachMember != null) {
+            Integer cMemberID = coachMember.getCMemberID();
+            CoachMember coachMemberDetails = coachMemberSvc.findById(cMemberID);
+            
+            if (coachMemberDetails != null) {
+                model.addAttribute("name", coachMemberDetails.getName());
+            }
+        }
 		return "frontend/coach_member/coach_change_password";
 	}
 	
@@ -72,12 +108,34 @@ public class CoachMemberPageController {
 	}
 	
 	@GetMapping("coach_receipt_information")
-	public String coach_receipt_information() {
+	public String coach_receipt_information(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+        CoachMember coachMember = (CoachMember) session.getAttribute("user");
+
+        if (coachMember != null) {
+            Integer cMemberID = coachMember.getCMemberID();
+            CoachMember coachMemberDetails = coachMemberSvc.findById(cMemberID);
+            
+            if (coachMemberDetails != null) {
+                model.addAttribute("name", coachMemberDetails.getName());
+            }
+        }
 		return "frontend/coach_member/coach_receipt_information";
 	}
 	
 	@GetMapping("coach_acc_information")
-	public String coach_acc_information() {
+	public String coach_acc_information(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+        CoachMember coachMember = (CoachMember) session.getAttribute("user");
+
+        if (coachMember != null) {
+            Integer cMemberID = coachMember.getCMemberID();
+            CoachMember coachMemberDetails = coachMemberSvc.findById(cMemberID);
+            
+            if (coachMemberDetails != null) {
+                model.addAttribute("name", coachMemberDetails.getName());
+            }
+        }
 		return "frontend/coach_member/coach_acc_information";
 	}
 	
