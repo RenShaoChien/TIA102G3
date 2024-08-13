@@ -5,15 +5,15 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-hant">
 <head>
     <title>課程資訊卡片</title>
-    <link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css'/>
-    <link th:href="@{css/style.css}" rel='stylesheet' type='text/css'/>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700" rel="stylesheet" type="text/css">
     <script type="application/x-javascript"> addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
     }, false);
@@ -21,13 +21,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     function hideURLbar() {
         window.scrollTo(0, 1);
     } </script>
-    <script th:src="@{js/jquery.min.js}"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
     <!-- grid-slider -->
-    <script type="text/javascript" th:src="@{js/jquery.mousewheel.js}"></script>
-    <script type="text/javascript" th:src="@{js/jquery.contentcarousel.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.mousewheel.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.contentcarousel.js}"></script>
     <!-- //grid-slider -->
     <!---calender-style---->
-    <link rel="stylesheet" th:href="@{css/jquery-ui.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.css}">
     <!---//calender-style---->
     <style>
         .scroll-to-top-btn {
@@ -138,6 +138,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             z-index: 2;
 
         }
+
         /*輪播圖片區塊  start*/
         .image-slider {
             display: flex; /* 将图片横向排列 */
@@ -153,6 +154,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             flex-shrink: 0; /* 确保图片不会缩小 */
             border-radius: 5px; /* 添加圆角 */
         }
+
         /*輪播圖片區塊  end*/
         .course-details {
             display: flex;
@@ -222,26 +224,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     <div class="container">
         <div class="logo">
-            <a href="../index.html"><img src="images/logo.png" alt=""/></a>
+            <a th:href="@{/index}"><img th:src="@{/images/logo.png}" alt=""></a>
         </div>
         <div class="h_menu4"><!-- start h_menu4 -->
             <a class="toggleMenu" href="#">Menu</a>
             <ul class="nav">
-                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/index}">Home</a></li>
                 <li><a href="../about.html">About</a></li>
                 <li class="active"><a th:href="@{/templates/trainers}">專屬你的訓練</a>
-                    <!--                    <ul>-->
-                    <!--                        <li><a href="#sportimportant">運動須知</a></li>-->
-                    <!--                        <li><a href="#customerizdCourse">客製化課程</a></li>-->
-                    <!--                        <li><a href="#coachcourse">教練課程</a></li>-->
-                    <!--                    </ul>-->
-                </li>
                 <li><a href="../classes.html">Classes</a></li>
                 <li><a href="../blog.html">Blog</a></li>
                 <li><a href="../pricing.html">Pricing</a></li>
                 <li><a href="../contact.html">Contact</a></li>
             </ul>
-            <script type="text/javascript" th:src="@{js/nav.js}"></script>
+            <script type="text/javascript" th:src="@{/js/nav.js}"></script>
         </div><!-- end h_menu4 -->
         <div class="clear"></div>
     </div>
@@ -249,69 +245,72 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- end menu -->
 
 
-<div class="custom-container">
+<div class="custom-container" th:object="${currCourse}">
     <div class="custom-content">
         <div class="custom-image-wrapper">
-<!--            <img src="images/c7.jpg" class="custom-image" alt="" title="continue">-->
-            <div class="image-slider">
-                <img src="images/c7.jpg" class="custom-image" alt="Image 1">
-                <img src="images/c8.jpg" class="custom-image" alt="Image 2">
-                <img src="images/c9.jpg" class="custom-image" alt="Image 3">
+            <!--            <img src="images/c7.jpg" class="custom-image" alt="" title="continue">-->
+            <div th:if="${!#lists.isEmpty(currCourse.coachCoursePics)}">
+                <div class="image-slider">
+                    <img th:each="pic : *{coachCoursePics}"
+                         th:src="@{|/course/DBGifReader?picID=${pic.id}&source=coachCoursePic|}" class="custom-image"
+                         alt="Image 1">
+                </div>
             </div>
         </div>
 
 
-
-
-
         <div class="custom-text-wrapper">
-<!--            課程名稱-->
-            <h2>槓鈴深蹲</h2>
+            <!--            課程名稱-->
+            <h2 th:text="*{courseName}">槓鈴深蹲</h2>
             <div class="course-details">
                 <div class="detail-item">
-                    <span>課程難易：</span>初級
+                    <span th:text="|課程難易 ： *{courseLevel.description}|">課程難易：</span>
                 </div>
                 <div class="detail-item">
-                    <span>課程類型：</span>重量訓練
+                    <span th:text="|課程類型 ： *{sportTypes}|">課程類型：</span>
                 </div>
                 <div class="detail-item">
-                    <span>課程器具：</span>槓鈴
+                    <span th:text="|課程器具 ： *{sportEquipment}|">課程器具：</span>
                 </div>
                 <div class="detail-item">
-                    <span>開課時間：</span>yyyy-MM-dd
+                    <span th:text="|開課時間 ： *{courseStartDate}|">開課時間：</span>
                 </div>
                 <div class="detail-item">
-                    <span>結訓時間：</span>yyyy-MM-dd
+                    <span th:text="|結訓時間 ： *{courseEndDate}|">結訓時間：</span>
                 </div>
                 <div class="detail-item">
-                    <span>課程堂數：</span>xx 堂
+                    <span th:text="|上課時間 ： ${#dates.format(currCourse.classStartTime, 'HH 點 mm 分')}|"></span>
                 </div>
                 <div class="detail-item">
-                    <span>人數上限：</span>xx 人
+                    <span th:text="|下課時間 ： ${#dates.format(currCourse.classEndTime, 'HH 點 mm 分')}|"></span>
+                </div>
+                <div class="detail-item">
+                    <span th:text="|課程堂數 ： *{noOfClasses} 堂|">課程堂數：</span>
+                </div>
+                <div class="detail-item">
+                    <span th:text="|人數上限 ： *{maxCap} 人|">人數上限：</span>
                 </div>
             </div>
             <div class="course-description">
                 <h4>課程說明：</h4>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy...</p>
+                <p th:text="*{illustrate}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
+                    nonummy...</p>
             </div>
             <div class="course-price">
-                <span>課程價格：xxx 元</span>
+                <span th:text="|課程價格 ： *{coursePrice} 元|">課程價格：xxx 元</span>
             </div>
-<!--            <div class="custom-buttons">-->
-<!--                <a href="#" class="block3_inner2 custom-btn">現在購買</a>-->
-<!--            </div>-->
-
-
-
 
             <div class="custom-buttons">
                 <a href="javascript:void(0);" onclick="history.back();" class="custom-btn block3_inner1">前一頁</a>
-                <a href="#" class="block3_inner2 custom-btn">購買課程</a>
+                <form th:action="@{/trainers/orderCoachCourse}" method="post">
+                    <input class="block3_inner2 custom-btn" type="submit" value="購買課程">
+                    <input type="hidden" name="memberID" th:value="${session.memberID}">
+                    <input type="hidden" name="coachCourseID" th:value="${currCourse.id}">
+                </form>
             </div>
         </div>
     </div>
 </div>
-
 
 
 <!-- start footer -->
@@ -321,7 +320,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="col-md-4">
                 <div class="social"
                      style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
-                    <img src="images/cutecatloge.png" style="width: 100%; height: 100%"/>
+                    <img th:src="@{/images/cutecatloge.png}" style="width: 100%; height: 100%">
                 </div>
             </div>
             <div class="col-md-4">
@@ -381,31 +380,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     });
 
     // 輪播圖片區塊  start
-    $(document).ready(function(){
-        let currentIndex = 0; // 当前显示的图片索引
-        const images = $('.custom-image'); // 获取所有图片元素
-        const totalImages = images.length; // 图片总数量
+    $(document).ready(function () {
+        let currentIndex = 0;
+        const images = $('.custom-image');
+        const totalImages = images.length;
 
         function showNextImage() {
-            currentIndex = (currentIndex + 1) % totalImages; // 计算下一张图片的索引
-            $('.image-slider').css('transform', `translateX(-${currentIndex * 100}%)`); // 移动到下一张图片
+            currentIndex = (currentIndex + 1) % totalImages;
+            $('.image-slider').css('transform', `translateX(-${currentIndex * 100}%)`);
         }
 
-        setInterval(showNextImage, 3000); // 每3秒切换一次图片
+        setInterval(showNextImage, 3000);
     });
     // 輪播圖片區塊  end
 
 </script>
-<!--<script>-->
-<!--    fetch('https://sport.heho.com.tw/archives/283292')-->
-<!--        .then(response => response.text())-->
-<!--        .then(data => {-->
-<!--            const parser = new DOMParser();-->
-<!--            const doc = parser.parseFromString(data, 'text/html');-->
-<!--            const content = doc.querySelector('p').innerText; // 假設你要抓取的內容在 <p> 標籤內-->
-<!--            document.getElementById('dynamic-content').innerText = content;-->
-<!--        })-->
-<!--        .catch(error => console.error('Error fetching content:', error));-->
-<!--</script>-->
 </body>
 </html>
