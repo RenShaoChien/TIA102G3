@@ -101,4 +101,14 @@ public class CoachCourseServiceImpl implements CoachCourseService {
     public Optional<CoachCourse> findOneAllAttr(Integer courseID) {
         return ccDAO.findOneAllAttr(courseID);
     }
+
+    @Override
+    @Transactional
+    public CoachCourse getOneOrderCoachCourse(Integer courseID) {
+        CoachCourse referenceById = ccDAO.getReferenceById(courseID);
+//        ccDAO.findWithPicById(courseID).ifPresent(referenceById::setCoachCoursePics);
+        Long countMembers = ccDAO.findMembersByCourseId(courseID);
+        referenceById.setCountMembers(countMembers != null ? countMembers : 0);
+        return referenceById;
+    }
 }
