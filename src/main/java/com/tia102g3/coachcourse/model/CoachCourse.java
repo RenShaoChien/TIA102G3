@@ -1,6 +1,6 @@
 package com.tia102g3.coachcourse.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tia102g3.coachcoursepic.model.CoachCoursePic;
 import com.tia102g3.coachmember.model.CoachMember;
@@ -29,6 +29,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CoachCourse implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,11 +77,12 @@ public class CoachCourse implements Serializable {
     private String courseIntro;
 
     @OneToMany(mappedBy = "coachCourse")
-    @JsonIgnore
     private List<CoachCoursePic> coachCoursePics;
 
     @OneToMany(mappedBy = "coachCourse")
-    @JsonIgnore
     private List<CourseOrder> courseOrders;
+
+    @Transient
+    Long countMembers;
 
 }
