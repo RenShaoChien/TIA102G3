@@ -21,7 +21,16 @@
 			padding: 8px;
 			font-size: 0.8125em;
 		}
-
+		
+		.register-top-grid input[type="text"], .register-bottom-grid input[type="text"] {
+			border: 1px solid black;
+			outline-color:#00BFF0;
+			width: 90%;
+			font-size: 0.8125em;
+			padding: 8px;
+			font-family: 'Open Sans', sans-serif;
+		}
+		
 		.button1 input {
 			float: right;
 			background: #00BFF0;
@@ -35,6 +44,7 @@
 			border-radius: 5px;
 			transition: background 0.3s;
 		}
+		
 	</style>
 </head>
 
@@ -78,24 +88,32 @@
 	</div>
 	<div class="register-grids">
 		<div class="container">
-			<form action="/submit" method="POST">
+			<form id="registerForm" method="post" action="/register">
 				<div class="register-top-grid">
 					<h2>歡迎加入</h2>
 					<div>
-						<span>請輸入電子郵件</span>
-						<input type="email" id="reg-email" name="reg-email" required>
+						<span>請輸入帳號</span>
+						<input type="text" id="account" name="account" required>
 					</div>
 					<div>
 						<span>請輸入密碼</span>
-						<input type="password" id="reg-password" name="reg-password" required>
+						<input type="password" id="password" name="password" required>
 					</div>
 					<div>
-						<span>手機號碼</span>
-						<input type="text1" id="reg-phone" name="reg-phone" required>
+						<span>姓名</span>
+						<input type="text" id="name" name="name" required>
 					</div>
 					<div>
 						<span>確認密碼</span>
-						<input type="password" id="reg-password-confirm" name="reg-password-confirm" required>
+						<input type="password" id="password-confirm" name="password-confirm" required>
+					</div>
+					<div>
+						<span>請輸入手機號碼</span>
+						<input type="text" id="phone" name="phone" required>
+					</div>
+					<div>
+						<span>請輸入地址</span>
+						<input type="text" id="address" name="address" required>
 					</div>
 				</div>
 				<div class="clear"> </div>
@@ -116,7 +134,7 @@
 				</div>
 				<div class="clear"> </div>
 				<div class="button1">
-					<input type="button" onclick="register()" value="送出">
+					<input type="submit" value="送出">
 				</div>
 				<div class="clear"></div>
 				<div id="message"></div>
@@ -193,9 +211,6 @@
 			</div>
 		</div>
 	</div>
-	<a th:href="@{/verify_email}" id="generalPageLink" style="display:none;"></a>
-	<a th:href="@{/coach_verify_email}" id="coachPageLink" style="display:none;"></a>
-
 <script>
 	let users = [];
 

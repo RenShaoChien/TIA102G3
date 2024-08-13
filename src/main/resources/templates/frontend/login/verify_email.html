@@ -108,7 +108,7 @@
                 <a class="toggleMenu" href="#">Menu</a>
                 <ul class="nav">
                     <li><a href="index.html">主頁</a></li>
-                    <li class="active"><a href="login.html">會員專區</a></li>
+                    <li class="active"><a href="@{login}">會員專區</a></li>
                     <li><a href="trainers.html">課程</a></li>
                     <li><a href="classes.html">教室</a></li>
                     <li><a href="blog.html">健康飲食</a></li>
@@ -122,7 +122,7 @@
     </div>
     <div class="container1">
         <h2>電子郵件驗證</h2>
-        <form id="emailVerificationForm">
+        <form id="emailVerificationForm" method="post" action="/saveEmail">
             <div class="input-container">
                 <label for="email">請輸入電子郵件</label>
                 <input type="email" id="email" name="email" required>
@@ -135,9 +135,7 @@
 			<button type="button" onclick="verifyCode()">送出</button>
 			<div id="message"></div>
 			<div class="clear"></div>
-			<div class="button1">
-    			<a id="completePageLink" th:href="@{/complete_page}" style="display:none;"></a>
-            </div>
+    		<a id="completePageLink" th:href="@{/complete_page}" style="display:none;"></a>
         </form>
     </div>
     <!-- end menu -->
@@ -262,6 +260,7 @@
 
     function verifyCode() {
         const codeInput = document.getElementById('code');
+        const emailInput = document.getElementById('email');
         const message = document.getElementById('message');
         message.textContent = '';
         message.classList.remove('error', 'success');
@@ -277,8 +276,27 @@
         if (codeInput.value == verificationCode) {
             message.textContent = '驗證成功';
             message.classList.add('success');
-            // 觸發隱藏的連結點擊以跳轉頁面
-            document.getElementById('completePageLink').click();
+            
+            // 提交表單資料到後端
+            fetch('/saveEmail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    email: emailInput.value
+                })
+            })
+            .then(response => response.text())
+            .then(result => {
+                // 觸發隱藏的連結點擊以跳轉頁面
+                document.getElementById('completePageLink').click();
+            })
+            .catch(error => {
+                console.error('錯誤:', error);
+                message.textContent = '保存電子郵件時發生錯誤';
+                message.classList.add('error');
+            });
         } else {
             message.textContent = '驗證碼錯誤';
             message.classList.add('error');
