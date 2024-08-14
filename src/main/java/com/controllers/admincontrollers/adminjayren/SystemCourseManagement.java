@@ -17,18 +17,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.*;
@@ -45,7 +41,7 @@ import java.util.stream.Collectors;
  */
 @Controller
 @RequestMapping("/course")
-@Validated
+//@Validated
 public class SystemCourseManagement {
     @Autowired
     private SportEventServiceImpl sportEventService;
@@ -124,65 +120,64 @@ public class SystemCourseManagement {
     }
 
     @PostMapping("/addSystemCourse.do")
-    public String addSystemCourse(@Valid SystemCourse systemCourse, BindingResult result, @RequestParam("courseImages") MultipartFile[] courseImages, Model model, RedirectAttributes redirectAttributes) throws Exception {
-
-        if (courseImages == null || courseImages.length == 0 || Arrays.stream(courseImages).allMatch(MultipartFile::isEmpty)) {
-            result.rejectValue("courseImages", "", "請至少上傳一張圖片"); // 添加自定義錯誤訊息到 BindingResult
-        }
-
-        if ((systemCourse.getRps() == null || systemCourse.getSwp() == null) && (systemCourse.getEachExerciseTime() == null || systemCourse.getEachExerciseTime().isEmpty() || systemCourse.getSportTime() == null || systemCourse.getSportTime().isEmpty())) {
-            result.rejectValue("systemCourse", "", "必須提供 rps/swp 或 eachExerciseTime/sportTime 中的一組");
-        }
-        if (result.hasErrors()) {
-            return "frames/add_system_course";
-        }
-        try {
-            systemCourseService.insertSystemCourse(systemCourse, courseImages);
-            redirectAttributes.addFlashAttribute("message", "課程新增成功！"); // 將成功訊息添加到 model 中
-        } catch (Exception e) {
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("message", "操作失敗"); // 將失敗訊息添加到 model 中
-        }
-        return "redirect:/course/systemCourseList"; // 直接返回新增課程頁面
-
-
-//        result = removeFieldError(systemCourse, result, "courseImages");
+    public String addSystemCourse(Model model, @Valid SystemCourse systemCourse, BindingResult result, @RequestParam("courseImages") MultipartFile[] courseImages, RedirectAttributes redirectAttributes) throws IOException {
 //
-//        if (courseImages[0].isEmpty()) { // 使用者未選擇要上傳的圖片時
-//            model.addAttribute("errorMessage", "請上傳照片");
-//        } else {
-//            List<SystemCoursePic> pics = new ArrayList<>();
-//            for (MultipartFile multipartFile : courseImages) {
-//                byte[] buf = multipartFile.getBytes();
-//                pics.add(new SystemCoursePic(buf));
-//            }
-//            systemCourse.setSystemCoursePics(pics);
+//        if (courseImages == null || courseImages.length == 0 || Arrays.stream(courseImages).allMatch(MultipartFile::isEmpty)) {
+//            result.rejectValue("courseImages", "", "請至少上傳一張圖片"); // 添加自定義錯誤訊息到 BindingResult
 //        }
-//        if (result.hasErrors() || courseImages[0].isEmpty()) {
+//
+//        if ((systemCourse.getRps() == null || systemCourse.getSwp() == null) && (systemCourse.getEachExerciseTime() == null || systemCourse.getEachExerciseTime().isEmpty() || systemCourse.getSportTime() == null || systemCourse.getSportTime().isEmpty())) {
+//            result.rejectValue("systemCourse", "", "必須提供 rps/swp 或 eachExerciseTime/sportTime 中的一組");
+//        }
+//        if (result.hasErrors()) {
 //            return "frames/add_system_course";
 //        }
-//        systemCourseService.addSystemCourse(systemCourse);
-//        redirectAttributes.addFlashAttribute("message", "課程新增成功！");
-//        return "redirect:/course/systemCourseList";
+//        try {
+//            systemCourseService.insertSystemCourse(systemCourse, courseImages);
+//            redirectAttributes.addFlashAttribute("message", "課程新增成功！"); // 將成功訊息添加到 model 中
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            redirectAttributes.addFlashAttribute("message", "操作失敗"); // 將失敗訊息添加到 model 中
+//        }
+//        return "redirect:/course/systemCourseList"; // 直接返回新增課程頁面
+
+
+        result = removeFieldError(systemCourse, result, "courseImages");
+
+        if (courseImages[0].isEmpty())
+            model.addAttribute("errorMessage", "請上傳照片");
+
+        if (result.hasErrors() || courseImages[0].isEmpty()) {
+            return "frames/add_system_course";
+        }
+        systemCourseService.insertSystemCourse(systemCourse, courseImages);
+        redirectAttributes.addFlashAttribute("message", "課程新增成功！");
+        return "redirect:/course/systemCourseList";
     }
 
     @PostMapping("/edit.do")
-    public String editSystemCourseFinish(@Valid SystemCourse systemCourse, BindingResult result, @RequestParam("courseImages") MultipartFile[] courseImages, Model model, RedirectAttributes redirectAttributes) throws Exception {
-        if ((systemCourse.getRps() == null || systemCourse.getSwp() == null) &&
-                (systemCourse.getEachExerciseTime() == null || systemCourse.getEachExerciseTime().isEmpty() ||
-                        systemCourse.getSportTime() == null || systemCourse.getSportTime().isEmpty())) {
-            result.rejectValue("systemCourse", "", "必須提供 rps/swp 或 eachExerciseTime/sportTime 中的一組");
-        }
+    public String editSystemCourseFinish(@Valid SystemCourse systemCourse, BindingResult result, @RequestParam("courseImages") MultipartFile[] courseImages, RedirectAttributes redirectAttributes) throws IOException {
+//        if ((systemCourse.getRps() == null || systemCourse.getSwp() == null) &&
+//                (systemCourse.getEachExerciseTime() == null || systemCourse.getEachExerciseTime().isEmpty() ||
+//                        systemCourse.getSportTime() == null || systemCourse.getSportTime().isEmpty())) {
+//            result.rejectValue("systemCourse", "", "必須提供 rps/swp 或 eachExerciseTime/sportTime 中的一組");
+//        }
+//        if (result.hasErrors()) {
+//            return "frames/edit_system_course";
+//        }
+//        try {
+//            systemCourseService.updateSystemCourse(systemCourse, courseImages);
+//            redirectAttributes.addFlashAttribute("message", "課程修改成功！"); // 將成功訊息添加到 model 中
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            redirectAttributes.addFlashAttribute("message", "操作失敗"); // 將失敗訊息添加到 model 中
+//        }
+//        return "redirect:/course/systemCourseList";
         if (result.hasErrors()) {
             return "frames/edit_system_course";
         }
-        try {
-            systemCourseService.updateSystemCourse(systemCourse, courseImages);
-            redirectAttributes.addFlashAttribute("message", "課程修改成功！"); // 將成功訊息添加到 model 中
-        } catch (Exception e) {
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("message", "操作失敗"); // 將失敗訊息添加到 model 中
-        }
+        systemCourseService.updateSystemCourse(systemCourse, courseImages);
+        redirectAttributes.addFlashAttribute("message", "課程修改成功！");
         return "redirect:/course/systemCourseList";
     }
 
@@ -263,28 +258,31 @@ public class SystemCourseManagement {
         }
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ModelAndView handleConstraintViolationException(HttpServletRequest req, ConstraintViolationException ex, Model model) {
-        Set<ConstraintViolation<?>> violations = ex.getConstraintViolations();
-        List<String> errorMessages = new ArrayList<>();
-        for (ConstraintViolation<?> violation : violations) {
-            errorMessages.add(violation.getMessage());
-        }
-        SystemCourse systemCourse = (SystemCourse) model.getAttribute("systemCourse");
-        if (systemCourse == null) {
-            systemCourse = new SystemCourse(); // 如果不存在，則創建一個新的
-        }
-        model.addAttribute("validationErrors", errorMessages);
-        model.addAttribute("systemCourse", systemCourse);
-        model.addAttribute("courseImages", new MultipartFile[0]); // 添加一個空的 courseImages 對象
-
-        String requestURI = req.getRequestURI();
-        if (requestURI.contains("/addSystemCourse")) {
-            return new ModelAndView("frames/add_system_course", model.asMap());
-        } else {
-            return new ModelAndView("error/default_error_page", model.asMap());
-        }
-    }
+//    @ExceptionHandler(ConstraintViolationException.class)
+//    public ModelAndView handleConstraintViolationException(HttpServletRequest req, ConstraintViolationException ex, Model model) {
+//        Set<ConstraintViolation<?>> violations = ex.getConstraintViolations();
+//        List<String> errorMessages = new ArrayList<>();
+//        for (ConstraintViolation<?> violation : violations) {
+//            errorMessages.add(violation.getMessage());
+//        }
+//        SystemCourse systemCourse = (SystemCourse) model.getAttribute("systemCourse");
+//        if (systemCourse == null) {
+//            systemCourse = new SystemCourse(); // 如果不存在，則創建一個新的
+//        }
+//        model.addAttribute("validationErrors", errorMessages);
+//        model.addAttribute("systemCourse", systemCourse);
+//        model.addAttribute("courseImages", new MultipartFile[0]); // 添加一個空的 courseImages 對象
+//
+//        String requestURI = req.getRequestURI();
+//        if (requestURI.contains("/addSystemCourse")) {
+//            return new ModelAndView("frames/add_system_course", model.asMap());
+//        }
+//        if (requestURI.contains("/edit")) {
+//            return new ModelAndView("frames/edit_system_course", model.asMap());
+//        } else {
+//            return new ModelAndView("error/default_error_page", model.asMap());
+//        }
+//    }
 
     public <T> BindingResult removeFieldError(T t, BindingResult result, String removedFieldname) {
         List<FieldError> errorsListToKeep = result.getFieldErrors().stream()

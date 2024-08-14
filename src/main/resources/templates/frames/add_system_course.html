@@ -248,38 +248,58 @@
         $("select[name='rps'], select[name='swp'], input[name='eachExerciseTime'], input[name='sportTime']").change(toggleFields);
         toggleFields();
 
-
         $('#sportTypes').change(function () {
-            var sportType = $(this).val();
+            let selectType = $(this).val();
+
             $.ajax({
                 url: '/course/getSportEventsAndEquipment',
-                data: { sportType: sportType },
+                data: {sportType: selectType},
                 dataType: 'json',
                 success: function (data) {
+                    console.log('Received sportEventName Data:', data);
                     var $sportEventSelect = $('#sportEventName');
-                    var $sportEquipmentSelect = $('#sportEquipment');
-
                     $sportEventSelect.empty();
-                    $sportEquipmentSelect.empty();
-
                     // 處理運動項目名稱
                     $.each(data.sportEvents, function (index, sportEventName) {
                         $sportEventSelect.append($('<option>', {
                             value: sportEventName,
-                            text: sportEventName
+                            text: sportEventName,
                         }));
                     });
-
-                    // 處理運動器材
-                    $.each(data.sportEquipment, function (index, sportEquipment) {
-                        $sportEquipmentSelect.append($('<option>', {
-                            value: sportEquipment,
-                            text: sportEquipment
-                        }));
-                    });
+                    $sportEventSelect.trigger('change');
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('您的網路有問題：', jqXHR.responseText);
+                    alert('您的網路有問題，請稍後再試1111。');
                 }
             });
         });
+        $('#sportTypes').trigger('change');
+
+        $('#sportEventName').change(function () {
+            let selectedSportEvent = $(this).val();
+            $.ajax({
+                url: '/trainers/getEquipmentBySportEvent',
+                data: {sportEventName: selectedSportEvent},
+                dataType: 'json',
+                success: function (data) {
+                    console.log('Received Equipment Data:', data);
+                    let $sportEquipmentSelect = $('#sportEquipment');
+                    $sportEquipmentSelect.empty();
+                    $.each(data, function (index, sportEquipment) {
+                        $sportEquipmentSelect.append($('<option>', {
+                            value: sportEquipment,
+                            text: sportEquipment,
+                        }));
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('您的網路有問題：', jqXHR.responseText);
+                    alert('您的網路有問題，請稍後再試。');
+                }
+            });
+        });
+
 
         $('#courseImages').change(function() {
             const preview = $('#imagePreview');

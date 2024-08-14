@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.IOException;
 
 /**
@@ -33,7 +34,7 @@ public class SystemCoursePic {
     @NonNull
     private SystemCourse systemCourse;
     @Column(name = "pic", columnDefinition = "LONGBLOB")
-//    @NotEmpty(message="請上傳課程圖片")
+    @NotEmpty(message="請上傳課程圖片")
     private byte[] pic;
 
     public SystemCoursePic(SystemCourse systemCourse, MultipartFile courseImages) throws IOException {
