@@ -30,6 +30,10 @@ public class CoachMemberService {
 	public CoachMember findById(Integer cMemberId) {
         return repository.findById(cMemberId).orElse(null);
     }
+	
+	public boolean existsByAccount(String account) {
+	    return repository.existsByAccount(account);
+	}
 
 	// 更新會員資料的方法
 	public void updateCoachMember(CoachMember coachMember) {
