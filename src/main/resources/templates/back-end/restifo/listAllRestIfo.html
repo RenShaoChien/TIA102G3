@@ -73,12 +73,14 @@ body {
 
 	<table id="example" class="display" style="width: 100%">
 		<thead>
-			<tr style="background-color: #CCCCFF  ">
+			<tr style="background-color: #CCCCFF; width: 100%;">
 				<th>餐廳編號</th>
 				<th>餐廳名稱</th>
 				<th>餐廳地址</th>
 				<th>營業時間</th>
 				<th>餐廳電話</th>
+				<th>緯度</th>
+				<th>經度</th>
 				<th>地圖編號</th>
 				<th>修改</th>
 				<th>刪除</th>
@@ -93,6 +95,8 @@ body {
 					<td th:text="${restIfoVO.restAddress}"></td>
 					<td th:text="${restIfoVO.restTime}"></td>
 					<td th:text="${restIfoVO.restTel}"></td>
+					<td th:text="${restIfoVO.restMapVO.mapLat}"></td>
+					<td th:text="${restIfoVO.restMapVO.mapLng}"></td>
 					<td
 						th:text="${restIfoVO.restMapVO != null} ? ${restIfoVO.restMapVO.mapID} + '-[' + ${restIfoVO.restMapVO.mapID} + ']' : 'N/A'"></td>
 					<td>
