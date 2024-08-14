@@ -1,5 +1,6 @@
 package com.tia102g3.coachcoursepic.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tia102g3.coachcourse.model.CoachCourse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +29,7 @@ public class CoachCoursePic {
 
     @ManyToOne
     @JoinColumn(name = "coachCourseID", referencedColumnName = "id", nullable = false)
+    @JsonBackReference
     private CoachCourse coachCourse;
 
     @Column(name = "pic", columnDefinition = "longblob")

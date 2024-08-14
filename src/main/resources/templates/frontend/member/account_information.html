@@ -246,7 +246,7 @@
 			<a th:href="@{/acc_information}">新增信用卡資訊</a>
 		</div>
 		<div class="content-data">
-			<h2>一般會員 (XXX) 點數: XX</h2>
+			<h2>一般會員 (<span th:text="${name}"></span>)</h2>
 			<form action="/submit" method="POST">
 				<div class="form-container">
 					<div class="form-section0">

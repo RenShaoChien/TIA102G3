@@ -41,4 +41,7 @@ public interface CoachCourseService {
 
     Set<CoachCourse> findAllByStatus(CourseStatus status);
 
+    Optional<CoachCourse> findOneAllAttr(Integer courseID);
+
+    CoachCourse getOneOrderCoachCourse(Integer courseID);
 }
