@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>健肌尋食-會員登入</title>
+<link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css' />
+<link th:href="@{css/style.css}" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<script th:src="@{js/jquery.min.js}"></script>
+    <style>
+        .container1 {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            text-align: center;
+            /* background-color: aqua; */
+            margin-top: 100px;
+        }
+
+        .button1 {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button1 input {
+            font-size: 25px;
+            /* float: right; */
+            width: 300px;
+            height: 50px;
+            margin-bottom: 50px;
+            /* background-color: aqua; */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- start header_bottom -->
+    <div class="header-bottom">
+        <div class="container">
+            <div class="header-bottom_left">
+                <i class="phone"> </i><span>1-200-346-2986</span>
+            </div>
+            <div class="social">
+                <ul>
+                    <li class="facebook"><a href="#"><span> </span></a></li>
+                    <li class="google"><a href="#"><span> </span></a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!-- start menu -->
+    <div class="menu">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="images/logo.png" alt="" /></a>
+            </div>
+            <div class="h_menu4"><!-- start h_menu4 -->
+                <a class="toggleMenu" href="#">Menu</a>
+                <ul class="nav">
+                    <li><a href="index.html">主頁</a></li>
+                    <li class="active"><a href="@{login}">會員專區</a></li>
+                    <li><a href="trainers.html">課程</a></li>
+                    <li><a href="classes.html">教室</a></li>
+                    <li><a href="blog.html">健康飲食</a></li>
+                    <li><a href="pricing.html">線上商城</a></li>
+                    <li><a href="contact.html">健康地圖</a></li>
+                </ul>
+                <script type="text/javascript" src="js/nav.js"></script>
+            </div><!-- end h_menu4 -->
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="container1">
+        <h2>您已完成教練會員的註冊
+            <br>
+            <br>
+            待審核通過後會再email通知
+            <br>
+            <br>
+            請您耐心等候，謝謝！
+        </h2>
+        <div class="button1">
+            <a th:href="@{login}">
+                <input type="button" onclick="register()" value="返回登入頁面">
+            </a>
+        </div>
+        </form>
+    </div>
+    <!-- end menu -->
+    <div class="main">
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row section group">
+                    <div class="col-md-4">
+                        <h4 class="m_7">訂閱電子報</h4>
+                        <!-- 簡短描述新聞訂閱 -->
+                        <p class="m_8">關於我們有關的飲食通知</p>
+                        <!-- 訂閱表單 -->
+                        <form class="subscribe">
+                            <!-- 電子郵件輸入框 -->
+                            <input type="text" value="輸入電子郵件" onfocus="this.value = '';"
+                                onblur="if (this.value == '') {this.value = '輸入電子郵件';}">
+                        </form>
+                        <!-- 提交按鈕 -->
+                        <div class="subscribe1">
+                            <a href="#">送出電子郵件<i class="but_arrow"> </i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="f-logo">
+                            <img src="images/logo.png" alt="" />
+                        </div>
+                        <p class="m_9">關於現代人對於健康越來越有意識，但時常沒有正確的觀念來執行，導致會讓人無法繼續維持下去。
+                            <br>
+                            於是乎我們就想要建立一個可以幫助大家 & 功能方便網站，可以透過此網站來學習正確的觀念，並且記錄自己的生活是否有達到健康的水準。
+                        </p>
+                        <p class="address">電話 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(00) 222 666 444</span>
+                        </p>
+                        <p class="address">電子郵件 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                class="m_10">info[at]mycompany.com</span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list">
+                            <h4 class="m_7">Menu</h4>
+                            <li><a href="#">會員</a></li>
+                            <li><a href="#">Trainers</a></li>
+                            <li><a href="#">Classes</a></li>
+                            <li><a href="#">Pricing</a></li>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                        <ul class="list1">
+                            <h4 class="m_7">Community</h4>
+                            <li><a href="#">部落格</a></li>
+                            <li><a href="#">Forum</a></li>
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">Newsletter</a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="copy">
+                    <p>© 2014 Template by <a href="http://w3layouts.com" target="_blank"> w3layouts</a></p>
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="facebook"><a href="#"><span> </span></a></li>
+                        <li class="google"><a href="#"><span> </span></a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

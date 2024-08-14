@@ -1,19 +1,21 @@
-   <!--A Design by W3layouts
+<!--A Design by W3layouts
 Author: W3layout
 Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE HTML>
-   <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>客製化課程</title>
-    <link href="css/bootstrap.css" rel='stylesheet' type='text/css'/>
-    <link href="css/style.css" rel='stylesheet' type='text/css'/>
+    <link th:href="@{/css/bootstrap.css}" rel='stylesheet' type='text/css'/>
+    <link th:href="@{/css/style.css}" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800}' rel='stylesheet'
+          type='text/css'>
+    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700}' rel='stylesheet'
+          type='text/css'>
     <script type="application/x-javascript"> addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
     }, false);
@@ -21,13 +23,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     function hideURLbar() {
         window.scrollTo(0, 1);
     } </script>
-    <script src="js/jquery.min.js"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
     <!-- grid-slider -->
-    <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
-    <script type="text/javascript" src="js/jquery.contentcarousel.js"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.mousewheel.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.contentcarousel.js}"></script>
     <!-- //grid-slider -->
     <!---calender-style---->
-    <link rel="stylesheet" href="css/jquery-ui.css"/>
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.css}"/>
     <!---//calender-style---->
     <style>
         .scroll-to-top-btn {
@@ -42,6 +44,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             cursor: pointer;
             z-index: 1000;
         }
+
         .info-container {
             display: flex;
             flex-direction: column;
@@ -53,7 +56,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             gap: 5px;
             border: 1px solid red;
         }
-        .result-group{
+
+        .result-group {
             display: flex;
             gap: 20px;
             margin-bottom: 20px;
@@ -93,6 +97,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             line-height: 1.6;
             border: 1px solid gray;
         }
+
         .course-description h3 {
             font-size: 24px;
             margin-bottom: 10px;
@@ -137,7 +142,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             color: white;
             border: none;
             padding: 10px;
@@ -152,6 +157,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         .next {
             right: 10px;
         }
+
         .video-container {
             display: flex;
             justify-content: center;
@@ -186,93 +192,81 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     <div class="container">
         <div class="logo">
-            <a href="../index.html"><img src="images/logo.png" alt=""/></a>
+            <a th:href="@{/}"><img th:src="@{/images/logo.png}" alt=""/></a>
         </div>
         <div class="h_menu4"><!-- start h_menu4 -->
             <a class="toggleMenu" href="#">Menu</a>
             <ul class="nav">
-                <li><a href="../index.html">Home</a></li>
+                <li><a th:href="@{/}">Home</a></li>
                 <li><a href="../about.html">About</a></li>
-                <li class="active"><a href="../trainers.html">專屬你的訓練</a>
-                    <!--                    <ul>-->
-                    <!--                        <li><a href="#sportimportant">運動須知</a></li>-->
-                    <!--                        <li><a href="#customerizdCourse">客製化課程</a></li>-->
-                    <!--                        <li><a href="#coachcourse">教練課程</a></li>-->
-                    <!--                    </ul>-->
-                </li>
+                <li class="active"><a th:href="@{/trainers}">專屬你的訓練</a></li>
                 <li><a href="../classes.html">Classes</a></li>
                 <li><a href="../blog.html">Blog</a></li>
                 <li><a href="../pricing.html">Pricing</a></li>
                 <li><a href="../contact.html">Contact</a></li>
             </ul>
-            <script type="text/javascript" src="js/nav.js"></script>
+            <script type="text/javascript" th:src="@{/js/nav.js}"></script>
         </div><!-- end h_menu4 -->
         <div class="clear"></div>
     </div>
 </div>
 <!-- end menu -->
 
-
-
-
-
-<div class="container">
-    <div class="info-container">
-        <div class="result-group">
-            <div class="info-item label m_9">運動名稱：跑步(Running)</div>
-        </div>
-        <div class="result-group">
-            <div class="info-item">運動組數：每次跑2組</div>
-        </div>
-        <div class="result-group">
-            <div class="info-item label">運動時間：每組跑 30 分鐘</div>
-        </div>
-        <div class="result-group">
-            <div class="info-item">卡路里消耗消耗約400卡路里</div>
-        </div>
-        <div class="result-group">
-            <div class="info-item label">推薦教練課程：<a href="#">課程名稱</a></div>
+<div th:object="${systemCourse}">
+    <div class="container">
+        <div class="info-container">
+            <div class="result-group">
+                <div class="info-item label m_9" th:text="| ☺ 運動名稱 ： *{courseName}|">運動名稱：跑步(Running)</div>
+            </div>
+            <div class="result-group">
+                <div class="info-item">運動組數：每次跑2組</div>
+            </div>
+            <div class="result-group">
+                <div class="info-item label">運動時間：每組跑 30 分鐘</div>
+            </div>
+            <div class="result-group">
+                <div class="info-item">卡路里消耗消耗約400卡路里</div>
+            </div>
+            <div class="result-group">
+                <div class="info-item label">推薦教練課程：<a href="#">課程名稱</a></div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="container">
-    <div class="course-description">
-        <div class="description-content">
-            <div th:utext="${courseDescriptionHtml}">
-                <h3>百式呼吸法（The Hundred）</h3>
-                <p>1. 仰躺，雙腳併攏，保持腹式呼吸</p>
-                <p>2. 雙手擺放在身體兩側，雙腳往上抬至離地約45度，頭頸微微離開地面</p>
-                <p>3. 雙眼注視肚子，雙手以5吸5吐的節奏上下擺動，保持身體穩定，避免聳肩與脖子用力</p>
-                <p>4. 吸吐5個循環後，再將肩、背慢慢回到地墊上</p>
-                <h3>交錯伸展（Criss cross）</h3>
-                <p>1. 仰躺，保持腹式呼吸，膝蓋帶至胸部的位置預備</p>
-                <p>2. 雙手放腦後，手肘打開，並將頭抬起</p>
-                <p>3. 左腳往前伸直時，將右邊肩膀和手肘向左膝蓋</p>
-                <p>4. 轉動時保持頭在高位，手肘張開，持續交換邊，約15組後休息</p>
-            </div>
-            <div class="description-slider">
-                <div class="slides">
-                    <img src="images/pic3.jpg" alt="Exercise illustration 1">
-                    <img src="images/pic1.jpg" alt="Exercise illustration 2">
-                    <!-- 添加更多图像时请使用相同的格式 -->
+    <div class="container">
+        <div class="course-description">
+            <div class="description-content">
+                <div>
+                    <h3>百式呼吸法（The Hundred）</h3>
+                    <p>1. 仰躺，雙腳併攏，保持腹式呼吸</p>
+                    <p>2. 雙手擺放在身體兩側，雙腳往上抬至離地約45度，頭頸微微離開地面</p>
+                    <p>3. 雙眼注視肚子，雙手以5吸5吐的節奏上下擺動，保持身體穩定，避免聳肩與脖子用力</p>
+                    <p>4. 吸吐5個循環後，再將肩、背慢慢回到地墊上</p>
+                    <h3>交錯伸展（Criss cross）</h3>
+                    <p>1. 仰躺，保持腹式呼吸，膝蓋帶至胸部的位置預備</p>
+                    <p>2. 雙手放腦後，手肘打開，並將頭抬起</p>
+                    <p>3. 左腳往前伸直時，將右邊肩膀和手肘向左膝蓋</p>
+                    <p>4. 轉動時保持頭在高位，手肘張開，持續交換邊，約15組後休息</p>
                 </div>
-                <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
-                <button class="next" onclick="plusSlides(1)">&#10095;</button>
-            </div>
-            <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/bqyHFjyjXPw?si=FoFX6vEp9IuO34ti" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-<!--                <iframe width="560" height="315" src="https://www.youtube.com/embed/cm5VipYqrlg?si=fJyBL8AfBohbSynl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
-
-<!--                <iframe width="560" height="315" src="https://www.youtube.com/embed/kXWBR37IsO0?si=Ihz6e3pPpRR9N2_0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
+                <div class="description-slider">
+                    <div class="slides">
+                        <img th:src="@{/images/pic3.jpg}" alt="Exercise illustration 1">
+                        <img th:src="@{/images/pic1.jpg}" alt="Exercise illustration 2">
+                        <!-- 添加更多图像时请使用相同的格式 -->
+                    </div>
+                    <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
+                    <button class="next" onclick="plusSlides(1)">&#10095;</button>
+                </div>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/bqyHFjyjXPw?si=FoFX6vEp9IuO34ti"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
 
 <!--<label for="myTextarea"></label><textarea id="myTextarea">在此处编辑您的内容...</textarea>-->
 <!--<script src="https://cdn.tiny.cloud/1/8edmna6bemv1cochqpjbc8sa7c4gwctszd2xfkyvnv0j1eky/tinymce/5/tinymce.min.js"></script>-->
@@ -296,7 +290,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="col-md-4">
                 <div class="social"
                      style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
-                    <img src="images/cutecatloge.png" style="width: 100%; height: 100%"/>
+                    <img th:src="@{/images/cutecatloge.png}" style="width: 100%; height: 100%"/>
                 </div>
             </div>
             <div class="col-md-4">
@@ -336,7 +330,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="clear"></div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
     function scrollToTop() {
         window.scrollTo({top: 0, behavior: 'smooth'});
@@ -364,8 +358,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     function showSlides(n) {
         let slides = document.getElementsByClassName("slides")[0].children;
-        if (n >= slides.length) { slideIndex = 0; }
-        if (n < 0) { slideIndex = slides.length - 1; }
+        if (n >= slides.length) {
+            slideIndex = 0;
+        }
+        if (n < 0) {
+            slideIndex = slides.length - 1;
+        }
         for (let i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }

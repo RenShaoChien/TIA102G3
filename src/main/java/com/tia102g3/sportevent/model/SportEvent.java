@@ -53,6 +53,6 @@ public class SportEvent {
 //    private List<CoachCourse> coachCourses;
 //    @OneToMany(mappedBy = "sportEvent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<SystemCourse> systemCourses;
-    @OneToMany(mappedBy = "sportEvent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "sportEvent")
     private List<CoachSpecialty> coachSpecialties;
 }

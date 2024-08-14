@@ -1,5 +1,6 @@
 package com.tia102g3.coachspecialty.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tia102g3.coachmember.model.CoachMember;
 import com.tia102g3.sportevent.model.SportEvent;
 import lombok.AllArgsConstructor;
@@ -25,10 +26,10 @@ import javax.persistence.*;
 public class CoachSpecialty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "coachSpecialtyID", updatable = false)
-    private Integer coachSpecialtyID;
+    private Integer id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cMemberID", nullable = false, referencedColumnName = "cMemberID")
+    @JsonManagedReference
     private CoachMember cMember;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sportEventID", referencedColumnName = "sportEventID", nullable = false)

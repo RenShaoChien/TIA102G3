@@ -7,17 +7,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.tia102g3.food.model.FoodVO;
 
 @Entity
 @Table(name = "likefood")
 public class LikeFoodVO implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "memberID", updatable = false)
+	@Column(name = "likeFoodSN", updatable = false)	
+    private Integer likeFoodSN;
+	
+	@Column(name = "memberID")
 	private Integer memberID;
-	@Column(name = "foodNumber")
-	private Integer foodNumber;
+	
+	@ManyToOne
+    @JoinColumn(name = "foodNumber", referencedColumnName = "foodNumber")
+    private FoodVO foodVO;
+	
 	@Column(name = "foodPreference")
 	private Boolean foodPreference;
 	
@@ -25,34 +35,44 @@ public class LikeFoodVO implements Serializable {
 		super();
 	}
 
-	public Integer getMemberID() {
-		return memberID;
-	}
+    public Integer getLikeFoodSN() {
+        return likeFoodSN;
+    }
 
-	public void setMemberID(Integer memberID) {
-		this.memberID = memberID;
-	}
+    public void setLikeFoodSN(Integer likeFoodSN) {
+        this.likeFoodSN = likeFoodSN;
+    }
 
-	public Integer getFoodNumber() {
-		return foodNumber;
-	}
+    public Integer getMemberID() {
+        return memberID;
+    }
 
-	public void setFoodNumber(Integer foodNumber) {
-		this.foodNumber = foodNumber;
-	}
+    public void setMemberID(Integer memberID) {
+        this.memberID = memberID;
+    }
 
-	public Boolean getFoodPreference() {
-		return foodPreference;
-	}
+    public FoodVO getFoodVO() {
+        return foodVO;
+    }
 
-	public void setFoodPreference(Boolean foodPreference) {
-		this.foodPreference = foodPreference;
-	}
+    public void setFoodVO(FoodVO foodVO) {
+        this.foodVO = foodVO;
+    }
 
-	@Override
-	public String toString() {
-		return "FoodLikeVO [memberID=" + memberID + ", foodNumber=" + foodNumber + ", foodPreference=" + foodPreference
-		        + "]";
-	}
-	
+    public Boolean getFoodPreference() {
+        return foodPreference;
+    }
+
+    public void setFoodPreference(Boolean foodPreference) {
+        this.foodPreference = foodPreference;
+    }
+
+    @Override
+    public String toString() {
+        return "LikeFoodVO [likeFoodSN=" + likeFoodSN + ", memberID=" + memberID + ", foodVO=" + foodVO
+                + ", foodPreference=" + foodPreference + "]";
+    }
+    
+    
+
 }

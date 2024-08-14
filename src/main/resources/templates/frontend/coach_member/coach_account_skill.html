@@ -1,0 +1,508 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>健肌尋食-教練會員</title>
+<link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css' />
+<link th:href="@{css/style.css}" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<script th:src="@{js/jquery.min.js}"></script>
+
+<!-- grid-slider -->
+<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="js/jquery.contentcarousel.js"></script>
+<!-- //grid-slider -->
+<!---calender-style---->
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<!---//calender-style---->
+<style>
+    .btn-login {
+        margin: bottom 50px;
+        float: right;
+        padding-right: 20px;
+        padding-top: 5px;
+        padding-bottom: 10px;
+        border: 1px solid black;
+        background-color: white;
+    }
+
+    .social {
+        padding-top: 4px;
+        padding-right: 10px;
+    }
+
+    .container-data {
+        height: auto;
+        width: auto;
+        margin: auto;
+        /* padding: 20px; */
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: row;
+        /* gap: 20px; */
+        /* flex-wrap: wrap; */
+        background-color: #e0f7f9;
+        /* place-items: center; */
+        /* background-color: red; */
+    }
+
+    .sidebar {
+        width: 20%;
+        height: 600px;
+        overflow-y: auto;
+        padding-top: 50px;
+        /* padding-right: 20px; */
+        border-right: 1px solid #d0e5d2;
+        background-color: #eaf5e1;
+        color: #4b6e4f;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        /* border: 1px solid black; */
+    }
+
+    .sidebar a {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 50px;
+    }
+
+    h2 {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        padding: 20px;
+        border-bottom: 3px solid black;
+        font-weight: bold
+    }
+
+    .content-data {
+        width: 100%;
+    }
+
+    .form-container {
+        position: relative;
+        width: auto;
+        display: flex;
+        /* justify-content:center; */
+        align-items: center;
+        flex-direction: column;
+        padding-top: 50px;
+        gap: 50px;
+        flex-wrap: wrap;
+        /* background-color: yellow; */
+    }
+
+    h3 {
+        /* background-color: #4b6e4f; */
+        text-align: center;
+        height: 50px;
+        margin-top: 30px;
+        font-size: 25px;
+    }
+
+    .form-section {
+        position: absolute;
+        /* 設定內容的定位為 absolute */
+        /* background-color: red; */
+        top: 20px;
+        right: 20px;
+        bottom: 20px;
+        left: 200px;
+        max-width: 300px;
+    }
+
+    .form-section label {
+        font-size: 15px;
+    }
+
+    .form-section select {
+        font-size: 15px;
+        width: 150px;
+    }
+
+    .skill-list {
+        max-width: 300px;
+        max-height: 250px;
+        overflow-y: auto;
+        /* 當內容超出區域時顯示垂直滾動條 */
+        font-size: 15px;
+        /* background-color: chocolate; */
+    }
+
+    .form-section1 {
+        position: absolute;
+        /* 設定內容的定位為 absolute */
+        /* background-color: #4b6e4f; */
+        top: 20px;
+        right: 20px;
+        bottom: 20px;
+        left: 600px;
+        max-width: 300px;
+    }
+
+    .form-section1 label {
+        /* background-color: red; */
+        font-size: 15px;
+    }
+
+    .form-section1 input {
+        font-size: 15px;
+    }
+
+
+    .file-list {
+        font-size: 15px;
+        max-width: 300px;
+        max-height: 250px;
+        /* 設定最大高度 */
+        overflow-y: auto;
+        /* 當內容超出區域時顯示垂直滾動條 */
+        /* background-color: aqua; */
+    }
+
+    .button0 {
+        /* background-color: black; */
+        position: absolute;
+        /* 設定內容的定位為 absolute */
+        top: 350px;
+        right: 30px;
+        bottom: 20px;
+        left: 180px;
+    }
+
+    .button0 input {
+        margin-right: 200px;
+        float: right;
+        background: #00BFF0;
+        border: none;
+        color: #FFF;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-family: 'Open Sans', sans-serif;
+        outline: none;
+        font-size: 1em;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+
+    .button1 {
+        /* background-color: black; */
+        position: absolute;
+        /* 設定內容的定位為 absolute */
+        top: 265px;
+        right: 10px;
+        bottom: 20px;
+        left: 200px;
+    }
+
+    .button1 input {
+        margin-right: 100px;
+        float: right;
+        background: #00BFF0;
+        border: none;
+        color: #FFF;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-family: 'Open Sans', sans-serif;
+        outline: none;
+        font-size: 1em;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
+
+    .clear {
+        clear: both;
+    }
+</style>
+</head>
+
+<body>
+    <!-- start header_bottom -->
+    <div class="header-bottom">
+        <div class="btn-login">
+            <a href="login.html">Log In</a>
+        </div>
+        <div class="container">
+            <div class="header-bottom_left">
+                <i class="phone"> </i><span>1-200-346-2986</span>
+            </div>
+            <div class="social">
+                <ul>
+                    <li class="facebook"><a href="#"><span> </span></a></li>
+                    <li class="google"><a href="#"><span> </span></a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!-- start menu -->
+    <div class="menu">
+        <div class="container">
+            <div class="h_menu4"><!-- start h_menu4 -->
+                <a class="toggleMenu" href="#">Menu</a>
+                <ul class="nav">
+                    <li><a href="index.html">主頁</a></li>
+                    <li class="active"><a th:href="@{coach_account_skill}">會員專區</a></li>
+                    <li><a href="trainers.html">課程</a></li>
+                    <li><a href="classes.html">教室</a></li>
+                    <li><a href="blog.html">健康飲食</a></li>
+                    <li><a href="pricing.html">線上商城</a></li>
+                    <li><a href="contact.html">健康地圖</a></li>
+                </ul>
+                <script type="text/javascript" src="js/nav.js"></script>
+            </div>
+            <!-- end h_menu4 -->
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="container-data">
+        <div class="sidebar">
+            <a th:href="@{coach_account_information}">修改帳戶資料</a>
+			<a th:href="@{coach_change_password}">修改密碼</a>
+			<a th:href="@{coach_historical_orders}">歷史訂單</a>
+			<a th:href="@{coach_receipt_information}">常用收件資訊</a>
+			<a th:href="@{coach_acc_information}">新增信用卡資訊</a>
+			<a th:href="@{coach_course_status}">查看課程狀態</a>
+			<a th:href="@{coach_course_products}">登入課程商品</a>
+        </div>
+        <div class="content-data">
+            <h2>教練會員 (<span th:text="${name}"></span>)</h2>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <h3>新增/修改教練技能</h3>
+                <!-- 表單容器 -->
+                <div class="form-container">
+                    <!-- 運動項目選擇區 -->
+                    <div class="form-section">
+                        <label for="sport-event">選擇運動項目:</label>
+                        <br>
+                        <select id="sport-event" name="sport-event" onchange="addSportEventToSkillList()">
+                            <optgroup label="重量運動">
+                                <option value="伏地挺身">伏地挺身</option>
+                                <option value="平板支撐">平板支撐</option>
+                                <option value="仰臥起坐">仰臥起坐</option>
+                                <option value="橋式">橋式</option>
+                                <option value="深蹲">深蹲</option>
+                                <option value="臥推-啞鈴">臥推 (啞鈴)</option>
+                                <option value="臥推-槓鈴">臥推 (槓鈴)</option>
+                                <option value="硬拉">硬拉</option>
+                                <option value="啞鈴弓步">啞鈴弓步</option>
+                                <option value="肩推-槓鈴">肩推 (槓鈴)</option>
+                                <option value="肩推-肩推機">肩推 (肩推機)</option>
+                                <option value="引體向上">引體向上</option>
+                                <option value="槓鈴划船">槓鈴划船</option>
+                                <option value="腿舉">腿舉</option>
+                                <option value="啞鈴側平舉">啞鈴側平舉</option>
+                                <option value="啞鈴划船">啞鈴划船</option>
+                            </optgroup>
+                            <optgroup label="心肺運動">
+                                <option value="跑步-跑步機">跑步 (跑步機)</option>
+                                <option value="飛輪">飛輪</option>
+                                <option value="橢圓機">橢圓機</option>
+                                <option value="划船機">划船機</option>
+                                <option value="跳繩">跳繩</option>
+                                <option value="有氧舞蹈-徒手">有氧舞蹈 (徒手)</option>
+                                <option value="跑步-徒手">跑步 (徒手)</option>
+                                <option value="徒步">徒步</option>
+                                <option value="高抬腿">高抬腿</option>
+                                <option value="衝刺">衝刺</option>
+                                <option value="原地踏步">原地踏步</option>
+                                <option value="跳躍深蹲">跳躍深蹲</option>
+                                <option value="波比跳">波比跳</option>
+                                <option value="跳躍開合跳">跳躍開合跳</option>
+                            </optgroup>
+                        </select>
+                        <!-- 技能列表顯示區 -->
+                        <div class="skill-list" id="skill-list">
+                            <h5>已選擇技能列表:</h5>
+                            <ul id="skill-list-items">
+                                <!-- 新增的技能會出現在這裡 -->
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 上傳證書區 -->
+                    <div class="form-section1">
+                        <label for="certificate">上傳相關證書:</label>
+                        <br>
+                        <input type="file" id="certificate" name="certificate[]" multiple onchange="updateFileList()">
+                        <!-- 上傳檔案顯示區 -->
+                        <div class="file-list" id="file-list">
+                            <h5>上傳的檔案:</h5>
+                            <ul id="file-list-items">
+                                <!-- 上傳的檔案會出現在這裡 -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="button0">
+                        <input type="button" onclick="triggerReturnLink()" value="返回" class="btn">
+                    	<a id="return-link" th:href="@{/coach_account_information}" class="hidden-link"></a>
+                    </div>
+                    <!-- 提交按鈕 -->
+                    <div class="button1">
+                        <input type="button" onclick="triggerSubmitLink()" value="送出" class="btn">
+    					<a id="submit-link" th:href="@{/coach_account_information}" class="hidden-link"></a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- end menu -->
+    <div class="main">
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row section group">
+                    <div class="col-md-4">
+                        <h4 class="m_7">訂閱電子報</h4>
+                        <!-- 簡短描述新聞訂閱 -->
+                        <p class="m_8">關於我們有關的飲食通知</p>
+                        <!-- 訂閱表單 -->
+                        <form class="subscribe">
+                            <!-- 電子郵件輸入框 -->
+                            <input type="text" value="輸入電子郵件" onfocus="this.value = '';"
+                                onblur="if (this.value == '') {this.value = '輸入電子郵件';}">
+                        </form>
+                        <!-- 提交按鈕 -->
+                        <div class="subscribe1">
+                            <a href="#">送出電子郵件<i class="but_arrow"> </i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="f-logo">
+                            <img src="images/logo.png" alt="" />
+                        </div>
+                        <p class="m_9">關於現代人對於健康越來越有意識，但時常沒有正確的觀念來執行，導致會讓人無法繼續維持下去。
+                            <br>
+                            於是乎我們就想要建立一個可以幫助大家 & 功能方便網站，可以透過此網站來學習正確的觀念，並且記錄自己的生活是否有達到健康的水準。
+                        </p>
+                        <p class="address">電話 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(00) 222 666
+                                444</span>
+                        </p>
+                        <p class="address">電子郵件 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                class="m_10">info[at]mycompany.com</span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list">
+                            <h4 class="m_7">主頁</h4>
+                            <li><a href="#">會員</a></li>
+                            <li><a href="#">教練介紹</a></li>
+                            <li><a href="#">教室</a></li>
+                            <li><a href="#">點數</a></li>
+                            <li><a href="#">商城</a></li>
+                            <li><a href="#">健康地圖</a></li>
+                        </ul>
+                        <ul class="list1">
+                            <h4 class="m_7">Community</h4>
+                            <li><a href="#">部落格</a></li>
+                            <li><a href="#">Forum</a></li>
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">Newsletter</a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="copy">
+                    <p>© 2014 Template by <a href="http://w3layouts.com" target="_blank"> w3layouts</a></p>
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="facebook"><a href="#"><span> </span></a></li>
+                        <li class="google"><a href="#"><span> </span></a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // 當選擇的運動項目改變時，將選中的項目添加到技能列表
+        function addSportEventToSkillList() {
+            const sportEventSelect = document.getElementById('sport-event'); // 獲取運動項目選擇框
+            const selectedEvent = sportEventSelect.options[sportEventSelect.selectedIndex].text; // 獲取選中的運動項目文本
+
+            if (selectedEvent) {
+                addToSkillList(selectedEvent); // 將選中的運動項目添加到技能列表
+            }
+        }
+
+        // 將技能添加到技能列表中
+        function addToSkillList(skill) {
+            const skillList = document.getElementById('skill-list-items'); // 獲取技能列表元素
+            const existingItems = skillList.querySelectorAll('li'); // 獲取現有的技能列表項目
+
+            // 檢查技能是否已經存在於列表中
+            for (let item of existingItems) {
+                if (item.textContent.replace('刪除', '').trim() === skill) {
+                    return; // 如果技能已經存在，則不做任何操作
+                }
+            }
+
+            // 創建新的列表項目
+            const li = document.createElement('li');
+            li.textContent = skill;
+
+            // 創建刪除按鈕
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = '刪除';
+            deleteBtn.onclick = function () {
+                skillList.removeChild(li); // 當按鈕被點擊時，刪除該技能項目
+            };
+
+            // 將按鈕添加到列表項目，然後將列表項目添加到列表中
+            li.appendChild(deleteBtn);
+            skillList.appendChild(li);
+        }
+
+        // 更新檔案列表以顯示所有選擇的檔案
+        function updateFileList() {
+            const fileInput = document.getElementById('certificate'); // 獲取檔案輸入框
+            const fileList = document.getElementById('file-list-items'); // 獲取檔案列表元素
+
+            // 遍歷所有選擇的檔案
+            for (const file of fileInput.files) {
+                // 檢查檔案是否已經存在於列表中
+                if (Array.from(fileList.children).some(li => li.textContent.includes(file.name))) {
+                    continue; // 如果檔案已經存在，則跳過
+                }
+
+                // 創建新的列表項目
+                const li = document.createElement('li');
+                li.textContent = file.name;
+
+                // 創建刪除按鈕
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = '刪除';
+                deleteBtn.onclick = function () {
+                    fileList.removeChild(li); // 當按鈕被點擊時，刪除該檔案項目
+                };
+
+                // 將按鈕添加到列表項目，然後將列表項目添加到列表中
+                li.appendChild(deleteBtn);
+                fileList.appendChild(li);
+            }
+        }
+        function triggerReturnLink() {
+            // 取得隱藏的 <a> 連結並觸發點擊事件
+            document.getElementById('return-link').click();
+        }
+        
+        function triggerSubmitLink() {
+            // 取得隱藏的 <a> 連結並觸發點擊事件
+            document.getElementById('submit-link').click();
+        }
+    </script>
+</body>
+
+</html>

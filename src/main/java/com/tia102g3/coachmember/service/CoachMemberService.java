@@ -26,6 +26,10 @@ public class CoachMemberService {
 	public void addCoachMember(CoachMember coachMember) {
 		repository.save(coachMember); // 使用 repository 保存會員資料
 	}
+	
+	public CoachMember findById(Integer cMemberId) {
+        return repository.findById(cMemberId).orElse(null);
+    }
 
 	// 更新會員資料的方法
 	public void updateCoachMember(CoachMember coachMember) {

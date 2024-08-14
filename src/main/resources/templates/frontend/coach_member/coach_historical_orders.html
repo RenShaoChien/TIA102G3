@@ -1,0 +1,361 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>健肌尋食-教練會員</title>
+<link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css' />
+<link th:href="@{css/style.css}" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<script th:src="@{js/jquery.min.js}"></script>
+
+<!-- grid-slider -->
+<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="js/jquery.contentcarousel.js"></script>
+<!-- //grid-slider -->
+<!---calender-style---->
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<!---//calender-style---->
+<style>
+    .btn-login {
+        margin: bottom 50px;
+        float: right;
+        padding-right: 20px;
+        padding-top: 5px;
+        padding-bottom: 10px;
+        border: 1px solid black;
+        background-color: white;
+    }
+
+    .social {
+        padding-top: 4px;
+        padding-right: 10px;
+    }
+
+    .container-data {
+        height: auto;
+        width: auto;
+        margin: auto;
+        /* padding: 20px; */
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: row;
+        /* gap: 20px; */
+        /* flex-wrap: wrap; */
+        background-color: #e0f7f9;
+        /* place-items: center; */
+        /* background-color: red; */
+    }
+
+    .sidebar {
+        width: 20%;
+        height: 600px;
+        overflow-y: auto;
+        padding-top: 50px;
+        /* padding-right: 20px; */
+        border-right: 1px solid #d0e5d2;
+        background-color: #eaf5e1;
+        color: #4b6e4f;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        /* border: 1px solid black; */
+    }
+
+    .sidebar a {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 50px;
+    }
+
+    .content-data {
+        width: 100%;
+        height: 100%;
+        /* margin: 20px auto; */
+        /* padding-top: 20px; */
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .order {
+        display: flex;
+        flex-wrap: wrap;
+        background-color: #bcbcbc;
+        padding: 10px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .order-item {
+        flex: 1;
+        text-align: center;
+        padding: 5px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .results {
+        margin-bottom: 20px;
+    }
+
+    .results .item {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 10px;
+        border:1px solid #ddd
+    }
+
+    .results .item span {
+        flex: 1;
+        text-align: center;
+        padding: 5px;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+    }
+
+    .filter {
+        background-color: #bcbcbc;
+        padding-top: 20px;
+        /* margin-bottom: 20px; */
+    }
+
+    .filter label {
+        margin-right: 10px;
+        padding-left: 5%;
+    }
+
+    .filter select {
+        padding: 5px;
+        border-radius: 30px;
+    }
+
+    .clear {
+        clear: both;
+    }
+</style>
+</head>
+
+<body>
+    <!-- start header_bottom -->
+    <div class="header-bottom">
+        <div class="btn-login">
+            <a href="login.html">Log In</a>
+        </div>
+        <div class="container">
+            <div class="header-bottom_left">
+                <i class="phone"> </i><span>1-200-346-2986</span>
+            </div>
+            <div class="social">
+                <ul>
+                    <li class="facebook"><a href="#"><span> </span></a></li>
+                    <li class="google"><a href="#"><span> </span></a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!-- start menu -->
+    <div class="menu">
+        <div class="container">
+            <div class="h_menu4"><!-- start h_menu4 -->
+                <a class="toggleMenu" href="#">Menu</a>
+                <ul class="nav">
+                    <li><a href="index.html">主頁</a></li>
+                    <li class="active"><a th:href="@{coach_historical_orders}">會員專區</a></li>
+                    <li><a href="trainers.html">課程</a></li>
+                    <li><a href="classes.html">教室</a></li>
+                    <li><a href="blog.html">健康飲食</a></li>
+                    <li><a href="pricing.html">線上商城</a></li>
+                    <li><a href="contact.html">健康地圖</a></li>
+                </ul>
+                <script type="text/javascript" src="js/nav.js"></script>
+            </div>
+            <!-- end h_menu4 -->
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="container-data">
+        <div class="sidebar">
+            <a th:href="@{coach_account_information}">修改帳戶資料</a>
+			<a th:href="@{coach_change_password}">修改密碼</a>
+			<a th:href="@{coach_historical_orders}">歷史訂單</a>
+			<a th:href="@{coach_receipt_information}">常用收件資訊</a>
+			<a th:href="@{coach_acc_information}">新增信用卡資訊</a>
+			<a th:href="@{coach_course_status}">查看課程狀態</a>
+			<a th:href="@{coach_course_products}">登入課程商品</a>
+        </div>
+        <div class="content-data">
+            <div class="filter">
+                <label for="status">訂單狀態:</label>
+                <select id="status" name="status">
+                    <option value="all">全部</option>
+                    <option value="completed">已完成</option>
+                    <option value="processing">處理中</option>
+                </select>
+    
+                <label for="payment">付款狀態:</label>
+                <select id="payment" name="payment">
+                    <option value="all">全部</option>
+                    <option value="paid">已付款</option>
+                    <option value="unpaid">未付款</option>
+                </select>
+            </div>
+    
+            <!-- 訂單標題 -->
+            <div class="order">
+                <div class="order-item">訂單編號</div>
+                <div class="order-item">訂單時間</div>
+                <div class="order-item">訂單狀態</div>
+                <div class="order-item">付款狀態</div>
+                <div class="order-item">配送狀態</div>
+                <div class="order-item">配送方式</div>
+                <div class="order-item">總計金額</div>
+            </div>
+    
+            <!-- 顯示結果的區域 -->
+            <div class="results">
+                <div class="item status-completed payment-paid">
+                    <span>訂單編號 - 1</span>
+                    <span>2024-07-30</span>
+                    <span>已完成</span>
+                    <span>已付款</span>
+                    <span>已配送</span>
+                    <span>快遞</span>
+                    <span>$100</span>
+                </div>
+                <div class="item status-processing payment-unpaid">
+                    <span>訂單編號 - 2</span>
+                    <span>2024-07-29</span>
+                    <span>處理中</span>
+                    <span>未付款</span>
+                    <span>未配送</span>
+                    <span>自取</span>
+                    <span>$150</span>
+                </div>
+                <div class="item status-completed payment-paid">
+                    <span>訂單編號 - 3</span>
+                    <span>2024-07-28</span>
+                    <span>已完成</span>
+                    <span>已付款</span>
+                    <span>已配送</span>
+                    <span>快遞</span>
+                    <span>$200</span>
+                </div>
+                <div class="item status-completed payment-unpaid">
+                    <span>訂單編號 - 4</span>
+                    <span>2024-07-27</span>
+                    <span>已完成</span>
+                    <span>未付款</span>
+                    <span>已配送</span>
+                    <span>快遞</span>
+                    <span>$250</span>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!-- end menu -->
+    <div class="main">
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row section group">
+                    <div class="col-md-4">
+                        <h4 class="m_7">訂閱電子報</h4>
+                        <!-- 簡短描述新聞訂閱 -->
+                        <p class="m_8">關於我們有關的飲食通知</p>
+                        <!-- 訂閱表單 -->
+                        <form class="subscribe">
+                            <!-- 電子郵件輸入框 -->
+                            <input type="text" value="輸入電子郵件" onfocus="this.value = '';"
+                                onblur="if (this.value == '') {this.value = '輸入電子郵件';}">
+                        </form>
+                        <!-- 提交按鈕 -->
+                        <div class="subscribe1">
+                            <a href="#">送出電子郵件<i class="but_arrow"> </i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="f-logo">
+                            <img src="images/logo.png" alt="" />
+                        </div>
+                        <p class="m_9">關於現代人對於健康越來越有意識，但時常沒有正確的觀念來執行，導致會讓人無法繼續維持下去。
+                            <br>
+                            於是乎我們就想要建立一個可以幫助大家 & 功能方便網站，可以透過此網站來學習正確的觀念，並且記錄自己的生活是否有達到健康的水準。
+                        </p>
+                        <p class="address">電話 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(00) 222 666
+                                444</span>
+                        </p>
+                        <p class="address">電子郵件 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                class="m_10">info[at]mycompany.com</span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="list">
+                            <h4 class="m_7">主頁</h4>
+                            <li><a href="#">會員</a></li>
+                            <li><a href="#">教練介紹</a></li>
+                            <li><a href="#">教室</a></li>
+                            <li><a href="#">點數</a></li>
+                            <li><a href="#">商城</a></li>
+                            <li><a href="#">健康地圖</a></li>
+                        </ul>
+                        <ul class="list1">
+                            <h4 class="m_7">Community</h4>
+                            <li><a href="#">部落格</a></li>
+                            <li><a href="#">Forum</a></li>
+                            <li><a href="#">Support</a></li>
+                            <li><a href="#">Newsletter</a></li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                <div class="copy">
+                    <p>© 2014 Template by <a href="http://w3layouts.com" target="_blank"> w3layouts</a></p>
+                </div>
+                <div class="social">
+                    <ul>
+                        <li class="facebook"><a href="#"><span> </span></a></li>
+                        <li class="google"><a href="#"><span> </span></a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <!-- JavaScript 用於篩選功能 -->
+    <script>
+        // 監聽訂單狀態下拉選單變化事件
+        document.getElementById('status').addEventListener('change', filterItems);
+
+        // 監聽付款狀態下拉選單變化事件
+        document.getElementById('payment').addEventListener('change', filterItems);
+
+        function filterItems() {
+            var selectedStatus = document.getElementById('status').value; // 獲取選擇的訂單狀態
+            var selectedPayment = document.getElementById('payment').value; // 獲取選擇的付款狀態
+            var items = document.querySelectorAll('.results .item'); // 獲取所有結果項目
+
+            // 遍歷所有結果項目
+            items.forEach(function (item) {
+                var matchesStatus = (selectedStatus === 'all' || item.classList.contains('status-' + selectedStatus));
+                var matchesPayment = (selectedPayment === 'all' || item.classList.contains('payment-' + selectedPayment));
+
+                // 根據選擇的篩選條件顯示或隱藏項目
+                if (matchesStatus && matchesPayment) {
+                    item.style.display = 'flex'; // 顯示符合條件的項目
+                } else {
+                    item.style.display = 'none'; // 隱藏不符合條件的項目
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
