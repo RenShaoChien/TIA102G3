@@ -1,11 +1,7 @@
 package com.controllers;
 
-
+import java.util.ArrayList;
 import java.util.List;
-
-
-import com.tia102g3.coachcourse.model.CourseStatus;
-import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +12,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.tia102g3.product.model.ProductVO;
 import com.tia102g3.product.model.ProductService;
 
+import com.tia102g3.coachcourse.model.CourseStatus;
+import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
+import com.tia102g3.food.model.FoodService;
+import com.tia102g3.likefood.model.LikeFoodVO;
+import com.tia102g3.menu.model.MenuService;
+import com.tia102g3.menu.model.MenuVO;
+
 /**
  * ClassName： PageController package：com.controllers Description：
  *
@@ -25,12 +28,18 @@ import com.tia102g3.product.model.ProductService;
  */
 @Controller
 public class PageController {
-	
-	@Autowired
-	ProductService productservice;
+    
+    @Autowired
+    ProductService productservice;
 
     @Autowired
     private CoachCourseServiceImpl ccService;
+    
+    @Autowired
+    private FoodService foodSvc;
+    
+    @Autowired
+    private MenuService menuSvc;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -57,6 +66,12 @@ public class PageController {
 
     @GetMapping("/menu")
     public String menu(Model model) {
+        LikeFoodVO likeFoodVO = new LikeFoodVO();
+        List<MenuVO> menuVO = new ArrayList<>();
+        menuVO = menuSvc.getAll();
+        model.addAttribute("likeFoodVO", likeFoodVO);
+        model.addAttribute("FoodListData", foodSvc.getAll());
+        model.addAttribute("menuVO", menuVO);
         return "menu";
     }
     
@@ -65,6 +80,7 @@ public class PageController {
         return "pricing";
     }
     
+
     @GetMapping("/productintro")
     public String productintro(Model model) {
         return "product/product_intro";
@@ -96,4 +112,5 @@ public class PageController {
         return "foodmap"; 
     }
     
+
 }

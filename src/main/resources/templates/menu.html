@@ -20,13 +20,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 	<script src="js/jquery.min.js"></script>
 	<!-- grid-slider -->
-	<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
-	<script type="text/javascript" src="js/jquery.contentcarousel.js"></script>
+	<!-- <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+	<script type="text/javascript" src="js/jquery.contentcarousel.js"></script> -->
 	<!-- //grid-slider -->
 
 	<!-- slick import -->
-	<link rel="stylesheet" type="text/css" href="./vendors/slick/slick-theme.css">
-	<link rel="stylesheet" type="text/css" href="vendors/slick/slick.css">
+	<!-- <link rel="stylesheet" type="text/css" href="./vendors/slick/slick-theme.css">
+	<link rel="stylesheet" type="text/css" href="vendors/slick/slick.css"> -->
 
 	<style>
 		.button-container {
@@ -39,6 +39,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		.button-container button {
 			height: 40px;
 		}
+
+		.title{
+			margin: 0;
+		}
+
+		.menu-name{
+			display: block; 
+			text-align: center;
+			margin: 0;
+			font-size: 20px;
+		}
+		.container-bg{
+			background-color: #72D0F4;
+		}
+
 	</style>
 
 </head>
@@ -73,13 +88,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="h_menu4"><!-- start h_menu4 -->
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
-					<li><a href="/">Home</a></li>
-					<li><a th:href="@{member}">會員專區</a></li>
-					<li><a th:href="@{trainers}">專屬你的訓練</a></li>
+					<li><a th:href="@{/index}">Home</a></li>
+					<li><a th:href="@{/account_information}">會員專區</a></li>
+					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
 					<li><a href="classes.html">Classes</a></li>
-					<li><a th:href="@{menu}">健康餐</a></li>
-					<li><a href="pricing.html">Pricing</a></li>
-					<li><a href="contact.html">Contact</a></li>
+					<li  class="active"><a th:href="@{/menu}">健康餐</a></li>
+					<li><a th:href="@{pricing}">Pricing</a></li>
+					<li><a th:href="@{/map}">美食地圖</a></li>
+                	<li><a th:href="@{/qa}">客服</a></li> 
 				</ul>
 				<script type="text/javascript" src="js/nav.js"></script>
 			</div><!-- end h_menu4 -->
@@ -89,7 +105,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- end menu -->
 	<div class="main">
         <div style="text-align: center; background-color: #72D0F4;">
-		  <h2> 健康餐</h2>
+		  <h2 class="title"> 健康餐</h2>
         </div>
         
 		<div class="menu_container">
@@ -99,27 +115,28 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<!-- Example row of columns -->
 			<div class="row">
 				<div class="col-md-3">
-					<img class="menu_images" src="images/menu/菜飯餐盒_630_486.png">
-					<div>
-						<h2 class="menu_text">菜飯餐盒</h2>
+					<!-- <img class="menu_images" src="https://picsum.photos/600/400"> -->
+					<img class="menu_images" th:src="@{'/menu_images/DBGifReader?menuNumber=' + ${menuVO[0].menuNumber}}" width="100px">
+					<div style="text-align: center;">
+						<span class="menu-name" th:text="${menuVO[0].menuName}"></span>
 					</div>
 				</div>
 				<div class="col-md-3">
-					<img class="menu_images" src="images/menu/日式壽喜牛便當.png">
-					<div>
-						<h2 class="menu_text">日式壽喜牛便當</h2>
+					<img class="menu_images" th:src="@{'/menu_images/DBGifReader?menuNumber=' + ${menuVO[1].menuNumber}}" width="100px">
+					<div style="text-align: center;">
+						<span class="menu-name" th:text="${menuVO[1].menuName}"></span>
 					</div>
 				</div>
 				<div class="col-md-3">
-					<img class="menu_images" src="images/menu/水煮嫩雞胸_630_486.png">
-					<div>
-						<h2 class="menu_text">水煮嫩雞胸</h2>
+					<img class="menu_images" th:src="@{'/menu_images/DBGifReader?menuNumber=' + ${menuVO[2].menuNumber}}" width="100px">
+					<div style="text-align: center;">
+						<span class="menu-name" th:text="${menuVO[2].menuName}"></span>
 					</div>
 				</div>
 				<div class="col-md-3">
-					<img class="menu_images" src="images/menu/清滷牛腱_630_486.png">
-					<div>
-						<h2 class="menu_text">清滷牛腱</h2>
+					<img class="menu_images" th:src="@{'/menu_images/DBGifReader?menuNumber=' + ${menuVO[3].menuNumber}}" width="100px">
+					<div style="text-align: center;">
+						<span class="menu-name" th:text="${menuVO[3].menuName}"></span>
 					</div>
 				</div>
 				<!-- <div class="col-md-2">
@@ -135,13 +152,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 				</div> -->
 			</div>
-
-
-			<!-- <div>
-				<label for="fname">First name:</label>
-				<input type="text" id="fname" name="fname"><br><br>
-				<button type="button" onclick="alert('Hello world!')">Click Me!</button>
-			</div> -->
 
 		</div>
 
@@ -212,40 +222,49 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 				</div>
 
-
 				<div class="col-sm-4">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h2 class="panel-title custom-panel-title">喜好食材</h2>
 						</div>
+						
+						<!-- add food preferences -->
 
 						<div class="panel-body">
-							<form action="">
-								<label>
-									<p class="menu-text-title">食材名稱</p>
-								</label>
-								<select class="form-control input-width-50" name="foodTypeNumber" id="">
-									<option value="01">米飯</option>
-									<option value="02">地瓜</option>
-									<option value="03">玉米</option>
-									<option value="04">燕麥</option>
-								</select>
+							<form th:action="@{insertLikeFood}" method="post" th:object="${LikeFoodVO}" enctype="multipart/form-data">
+								<label for=""><p class="menu-text-title">會員編號</p></label> 
+								<input class="form-control input-width-50" type="text" name="memberID"> 
+								<!-- <span th:if="${#fields.hasErrors('memberID')}" th:errors="*{memberID}" class="error" id="memberID.errors"></span>  -->
+								<br> 
+		<!--                         <label for=""> <p class="menu-text-title">食物編號</p> </label>  -->
+		<!--                         <input class="form-control input-width-50" type="text" name="foodNumber" id="foodNumber">  -->
+								<!-- <span th:if="${#fields.hasErrors('foodNumber')}" th:errors="*{foodNumber}" class="error" id="foodNumber.errors"></span>  -->
+								<br> 
+								選擇食材: 
+								<select name="foodNumber">
+		<!-- 					          <option value=""> -->
+									<option th:each="foodVO : ${FoodListData}" th:value="${foodVO.foodNumber}" th:text="${foodVO.foodName}" />
+								</select><br>
 								<br>
-								<label>
-									<p class="menu-text-title">食材喜好</p>
-								</label>
-								<select class="form-control input-width-50" name="foodlike" id="">
-									<option value="01">喜歡</option>
-									<option value="02">不喜歡</option>
-								</select>
+								<p class="menu-text-title">食物偏好</p>
+								<br> 
+								<input type="radio" id="radio_1" name="foodPreference" value="1"> 
+								<label for="radio_1">喜歡</label>
 								<br>
+								<input type="radio" id="radio_2" name="foodPreference" value="0">
+								<label for="radio_2">不喜歡</label>
+								<br> 
 								<div class="text-center">
-									<input class="btn btn-default" type="submit" value="Submit2">
+									<input class="btn btn-default" type="submit" value="submit">
 								</div>
-							</form>
+                    		</form>
 						</div>
 
+						<!-- End add food preferences -->
 
+						<!-- <img th:src="@{/menu_images/DBGifReader} + '?menuNumber=' + ${MenuVO.menuNumber}" width="100px"> -->
+
+						<!-- Display food preferences -->
 						<div class="table-responsive">
 							<table class="table table-striped">
 								<thead style="background-color: aqua;">
@@ -270,11 +289,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 							</table>
 
-
 						</div>
+						<!-- End display food preferences -->
 
 					</div>
 				</div>
+
+
 			</div>
 		</div>
 
@@ -282,46 +303,34 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="container">
 				<div class="row section group">
 					<div class="col-md-4">
-						<h4 class="m_7">Newsletter Signup</h4>
-						<p class="m_8">Lorem ipsum dolor sit amet, consectetuer adipiscing elit sed diam nonummy.</p>
-						<form class="subscribe">
-							<input type="text" value="Insert Email" onfocus="this.value = '';"
-								onblur="if (this.value == '') {this.value = 'Insert Email';}">
-						</form>
-						<div class="subscribe1">
-							<a href="#">Submit Email<i class="but_arrow"> </i></a>
+						<div class="social"
+							 style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
+							<!-- <img th:src="@{images/cutecatloge.png}" style="width: 100%; height: 100%"> -->
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="f-logo">
-							<img src="images/logo.png" alt="" />
+							<h1>健肌尋食</h1>
 						</div>
-						<p class="m_9">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh
-							euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim
-							veniam,
-							quis</p>
-						<p class="address">Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(00) 222 666
-								444</span>
+						<p class="m_9">
+							「健肌尋食」是一個簡單的概念，意思是通過運動來增強肌肉，同時尋找健康的食物來補充營養，這樣可以讓我們的身體更強壯，生活更健康愉快。</p>
+						<p class="address">Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02) 3333 4444</span>
 						</p>
-						<p class="address">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-								class="m_10">info[at]mycompany.com</span></p>
+						<p class="address">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
+						</p>
 					</div>
 					<div class="col-md-4">
 						<ul class="list">
-							<h4 class="m_7">Menu</h4>
-							<li><a href="#">About</a></li>
-							<li><a href="#">Trainers</a></li>
-							<li><a href="#">Classes</a></li>
-							<li><a href="#">Pricing</a></li>
-							<li><a href="#">Privacy</a></li>
-							<li><a href="#">Contact</a></li>
+							<h4 class="m_7">關於我們</h4>
+							<li><a href="#">隱私權政策</a></li>
+							<li><a href="#">著作權聲明</a></li>
+							<li><a href="#">聯絡我們</a></li>
 						</ul>
 						<ul class="list1">
-							<h4 class="m_7">Community</h4>
-							<li><a href="#">Blog</a></li>
-							<li><a href="#">Forum</a></li>
+							<h4 class="m_7">相關網站</h4>
+							<li><a href="https:/www.google.com">google</a></li>
+							<li><a href="https:/www.youtube.com">youtube</a></li>
 							<li><a href="#">Support</a></li>
-							<li><a href="#">Newsletter</a></li>
 						</ul>
 					</div>
 					<div class="clear"></div>
@@ -331,18 +340,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<div class="copyright">
 			<div class="container">
 				<div class="copy">
-					<p>© 2014 Template by <a href="http://w3layouts.com" target="_blank"> w3layouts</a></p>
-				</div>
-				<div class="social">
-					<ul>
-						<li class="facebook"><a href="#"><span> </span></a></li>
-						<li class="twitter"><a href="#"><span> </span></a></li>
-						<li class="pinterest"><a href="#"><span> </span></a></li>
-						<li class="google"><a href="#"><span> </span></a></li>
-						<li class="tumblr"><a href="#"><span> </span></a></li>
-						<li class="instagram"><a href="#"><span> </span></a></li>
-						<li class="rss"><a href="#"><span> </span></a></li>
-					</ul>
+					<p>Copyright © 2024 健肌尋食 by TIA102G3</p>
 				</div>
 				<div class="clear"></div>
 			</div>
