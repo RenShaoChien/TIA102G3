@@ -1,11 +1,20 @@
 package com.controllers;
 
+
+import java.util.List;
+
+
 import com.tia102g3.coachcourse.model.CourseStatus;
 import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import com.tia102g3.product.model.ProductVO;
+import com.tia102g3.product.model.ProductService;
 
 /**
  * ClassName： PageController package：com.controllers Description：
@@ -16,6 +25,9 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class PageController {
+	
+	@Autowired
+	ProductService productservice;
 
     @Autowired
     private CoachCourseServiceImpl ccService;
@@ -52,4 +64,22 @@ public class PageController {
     public String pricing(Model model) {
         return "pricing";
     }
+    
+    @GetMapping("/productintro")
+    public String productintro(Model model) {
+        return "product/product_intro";
+    }
+    
+    @GetMapping("/shoppingcart")
+    public String shoppingcart(Model model) {
+        return "product/shopping_cart";
+    }
+    
+    @ModelAttribute("productList")
+    protected List<ProductVO> productList(Model model){
+    	List<ProductVO> products = productservice.getAll();
+    	return products;
+    }
+    
+    
 }
