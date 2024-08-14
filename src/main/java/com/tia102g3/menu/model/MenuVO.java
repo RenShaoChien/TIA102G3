@@ -18,6 +18,10 @@ public class MenuVO implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "menuNumber", updatable = false)
 	private Integer menuNumber;
+	
+	@Column(name = "menuName")
+	private String menuName;
+	
 	@Column(name = "imageNumber")
 	private Integer imageNumber;
 	@Lob
@@ -28,35 +32,43 @@ public class MenuVO implements Serializable {
 		super();
 	}
 
-	public Integer getMenuNumber() {
-		return menuNumber;
-	}
+    public Integer getMenuNumber() {
+        return menuNumber;
+    }
 
-	public void setMenuNumber(Integer menuNumber) {
-		this.menuNumber = menuNumber;
-	}
+    public void setMenuNumber(Integer menuNumber) {
+        this.menuNumber = menuNumber;
+    }
 
-	public Integer getImageNumber() {
-		return imageNumber;
-	}
+    public String getMenuName() {
+        return menuName;
+    }
 
-	public void setImageNumber(Integer imageNumber) {
-		this.imageNumber = imageNumber;
-	}
+    public void setMenuName(String menuName) {
+        this.menuName = menuName;
+    }
 
-	public byte[] getMenuImage() {
-		return menuImage;
-	}
+    public Integer getImageNumber() {
+        return imageNumber;
+    }
 
-	public void setMenuImage(byte[] menuImage) {
-		this.menuImage = menuImage;
-	}
+    public void setImageNumber(Integer imageNumber) {
+        this.imageNumber = imageNumber;
+    }
 
-	@Override
-	public String toString() {
-		return "MenuVO [menuNumber=" + menuNumber + ", imageNumber=" + imageNumber + ", menuImage="
-		        + Arrays.toString(menuImage) + "]";
-	}
-	
+    public byte[] getMenuImage() {
+        return menuImage;
+    }
+
+    public void setMenuImage(byte[] menuImage) {
+        this.menuImage = menuImage;
+    }
+
+    @Override
+    public String toString() {
+        return "MenuVO [menuNumber=" + menuNumber + ", menuName=" + menuName + ", imageNumber=" + imageNumber
+                + ", menuImage=" + Arrays.toString(menuImage) + "]";
+    }
+
 
 }

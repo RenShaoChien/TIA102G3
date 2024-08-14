@@ -45,12 +45,12 @@ public class FoodListController {
     public String listAllMenu(ModelMap model) {
 //        List<FoodListVO> list = foodListSvc.getOneByMenuNum(1);
         List<FoodListVO> list = foodListSvc.getAll();
-        List<Integer> allMenuNum = foodListSvc.getAllMenuNum();
+//        List<Integer> allMenuNum = foodListSvc.getAllMenuNum();
 
         model.addAttribute("foodListData", list);
 //        model.addAttribute("allMenuNum", allMenuNum);
 //        model.addAttribute("allMenu", allMenu);
-        System.out.println(allMenuNum);
+//        System.out.println(allMenuNum);
         return "menu/listAllFoodList";
     }
     
