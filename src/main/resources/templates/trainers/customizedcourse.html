@@ -102,9 +102,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 gap: 5px; /* 强制使用 5px 的间距 */
             }
         }
-        .-on{
-            display: none;
+
+        #lightbox {
+            /*   border: 1px solid red; */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: hsla(0, 0%, 0%, .5);
         }
+
+        .-on {
+            display: none !important;
+        }
+
         #lightbox > article {
             background-color: white;
             width: 90%;
@@ -116,17 +128,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-        }
-        #lightbox {
-            /*   border: 1px solid red; */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background-color: hsla(0, 0%, 0%, .5);
-
-
         }
     </style>
 </head>
@@ -157,7 +158,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     <div class="container">
         <div class="logo">
-            <a th:href="@{/}"><img th:src="@{/images/logo.png}" alt=""/></a>
+            <a th:href="@{/index}"><img th:src="@{/images/logo.png}" alt=""/></a>
         </div>
         <div class="h_menu4"><!-- start h_menu4 -->
             <a class="toggleMenu" href="#">Menu</a>
@@ -183,8 +184,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="middle-content">
         <div id="lightbox" class="-on">
             <article>
-<!--                <h1 id="messageContent" th:text="${#strings.isEmpty(message) ? '歡迎使用' : message}" style="color: black"></h1>-->
-                <h1 id="messageContent" th:text="${message}" style="color: black"></h1>
+                <h1 id="messageContent" th:if="${message}" th:text="${message}" style="color: black"></h1>
                 <button type="button" class="btn_modal_close">關閉</button>
             </article>
         </div>
@@ -281,6 +281,39 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script th:inline="javascript">
     $(document).ready(function () {
+        var messageContent = $("#messageContent").text().trim();
+        console.log("檢查燈箱內容:", messageContent);
+
+        if (messageContent.length > 0) {
+            console.log("燈箱內有消息");
+
+            // 移除 -on class 並顯示燈箱
+            $("#lightbox").removeClass("-on").fadeIn(1000);
+
+            // 點擊關閉按鈕關閉燈箱
+            $("button.btn_modal_close").on("click", function () {
+                console.log("關閉按鈕被點擊");
+                $("#lightbox").fadeOut(1000, function () {
+                    $("#lightbox").addClass("-on");
+                });
+            });
+
+            // 防止點擊燈箱內部時關閉燈箱
+            $("#lightbox > article").on("click", function (e) {
+                e.stopPropagation();
+            });
+
+            // 點擊燈箱背景關閉燈箱
+            $("#lightbox").on("click", function () {
+                console.log("背景被點擊");
+                $(this).fadeOut(1000, function () {
+                    $(this).addClass("-on");
+                });
+            });
+        } else {
+            console.log("燈箱內無消息");
+        }
+
 
         $('input[name="sportTypes"]').change(function () {
             let selectType = $("input[name='sportTypes']:checked").val();
@@ -312,65 +345,29 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             });
         });
         $('input[name="sportTypes"]:checked').trigger('change');
-    });
 
-
-    $('#exercise-item1').change(function () {
-        let selectedSportEvent = $(this).val();
-        $.ajax({
-            url: '/trainers/getEquipmentBySportEvent',
-            data: {sportEventName: selectedSportEvent},
-            dataType: 'json',
-            success: function (data) {
-                let $sportEquipmentSelect = $('#exercise-item');
-                $sportEquipmentSelect.empty();
-                $.each(data, function (index, sportEquipment) {
-                    $sportEquipmentSelect.append($('<option>', {
-                        value: sportEquipment,
-                        text: sportEquipment
-                    }));
-                });
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error('您的網路有問題：', jqXHR.responseText);
-                alert('您的網路有問題，請稍後再試。');
-            }
+        $('#exercise-item1').change(function () {
+            let selectedSportEvent = $(this).val();
+            $.ajax({
+                url: '/trainers/getEquipmentBySportEvent',
+                data: {sportEventName: selectedSportEvent},
+                dataType: 'json',
+                success: function (data) {
+                    let $sportEquipmentSelect = $('#exercise-item');
+                    $sportEquipmentSelect.empty();
+                    $.each(data, function (index, sportEquipment) {
+                        $sportEquipmentSelect.append($('<option>', {
+                            value: sportEquipment,
+                            text: sportEquipment
+                        }));
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('您的網路有問題：', jqXHR.responseText);
+                    alert('您的網路有問題，請稍後再試。');
+                }
+            });
         });
-
-        var messageContent = $("#messageContent").text().trim();
-        console.log("檢查燈箱內容:", messageContent);
-
-        // if (messageContent.length > 0) {
-        if (/*[[message]]*/ 'message' > 0) {
-            console.log(/*[[message]]*/'message');
-
-            // 移除 -on class 並顯示燈箱
-            $("#lightbox").removeClass("-on").fadeIn(1000);
-
-            // 點擊關閉按鈕關閉燈箱
-            $("button.btn_modal_close").on("click", function() {
-                console.log("關閉按鈕被點擊");
-                $("#lightbox").fadeOut(1000, function() {
-                    $("#lightbox").addClass("-on");
-                });
-            });
-
-            // 防止點擊燈箱內部時關閉燈箱
-            $("#lightbox > article").on("click", function(e) {
-                e.stopPropagation();
-            });
-
-            // 點擊燈箱背景關閉燈箱
-            $("#lightbox").on("click", function() {
-                console.log("背景被點擊");
-                $(this).fadeOut(1000, function() {
-                    $(this).addClass("-on");
-                });
-            });
-        } else {
-            console.log("燈箱內無消息");
-        }
-
     });
 
 
@@ -378,18 +375,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
-    $(".btn_modal").on("click", function () {
-        $("#lightbox").fadeIn(1000);
-    });
-
-
-    $(".btn_modal_close, #lightbox").on("click", function () {
-        $("#lightbox").fadeOut(1000);
-    });
-
-    $("#lightbox > article").on("click", function (e) {
-        e.stopPropagation();
-    });
+    // $(".btn_modal").on("click", function () {
+    //     $("#lightbox").fadeIn(1000);
+    // });
+    //
+    //
+    // $(".btn_modal_close, #lightbox").on("click", function () {
+    //     $("#lightbox").fadeOut(1000);
+    // });
+    //
+    // $("#lightbox > article").on("click", function (e) {
+    //     e.stopPropagation();
+    // });
 
 </script>
 </body>

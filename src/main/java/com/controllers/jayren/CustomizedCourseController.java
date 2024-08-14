@@ -37,7 +37,6 @@ public class CustomizedCourseController {
     public String customizedCourse(ModelMap model) {
 
 
-
         return "trainers/customizedcourse";
     }
 
@@ -50,19 +49,19 @@ public class CustomizedCourseController {
                                       RedirectAttributes redirectAttributes) {
         try {
             Random rd = new Random();
+            SystemCourse randomCourse;
             List<SystemCourse> customizedCourses = scService.getSystemCoursesByReqPara(sportTypes, sportEventName, sportEquipment, keyword, courseLevel);
             if (customizedCourses.size() > 0){
-                model.addAttribute("systemCourse", customizedCourses.get(rd.nextInt(customizedCourses.size())));
-            }else {
+                randomCourse = customizedCourses.get(rd.nextInt(customizedCourses.size()));
+                model.addAttribute("systemCourse", randomCourse);
+
+            }else
                 throw new IllegalArgumentException("customizedCourses.size() < 0");
-            }
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("message", "目前沒有合適您的運動");
             return "redirect:/trainers/enter.do";
         }
-
-
         return "trainers/customizedresult";
     }
 
