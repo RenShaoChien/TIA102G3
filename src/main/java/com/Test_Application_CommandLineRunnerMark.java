@@ -1,6 +1,5 @@
 package com;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -11,12 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.tia102g3.food.model.FoodRepository;
 import com.tia102g3.foodlist.model.FoodListRepository;
-import com.tia102g3.foodlist.model.FoodListVO;
-import com.tia102g3.foodlist.model.HibernateUtil_CompositeQuery_FoodList;
 import com.tia102g3.healthstatus.model.HealthStatusRepository;
 import com.tia102g3.likefood.model.LikeFoodRepository;
 import com.tia102g3.membermenulist.model.MemberMenuListRepository;
 import com.tia102g3.menu.model.MenuRepository;
+import com.tia102g3.menu.model.MenuVO;
 
 @SpringBootApplication
 public class Test_Application_CommandLineRunnerMark implements CommandLineRunner {
@@ -181,16 +179,28 @@ public class Test_Application_CommandLineRunnerMark implements CommandLineRunner
 //        // 保存 LikeFoodVO 对象
 //        likeFoodRepository.save(likeFoodVO);
         
+//        System.out.println(likeFoodSvc.getOneLikeFood(likeFoodVO.getMemberID()));
+        
+        // get Like food list by MemberID
+//      List<LikeFoodVO> likeFoodList = likeFoodRepository.findByMemberID(4);
+//      for (LikeFoodVO likefood : likeFoodList) {
+//          
+//          System.out.print(likefood.getMemberID() + ",");
+//          System.out.print(likefood.getFoodVO().getFoodName() + ",");
+//          System.out.print(likefood.getFoodPreference() + ",");
+//          System.out.println();
+//      }
         
       //-----------------Menu getAll-------------------
-//        List<MenuVO> menuList = menuRepository.findAll();
-//        for (MenuVO menu : menuList) {
-//            
-//            System.out.print(menu.getMenuNumber() + ",");
-//            System.out.print(menu.getImageNumber() + ",");
-//            System.out.print(menu.getMenuImage() + ",");
-//            System.out.println();
-//        }
+        List<MenuVO> menuList = menuRepository.findAll();
+        for (MenuVO menu : menuList) {
+            
+            System.out.print(menu.getMenuNumber() + ",");
+            System.out.print(menu.getMenuName() + ",");
+            System.out.print(menu.getImageNumber() + ",");
+            System.out.print(menu.getMenuImage() + ",");
+            System.out.println();
+        }
         
 		
         //-----------------MemberMenuList getAll-------------------
@@ -217,13 +227,14 @@ public class Test_Application_CommandLineRunnerMark implements CommandLineRunner
 //        }
         
         
-        List<Integer> foodNumbers = Arrays.asList(1, 2, 3);
-        List<FoodListVO> results = HibernateUtil_CompositeQuery_FoodList
-                .findByFoodNumbersExcludingMenus(foodNumbers, sessionFactory.openSession());
-
-        for (FoodListVO food : results) {
-            System.out.println(food.toString());
-        }
+//        List<Integer> foodNumbers = Arrays.asList(1, 2, 3);
+//        List<Integer> foodNumbers = Arrays.asList(10, 11, 25, 26);
+//        List<FoodListVO> results = HibernateUtil_CompositeQuery_FoodList
+//                .findByFoodNumbersExcludingMenus(foodNumbers, sessionFactory.openSession());
+//
+//        for (FoodListVO food : results) {
+//            System.out.println(food.toString());
+//        }
         
         
     }
