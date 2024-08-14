@@ -46,7 +46,6 @@ public class CustomizedCourseController {
                                       @RequestParam("sportEquipment") String sportEquipment, @RequestParam("target-area") String keyword,
                                       @RequestParam("courseLevel") String courseLevel, @RequestParam("loseWeight") String loseWeight) {
 
-        System.out.println( "sportTypes: " + sportTypes + ", sportEventName: " + sportEventName + ", sportEquipment: " + sportEquipment + ", target-area:" + keyword + ", courseLevel: " + courseLevel + ", loseWeight: " + loseWeight);
         List<SystemCourse> customizedCourses = scService.getSystemCoursesByReqPara(sportTypes, sportEventName, sportEquipment, keyword, courseLevel);
         model.addAttribute("systemCourse", customizedCourses.get(0));
 
