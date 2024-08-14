@@ -1,14 +1,28 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"> <!-- 設定文件類型和語言為繁體中文 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- 設定文件類型和語言為繁體中文 -->
 <head>
 <title>健肌尋食-會員專區</title>
 <link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css' />
 <link th:href="@{css/style.css}" rel='stylesheet' type='text/css' />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700'
+	rel='stylesheet' type='text/css'>
+<script type="application/x-javascript">
+	
+	
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+
+
+</script>
 <script th:src="@{js/jquery.min.js}"></script>
 
 <!-- grid-slider -->
@@ -19,182 +33,194 @@
 <link rel="stylesheet" href="css/jquery-ui.css" />
 <!---//calender-style---->
 <style>
-	.btn-login {
-		margin: bottom 50px;
-		float: right;
-		padding-right: 20px;
-		padding-top: 5px;
-		padding-bottom: 10px;
-		border: 1px solid black;
-		background-color: white;
-	}
+.btn-login {
+	margin: bottom 50px;
+	float: right;
+	padding-right: 20px;
+	padding-top: 5px;
+	padding-bottom: 10px;
+	border: 1px solid black;
+	background-color: white;
+}
 
-	.social {
-		padding-top: 4px;
-		padding-right: 10px;
-	}
+.social {
+	padding-top: 4px;
+	padding-right: 10px;
+}
 
-	.container-data {
-		height: auto;
-		width: auto;
-		margin: auto;
-		/* padding: 20px; */
-		background-color: #fff;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		display: flex;
-		flex-direction: row;
-		/* gap: 20px; */
-		/* flex-wrap: wrap; */
-		background-color: #e0f7f9;
-		/* place-items: center; */
-		/* background-color: red; */
-	}
+.container-data {
+	height: auto;
+	width: auto;
+	margin: auto;
+	/* padding: 20px; */
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: row;
+	/* gap: 20px; */
+	/* flex-wrap: wrap; */
+	background-color: #e0f7f9;
+	/* place-items: center; */
+	/* background-color: red; */
+}
 
-	.sidebar {
-		width: 20%;
-		height: auto;
-		padding-top: 50px;
-		/* padding-right: 20px; */
-		border-right: 1px solid #d0e5d2;
-		background-color: #eaf5e1;
-		color: #4b6e4f;
-		text-align: center;
-		display: flex;
-		flex-direction: column;
-		gap: 50px;
-		/* border: 1px solid black; */
-	}
+.logout-button {
+	background-color: red;
+	border-radius: 30px;
+}
 
-	.sidebar a {
-		border-bottom: 1px solid #ccc;
-		padding-bottom: 50px;
-	}
+.sidebar {
+	width: 20%;
+	height: auto;
+	padding-top: 50px;
+	/* padding-right: 20px; */
+	border-right: 1px solid #d0e5d2;
+	background-color: #eaf5e1;
+	color: #4b6e4f;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	/* border: 1px solid black; */
+}
 
-	h2 {
-		display: block;
-		width: 100%;
-		text-align: center;
-		margin: 0;
-		padding: 20px;
-		border-bottom: 3px solid black;
-	}
+.sidebar a {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 50px;
+}
 
-	.content-data {
-		width: 100%;
-		position: relative;
-	}
+h2 {
+	display: block;
+	width: 100%;
+	text-align: center;
+	margin: 0;
+	padding: 20px;
+	border-bottom: 3px solid black;
+}
 
-	.content-data input {
-		border-radius: 30px;
-	}
+.content-data {
+	width: 100%;
+	position: relative;
+}
 
-	.form-container {
-		width: 100%;
-		display: flex;
-		flex-direction: row;
-		/* align-items: center; */
-		justify-content: center;
-		gap: 20px;
-		flex-wrap: wrap;
-		/* place-items: center; */
-	}
+.content-data input {
+	border-radius: 30px;
+}
 
-	.form-row {
-		display: flex;
-		flex-direction: column;
-		gap: 50px;
-		flex-wrap: wrap;
-		/* background-color: yellow; */
-		border-color: black;
-		position: absolute;
-		top: 150px;
-		right: 20px;
-		bottom: 20px;
-		left: 400px;
-		/* padding: 40px; */
-	}
+.form-container {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	/* align-items: center; */
+	justify-content: center;
+	gap: 20px;
+	flex-wrap: wrap;
+	/* place-items: center; */
+}
 
-	.form-section0 {
-		height: 100%;
-		width: 300px;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		position: absolute;
-		/* top: 100px; */
-		right: 0px;
-		bottom: 0px;
-		left: 50px;
-		/* background-color: #4b6e4f; */
-	}
+.form-row {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	flex-wrap: wrap;
+	/* background-color: yellow; */
+	border-color: black;
+	position: absolute;
+	top: 150px;
+	right: 20px;
+	bottom: 20px;
+	left: 400px;
+	/* padding: 40px; */
+}
 
-	.form-section0 input {
-		position: absolute;
-		width: auto;
-		height: auto;
-		margin-top: 300px;
-		padding: 10px;
-		border-radius: 30px;
-		font-size: 15px;
-		padding-left: 100px;
-		/* background-color: #4b6e4f; */
-	}
+input[readonly] {
+    color: #6c757d; /* 灰色 */
+    background-color: #e9ecef; /* 輕微的背景色 */
+    border: 1px solid #ced4da; /* 边框颜色 */
+    cursor: not-allowed; /* 游標顯示為禁止 */
+}
 
-	.form-section0 img {
-		/* display: none; */
-		text-align: center;
-		max-width: 250px;
-		max-height: 250px;
-		overflow: hidden;
-		width: auto;
-		height: auto;
-		/* object-fit: cover; */
-		border-radius: 50%;
-		border: 1px solid #ddd;
-		/* margin-bottom: 20px; */
-	}
+.form-section0 {
+	height: 100%;
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	/* top: 100px; */
+	right: 0px;
+	bottom: 0px;
+	left: 50px;
+	/* background-color: #4b6e4f; */
+}
 
-	.form-row2 {
-		display: flex;
-		flex-direction: column;
-		gap: 50px;
-		flex-wrap: wrap;
-		position: absolute;
-		top: 150px;
-		right: 20px;
-		bottom: 20px;
-		left: 700px;
-		/* background-color: rebeccapurple; */
-		/* border-color: black; */
-	}
+.form-section0 input {
+	position: absolute;
+	width: auto;
+	height: auto;
+	margin-top: 300px;
+	padding: 10px;
+	border-radius: 30px;
+	font-size: 15px;
+	padding-left: 100px;
+	/* background-color: #4b6e4f; */
+}
 
-	.button0 {
-		position: absolute;
-		top: 530px;
-		right: 40px;
-		/* bottom: 20px; */
-		left: 650px;
-	}
+.form-section0 img {
+	/* display: none; */
+	text-align: center;
+	max-width: 250px;
+	max-height: 250px;
+	overflow: hidden;
+	width: auto;
+	height: auto;
+	/* object-fit: cover; */
+	border-radius: 50%;
+	border: 1px solid #ddd;
+	/* margin-bottom: 20px; */
+}
 
-	.button0 input {
-		margin-right: 100px;
-		float: right;
-		background: #00BFF0;
-		border: none;
-		color: #FFF;
-		padding: 10px 20px;
-		cursor: pointer;
-		font-family: 'Open Sans', sans-serif;
-		outline: none;
-		font-size: 1em;
-		border-radius: 5px;
-		transition: background 0.3s;
-	}
+.form-row2 {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	flex-wrap: wrap;
+	position: absolute;
+	top: 150px;
+	right: 20px;
+	bottom: 20px;
+	left: 700px;
+	/* background-color: rebeccapurple; */
+	/* border-color: black; */
+}
 
-	.clear {
-		clear: both;
-	}
+.button0 {
+	position: absolute;
+	top: 530px;
+	right: 40px;
+	/* bottom: 20px; */
+	left: 650px;
+}
+
+.button0 input {
+	margin-right: 20px;
+	float: right;
+	background: #00BFF0;
+	border: none;
+	color: #FFF;
+	padding: 10px 20px;
+	cursor: pointer;
+	font-family: 'Open Sans', sans-serif;
+	outline: none;
+	font-size: 1em;
+	border-radius: 5px;
+	transition: background 0.3s;
+}
+
+.clear {
+	clear: both;
+}
 </style>
 </head>
 
@@ -220,16 +246,19 @@
 	<!-- start menu -->
 	<div class="menu">
 		<div class="container">
-			<div class="h_menu4"><!-- start h_menu4 -->
+			<div class="h_menu4">
+				<!-- start h_menu4 -->
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
-					<li><a href="index.html">主頁</a></li>
-					<li class="active"><a th:href="@{/account_information}">會員專區</a></li>
-					<li><a href="trainers.html">課程</a></li>
-					<li><a href="classes.html">教室</a></li>
-					<li><a href="blog.html">健康飲食</a></li>
-					<li><a href="pricing.html">線上商城</a></li>
-					<li><a href="contact.html">健康地圖</a></li>
+					<li><a th:href="@{/index}">Home</a></li>
+					<li><a th:href="@{/account_information}">會員專區</a></li>
+					<li><a th:href="@{/trainers}">專屬你的訓練</a>
+					<li><a href="classes.html">Classes</a></li>
+					<li><a th:href="@{/menu}">健康餐</a></li>
+					<li><a th:href="@{/pricing}">Pricing</a></li>
+					<li><a th:href="@{/map}">美食地圖</a></li>
+					<li><a th:href="@{/qa}">客服</a></li>
+					<li><a th:href="@{/logout}" class="logout-button">登出</a></li>
 				</ul>
 				<script type="text/javascript" src="js/nav.js"></script>
 			</div>
@@ -239,61 +268,59 @@
 	</div>
 	<div class="container-data">
 		<div class="sidebar">
-			<a th:href="@{/account_information}">修改帳戶資料</a>
-			<a th:href="@{/change_password}">修改密碼</a>
-			<a th:href="@{/historical_orders}">歷史訂單</a>
-			<a th:href="@{/receipt_information}">常用收件資訊</a>
-			<a th:href="@{/acc_information}">新增信用卡資訊</a>
+			<a class="nav-link" th:href="@{/account_information}">修改帳戶資料</a> <a
+				class="nav-link" th:href="@{/change_password}">修改密碼</a> <a
+				class="nav-link" th:href="@{/historical_orders}">歷史訂單</a> <a
+				class="nav-link" th:href="@{/receipt_information}">常用收件資訊</a> <a
+				class="nav-link" th:href="@{/acc_information}">新增信用卡資訊</a>
 		</div>
 		<div class="content-data">
-			<h2>一般會員 (<span th:text="${name}"></span>)</h2>
-			<form action="/submit" method="POST">
+			<h2>
+				一般會員: <span th:text="${name}"></span>
+			</h2>
+			<form action="/submit" method="POST" enctype="multipart/form-data">
+				<input type="hidden" name="redirectPage" value="account_information">
 				<div class="form-container">
 					<div class="form-section0">
-						<img id="personalPhotos" src="path_to_default_image" alt="圖片未上傳">
-						<input type="file" id="personalPhotos" name="personalPhotos" accept="image/*"
+						<!-- 確保 th:src 正確 -->
+						<img id="personalPhotosPreview"
+							th:src="@{/member/DBGifReader(memberID=${member.memberID})}"
+							alt="圖片未上傳"> <input type="file" id="personalPhotos"
+							name="personalPhotos" accept="image/*"
 							onchange="previewImage(event)">
 					</div>
 					<div class="form-row">
 						<div class="form-section">
-							<label for="username">電子郵件:</label>
-							<br>
-							<input type="text" id="custom-input" name="username" value="user@gmail.com" readonly>
+							<label for="account">帳號:</label> <br>
+							<!-- 確保 th:value 正確 -->
+							<input type="text" id="account" name="account"
+								th:value="${member.account}" readonly>
 						</div>
 						<div class="form-section">
-							<label for="name">姓名:</label>
-							<br>
-							<input type="text" id="name" name="name" value="王小明" readonly>
+							<label for="email">電子郵件:</label> <br> <input type="email"
+								id="email" name="email" th:value="${member.email}" readonly>
 						</div>
 						<div class="form-section">
-							<label>性別 (只能修改一次):</label>
-							<br>
-							<input type="radio" id="male" name="gender" value="male">
-							<label for="male">男</label>
-							<input type="radio" id="female" name="gender" value="female">
-							<label for="female">女</label>
-						</div>
-						<div class="form-section">
-							<label for="birthday">生日 (只能修改一次):</label>
-							<br>
-							<input type="date" id="birthday" name="birthday" placeholder="YYYY-MM-DD">
+							<label for="name">姓名:</label> <br> <input type="text"
+								id="name" name="name" th:value="${member.name}">
 						</div>
 					</div>
 					<div class="form-row2">
 						<div class="form-section">
-							<label for="phone">電話號碼綁定:</label>
-							<br>
-							<input type="text" id="phone" name="phone" placeholder="請輸入電話">
+							<label>性別:</label> <br> <input type="radio" id="male"
+								name="gender" th:value="男" th:checked="${member.gender == '男'}">
+							<label for="male">男</label> <input type="radio" id="female"
+								name="gender" th:value="女" th:checked="${member.gender == '女'}">
+							<label for="female">女</label>
 						</div>
 						<div class="form-section">
-							<label for="facebook">Facebook 綁定:</label>
-							<br>
-							<input type="text" id="facebook" name="facebook" placeholder="請輸入Facebook帳號">
+							<label for="birthday">生日:</label> <br> <input type="date"
+								id="birthday" name="birthday"
+								th:value="${#dates.format(member.bD, 'yyyy-MM-dd')}">
 						</div>
 						<div class="form-section">
-							<label for="google">Google 綁定:</label>
-							<br>
-							<input type="text" id="google" name="google" placeholder="請輸入Google帳戶">
+							<label for="phone">電話號碼:</label> <br> <input type="text"
+								id="phone" name="phone" th:value="${member.phone}">
 						</div>
 					</div>
 				</div>
@@ -306,80 +333,57 @@
 		</div>
 	</div>
 	<!-- end menu -->
-	<div class="main">
-		<div class="footer-bottom">
-			<div class="container">
-				<div class="row section group">
-					<div class="col-md-4">
-						<h4 class="m_7">訂閱電子報</h4>
-						<!-- 簡短描述新聞訂閱 -->
-						<p class="m_8">關於我們有關的飲食通知</p>
-						<!-- 訂閱表單 -->
-						<form class="subscribe">
-							<!-- 電子郵件輸入框 -->
-							<input type="text" value="輸入電子郵件" onfocus="this.value = '';"
-								onblur="if (this.value == '') {this.value = '輸入電子郵件';}">
-						</form>
-						<!-- 提交按鈕 -->
-						<div class="subscribe1">
-							<a href="#">送出電子郵件<i class="but_arrow"> </i></a>
-						</div>
+	<div class="footer-bottom">
+		<div class="container">
+			<div class="row section group">
+				<div class="col-md-4">
+					<div class="social"
+						 style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
+						<img src="images/cutecatloge.png" style="width: 100%; height: 100%"/>
 					</div>
-					<div class="col-md-4">
-						<div class="f-logo">
-							<img src="images/logo.png" alt="" />
-						</div>
-						<p class="m_9">關於現代人對於健康越來越有意識，但時常沒有正確的觀念來執行，導致會讓人無法繼續維持下去。
-							<br>
-							於是乎我們就想要建立一個可以幫助大家 & 功能方便網站，可以透過此網站來學習正確的觀念，並且記錄自己的生活是否有達到健康的水準。
-						</p>
-						<p class="address">電話 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(00) 222 666
-								444</span>
-						</p>
-						<p class="address">電子郵件 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-								class="m_10">info[at]mycompany.com</span></p>
-					</div>
-					<div class="col-md-4">
-						<ul class="list">
-							<h4 class="m_7">主頁</h4>
-							<li><a href="#">會員</a></li>
-							<li><a href="#">教練介紹</a></li>
-							<li><a href="#">教室</a></li>
-							<li><a href="#">點數</a></li>
-							<li><a href="#">商城</a></li>
-							<li><a href="#">健康地圖</a></li>
-						</ul>
-						<ul class="list1">
-							<h4 class="m_7">Community</h4>
-							<li><a href="#">部落格</a></li>
-							<li><a href="#">Forum</a></li>
-							<li><a href="#">Support</a></li>
-							<li><a href="#">Newsletter</a></li>
-						</ul>
-					</div>
-					<div class="clear"></div>
 				</div>
-			</div>
-		</div>
-		<div class="copyright">
-			<div class="container">
-				<div class="copy">
-					<p>© 2014 Template by <a href="http://w3layouts.com" target="_blank"> w3layouts</a></p>
+				<div class="col-md-4">
+					<div class="f-logo">
+						<h1>健肌尋食</h1>
+					</div>
+					<p class="m_9">
+						「健肌尋食」是一個簡單的概念，意思是通過運動來增強肌肉，同時尋找健康的食物來補充營養，這樣可以讓我們的身體更強壯，生活更健康愉快。</p>
+					<p class="address">Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02) 3333 4444</span>
+					</p>
+					<p class="address">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
+					</p>
 				</div>
-				<div class="social">
-					<ul>
-						<li class="facebook"><a href="#"><span> </span></a></li>
-						<li class="google"><a href="#"><span> </span></a></li>
+				<div class="col-md-4">
+					<ul class="list">
+						<h4 class="m_7">關於我們</h4>
+						<li><a href="#">隱私權政策</a></li>
+						<li><a href="#">著作權聲明</a></li>
+						<li><a href="#">聯絡我們</a></li>
+					</ul>
+					<ul class="list1">
+						<h4 class="m_7">相關網站</h4>
+						<li><a href="https:/www.google.com">google</a></li>
+						<li><a href="https:/www.youtube.com">youtube</a></li>
+						<li><a href="#">Support</a></li>
 					</ul>
 				</div>
 				<div class="clear"></div>
 			</div>
 		</div>
 	</div>
+	<div class="copyright">
+		<div class="container">
+			<div class="copy">
+				<p>Copyright © 2024 健肌尋食 by TIA102G3</p>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	
 	<script type="text/javascript">
 		function previewImage(event) {
 			const reader = new FileReader();
-			reader.onload = function () {
+			reader.onload = function() {
 				const output = document.getElementById('personalPhotos');
 				output.src = reader.result;
 				output.classList.add('loaded'); // 添加loaded類別
@@ -387,6 +391,20 @@
 			};
 			reader.readAsDataURL(event.target.files[0]);
 		}
+		// 如果連結指向當前頁面，阻止預設行為
+		document.querySelectorAll('.nav-link').forEach(function(link) {
+			link.addEventListener('click', function(event) {
+				// 獲取當前頁面的 URL
+				var currentUrl = window.location.pathname;
+				// 獲取點擊的連結的 href
+				var linkUrl = event.target.getAttribute('href');
+
+				if (currentUrl === linkUrl) {
+					event.preventDefault();
+				}
+			});
+		});
+		// 如果連結指向當前頁面，阻止預設行為
 	</script>
 </body>
 

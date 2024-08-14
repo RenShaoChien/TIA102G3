@@ -30,6 +30,21 @@ public class MemberService {
 	public Member findById(Integer memberID) {
 		return repository.findById(memberID).orElse(null);
 	}
+	
+	public boolean existsByAccount(String account) {
+	    return repository.existsByAccount(account);
+	}
+	
+	// 保存會員
+	public void saveMember(Member member) {
+	    if (member.getMemberID() != null && repository.existsById(member.getMemberID())) {
+	        // 如果會員 ID 存在且在資料庫中已經存在，則更新會員資料
+	        updateMember(member);
+	    } else {
+	        // 如果會員 ID 不存在，則新增會員資料
+	        addMember(member);
+	    }
+	}
 
 	// 更新會員資料的方法
 	public void updateMember(Member member) {
