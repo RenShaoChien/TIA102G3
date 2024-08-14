@@ -3,27 +3,26 @@ DROP TABLE IF EXISTS menu;
 
 create table menu (
 	menuNumber INT AUTO_INCREMENT NOT NULL,
+    menuName char(255),
     imageNumber INT,
     menuImage LONGBLOB,
     primary key (menuNumber)
 );
 
--- INSERT INTO menu (menuNumber) value (1);
--- INSERT INTO menu (menuNumber) value (2);
--- INSERT INTO menu (menuNumber) value (3);
-
-INSERT INTO menu (menuNumber, imageNumber)
+INSERT INTO menu (menuNumber, menuName, imageNumber)
 VALUES
-    (1, 101),
-    (2, 102),
-    (3, 103),
-    (4, 104),
-    (5, 105),
-    (6, 106),
-    (7, 107),
-    (8, 108),
-    (9, 109),
-    (10, 110);
+    (1, "日式壽喜牛便當", 1),
+    (2, "水煮嫩雞胸", 2),
+    (3, "泡菜豬里肌", 3),
+    (4, "香滷雞腿便當", 4),
+    (5, "清滷牛腱", 5),
+    (6, "麻香口水雞", 6),
+    (7, "菜飯餐盒", 7),
+    (8, "照燒雞腿排", 8),
+    (9, "蒜泥豬里肌", 9),
+    (10, "韓式菇菇雞", 10),
+	(11, "鷹嘴豆咖哩", 11),
+    (12, "鹽烤鯖魚", 12);
 
     -- ====================================================
 DROP TABLE IF EXISTS memberMenuList;
