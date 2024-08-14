@@ -4,6 +4,7 @@ import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
 import com.tia102g3.coachcoursepic.service.CoachCoursePicServiceImpl;
 import com.tia102g3.coachmember.service.CoachMemberService;
 import com.tia102g3.product.model.ProductService;
+import com.tia102g3.sportevent.model.SportEvent;
 import com.tia102g3.sportevent.service.SportEventServiceImpl;
 import com.tia102g3.systemcourse.model.SystemCourse;
 import com.tia102g3.systemcourse.service.SystemCourseServiceImpl;
@@ -257,6 +258,23 @@ public class SystemCourseManagement {
             out.write(buf);
         }
     }
+
+    @GetMapping("addSportEvent")
+    public String addSportEvent(Model model) {
+        model.addAttribute("sportEvent", new SportEvent());
+        return "frames/add_sport_event";
+    }
+    @PostMapping("addSportEvent.do")
+    public String addSportEventDo(Model model, @Valid SportEvent se, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            return "frames/add_sport_event";
+        }
+        sportEventService.addOne(se);
+        redirectAttributes.addFlashAttribute("message", "運動項目新增成功！");
+
+        return "redirect:/course/addSystemCourse";
+    }
+
 
 //    @ExceptionHandler(ConstraintViolationException.class)
 //    public ModelAndView handleConstraintViolationException(HttpServletRequest req, ConstraintViolationException ex, Model model) {

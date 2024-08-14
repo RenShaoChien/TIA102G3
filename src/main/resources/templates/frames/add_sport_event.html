@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新增系統課程</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            width: 60%;
+            margin: 20px auto; /* 確保表單居中顯示，並增加上下邊距 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* 新增此行碼，以確保所有內部浮動元素被包含在容器內 */
+        }
+
+        .form-field {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block; /* 讓按鈕單獨占一行 */
+            width: auto; /* 設置適當的寬度 */
+            margin: 10px 0 0 auto; /* 只在上方和右側添加邊距，並使按鈕對齊表單右側 */
+        }
+
+        .form-field {
+            margin-bottom: 20px; /* 增加表單元素之間的距離 */
+            clear: both; /* 清除浮動以確保元素不會重疊 */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .radio-group label {
+            display: flex; /* 强制让标籤与 radio 保持在一行 */
+            align-items: center; /* 强制垂直置中 */
+        }
+
+        .radio-group {
+            display: flex; /* 强制使用 flex 排列 */
+            flex-direction: row !important; /* 强制改为左右排列 */
+            gap: 20px; /* 强制使用 5px 的间距 */
+            flex-wrap: wrap; /* 强制在空间不足时换行 */
+        }
+
+        .image-preview {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .image-preview img {
+            max-width: 100px;
+            max-height: 100px;
+            border: 1px solid #ccc;
+        }
+
+        .error {
+            color: #ff0000;
+            font-style: italic;
+            font-weight: lighter;
+
+        }
+
+        .errorblock {
+            color: #000;
+            background-color: #ffEEEE;
+            border: 3px solid #ff0000;
+            padding: 5px;
+            margin: 5px;
+            width: 500px;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>新增運動項目</h2>
+
+    <form th:action="@{/course/addSportEvent.do}" method="post" th:object="${sportEvent}"
+          enctype="multipart/form-data">
+        <div class="form-field">
+            <label>運動項目名稱：</label>
+            <input type="text" th:field="*{sportEventName}" placeholder="輸入運動項目名稱"><br/>
+            <span th:if="${#fields.hasErrors('sportEventName')}" th:errors="*{sportEventName}" class="error"
+                  id="sportEventName.errors"></span>
+        </div>
+        <div class="form-field">
+            <label>運動項目類型：</label>
+            <select th:field="*{sportTypes}" id="sportTypes">
+                <option value=""></option>
+                <option value="心肺運動">心肺訓練</option>
+                <option value="重量運動">重量訓練</option>
+            </select><br/>
+            <span class="error" th:if="${#fields.hasErrors('sportTypes')}" th:errors="*{sportTypes}"
+                  id="sportTypes.errors"></span>
+
+        </div>
+        <div class="form-field">
+            <label>運動器材：</label>
+            <input id="sportEquipment" type="text" th:field="*{sportEquipment}"/><br/>
+            <span class="error" th:if="${#fields.hasErrors('sportEquipment')}" th:errors="*{sportEquipment}"
+                  id="sportEquipment.errors"></span>
+        </div>
+
+        <input type="submit" value="新增">
+    </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+    //清除提示信息
+    function hideContent(d) {
+        document.getElementById(d).style.display = "none";
+    }
+</script>
+
+
+</body>
+</html>
+
