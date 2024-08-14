@@ -1,5 +1,6 @@
 package com.tia102g3.sportevent.service;
 
+import com.tia102g3.sportevent.model.SportEvent;
 import com.tia102g3.sportevent.model.SportEventDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +37,10 @@ public class SportEventServiceImpl implements SportEventService {
     @Override
     public Set<String> getEquipmentBySportEvent(String sportEventName) {
         return sportEventDAO.getSetSportEquipmentBySportEventName(sportEventName);
+    }
+
+    @Override
+    public void addOne(SportEvent se) {
+        sportEventDAO.save(se);
     }
 }
