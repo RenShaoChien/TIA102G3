@@ -230,7 +230,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <input type="text" name="receiverPhone" id="receiver_phone"
                            th:value="${#strings.isEmpty(member.receiverPhone) ? (#strings.isEmpty(member.phone) ? '' : member.phone) : ''}"><br/>
                     <label for="receiver_email">信箱*：</label>
-                    <input type="text" name="" id="receiver_email"
+                    <input type="text" name="email" id="receiver_email"
                            th:value="${#strings.isEmpty(member.email) ? '' : member.email}"><br/>
                     <label for="receiver_notice" th:style="${#strings.isEmpty(coachCourseID) ? '' : 'display: none;'}">宅配備註*：</label>
                     <textarea name="" id="receiver_notice" cols="auto" rows="auto"
