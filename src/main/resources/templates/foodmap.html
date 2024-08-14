@@ -1,0 +1,326 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Free Gym Website Template | Foodmap :: w3layouts</title>
+  <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+  <link href="css/style.css" rel='stylesheet' type='text/css' />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
+  <script
+    type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+  <script src="js/jquery.min.js"></script>
+  <!-- grid-slider -->
+  <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+  <script type="text/javascript" src="js/jquery.contentcarousel.js"></script>
+  <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
+  <!-- //grid-slider -->
+  <style>
+    #pocket {
+      margin-left: 20%;
+
+      padding: 16px;
+    }
+
+    h4,
+    #add {
+      margin-left: 25%;
+    }
+
+    .parent {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- start header_bottom -->
+  <div class="header-bottom">
+    <div class="container">
+      <div class="header-bottom_left">
+        <i class="phone"> </i><span>02-2xxx-xxxx</span>
+      </div>
+      <div class="social">
+        <ul>
+          <li class="facebook"><a href="#"><span> </span></a></li>
+          <li class="twitter"><a href="#"><span> </span></a></li>
+          <li class="pinterest"><a href="#"><span> </span></a></li>
+          <li class="google"><a href="#"><span> </span></a></li>
+          <li class="tumblr"><a href="#"><span> </span></a></li>
+          <li class="instagram"><a href="#"><span> </span></a></li>
+          <li class="rss"><a href="#"><span> </span></a></li>
+        </ul>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <!-- start menu -->
+  <div class="menu">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html"><img src="images/logo.png" alt="" /></a>
+      </div>
+      <div class="h_menu4"><!-- start h_menu4 -->
+        <a class="toggleMenu" href="#">選單</a>
+        <ul class="nav">
+        <a href="index.html"><img src="images/logo.png" alt="" /></a>
+			</div>
+			<div class="h_menu4"><!-- start h_menu4 -->
+				<a class="toggleMenu" href="#">選單</a>
+				<ul class="nav">
+				   <li><a th:href="@{/index}">Home</a></li>
+                <li><a th:href="@{/account_information}">會員專區</a></li>
+                <li><a th:href="@{/trainers}">專屬你的訓練</a>
+                <li><a href="classes.html">Classes</a></li>
+                <li><a th:href="@{/menu}">健康餐</a></li>
+                <li><a th:href="@{pricing}">Pricing</a></li>
+                <li><a th:href="@{/map}">美食地圖</a></li>
+                  <ul>
+                            <li><a href="@{/foodmap}">口袋店家</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <li><a th:href="@{/qa}">客服</a></li>
+        <script type="text/javascript" src="js/nav.js"></script>
+      </div><!-- end h_menu4 -->
+      <div class="clear"></div>
+    </div>
+  </div>
+  <!-- end menu -->
+  <div style="display: flex;"> <!--子元素在同一軸線上排列 -->
+    <div id="map" style="width: 50%; height: 100vh;"></div>
+    <div id="pocket" style="padding: 16px">
+      <h3>我的口袋收藏店家</h3>
+      <input id="search-input" class="form-control" />
+      <button class="btn btn-primary mt-10" id="add" style="margin-top: 10px;">我的最愛</button>
+
+      <h4 class="mt-4">我的最愛</h4>
+      <ul class="list-group list-group-flush list-group-numbered" id="restaurant-list">
+        <!-- <li class="list-group-item"></li> -->
+      </ul>
+    </div>
+
+  </div>
+
+  <script>
+    let map;
+    let currentPosition;
+    let selectedRestaurant;
+    let marker;
+    let userMarker; // 使用者位置的標記
+    let centerMarker; // 預設中心位置的標記
+    let directionsService;
+    let directionsRenderer;
+    let infoWindow;
+
+    function initMap() { //google map API載入完後會自動執行initMap的function,故需先定義initMap
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 25.052341806588252, lng: 121.5433172679862 },
+        zoom: 13,
+      });
+
+      navigator.geolocation.getCurrentPosition(function (position) {
+        currentPosition = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+
+        map.setCenter(currentPosition);
+        map.setZoom(18);
+
+        // 在使用者位置上增加標記
+        userMarker = new google.maps.Marker({
+          position: currentPosition,
+          map: map,
+          title: "您的位置",
+        });
+
+        const autocomplete = new google.maps.places.Autocomplete(
+          document.getElementById('search-input'),
+          {
+            types: ['restaurant'],
+            bounds: {
+              east: currentPosition.lng + 0.005,
+              west: currentPosition.lng - 0.005,
+              south: currentPosition.lat - 0.005,
+              north: currentPosition.lat + 0.005,
+            },
+            strictBounds: false,
+          }
+        );
+
+        autocomplete.addListener('place_changed', function () {
+          const place = autocomplete.getPlace();
+
+          selectedRestaurant = {
+            location: place.geometry.location,
+            placeId: place.place_id,
+            name: place.name,
+            address: place.formatted_address,
+            phoneNumber: place.formatted_phone_number,
+            rating: place.rating,
+          };
+
+          map.setCenter(selectedRestaurant.location);
+
+          if (!marker) {
+            marker = new google.maps.Marker({
+              map: map,
+            });
+          }
+
+          marker.setPosition(selectedRestaurant.location);
+
+          if (!directionsService) {
+            directionsService = new google.maps.DirectionsService();
+          }
+
+          if (!directionsRenderer) {
+            directionsRenderer = new google.maps.DirectionsRenderer({
+              map: map,
+            });
+          }
+
+          directionsRenderer.set('directions', null);
+
+          directionsService.route(
+            {
+              origin: new google.maps.LatLng(
+                currentPosition.lat,
+                currentPosition.lng
+              ),
+              destination: {
+                placeId: selectedRestaurant.placeId,
+              },
+              travelMode: 'WALKING',
+            },
+            function (response, status) {
+              if (status === 'OK') {
+                directionsRenderer.setDirections(response);
+
+                if (!infoWindow) {
+                  infoWindow = new google.maps.InfoWindow();
+                }
+
+                infoWindow.setContent(
+
+                  `<h3>${selectedRestaurant.name}</h3>
+                  <div>地址: ${selectedRestaurant.address}</div>
+                  <div>電話: ${selectedRestaurant.phoneNumber}</div>
+                  <div>評分: ${selectedRestaurant.rating}</div>
+                  <div>步行時間: ${response.routes[0].legs[0].duration.text}</div>`
+
+                );
+                infoWindow.open(map, marker);
+              }
+            }
+          );
+        });
+      });
+    }
+
+    const restaurantList = JSON.parse(localStorage.getItem('restaurantList')) || [];
+    restaurantList.forEach(function (restaurant) {
+      document.getElementById('restaurant-list').innerHTML +=
+        `<li class="list-group-item">${restaurant.name}
+        <button class="btn-close float-end remove"></button>
+        </li>`;
+    });
+
+    document.getElementById('add').addEventListener('click', function () {
+      document.getElementById('restaurant-list').innerHTML +=
+        `<li class="list-group-item">${selectedRestaurant.name}
+        <button class="btn-close float-end remove"></button>
+        </li>`;
+
+      const restaurantList = JSON.parse(localStorage.getItem('restaurantList')) || [];
+      restaurantList.push(selectedRestaurant);
+      localStorage.setItem('restaurantList', JSON.stringify(restaurantList));
+    });
+
+    document.getElementById('restaurant-list').addEventListener('click', function (e) {
+      if (e.target.classList.contains('remove')) {
+        e.target.parentNode.remove();
+        const restaurantName = e.target.parentNode.innerText.trim();
+
+        const restaurantList = JSON.parse(localStorage.getItem('restaurantList')) || [];
+        const newRestaurantList = restaurantList.filter(function (restaurant) {
+          return restaurant.name !== restaurantName;
+        });
+        localStorage.setItem('restaurantList', JSON.stringify(newRestaurantList));
+      }
+    });
+  </script>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row section group">
+        <div class="col-md-4">
+          <h4 class="m_7">Newsletter Signup</h4>
+          <p class="m_8">Lorem ipsum dolor sit amet, consectetuer adipiscing elit sed diam nonummy.</p>
+          <form class="subscribe">
+            <input type="text" value="Insert Email" onfocus="this.value = '';"
+              onblur="if (this.value == '') {this.value = 'Insert Email';}">
+          </form>
+          <div class="subscribe1">
+            <a href="#">Submit Email<i class="but_arrow"> </i></a>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="f-logo">
+            <img src="images/logo.png" alt="" />
+          </div>
+          <p class="m_9">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
+            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis</p>
+          <p class="address">Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(00) 222 666 444</span></p>
+          <p class="address">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">info[at]mycompany.com</span></p>
+        </div>
+        <div class="col-md-4">
+          <ul class="list">
+            <h4 class="m_7">Menu</h4>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Trainers</a></li>
+            <li><a href="#">Classes</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+          <ul class="list1">
+            <h4 class="m_7">Community</h4>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Forum</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">Newsletter</a></li>
+          </ul>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+  <div class="copyright">
+    <div class="container">
+      <div class="copy">
+        <p>© 2014 Template by <a href="http://w3layouts.com" target="_blank"> w3layouts</a></p>
+      </div>
+      <div class="social">
+        <ul>
+          <li class="facebook"><a href="#"><span> </span></a></li>
+          <li class="twitter"><a href="#"><span> </span></a></li>
+          <li class="pinterest"><a href="#"><span> </span></a></li>
+          <li class="google"><a href="#"><span> </span></a></li>
+          <li class="tumblr"><a href="#"><span> </span></a></li>
+          <li class="instagram"><a href="#"><span> </span></a></li>
+          <li class="rss"><a href="#"><span> </span></a></li>
+        </ul>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDylvnIujpKBxv3GQ9RQHglVSs-kPaoBE&libraries=places&callback=initMap&region=TW&language=zh-TW">
+    </script>
+</body>
+
+</html>
