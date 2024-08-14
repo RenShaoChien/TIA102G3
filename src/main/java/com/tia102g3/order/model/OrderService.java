@@ -16,24 +16,22 @@ public class OrderService {
 	OrderRepository repository;
 
 	public List<OrderVO> getOrdertList(String keyword, int offset) {
-		List<Object[]> orderObjList = repository.getProductList(keyword, offset);
-		return orderObjList.stream().map(this::convertToOrderVO).toList();
-	}
-	
-	private OrderVO convertToOrderVO(Object[] row) {
-		OrderVO ov = new OrderVO();
-		Member member = new Member();
+        List<Object[]> orderObjList = repository.getOrderList(keyword, offset);
+        return orderObjList.stream().map(this::convertToOrderVO).toList();
+    }
+
+    private OrderVO convertToOrderVO(Object[] row) {
+        OrderVO ov = new OrderVO();
         ov.setOrderID((Integer) row[0]);
-        member.setMemberID((Integer) row[1]);
-        ov.setMember(member);
+        ov.setMember(new Member((Integer) row[1]));
         ov.setOrderDate((java.sql.Date) row[2]);
         ov.setStatus((String) row[3]);
         ov.setTotalPrice((Integer) row[4]);
         return ov;
-	}
+    }
 
-	public Integer getOrderCount(String keyword) {
-		return repository.getOrderCount(keyword);
-	}
+    public Long getOrderCount(String keyword) {
+        return repository.getOrderCount(keyword);
+    }
 
 }
