@@ -1,12 +1,12 @@
 package com.tia102g3.product.model;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 public interface ProductRepository extends JpaRepository<ProductVO, Integer> {
 	
@@ -39,6 +39,8 @@ public interface ProductRepository extends JpaRepository<ProductVO, Integer> {
                     "intro LIKE CONCAT('%', :keyword, '%')" ,
             nativeQuery = true)
 	Long getProductCount(@Param("keyword") String keyword);
+    
+
 	
 	// ● 查詢全部資料
 //  @Query(value = "select from FoodVO")
