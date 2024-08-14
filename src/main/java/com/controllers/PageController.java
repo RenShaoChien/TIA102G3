@@ -81,5 +81,19 @@ public class PageController {
     	return products;
     }
     
+    @GetMapping("/qa")
+    public String qaPage() {
+        return "qa"; 
+    }
+    
+    @GetMapping("/contact")
+    public String contactPage() {
+        return "contact"; 
+    }
+    
+    @GetMapping("/foodmap")
+    public String foodmapPage() {
+        return "foodmap"; 
+    }
     
 }
