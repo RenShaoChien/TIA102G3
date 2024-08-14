@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tia102g3.food.model.FoodService;
 import com.tia102g3.food.model.FoodVO;
-import com.tia102g3.foodlist.model.FoodListService;
-import com.tia102g3.foodlist.model.FoodListVO;
 import com.tia102g3.healthstatus.model.HealthStatusService;
 import com.tia102g3.healthstatus.model.HealthStatusVO;
 import com.tia102g3.likefood.model.LikeFoodService;
 import com.tia102g3.likefood.model.LikeFoodVO;
+import com.tia102g3.menu.model.MenuService;
+import com.tia102g3.menu.model.MenuVO;
 
 @Controller
 @RequestMapping("/menu")
@@ -39,6 +39,9 @@ public class FoodMenuController {
     
     @Autowired
     LikeFoodService likeFoodSvc;
+    
+    @Autowired
+    MenuService menuSvc;
 
     @GetMapping("/backstage")
     public String backstage(ModelMap model) {
@@ -101,6 +104,13 @@ public class FoodMenuController {
         List<LikeFoodVO> list = likeFoodSvc.getAll();
         model.addAttribute("likeFoodListData", list);
         return "menu/listAllLikeFood";
+    }
+    
+    @GetMapping("/listAllMenu")
+    public String listAllMenu(ModelMap model) {
+        List<MenuVO> list = menuSvc.getAll();
+        model.addAttribute("menuListData", list);
+        return "menu/listAllMenu";
     }
 
     // =======================================

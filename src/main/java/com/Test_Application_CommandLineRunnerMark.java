@@ -192,15 +192,15 @@ public class Test_Application_CommandLineRunnerMark implements CommandLineRunner
 //      }
         
       //-----------------Menu getAll-------------------
-        List<MenuVO> menuList = menuRepository.findAll();
-        for (MenuVO menu : menuList) {
-            
-            System.out.print(menu.getMenuNumber() + ",");
-            System.out.print(menu.getMenuName() + ",");
-            System.out.print(menu.getImageNumber() + ",");
-            System.out.print(menu.getMenuImage() + ",");
-            System.out.println();
-        }
+//        List<MenuVO> menuList = menuRepository.findAll();
+//        for (MenuVO menu : menuList) {
+//            
+//            System.out.print(menu.getMenuNumber() + ",");
+//            System.out.print(menu.getMenuName() + ",");
+//            System.out.print(menu.getImageNumber() + ",");
+//            System.out.print(menu.getMenuImage() + ",");
+//            System.out.println();
+//        }
         
 		
         //-----------------MemberMenuList getAll-------------------
