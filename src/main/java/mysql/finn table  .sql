@@ -1,22 +1,5 @@
 
 
-CREATE TABLE orderid (
-	orderId int PRIMARY KEY AUTO_INCREMENT COMMENT '訂單ID',
-    memberID int,  
-    orderDate datetime comment '訂單日期',
-    orderStatus varchar(50) comment '訂單狀態',
-    totalPrice int comment '總金額'
-);
-
-
-CREATE TABLE orderDetails (
-   ordDtlID int PRIMARY KEY AUTO_INCREMENT COMMENT '訂單明細',
-  productID int comment'商品ID',
-quantity int comment '產品數量',
-   orderID int comment '訂單'   
-);
-
-
 -- 移除舊有的資料
 DROP TABLE IF EXISTS rest_lfo;
 DROP TABLE IF EXISTS rest_ifo;
