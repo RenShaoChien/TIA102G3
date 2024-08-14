@@ -1,13 +1,13 @@
 package com.tia102g3.product.model;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 
 @Service("productService")
 public class ProductService {
@@ -50,8 +50,19 @@ public class ProductService {
 	}
 
 	public List<ProductVO> getAll() {
-		return repository.findAll();
-	}
+        System.out.println("ProductService: 開始調用 repository.findAll()");
+        List<ProductVO> products = repository.findAll();
+        System.out.println("ProductService: findAll() 返回的產品數量: " + products.size());
+
+        if (products.isEmpty()) {
+            System.out.println("ProductService: 警告 - 沒有找到任何產品");
+        } else {
+            System.out.println("ProductService: 第一個產品信息: " + products.get(0));
+        }
+
+        return products;
+    }
+
 
 //	public byte[] getProductPic(Integer productID) {
 //		// 使用Repository获取ProductVO
