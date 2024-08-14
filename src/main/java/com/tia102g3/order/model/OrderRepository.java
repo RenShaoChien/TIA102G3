@@ -19,17 +19,17 @@ public interface OrderRepository extends JpaRepository<OrderVO, Integer> {
                     "totalPrice LIKE CONCAT('%', :keyword, '%') " +
                     "LIMIT :offset, 5",
             nativeQuery = true)
-	List<Object[]> getProductList(@Param("keyword") String keyword, int offset);
+	List<Object[]> getOrderList(@Param("keyword") String keyword, int offset);
 
 	
     @Transactional(readOnly = true)
     @Query(
-            value = "SELECT * FROM orderid WHERE " +
+            value = "SELECT count(*) FROM orderid WHERE " +
                     "orderID LIKE CONCAT('%', :keyword, '%') OR " +
                     "memberID LIKE CONCAT('%', :keyword, '%') OR " +
                     "orderDate LIKE CONCAT('%', :keyword, '%') OR " +
                     "status LIKE CONCAT('%', :keyword, '%') OR " +
                     "totalPrice LIKE CONCAT('%', :keyword, '%') " ,
             nativeQuery = true)
-	Integer getOrderCount(@Param("keyword")String keyword);
+    Long getOrderCount(@Param("keyword")String keyword);
 }
