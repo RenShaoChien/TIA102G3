@@ -1,6 +1,8 @@
 package com.controllers.admincontrollers.adminjayren;
 
 import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
+import com.tia102g3.coachcoursepic.service.CoachCoursePicServiceImpl;
+import com.tia102g3.coachmember.service.CoachMemberService;
 import com.tia102g3.product.model.ProductService;
 import com.tia102g3.sportevent.service.SportEventServiceImpl;
 import com.tia102g3.systemcourse.model.SystemCourse;
@@ -55,7 +57,10 @@ public class SystemCourseManagement {
     CoachCourseServiceImpl ccService;
     @Autowired
     ProductService pdService;
-
+    @Autowired
+    CoachCoursePicServiceImpl ccpService;
+    @Autowired
+    CoachMemberService cmService;
 
     @GetMapping("/enter")
     public String systemCourseManagement(Model model) {
@@ -230,8 +235,7 @@ public class SystemCourseManagement {
     }
 
     @GetMapping("/DBGifReader")
-    public void dBGifReader(@RequestParam("picID") Integer picID, @RequestParam("source") String source, HttpServletRequest req, HttpServletResponse res)
-            throws IOException {
+    public void dBGifReader(@RequestParam("picID") Integer picID, @RequestParam("source") String source, HttpServletResponse res) throws IOException {
         res.setContentType("image/*");
         ServletOutputStream out = res.getOutputStream();
 
@@ -245,6 +249,12 @@ public class SystemCourseManagement {
                     break;
                 case "productPic":
                     out.write(pdService.findProductById(picID).getProductPic());
+                    break;
+                case "coachCourse":
+                    out.write(ccpService.findCoachCoursePicById(picID).getPic());
+                    break;
+                case "cMember":
+                    out.write(cmService.getOneCoachMember(picID).getPersonalPhotos());
                     break;
             }
         } catch (Exception e) {

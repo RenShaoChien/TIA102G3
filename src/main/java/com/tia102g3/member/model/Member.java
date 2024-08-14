@@ -49,5 +49,5 @@ public class Member {
     private Set<OrderVO> orderSet;
     @OneToMany(mappedBy = "member")
     @JsonIgnore
-    private List<CourseOrder> courseOrderList;
+    private Set<CourseOrder> courseOrderList;
 }

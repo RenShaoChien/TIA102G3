@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS system_course_pic;
 
 CREATE TABLE coach_course_pic
 (
-    coachCoursePicID int AUTO_INCREMENT PRIMARY KEY,
+    id int AUTO_INCREMENT PRIMARY KEY,
     coachCourseID    int NOT NULL,
     pic              LONGBLOB
 ) comment ='教練課程圖片表';
@@ -50,12 +50,13 @@ CREATE TABLE coach_course
     coursePrice     INT COMMENT '課程價格',
     classStartTime  time NOT NULL comment "上課時間",
     classEndTime    time NOT NULL comment "下課時間",
-    illustrate      varchar(10000) comment "課程說明"
+    illustrate      varchar(10000) comment "課程說明",
+    courseIntro           varchar(100) comment "課程簡介"
 ) COMMENT ='教練課程表';
 
 CREATE TABLE customized_course
 (
-    customizeCourseID INT AUTO_INCREMENT PRIMARY KEY COMMENT '客製化課程ID。主鍵，自動遞增',
+    id INT AUTO_INCREMENT PRIMARY KEY COMMENT '客製化課程ID。主鍵，自動遞增',
     systemCourseID    INT NOT NULL COMMENT '系統課程ID。外鍵，關連到system_course表的systemCourseID',
     memberID          INT NOT NULL COMMENT '會員ID。外鍵，關連到member表的memberID'
 ) COMMENT ='客製化課程表';
@@ -94,145 +95,18 @@ CREATE TABLE sport_event
 
 CREATE TABLE coach_specialty
 (
-    coachSpecialtyID INT AUTO_INCREMENT PRIMARY KEY COMMENT '教練運動強項ID。主鍵，自動遞增',
+    id INT AUTO_INCREMENT PRIMARY KEY COMMENT '教練運動強項ID。主鍵，自動遞增',
     cMemberID        INT NOT NULL COMMENT '教練會員ID。外鍵，關聯到coach_member表的cMemberID',
     sportEventID     INT NOT NULL COMMENT '運動項目ID。外鍵，關聯到sport_event表的sportEventID'
 ) COMMENT ='教練專長表。存儲教練的專長運動項目';
 
 CREATE TABLE coach_certificate
 (
-    coachCertificateID INT AUTO_INCREMENT PRIMARY KEY COMMENT '教練證照ID。主鍵，自動遞增',
+    id INT AUTO_INCREMENT PRIMARY KEY COMMENT '教練證照ID。主鍵，自動遞增',
     cMemberID          INT NOT NULL COMMENT '教練會員ID。外鍵，關聯到coach_member表的cMemberID',
     certificateName    VARCHAR(200) COMMENT '證照名稱',
     certificatePic     LONGBLOB COMMENT '證照照片'
 ) COMMENT ='教練證照表。存儲教練的證照信息，包括證照名稱和照片';
-
-CREATE TABLE member
-(
-    memberID        INT AUTO_INCREMENT PRIMARY KEY COMMENT '會員ID。主鍵，自動遞增',
-    personalPhotos  LONGBLOB COMMENT '個人照片',
-    name            VARCHAR(30) COMMENT '姓名',
-    account         VARCHAR(50) COMMENT '帳號',
-    password        VARCHAR(30) COMMENT '密碼',
-    email           VARCHAR(30) COMMENT '電子郵件',
-    gender          VARCHAR(10) COMMENT '性別',
-    phone           VARCHAR(20) COMMENT '手機',
-    address         VARCHAR(50) COMMENT '地址',
-    bD              DATE COMMENT '生日',
-    regDate         DATE COMMENT '註冊日期',
-    receiver        VARCHAR(50) COMMENT '收件人',
-    receiverAddress VARCHAR(50) COMMENT '收件地址',
-    receiverPhone   VARCHAR(20) COMMENT '收件人手機',
-    cardName        VARCHAR(20) COMMENT '卡片名稱',
-    cardNumber      VARCHAR(20) COMMENT '卡片號碼',
-    cardValidTime   VARCHAR(10) COMMENT '卡片有效期限',
-    cardLast3No     VARCHAR(10) COMMENT '卡片後三碼',
-    cardPhone       VARCHAR(20) COMMENT '卡片綁定手機'
-) COMMENT ='會員';
-
-
-CREATE TABLE course_order
-(
-    courseOrderID INT AUTO_INCREMENT PRIMARY KEY COMMENT '課程訂單ID。主鍵，自動遞增',
-    memberID      INT NOT NULL COMMENT '會員ID。外鍵，關連到member表的memberID',
-    coachCourseID INT NOT NULL COMMENT '教練課程ID。外鍵，關連到coach_course表的coachCourseID',
-    orderDate     DATETIME COMMENT '訂單日期',
-    price         INT COMMENT '課程金額',
-    status        INT COMMENT '訂單狀態'
-) COMMENT ='課程訂單';
-
-CREATE TABLE product
-(
-    productID       INT AUTO_INCREMENT PRIMARY KEY COMMENT '產品ID。主鍵，自動遞增',
-    prodName        VARCHAR(50) COMMENT '產品名稱',
-    price           INT COMMENT '產品價格',
-    productQuantity INT COMMENT '產品數量',
-    intro           VARCHAR(500) COMMENT '產品簡介'
-) COMMENT ='商品';
-
-CREATE TABLE product_pic
-(
-    productPicID INT AUTO_INCREMENT PRIMARY KEY COMMENT '商品照片流水號。主鍵，自動遞增',
-    productID    INT NOT NULL COMMENT '商品ID。外鍵，關聯到product表的productID',
-    pic          LONGBLOB COMMENT '商品圖片。'
-) COMMENT ='商品照片表';
-
-CREATE TABLE admin_id
-(
-    adminID       INT AUTO_INCREMENT PRIMARY KEY COMMENT '管理員ID。主鍵，自動遞增',
-    adminName     VARCHAR(50) COMMENT '管理員姓名',
-    adminUsername VARCHAR(50) COMMENT '管理員帳號',
-    adminPassword VARCHAR(50) COMMENT '管理員密碼',
-    adminEmail    VARCHAR(100) COMMENT '管理員信箱'
-) COMMENT ='後台管理人員表。存儲後台管理人員的資訊';
-
-
-CREATE TABLE coach_member
-(
-    cMemberID       INT AUTO_INCREMENT PRIMARY KEY COMMENT '教練會員ID。主鍵，自動遞增',
-    personalPhotos  LONGBLOB COMMENT '個人照片',
-    status          INT COMMENT '是否通過審核',
-    name            VARCHAR(30) COMMENT '姓名',
-    account         VARCHAR(50) COMMENT '帳號',
-    password        VARCHAR(30) COMMENT '密碼',
-    email           VARCHAR(30) COMMENT '電子郵件',
-    gender          VARCHAR(10) COMMENT '性別',
-    phone           VARCHAR(20) COMMENT '手機',
-    address         VARCHAR(50) COMMENT '地址',
-    bD              DATE COMMENT '生日',
-    regDate         DATE COMMENT '註冊日期',
-    receiver        VARCHAR(50) COMMENT '收件人',
-    receiverAddress VARCHAR(50) COMMENT '收件地址',
-    receiverPhone   VARCHAR(20) COMMENT '收件人手機',
-    cardName        VARCHAR(20) COMMENT '卡片名稱',
-    cardNumber      VARCHAR(20) COMMENT '卡片號碼',
-    cardValidTime   VARCHAR(10) COMMENT '卡片有效期限',
-    cardLast3No     VARCHAR(10) COMMENT '卡片後三碼',
-    cardPhone       VARCHAR(20) COMMENT '卡片綁定手機'
-) COMMENT ='教練會員表。存儲教練的個人資料和審核狀態';
-
-
-CREATE TABLE shopping_cart
-(
-    shoppingCartID INT AUTO_INCREMENT PRIMARY KEY COMMENT '購物車ID。主鍵，自動遞增',
-    memberID       INT NOT NULL COMMENT '會員ID。外鍵，關聯到member表的memberID',
-    productID      INT NOT NULL COMMENT '產品ID。外鍵，關聯到product表的productID',
-    quantity       INT COMMENT '商品數量'
-) COMMENT ='購物車表。存儲會員的購物車項目信息';
-
-CREATE TABLE orderID
-(
-    orderID    INT AUTO_INCREMENT PRIMARY KEY COMMENT '訂單ID。主鍵，自動遞增',
-    memberID   INT NOT NULL COMMENT '會員ID。外鍵，關聯到member表的memberID',
-    orderDate  DATE COMMENT '訂單日期',
-    status     VARCHAR(20) COMMENT '訂單狀態',
-    totalPrice INT COMMENT '總金額'
-) COMMENT ='訂單表。存儲會員的訂單基本信息';
-
-CREATE TABLE order_details
-(
-    ordDtlID  INT AUTO_INCREMENT PRIMARY KEY COMMENT '訂單明細ID。主鍵，自動遞增',
-    orderID   INT NOT NULL COMMENT '訂單ID。外鍵，關聯到orderID表的orderID',
-    productID INT NOT NULL COMMENT '產品ID。外鍵，關聯到product表的productID',
-    quantity  INT COMMENT '商品數量'
-) COMMENT ='訂單明細表。存儲訂單中每個商品的詳細信息';
-
-CREATE TABLE rest_lfo
-(
-    restLoc     INT AUTO_INCREMENT PRIMARY KEY COMMENT '餐廳編號。主鍵，自動遞增',
-    restName    VARCHAR(50) COMMENT '餐廳名稱',
-    restAddress VARCHAR(255) COMMENT '餐廳地址',
-    restTime    TIME COMMENT '營業時間',
-    restTel     VARCHAR(20) COMMENT '餐廳電話',
-    mapID       INT NOT NULL COMMENT '地圖編號。外鍵，關聯到rest_map表的mapID'
-) COMMENT ='餐廳資訊表';
-
-CREATE TABLE rest_map
-(
-    mapID  INT AUTO_INCREMENT PRIMARY KEY COMMENT '地圖編號。主鍵，自動遞增',
-    mapLat DECIMAL(10, 8) COMMENT '緯度',
-    mapLng DECIMAL(11, 8) COMMENT '經度'
-) COMMENT ='餐廳地圖表。存儲餐廳的地理位置信息';
 
 
 INSERT INTO sport_event (sportEventName, sportTypes, sportEquipment)

@@ -1,5 +1,6 @@
 package com.tia102g3.courseorder.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.member.model.Member;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class CourseOrder {
     
     @ManyToOne
     @JoinColumn(name = "coachCourseID", referencedColumnName = "id")
+    @JsonBackReference
     private CoachCourse coachCourse;
     
     private Date orderDate;

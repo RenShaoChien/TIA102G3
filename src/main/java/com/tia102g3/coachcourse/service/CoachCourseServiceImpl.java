@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * ClassName： CoachCourseServiceImpl
@@ -32,17 +33,6 @@ public class CoachCourseServiceImpl implements CoachCourseService {
     @Autowired
     CoachCoursePicDAO ccpDAO;
 
-//    @Override
-//    @Transactional(readOnly = true)
-//    public List<CoachCourse> getCoachCoursesList(String keyword, Pageable pageable) {
-//        return ccDAO.getCoachCoursesList(keyword, pageable);
-//    }
-//
-//    @Override
-//    @Transactional(readOnly = true)
-//    public Long getCoachCourseCount(String keyword) {
-//        return ccDAO.getCoachCourseCount(keyword);
-//    }
 
     @Override
     @Transactional(readOnly = true)
@@ -98,5 +88,27 @@ public class CoachCourseServiceImpl implements CoachCourseService {
                 ccDAO.save(course);
             }
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Set<CoachCourse> findAllByStatus(CourseStatus status) {
+        return ccDAO.findAllByStatus(status);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<CoachCourse> findOneAllAttr(Integer courseID) {
+        return ccDAO.findOneAllAttr(courseID);
+    }
+
+    @Override
+    @Transactional
+    public CoachCourse getOneOrderCoachCourse(Integer courseID) {
+        CoachCourse referenceById = ccDAO.getReferenceById(courseID);
+//        ccDAO.findWithPicById(courseID).ifPresent(referenceById::setCoachCoursePics);
+        Long countMembers = ccDAO.findMembersByCourseId(courseID);
+        referenceById.setCountMembers(countMembers != null ? countMembers : 0);
+        return referenceById;
     }
 }

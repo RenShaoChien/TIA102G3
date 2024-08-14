@@ -12,5 +12,4 @@ public interface FoodListRepository extends JpaRepository<FoodListVO, Integer> {
   @Query(value = "SELECT DISTINCT menuNumber FROM foodlist ORDER BY menuNumber", nativeQuery = true)
   List<Integer> findAllMenuNumber();
   
-  
 }

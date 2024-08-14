@@ -1,6 +1,11 @@
 package com.controllers;
 
+
 import java.util.List;
+
+
+import com.tia102g3.coachcourse.model.CourseStatus;
+import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +29,8 @@ public class PageController {
 	@Autowired
 	ProductService productservice;
 
+    @Autowired
+    private CoachCourseServiceImpl ccService;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -37,6 +44,9 @@ public class PageController {
 
     @GetMapping("/trainers")
     public String trainers(Model model) {
+
+
+        model.addAttribute("coachCourseList", ccService.findAllByStatus(CourseStatus.IN_PROGRESS));
         return "trainers";
     }
 
@@ -48,11 +58,6 @@ public class PageController {
     @GetMapping("/menu")
     public String menu(Model model) {
         return "menu";
-    }
-
-    @GetMapping("/member")
-    public String member(Model model) {
-        return "member";
     }
     
     @GetMapping("/pricing")

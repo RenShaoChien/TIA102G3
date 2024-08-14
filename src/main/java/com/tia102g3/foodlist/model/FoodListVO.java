@@ -80,7 +80,11 @@ public class FoodListVO implements java.io.Serializable {
     }
 
 
-	
-	
+    @Override
+    public String toString() {
+        return "FoodListVO [foodListSN=" + foodListSN + ", menuVO=" + menuVO + ", foodVO=" + foodVO + ", foodWeight="
+                + foodWeight + "]";
+    }
+
 	
 }

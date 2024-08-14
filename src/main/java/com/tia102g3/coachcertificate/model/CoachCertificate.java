@@ -25,8 +25,7 @@ import javax.persistence.*;
 public class CoachCertificate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "coachCertificateID", updatable = false)
-    private Integer coachCertificateID;
+    private Integer id;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cMemberID", referencedColumnName = "cMemberID", nullable = false)
     private CoachMember cMember;
