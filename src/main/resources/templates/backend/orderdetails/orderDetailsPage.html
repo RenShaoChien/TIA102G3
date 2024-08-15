@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>訂單列表</title>
+    <title>訂單明細</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -131,50 +131,49 @@
 <body>
 <div>
     <div>
-        <div class="courseList_header">訂單列表
+        <div class="courseList_header">訂單明細
             <div id="lightbox" class="-on">
                 <article>
                     <h1 id="messageContent" th:if="${message}" th:text="${message}" style="color: black"></h1>
                     <button type="button" class="btn_modal_close">關閉</button>
                 </article>
             </div>
+          
         </div>
         <div class="search-container">
-            <form th:action="@{/order/orderList}" method="post" style="float: right">
+            <form th:action="@{/orderdetails/orderDetailsList}" method="post" style="float: right">
                 <input type="hidden" name="oper" value="search">
                 <input type="text" name="keyword" th:value="${session.keyword}" placeholder="請輸入查詢關鍵字..." class="search-input">
                 <button type="submit" class="btn">查詢</button>
             </form>
             <a th:href="@{/order/addOrder}"
-               style="text-decoration: none;float: right;margin-right: 30px;">添加訂單</a>
+               style="text-decoration: none;float: right;margin-right: 30px;">添加訂單明細</a>
         </div>
     </div>
+    <span>訂單編號： </span><span th:text="*{orderID}"></span>
 
     <table class="courseList_table">
         <tr class="courseList_tr">
-            <th class="courseList_th">訂單編號</th>
-            <th class="courseList_th">會員編號</th>
-            <th class="courseList_th">訂單日期</th>
-            <th class="courseList_th">訂單狀態</th>
-            <th class="courseList_th">總金額</th>
-            <th class="courseList_th">查閱</th>
+            <th class="courseList_th">明細編號</th>
+            <th class="courseList_th">商品編號</th>
+            <th class="courseList_th">商品數量</th>
+            <th class="courseList_th">編輯</th>
             <th class="courseList_th">刪除</th>
         </tr>
-        <tr th:if="${#lists.isEmpty(session.orderList)}">
-            <td colspan="14">對不起，查無符合的訂單!</td>
+        <tr th:if="${#lists.isEmpty(session.orderDetailsList)}">
+            <td colspan="14">對不起，查無符合的訂單明細!</td>
         </tr>
-        <tr class="courseList_tr" th:unless="${#lists.isEmpty(session.orderList)}"
-            th:each="orderVO : ${session.orderList}" th:object="${orderVO}">
-            <td class="courseList_td" th:text="*{orderID}">
+        <tr class="courseList_tr" th:unless="${#lists.isEmpty(session.orderDetailsList)}"
+            th:each="orderDetailsVO : ${session.orderDetailsList}" th:object="${orderDetailsVO}">
+            <td class="courseList_td" th:text="*{ordDtIID}">
 <!--             <a class="courseList_a" th:text="*{productID}" th:href="@{|/product/edit?productID=*{productID}|}"></a> -->
             </td>
-            <td class="courseList_td" th:text="${orderVO.member.getMemberID}"></td>
-            <td class="courseList_td" th:text="*{orderDate}"></td>
-            <td class="courseList_td" th:text="*{status}"></td>
-            <td class="courseList_td" th:text="*{totalPrice}"></td>
-            <td class="courseList_td"><a th:href="@{|/order/search?orderID=*{orderID}|}"><img th:src="@{/images/search.png}" class="courseList_img" alt="Example Image"/></a>
+            <td class="courseList_td" th:text="*{productID}"></td>
+            <td class="courseList_td" th:text="*{quantity}"></td>
+            <td class="courseList_td" th:text="*{orderID}"></td>
+            <td class="courseList_td"><a th:href="@{|/orderdetails/edit?ordDtIID=*{ordDtIID}|}"><img th:src="@{/images/edit.png}" class="courseList_img" alt="Example Image"/></a>
             <td class="courseList_td"><img th:src="@{/images/delet.png}" class="courseList_img"
-                                           th:onclick="|delOrderID(*{orderID}, ${session.pageNo})|"></td>
+                                           th:onclick="|delOrderDetailsID(*{ordDtIID}, ${session.pageNo})|"></td>
         </tr>
     </table>
     <div style="border: 0px solid red ; width: 60%; margin-left: 20% ; margin-top: 4px" class="center">
@@ -190,14 +189,14 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script !src="">
-    function delOrderID(orderID) {
+    function delOrderDetailsID(ordDtIID) {
         if (confirm("確定要刪除嗎?")) {
             document.location.href = "/order/delOrder.do?orderID=" + orderID;
         }
     }
 
     function page(pageNo) {
-        window.location.href = "/order/orderList?pageNo=" + pageNo;
+        window.location.href = "/orderdetails/orderDetailsList?pageNo=" + pageNo;
     }
     $(document).ready(function() {
         var messageContent = $("#messageContent").text().trim();

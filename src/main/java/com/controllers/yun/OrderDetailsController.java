@@ -2,6 +2,8 @@ package com.controllers.yun;
 
 import com.tia102g3.order.model.OrderService;
 import com.tia102g3.order.model.OrderVO;
+import com.tia102g3.orderdetails.model.OrderDetailsService;
+import com.tia102g3.orderdetails.model.OrderDetailsVO;
 import com.tia102g3.product.model.ProductService;
 import com.tia102g3.product.model.ProductVO;
 import com.tia102g3.systemcoursepic.model.SystemCoursePic;
@@ -32,19 +34,22 @@ import java.util.stream.Collectors;
 
 
 @Controller
-@RequestMapping("/order")
+@RequestMapping("/orderdetails")
 @Validated
-public class OrderController {
+public class OrderDetailsController {
 
     @Autowired
     ProductService productservice;
     
     @Autowired
     OrderService orderservice;
+    
+    @Autowired
+    OrderDetailsService orderDservice;
 
     
-    @RequestMapping(value = "/orderList", method = {RequestMethod.GET, RequestMethod.POST})
-    public String orderList(String oper, String keyword, Integer pageNo, HttpServletRequest req) throws Exception {
+    @RequestMapping(value = "/orderDetailsList", method = {RequestMethod.GET, RequestMethod.POST})
+    public String orderDetailsList(String oper, String keyword, Integer pageNo, HttpServletRequest req) throws Exception {
         HttpSession session = req.getSession();
         if (pageNo == null) {
             pageNo = 1;
@@ -66,31 +71,22 @@ public class OrderController {
         }
         session.setAttribute("pageNo", pageNo);
         int offset = (pageNo - 1) * 5;
-        List<OrderVO> orderList = orderservice.getOrdertList(keyword, offset);
-        session.setAttribute("orderList", orderList);
+        List<OrderDetailsVO> orderDetailsList = orderDservice.getOrderDetailsList(keyword, offset);
+        session.setAttribute("orderDetailsList", orderDetailsList);
 
-        int totalRecords = orderservice.getOrderCount(keyword).intValue();
+        int totalRecords = orderDservice.getOrderDetailsCount(keyword).intValue();
         int pageCount = (int) Math.ceil((double) totalRecords / 5); // 計算總頁數
         session.setAttribute("pageCount", pageCount);
 
-        return "/backend/order/orderpage";
+        return "/backend/orderdetails/orderDetailsPage";
     }
     
-    @GetMapping("/addOrder")
-    public String addOrder(ModelMap model) {
-        OrderVO ov = new OrderVO();
-        model.addAttribute("order", ov);
-        return "backend/order/addOrder";
-    }
-    
-    @GetMapping("/search")
-    public String search(ModelMap model) {
-        OrderVO ov = new OrderVO();
-        model.addAttribute("order", ov);
-        return "backend/orderdetails/orderDetailsPage";
-    }
-    
-    
+//    @GetMapping("/addOrder")
+//    public String addOrder(ModelMap model) {
+//        OrderVO ov = new OrderVO();
+//        model.addAttribute("order", ov);
+//        return "backend/order/addOrder";
+//    }
     /*
     @GetMapping("/edit")
     public String editProduct(ModelMap model, @RequestParam Integer productID) throws Exception {
@@ -108,21 +104,21 @@ public class OrderController {
     }
     */
 	
-    @PostMapping("/addOrder.do")
-    public String addOrder(OrderVO ov, BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
-
-        if (result.hasErrors()) {
-            return "backend/order/addOrder";
-        }
-        try {
-            orderservice.updateOrder(ov);
-            redirectAttributes.addFlashAttribute("message", "訂單新增成功！"); // 將成功訊息添加到 model 中
-        } catch (Exception e) {
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("message", "操作失敗"); // 將失敗訊息添加到 model 中
-        }
-        return "redirect:/order/orderList";
-    }
+//    @PostMapping("/addOrder.do")
+//    public String addOrder(OrderVO ov, BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
+//
+//        if (result.hasErrors()) {
+//            return "backend/order/addOrder";
+//        }
+//        try {
+//            orderservice.updateOrder(ov);
+//            redirectAttributes.addFlashAttribute("message", "訂單新增成功！"); // 將成功訊息添加到 model 中
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            redirectAttributes.addFlashAttribute("message", "操作失敗"); // 將失敗訊息添加到 model 中
+//        }
+//        return "redirect:/order/orderList";
+//    }
     
     
     /*
