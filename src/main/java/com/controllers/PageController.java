@@ -76,5 +76,10 @@ public class PageController {
     	return products;
     }
     
+    @GetMapping("/orderChecking")
+    public String OrderChecking(Model model) {
+        return "product/order_checking";
+    }
+    
     
 }
