@@ -218,27 +218,27 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <!--宅配資訊 -->
                 <span class="receiver">收件人資訊</span>
                 <hr>
-<!--                 <div class="dl_info" th:object="${member}"> -->
-<!--                     <label for="receiver_name">姓名*：</label> -->
-<!--                     <input type="text" name="receiver" id="receiver_name" -->
-<!--                            th:value="${#strings.isEmpty(member.receiver) ? (#strings.isEmpty(member.name) ? '' : member.name) : ''}"><br/> -->
-<!--                     <label for="receiver_addr">地址*：</label> -->
-<!--                     <input type="text" name="receiverAddress" id="receiver_addr" -->
-<!--                            th:value="${#strings.isEmpty(member.receiverAddress) ? (#strings.isEmpty(member.address) ? '' : member.address) : ''}"><br/> -->
-<!--                     <label for="receiver_phone">電話*：</label> -->
-<!--                     <input type="text" name="receiverPhone" id="receiver_phone" -->
-<!--                            th:value="${#strings.isEmpty(member.receiverPhone) ? (#strings.isEmpty(member.phone) ? '' : member.phone) : ''}"><br/> -->
-<!--                     <label for="receiver_email">信箱*：</label> -->
-<!--                     <input type="text" name="" id="receiver_email" -->
-<!--                            th:value="${#strings.isEmpty(member.email) ? '' : member.email}"><br/> -->
-<!--                     <label for="receiver_notice" th:style="${#strings.isEmpty(coachCourseID) ? '' : 'display: none;'}">宅配備註*：</label> -->
-<!--                     <textarea name="" id="receiver_notice" cols="auto" rows="auto" -->
-<!--                               th:style="${#strings.isEmpty(coachCourseID) ? '' : 'display: none;'}"></textarea><br/> -->
+                <div class="dl_info" th:object="${member}">
+                    <label for="receiver_name">姓名*：</label>
+                    <input type="text" name="receiver" id="receiver_name"
+                           th:value="${#strings.isEmpty(member.receiver) ? (#strings.isEmpty(member.name) ? '' : member.name) : ''}"><br/>
+                    <label for="receiver_addr">地址*：</label>
+                    <input type="text" name="receiverAddress" id="receiver_addr"
+                           th:value="${#strings.isEmpty(member.receiverAddress) ? (#strings.isEmpty(member.address) ? '' : member.address) : ''}"><br/>
+                    <label for="receiver_phone">電話*：</label>
+                    <input type="text" name="receiverPhone" id="receiver_phone"
+                           th:value="${#strings.isEmpty(member.receiverPhone) ? (#strings.isEmpty(member.phone) ? '' : member.phone) : ''}"><br/>
+                    <label for="receiver_email">信箱*：</label>
+                    <input type="text" name="" id="receiver_email"
+                           th:value="${#strings.isEmpty(member.email) ? '' : member.email}"><br/>
+                    <label for="receiver_notice" th:style="${#strings.isEmpty(coachCourseID) ? '' : 'display: none;'}">宅配備註*：</label>
+                    <textarea name="" id="receiver_notice" cols="auto" rows="auto"
+                              th:style="${#strings.isEmpty(coachCourseID) ? '' : 'display: none;'}"></textarea><br/>
 
-<!--                     </label></label></label></label></label></div> -->
-                <!--                <button class="next_button" type="submit" onclick="window.location.href='./credit_card.html'" value="確認並前往付款">-->
-                <!--                    確認並前往付款-->
-                <!--                </button>-->
+                    </label></label></label></label></label></div>
+                               <button class="next_button" type="submit" onclick="window.location.href='./credit_card.html'" value="確認並前往付款">
+                                   確認並前往付款
+                               </button>
                 <input type="submit" value="確認並前往付款">
                 <div class="price_plans_box">
 
