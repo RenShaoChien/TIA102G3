@@ -55,6 +55,24 @@ CREATE TABLE system_course
     video            varchar(500) COMMENT '影片連結'
 ) COMMENT ='系統課程表';
 
+insert into system_course(courseName, sportEventName, sportTypes, sportEquipment, courseLevel, burnCalories, rps, eachExerciseTime, sportTime, swp, illustrate, video)
+values ('跪式伏地挺身', '伏地挺身', '重量運動', '徒手', 1, 80, 15, null, null, 4, '主要鍛煉胸肌、三頭肌和肩部肌肉
+    幫助增強上肢力量，改善核心穩定性，提高肌肉耐力', 'https://www.youtube.com/embed/vAALjNpx2uQ?si=HBxrjqQMqwqC4GPm'),
+    ('俯臥撐', '伏地挺身', '重量運動', '徒手', 2, 100, 15, null, null, 4, '主要鍛煉胸肌、三頭肌和肩部肌肉
+    幫助增強上肢力量，改善核心穩定性，提高肌肉耐力', 'https://www.youtube.com/embed/lfBh7TMLwg0?si=_abiqQaT91M4Ac0R'),
+    ('基本深蹲', '深蹲', '重量運動', '徒手', 1, 90, 15, null, null, 4, '主要鍛煉大腿、臀部和核心肌群
+幫助增強下半身力量，提高腿部肌肉質量，改善核心穩定性', 'https://www.youtube.com/embed/aIG28K4yvqg?si=uMWxuI737eKB3Xau'),
+    ('彈力繩深蹲', '深蹲', '重量運動', '彈力繩', 3, 200, 30, null, null, 4, '主要鍛煉大腿、臀部和核心肌群
+幫助增強下半身力量，提高腿部肌肉質量，改善核心穩定性', 'https://www.youtube.com/embed/EYQfeJe4ZJc?si=PWi496Grvcsw_NVx'),
+    ('地獄深蹲', '深蹲', '重量運動', '槓鈴', 4, 200, 12, null, null, 4, '主要鍛煉大腿、臀部和核心肌群
+幫助增強下半身力量，提高腿部肌肉質量，改善核心穩定性', 'https://www.youtube.com/embed/JjDKzJHqoAs?si=p2XbQ5eDfw4g_x0p'),
+    ('皮拉提斯', '皮拉提斯', '重量運動', '徒手', 1, 150, null, '12分鐘', '1小時', null, '幫助增強核心力
+量、改善姿勢、增加柔軟度，並且促進全身肌肉的協調與平衡。', 'https://www.youtube.com/embed/3jn09b63yMg?si=SbUZg3vHeLQ5hnhw'),
+    ('彈力繩皮拉提斯', '皮拉提斯', '重量運動', '彈力繩', 3, 200, null, '12分鐘', '1小時', null, '主要鍛鍊部位：核心肌群、背部、臀部、腿部及手臂。
+運動效益：結合皮拉提斯和彈力繩的訓練可以增強核心力量、改善姿勢和柔軟度，同時提高全身的肌肉耐力與張力。彈力繩的阻力可以增加運動的強度，有助於塑造更緊實的肌肉線條。', 'https://www.youtube.com/embed/bHL8kHE8_zE?si=7qmnb-Z2JyMKOGdq'),
+    ('弓步', '弓步', '重量運動', '徒手', 1, 80, )
+
+
 CREATE TABLE system_course_pic
 (
     systemCoursePicID INT AUTO_INCREMENT PRIMARY KEY COMMENT '系統課程照片ID。主鍵，自動遞增',
@@ -96,6 +114,7 @@ VALUES ("伏地挺身", "重量運動", "徒手"),
        ("仰臥起坐", "重量運動", "徒手"),
        ("橋式", "重量運動", "徒手"),
        ("深蹲", "重量運動", "槓鈴"),
+       ('深蹲', '重量運動', '彈力繩'),
        ("臥推", "重量運動", "啞鈴"),
        ("臥推", "重量運動", "槓鈴"),
        ("硬拉", "重量運動", "槓鈴"),
@@ -121,6 +140,7 @@ VALUES ("伏地挺身", "重量運動", "徒手"),
        ("原地踏步", "心肺運動", "徒手"),
        ("跳躍深蹲", "心肺運動", "徒手"),
        ("波比跳", "心肺運動", "徒手"),
+       ("拳擊", "心肺運動", "拳套"),
        ("跳躍開合跳", "心肺運動", "徒手");
 
 
