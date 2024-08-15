@@ -133,6 +133,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+
         .error {
             color: #ff0000;
             font-style: italic;
@@ -165,7 +166,8 @@
         <div class="form-field">
             <label>課程名稱：</label>
             <input type="text" th:field="*{courseName}" th:value="*{courseName}" placeholder="輸入課程名稱"><br/>
-            <!--            <span th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}" class="error" id="courseName.errors"></span>-->
+            <span th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}" class="error"
+                  id="courseName.errors"></span>
         </div>
         <div class="form-field">
             <label>運動項目類型：</label>
@@ -182,14 +184,16 @@
             <select id="sportEventName" th:field="*{sportEventName}">
                 <option value="">請選擇運動項目類型</option>
             </select><br/>
-            <span class="error" th:if="${#fields.hasErrors('sportEventName')}" th:errors="*{sportEventName}" id="sportEventName.errors"></span>
+            <span class="error" th:if="${#fields.hasErrors('sportEventName')}" th:errors="*{sportEventName}"
+                  id="sportEventName.errors"></span>
         </div>
         <div class="form-field">
             <label>運動器材：</label>
             <select id="sportEquipment" th:field="*{sportEquipment}">
                 <option value="">請選擇運動項目類型</option>
             </select><br/>
-            <span class="error" th:if="${#fields.hasErrors('sportEquipment')}" th:errors="*{sportEquipment}" id="sportEquipment.errors"></span>
+            <span class="error" th:if="${#fields.hasErrors('sportEquipment')}" th:errors="*{sportEquipment}"
+                  id="sportEquipment.errors"></span>
         </div>
         <div class="form-field">
             <label>課程等級：</label>
@@ -199,14 +203,16 @@
                 <option value="HARD" th:selected="*{courseLevel == 'HARD'}">HARD</option>
                 <option value="VERY_HARD" th:selected="*{courseLevel == 'VERY_HARD'}">VERY_HARD</option>
             </select><br/>
-            <!--            <span class="error" th:if="${#fields.hasErrors('courseLevel')}" th:errors="*{courseLevel}" id="courseLevel.errors"></span>-->
+            <span class="error" th:if="${#fields.hasErrors('courseLevel')}" th:errors="*{courseLevel}"
+                  id="courseLevel.errors"></span>
 
         </div>
         <div class="form-field">
             <label>消耗熱量：</label>
             <input type="text" th:field="*{burnCalories}" th:value="*{burnCalories}"
                    placeholder="請輸入卡路里的消耗"><br/>
-            <!--            <span class="error" th:if="${#fields.hasErrors('burnCalories')}" th:errors="*{burnCalories}" id="burnCalories.errors"></span>-->
+            <span class="error" th:if="${#fields.hasErrors('burnCalories')}" th:errors="*{burnCalories}"
+                  id="burnCalories.errors"></span>
         </div>
         <div class="form-field" th:style="*{rps == null} ? 'display:none;' : ''">
             <label>建議每組次數：</label>
@@ -217,7 +223,7 @@
                 <option value="15" th:selected="*{rps == 15}">15次</option>
                 <option value="20" th:selected="*{rps == 20}">20次</option>
             </select><br/>
-            <!--            <span class="error" th:if="${#fields.hasErrors('rps')}" th:errors="*{rps}" id="rps.errors"></span>-->
+            <span class="error" th:if="${#fields.hasErrors('rps')}" th:errors="*{rps}" id="rps.errors"></span>
         </div>
         <div class="form-field" th:style="*{swp == null} ? 'display:none;' : ''">
             <label>建議每次組數：</label>
@@ -228,25 +234,28 @@
                 <option value="7" th:selected="*{swp == 7}">7次</option>
                 <option value="9" th:selected="*{swp == 9}">9次</option>
             </select><br/>
-            <!--            <span class="error" th:if="${#fields.hasErrors('swp')}" th:errors="*{swp}" id="swp.errors"></span>-->
+            <span class="error" th:if="${#fields.hasErrors('swp')}" th:errors="*{swp}" id="swp.errors"></span>
 
         </div>
         <div class="form-field" th:style="*{eachExerciseTime == ''} ? 'display:none;' : ''">
             <label>建議每組運動時數：</label>
             <input type="text" th:field="*{eachExerciseTime}" th:value="*{eachExerciseTime}"
                    placeholder="例如 '30分鐘'"><br/>
-            <!--            <span class="error" th:if="${#fields.hasErrors('eachExerciseTime')}" th:errors="*{eachExerciseTime}" id="eachExerciseTime.errors"></span>-->
+            <span class="error" th:if="${#fields.hasErrors('eachExerciseTime')}" th:errors="*{eachExerciseTime}"
+                  id="eachExerciseTime.errors"></span>
         </div>
         <div class="form-field" th:style="*{sportTime == ''} ? 'display:none;' : ''">
             <label>建議運動總時數：</label>
             <input type="text" th:field="*{sportTime}" th:value="*{sportTime}"
                    placeholder="例如 '2小時' 或 '30分鐘'"><br/>
-            <!--            <span class="error" th:if="${#fields.hasErrors('sportTime')}" th:errors="*{sportTime}" id="sportTime.errors"></span>-->
+            <span class="error" th:if="${#fields.hasErrors('sportTime')}" th:errors="*{sportTime}"
+                  id="sportTime.errors"></span>
         </div>
         <div class="form-field">
             <label>說明：</label>
             <textarea th:field="*{illustrate}" th:value="*{illustrate}" cols="auto" rows="auto"></textarea><br/>
-            <!--            <span class="error" th:if="${#fields.hasErrors('illustrate')}" th:errors="*{illustrate}" id="illustrate.errors"></span>-->
+            <span class="error" th:if="${#fields.hasErrors('illustrate')}" th:errors="*{illustrate}"
+                  id="illustrate.errors"></span>
         </div>
         <div class="form-field" th:unless="${#lists.isEmpty(pics)}">
             <label>已有的圖片：</label>
@@ -266,7 +275,7 @@
         <div class="form-field">
             <label>課程影片連結：</label>
             <input type="text" th:field="*{video}" th:value="*{video}" placeholder="輸入影片URL"><br/>
-            <!--            <span class="error" th:if="${#fields.hasErrors('video')}" th:errors="*{video}" id="video.errors"></span>-->
+            <span class="error" th:if="${#fields.hasErrors('video')}" th:errors="*{video}" id="video.errors"></span>
         </div>
         <input type="submit" value="修改">
     </form>
@@ -279,6 +288,65 @@
 <script th:inline="javascript" th:onload="loadSportEventsAndEquipment()">
 
     $(document).ready(function () {
+
+        // 在頁面載入後獲取 sportEventName 和 sportEquipment 的值
+        let initialSportEventName = /*[[${systemCourse.sportEventName}]]*/ '';
+        let initialSportEquipment = /*[[${systemCourse.sportEquipment}]]*/ '';
+        $('#sportTypes').change(function () {
+            let selectType = $(this).val();
+
+            $.ajax({
+                url: '/course/getSportEventsAndEquipment',
+                data: {sportType: selectType},
+                dataType: 'json',
+                success: function (data) {
+                    console.log('Received sportEventName Data:', data);
+                    var $sportEventSelect = $('#sportEventName');
+                    $sportEventSelect.empty();
+                    // 處理運動項目名稱
+                    $.each(data.sportEvents, function (index, sportEventName) {
+                        $sportEventSelect.append($('<option>', {
+                            value: sportEventName,
+                            text: sportEventName,
+                            selected: sportEventName === initialSportEventName // 使用初始值
+                        }));
+                    });
+                    $sportEventSelect.trigger('change');
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('您的網路有問題：', jqXHR.responseText);
+                    alert('您的網路有問題，請稍後再試1111。');
+                }
+            });
+        });
+        $('#sportTypes').trigger('change');
+
+        $('#sportEventName').change(function () {
+            let selectedSportEvent = $(this).val();
+            $.ajax({
+                url: '/trainers/getEquipmentBySportEvent',
+                data: {sportEventName: selectedSportEvent},
+                dataType: 'json',
+                success: function (data) {
+                    console.log('Received Equipment Data:', data);
+                    let $sportEquipmentSelect = $('#sportEquipment');
+                    $sportEquipmentSelect.empty();
+                    $.each(data, function (index, sportEquipment) {
+                        $sportEquipmentSelect.append($('<option>', {
+                            value: sportEquipment,
+                            text: sportEquipment,
+                            selected: sportEquipment === initialSportEquipment // 使用初始值
+                        }));
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('您的網路有問題：', jqXHR.responseText);
+                    alert('您的網路有問題，請稍後再試。');
+                }
+            });
+        });
+
+
 
         const $lightbox = $('#lightbox');
         const $lightboxImg = $('#lightboxImage');
@@ -297,7 +365,6 @@
             $lightbox.css('display', 'none');
             $lightboxImg.attr('src', ''); // 清空圖片
         });
-
 
 
         $('#uploadImages').change(function () {
@@ -342,44 +409,7 @@
         });
 
     });
-    // 在頁面載入後獲取 sportEventName 和 sportEquipment 的值
-    let initialSportEventName = /*[[${systemCourse.sportEventName}]]*/ '';
-    let initialSportEquipment = /*[[${systemCourse.sportEquipment}]]*/ '';
 
-    function loadSportEventsAndEquipment() {
-        let sportType = $('#sportTypes').val();
-        $.ajax({
-            url: '/course/getSportEventsAndEquipment', // 呼叫合併後的 API
-            type: 'GET',
-            data: {sportType: sportType},
-            dataType: 'json',
-            success: function (data) {
-                let $sportEventSelect = $('#sportEventName');
-                let $sportEquipmentSelect = $('#sportEquipment');
-                $sportEventSelect.empty();
-                $sportEquipmentSelect.empty();
-                // 處理運動項目名稱
-                $.each(data.sportEvents, function (index, sportEventName) {
-                    $sportEventSelect.append($('<option>', {
-                        value: sportEventName, // 根據你的 SportEvent 物件屬性調整
-                        text: sportEventName,
-                        selected: sportEventName === initialSportEventName // 使用初始值
-                    }));
-                });
-
-                // 處理運動器材
-                $.each(data.sportEquipment, function (index, sportEquipment) {
-                    $sportEquipmentSelect.append($('<option>', {
-                        value: sportEquipment, // 根據你的 SportEvent 物件屬性調整
-                        text: sportEquipment,
-                        selected: sportEquipment === initialSportEquipment // 使用初始值
-                    }));
-                });
-            }
-        });
-    }
-    $('#sportTypes').change(loadSportEventsAndEquipment);
-    loadSportEventsAndEquipment()
 </script>
 </body>
 </html>
