@@ -1,23 +1,17 @@
 package com.controllers;
 
 
-
-import java.util.ArrayList;
-
-import java.util.List;
-
-
 import com.tia102g3.coachcourse.model.CourseStatus;
 import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
-
+import com.tia102g3.product.model.ProductService;
+import com.tia102g3.product.model.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import com.tia102g3.product.model.ProductVO;
-import com.tia102g3.product.model.ProductService;
+import java.util.List;
 
 /**
  * ClassName： PageController package：com.controllers Description：
@@ -49,6 +43,7 @@ public class PageController {
 
     @GetMapping("/trainers")
     public String trainers(Model model) {
+        model.addAttribute("coachCourseList", ccService.findAllByStatus(CourseStatus.IN_PROGRESS));
         return "trainers";
     }
 

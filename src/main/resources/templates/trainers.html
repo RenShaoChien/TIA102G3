@@ -287,6 +287,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             word-break: break-all;
             white-space: normal;
         }
+
+        .custom-img-size {
+            width: 302.47px; /* 最终宽度 = 图片原始宽度 + padding*2 */
+            height: 208.017px; /* 最终高度 = 图片原始高度 + padding*2 */
+            object-fit: cover; /* 确保图片不被拉伸或压缩 */
+        }
     </style>
 </head>
 <body>
@@ -429,14 +435,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
     <div class="container">
+        <div th:if="${#lists.isEmpty(coachCourseList)}">目前尚無任何教練課程，敬請期待 ！</div>
         <div class="classes_wrapper">
-            <div class="row class_box">
-                <div th:if="${#lists.isEmpty(coachCourseList)}">目前尚無任何教練課程，敬請期待 ！</div>
-                <div th:if="${!#lists.isEmpty(coachCourseList)}" th:each="coachCourse, iterStat : ${coachCourseList}">
+            <div th:unless="${#lists.isEmpty(coachCourseList)}" th:each="coachCourse, iterStat : ${coachCourseList}">
+                <div class="row class_box">
                     <div class="col-md-6" th:if="${iterStat.index % 2 == 0}">
                         <div class="class_left" th:if="${!#lists.isEmpty(coachCourse.coachCoursePics)}">
                             <img th:src="@{|/course/DBGifReader?picID=${coachCourse.coachCoursePics[0].id}&amp;source=coachCourse|}"
-                                 class="img-responsive" alt="" title="continue">
+                                 class="img-responsive custom-img-size" alt="" title="continue">
                         </div>
                         <div class="class_right">
                             <h3 th:text="${coachCourse.courseName}">少騫拳擊</h3>
@@ -455,8 +461,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <div class="clear"></div>
                                 <ul class="buttons_class">
                                     <li class="btn6">
-                                        <a class="btn_modal" th:data-lightbox-id="'lightbox-' + ${coachCourse.cMember.cMemberID}">教練課程</a>
-                                        <div class="lightbox" th:id="'lightbox-' + ${coachCourse.cMember.cMemberID}" style="z-index: 9999;">
+                                        <a class="btn_modal"
+                                           th:data-lightbox-id="'lightbox-' + ${coachCourse.cMember.cMemberID}">教練課程</a>
+                                        <div class="lightbox" th:id="'lightbox-' + ${coachCourse.cMember.cMemberID}"
+                                             style="z-index: 9999;">
                                             <article>
                                                 <h1 style="text-align: center;">這裡是當前教練的所有課程</h1>
                                                 <div th:if="${coachCourse != null and coachCourse.cMember != null}">
@@ -485,7 +493,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="col-md-6" th:if="${iterStat.index % 2 == 1}">
                         <div class="class_left" th:if="${!#lists.isEmpty(coachCourse.coachCoursePics)}">
                             <img th:src="@{|/course/DBGifReader?picID=${coachCourse.coachCoursePics[0].id}&amp;source=coachCourse|}"
-                                 class="img-responsive" alt="" title="continue">
+                                 class="img-responsive custom-img-size" alt="" title="continue">
                         </div>
                         <div class="class_right1">
                             <h3 th:text="${coachCourse.courseName}">少騫拳擊</h3>
@@ -504,8 +512,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <div class="clear"></div>
                                 <ul class="buttons_class">
                                     <li class="btn8">
-                                        <a class="btn_modal" th:data-lightbox-id="'lightbox-' + ${coachCourse.cMember.cMemberID}">教練課程</a>
-                                        <div class="lightbox" th:id="'lightbox-' + ${coachCourse.cMember.cMemberID}" style="z-index: 9999;">
+                                        <a class="btn_modal"
+                                           th:data-lightbox-id="'lightbox-' + ${coachCourse.cMember.cMemberID}">教練課程</a>
+                                        <div class="lightbox" th:id="'lightbox-' + ${coachCourse.cMember.cMemberID}"
+                                             style="z-index: 9999;">
                                             <article>
                                                 <h1 style="text-align: center;">這裡是當前教練的所有課程</h1>
                                                 <div th:if="${coachCourse != null and coachCourse.cMember != null}">
