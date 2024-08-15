@@ -222,13 +222,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="dl_info" th:object="${member}">
                     <label for="receiver_name">姓名*：</label>
                     <input type="text" name="receiver" id="receiver_name"
-                           th:value="${#strings.isEmpty(member.receiver) ? (#strings.isEmpty(member.name) ? '' : member.name) : ''}"><br/>
+                           th:value="${#strings.isEmpty(member.receiver) ? (#strings.isEmpty(member.name) ? '' : member.name) : member.receiver}"><br/>
                     <label for="receiver_addr">地址*：</label>
                     <input type="text" name="receiverAddress" id="receiver_addr"
-                           th:value="${#strings.isEmpty(member.receiverAddress) ? (#strings.isEmpty(member.address) ? '' : member.address) : ''}"><br/>
+                           th:value="${#strings.isEmpty(member.receiverAddress) ? (#strings.isEmpty(member.address) ? '' : member.address) : member.receiverAddress}"><br/>
                     <label for="receiver_phone">電話*：</label>
                     <input type="text" name="receiverPhone" id="receiver_phone"
-                           th:value="${#strings.isEmpty(member.receiverPhone) ? (#strings.isEmpty(member.phone) ? '' : member.phone) : ''}"><br/>
+                           th:value="${#strings.isEmpty(member.receiverPhone) ? (#strings.isEmpty(member.phone) ? '' : member.phone) : member.receiverPhone}"><br/>
                     <label for="receiver_email">信箱*：</label>
                     <input type="text" name="email" id="receiver_email"
                            th:value="${#strings.isEmpty(member.email) ? '' : member.email}"><br/>

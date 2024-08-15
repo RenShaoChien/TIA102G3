@@ -116,6 +116,16 @@ CREATE TABLE coach_specialty
     sportEventID     INT NOT NULL COMMENT '運動項目ID。外鍵，關聯到sport_event表的sportEventID'
 ) COMMENT ='教練專長表。存儲教練的專長運動項目';
 
+insert into coach_specialty (cMemberID, sportEventID)
+values(1, 32) ,
+      (2, 10),
+      (3, 30),
+      (4, 21),
+      (5, 18),
+      (1, 22),
+      (2, 31),
+      (2, 24);
+
 CREATE TABLE coach_certificate
 (
     id INT AUTO_INCREMENT PRIMARY KEY COMMENT '教練證照ID。主鍵，自動遞增',
@@ -124,7 +134,12 @@ CREATE TABLE coach_certificate
     certificatePic     LONGBLOB COMMENT '證照照片'
 ) COMMENT ='教練證照表。存儲教練的證照信息，包括證照名稱和照片';
 
-
+insert into coach_certificate (cMemberID, certificateName)
+    values (1, 'C級重量訓練教練證'),
+           (2, 'C級重量訓練教練證'),
+           (3, 'C級重量訓練教練證'),
+           (4, 'C級重量訓練教練證'),
+           (5, 'C級重量訓練教練證');
 
 CREATE TABLE sport_event
 (
