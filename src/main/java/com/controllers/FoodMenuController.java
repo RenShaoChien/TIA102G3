@@ -2,9 +2,6 @@ package com.controllers;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.controllers.mark.RedisService;
 import com.tia102g3.food.model.FoodService;
 import com.tia102g3.food.model.FoodVO;
 import com.tia102g3.healthstatus.model.HealthStatusService;
@@ -26,9 +24,6 @@ import com.tia102g3.likefood.model.LikeFoodService;
 import com.tia102g3.likefood.model.LikeFoodVO;
 import com.tia102g3.menu.model.MenuService;
 import com.tia102g3.menu.model.MenuVO;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/menu")
@@ -48,6 +43,10 @@ public class FoodMenuController {
     
     @Autowired
     MenuService menuSvc;
+    
+    @Autowired
+    private RedisService redisService;
+//    System.out.println(redisService.get("someKey"));
 
     @GetMapping("/backstage")
     public String backstage(ModelMap model) {
@@ -72,7 +71,7 @@ public class FoodMenuController {
     @GetMapping("/addLikeFood")
     public String addLikeFood(ModelMap model) {
         LikeFoodVO likeFoodVO = new LikeFoodVO();
-        model.addAttribute("likeFoodVO", likeFoodVO);
+        model.addAttribute("likeFoodVO", likeFoodVO);     
         return "menu/addLikeFood";
     }
     

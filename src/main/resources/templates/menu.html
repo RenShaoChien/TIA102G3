@@ -89,13 +89,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
 					<li><a th:href="@{/index}">Home</a></li>
-					<li><a th:href="@{/account_information}">會員專區</a></li>
-					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
-					<li><a href="classes.html">Classes</a></li>
-					<li  class="active"><a th:href="@{/menu}">健康餐</a></li>
-					<li><a th:href="@{pricing}">Pricing</a></li>
-					<li><a th:href="@{/map}">美食地圖</a></li>
-                	<li><a th:href="@{/qa}">客服</a></li> 
+                    <li><a th:href="@{/account_information}">會員專區</a></li>
+                    <li><a th:href="@{/trainers}">專屬你的訓練</a>
+                    <li><a th:href="@{/menu}">健康餐</a></li>
+                    <li><a th:href="@{/pricing}">Pricing</a></li>
+                    <li><a th:href="@{/map}">美食地圖</a></li>
+                    <li><a th:href="@{/qa}">客服</a></li>
+                    <li><a th:href="@{/logout}" class="logout-button">登出</a></li>
 				</ul>
 				<script type="text/javascript" src="js/nav.js"></script>
 			</div><!-- end h_menu4 -->
@@ -314,6 +314,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 		</div>
 
+		<div>
+			<button id="sendDataBtn">發送資料</button>
+		</div>
+
+
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row section group">
@@ -360,6 +365,29 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="clear"></div>
 			</div>
 		</div>
+
+		<!-- Test JavaScript -->
+		<script>
+			$(document).ready(function() {
+				$("#sendDataBtn").click(function() {
+					$.ajax({
+						url: "http://localhost:8080/redis/save",
+						type: "GET",
+						data: {
+							key: "someKey",
+							value: "someValueTest"
+						},
+						success: function(response) {
+							alert("資料發送成功: " + response);
+						},
+						error: function(xhr, status, error) {
+							alert("發送失敗: " + xhr.responseText);
+						}
+					});
+				});
+			});
+		</script>
+
 </body>
 
 </html>
