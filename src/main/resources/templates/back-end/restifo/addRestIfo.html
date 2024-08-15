@@ -88,7 +88,19 @@ form div div {
 					th:if="${#fields.hasErrors('restTel')}" th:errors="*{restTel}"
 					class="error" id="restTel.errors"></span>
 			</div>
+			
+			
+			<div>
+				<label>緯度:</label> <input type="text" th:field="*{restMapVO.mapLat}"
+					onclick="hideContent('mapLat.errors');" /><br /> <span
+					class="error" id="mapLat.errors"></span>
+			</div>
 
+			<div>
+				<label>經度:</label> <input type="text" th:field="*{restMapVO.mapLng}"
+					onclick="hideContent('mapLng.errors');" /><br /> <span
+					class="error" id="mapLng.errors"></span>
+			</div>
 
 			<div>
 				<label>地圖編號:</label> <select th:field="*{RestMapVO.mapID}">

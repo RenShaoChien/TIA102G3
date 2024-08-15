@@ -1,5 +1,7 @@
 package com.tia102g3.sportevent.service;
 
+import com.tia102g3.sportevent.model.SportEvent;
+
 import java.util.Set;
 
 /**
@@ -20,4 +22,6 @@ public interface SportEventService {
     Set<String> getSportEquipmentFromTypeSet(String sportType);
 
     Set<String> getEquipmentBySportEvent(String sportEventName);
+
+    void addOne(SportEvent se);
 }

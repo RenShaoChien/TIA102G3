@@ -21,5 +21,6 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 	List<Member> findByOthers(int memberID , String name , java.sql.Date regDate);
 	
 	Member findByAccount(String account);
+	boolean existsByAccount(String account);
 	Member findByEmail(String email);
 }

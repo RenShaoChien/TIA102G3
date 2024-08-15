@@ -131,6 +131,7 @@ public class SystemCourseServiceImpl implements SystemCourseService {
         course.setSportTime((String) row[9]);
         course.setSwp((Integer) row[10]);
         course.setIllustrate((String) row[11]);
+        course.setVideo((String) row[12]);
         return course;
     }
 

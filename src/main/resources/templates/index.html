@@ -83,16 +83,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="h_menu4"><!-- start h_menu4 -->
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
-					<li class="active"><a href="index.html">Home</a></li>
-					<li><a th:href="@{/account_information}">會員專區</a></li>
-					<li><a th:href="@{trainers}">專屬你的訓練</a></li>
-					<li><a href="classes.html">Classes</a>
-
-					</li>
-					<li><a href="menu">Menu</a></li>
-					<li><a href="pricing">Pricing</a></li>
-					<li><a href="contact.html">Contact</a></li>
-					<li><a th:href="@{login}">登入</a></li>
+					<li><a th:href="@{/index}">Home</a></li>
+                	<li><a th:href="@{/account_information}" data-requires-login="true">會員專區</a></li>
+                	<li><a th:href="@{/trainers}" data-requires-login="true">專屬你的訓練</a></li>
+                	<li><a href="classes.html"  data-requires-login="true">Classes</a></li>
+                	<li><a th:href="@{/menu}" data-requires-login="true">健康餐</a></li>
+                	<li><a th:href="@{/pricing}" data-requires-login="true">Pricing</a></li>
+                	<li><a th:href="@{/map}" data-requires-login="true">美食地圖</a></li>
+                	<li><a th:href="@{/qa}" data-requires-login="true">客服</a></li>
+                	<li><a th:href="@{/login}">登入</a></li>
 				</ul>
 				<script type="text/javascript" src="js/nav.js"></script>
 			</div><!-- end h_menu4 -->
@@ -670,6 +669,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="clear"></div>
 		</div>
 	</div>
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() {
+	    var isLoggedIn = false; // 這裡應根據實際情況設置是否登入
+
+	    // 獲取所有需要登入的連結
+	    var links = document.querySelectorAll('a[data-requires-login="true"]');
+
+	    links.forEach(function(link) {
+	        link.addEventListener('click', function(event) {
+	            if (!isLoggedIn) {
+	                event.preventDefault(); // 防止連結跳轉
+	                alert('親  請先登入哦！');
+	                // 確保回到登入頁面
+	                window.location.href = '/login';
+	            }
+	        });
+	    });
+	});
+	</script>
 </body>
 
 </html>
