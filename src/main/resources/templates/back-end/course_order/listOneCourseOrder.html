@@ -98,14 +98,14 @@ h3 {
         <span>課程訂單ID:</span>
         <span class="value" th:text="${courseOrder.courseOrderID}"></span>
     </div>
-    <div class="field">
-        <span>會員ID:</span>
-        <span class="value" th:text="${courseOrder.memberID}"></span>
-    </div>
-    <div class="field">
-        <span>教練課程ID:</span>
-        <span class="value" th:text="${courseOrder.id}"></span>
-    </div>
+    <div class="field" style="display: none;">
+    	<span>會員ID:</span>
+    	<span class="value" th:text="${memberID}"></span>
+	</div>
+	<div class="field" style="display: none;">
+    	<span>教練課程ID:</span>
+    	<span class="value" th:text="${coachCourseID}"></span>
+	</div>
     <div class="field">
         <span>金額:</span>
         <span class="value" th:text="${courseOrder.price}"></span>

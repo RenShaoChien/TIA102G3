@@ -100,6 +100,11 @@ input[type=submit]:hover, button:hover {
     display: block;
     margin-top: 5px;
 }
+
+.hidden {
+        display: none;
+    }
+    
 </style>
 </head>
 <body>
@@ -115,20 +120,20 @@ input[type=submit]:hover, button:hover {
         <form th:action="@{update}" method="post" th:object="${courseOrder}" enctype="multipart/form-data">
             <div>
                 <label>課程訂單ID:</label>
-                <input type="text" th:field="*{courseOrderID}" style="border: 0; font-weight: bold;" readonly />
+				<input type="text" th:field="*{courseOrderID}" style="border:0px ; font-weight: bold;" readonly /><br/>
             </div>
 
-            <div>
-                <label>會員ID:</label>
-                <input type="text" th:field="*{memberID}" onclick="hideContent('memberID.errors');" />
-                <span th:if="${#fields.hasErrors('memberID')}" th:errors="*{memberID}" class="error" id="memberID.errors"></span>
-            </div>
+            <div class="hidden">
+    			<label>會員ID:</label>
+    			<input type="text" th:value="*{memberID}" name="member" onclick="hideContent('memberID.errors');" /><br/>
+    			<span th:if="${#fields.hasErrors('member.memberID')}" th:errors="*{member.memberID}" class="error" id="memberID.errors"></span>
+			</div>
 
-            <div>
-                <label>教練課程ID:</label>
-                <input type="text" th:field="*{coachCourse.id}" onclick="hideContent('coachCourse.coachCourseID.errors');" />
-                <span th:if="${#fields.hasErrors('coachCourse.id')}" th:errors="*{coachCourse.id}" class="error" id="coachCourse.id.errors"></span>
-            </div>
+			<div class="hidden">
+    			<label>教練課程ID:</label>
+    			<input type="text" th:value="*{coachCourse.id}" name="coachCourse" onclick="hideContent('coachCourse.id.errors');" /><br/>
+    			<span th:if="${#fields.hasErrors('coachCourse.id')}" th:errors="*{coachCourse.id}" class="error" id="coachCourse.id.errors"></span>
+			</div>
 
             <div>
                 <label>金額:</label>
