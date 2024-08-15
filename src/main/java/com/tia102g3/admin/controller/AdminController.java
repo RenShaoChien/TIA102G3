@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tia102g3.admin.model.AdminService;
 import com.tia102g3.admin.model.AdminVO;
+import com.tia102g3.product.model.ProductVO;
+import com.utils.StringUtil;
 
 @Controller
 @RequestMapping("/admin")
@@ -30,6 +34,7 @@ public class AdminController {
 
 	@Autowired
 	AdminService adminSvc;
+	
 
 	@GetMapping("addAdmin")
 	public String addAdmin(ModelMap model) {
