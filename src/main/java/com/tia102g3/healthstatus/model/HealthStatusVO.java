@@ -20,23 +20,31 @@ public class HealthStatusVO implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "healthSN", updatable = false)
 	private Integer healthSN;
+	
 	@Column(name = "memberID")
 	@NotNull(message="會員編號: 請勿空白")
 	private Integer memberID;
+	
 	@Column(name = "height")
 	@NotNull(message="會員身高: 請勿空白")
 	private Integer height;
+	
 	@Column(name = "weight")
 	@NotNull(message="會員體重: 請勿空白")
 	private Integer weight;
+	
 	@Column(name = "bmi")
 	private Double bmi;
+	
 	@Column(name = "bmr")
 	private Integer bmr;
+	
 	@Column(name = "tdee")
 	private Integer tdee;
+	
 	@Column(name = "intensity")
 	private Integer intensity;
+	
 	@Column(name = "create_dt")
 	@CreationTimestamp
 	private Timestamp create_dt;

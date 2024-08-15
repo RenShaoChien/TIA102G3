@@ -156,7 +156,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</div>
 
 		<div class="button-container">
-			<button>產生菜單</button>
+			<!-- <button>產生菜單</button> -->
+			<form method="post" th:action="@{updateMenu}">
+				
+				<!-- <input type="text" name="empno" th:value="${param.empno}" >  -->
+				<input type="submit" value="產生菜單">
+			</form><br>
+
 		</div>
 
 		<div class="container">
@@ -167,57 +173,66 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<h2 class="panel-title custom-panel-title">健康參數</h2>
 						</div>
 						<div class="panel-body">
-							<form action="">
+							<form th:action="@{insertHealthStatus}" method="post" th:object="${healthStatusVO}"	enctype="multipart/form-data">
+								<label for="">
+									<p class="menu-text-title">會員編號</p>
+								</label>
+
+								<input class="form-control input-width-50" type="text" name="memberID"> 
+								<!-- <span th:if="${#fields.hasErrors('memberID')}" th:errors="*{memberID}" class="error" id="memberID.errors"></span> -->
+								<br> 
 								<label for="">
 									<p class="menu-text-title">身高</p>
-								</label>
-								<input class="form-control input-width-50" type="text" name="height">
+								</label> 
+								<input class="form-control input-width-50" type="text" name="height" id="height"> 
+								<!-- <span th:if="${#fields.hasErrors('height')}" th:errors="*{height}" class="error" id="height.errors"></span> -->
 								<br>
+
 								<label for="">
 									<p class="menu-text-title">體重</p>
-								</label>
-								<input class="form-control input-width-50" type="text" name="weight">
+								</label>								
+								<input class="form-control input-width-50" type="text" name="weight" id="weight"> 
+								<!-- <span th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}" class="error" id="weight.errors"></span> -->
 								<br>
+
 								<label for="">
 									<p class="menu-text-title">BMI</p>
-								</label>
-								<input type="text" class="form-control input-width-50" id=""
-									value="Cannot interact with this" disabled>
+								</label>								
+								<input class="form-control" type="text" name="bmi" id="bmi" readonly>
 								<br>
 								<label for="">
 									<p class="menu-text-title">BMR-基礎代謝</p>
-								</label>
-								<input type="text" class="form-control input-width-50" id=""
-									value="Cannot interact with this" disabled>
+								</label> <input class="form-control" type="text" name="bmr" id="bmr" readonly>
 								<br>
 								<label for="">
 									<p class="menu-text-title">身體每日所能消耗的熱量-TDEE</p>
-								</label>
-								<input type="text" class="form-control input-width-50" id=""
-									value="Cannot interact with this" disabled>
+								</label> <input class="form-control" type="text" name="tdee" id="tdee" readonly>
 								<br>
 								<label for="">
 									<p class="menu-text-title">活動強度</p>
-								</label><br>
-								<input type="radio" id="radio_1" name="level" value="1">
-								<label for="radio_1">久坐/沒在運動</label><br>
-
-								<input type="radio" id="radio_2" name="level" value="2">
-								<label for="radio_2">每周輕量運動/一星期運動1~3天</label><br>
-
-								<input type="radio" id="radio_3" name="level" value="3">
-								<label for="radio_3">每周輕量運動/一星期運動3~5天</label><br>
-
-								<input type="radio" id="radio_4" name="level" value="4">
-								<label for="radio_4">每周輕量運動/一星期運動5~7天</label><br>
-
-								<input type="radio" id="radio_4" name="level" value="4">
-								<label for="radio_4">每周運動訓練2次/勞力工作者</label><br>
+								</label>
 								<br>
+								<input type="radio" id="radio_1" name="intensity" value="1">
+								<label for="radio_1">久坐/沒在運動</label>
+								<br>
+								<input type="radio" id="radio_2" name="intensity" value="2">
+								<label for="radio_2">每周輕量運動/一星期運動1~3天</label>
+								<br>
+								<input type="radio" id="radio_3" name="intensity" value="3"> 
+								<label for="radio_3">每周輕量運動/一星期運動3~5天</label>
+								<br>
+								<input type="radio" id="radio_4" name="intensity" value="4"> 
+								<label for="radio_4">每周輕量運動/一星期運動5~7天</label>
+								<br>
+								<input type="radio" id="radio_5" name="intensity" value="5">
+								<label for="radio_5">每周運動訓練2次/勞力工作者</label>
+								<br>
+								<br>
+									
 								<div class="text-center">
-									<input class="btn btn-default" type="submit" value="Submit2">
+									<input class="btn btn-default" type="submit" value="submit">
 								</div>
-							</form>
+                    		</form>
 						</div>
 					</div>
 				</div>

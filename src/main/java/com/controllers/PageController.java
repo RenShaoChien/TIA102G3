@@ -35,11 +35,11 @@ public class PageController {
     @Autowired
     private CoachCourseServiceImpl ccService;
     
-    @Autowired
-    private FoodService foodSvc;
-    
-    @Autowired
-    private MenuService menuSvc;
+//    @Autowired
+//    private FoodService foodSvc;
+//    
+//    @Autowired
+//    private MenuService menuSvc;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -64,16 +64,16 @@ public class PageController {
         return "admin";
     }
 
-    @GetMapping("/menu")
-    public String menu(Model model) {
-        LikeFoodVO likeFoodVO = new LikeFoodVO();
-        List<MenuVO> menuVO = new ArrayList<>();
-        menuVO = menuSvc.getAll();
-        model.addAttribute("likeFoodVO", likeFoodVO);
-        model.addAttribute("FoodListData", foodSvc.getAll());
-        model.addAttribute("menuVO", menuVO);
-        return "menu";
-    }
+//    @GetMapping("/menu")
+//    public String menu(Model model) {
+//        LikeFoodVO likeFoodVO = new LikeFoodVO();
+//        List<MenuVO> menuVO = new ArrayList<>();
+//        menuVO = menuSvc.getAll();
+//        model.addAttribute("likeFoodVO", likeFoodVO);
+//        model.addAttribute("FoodListData", foodSvc.getAll());
+//        model.addAttribute("menuVO", menuVO);
+//        return "menu";
+//    }
     
     @GetMapping("/pricing")
     public String pricing(Model model) {

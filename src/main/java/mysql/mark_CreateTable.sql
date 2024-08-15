@@ -1,3 +1,4 @@
+USE tia102g3;
 
 DROP TABLE IF EXISTS menu;
 
@@ -32,9 +33,9 @@ create table memberMenuList(
     healthSN int COMMENT '外鍵-健康參數',
     menuNumber int,
     menuDate date,
-    memberID int,
-    foreign key (healthSN) references healthStatus (healthSN),
-    foreign key (menuNumber) references menu (menuNumber)
+    memberID int
+    -- foreign key (healthSN) references healthStatus (healthSN),
+    -- foreign key (menuNumber) references menu (menuNumber)
     -- foreign key (memberID) references member (memberID)
 );
 
@@ -83,13 +84,73 @@ create table foodList(
     menuNumber INT,
     foodNumber INT,
     foodWeight INT,
-    Primary key (foodListSN),
-    Foreign key (menuNumber) references menu (menuNumber),
-    Foreign key (foodNumber) references food (foodNumber)
+    Primary key (foodListSN)
+    -- Foreign key (menuNumber) references menu (menuNumber),
+--     Foreign key (foodNumber) references food (foodNumber)
 );
 
-insert into foodList (menuNumber, foodNumber, foodWeight) values (1, 1, 95);
-insert into foodList (menuNumber, foodNumber, foodWeight) values (2, 2, 55);
+-- insert into foodList (menuNumber, foodNumber, foodWeight) values (1, 1, 95);
+-- insert into foodList (menuNumber, foodNumber, foodWeight) values (2, 2, 55);
+INSERT INTO foodList (menuNumber, foodNumber, foodWeight) VALUES
+(5, 10, 50),
+(5, 11, 60),
+(5, 12, 70),
+(5, 13, 80),
+(5, 14, 90),
+
+(6, 15, 100),
+(6, 16, 110),
+(6, 17, 120),
+(6, 18, 20),
+(6, 19, 30),
+
+(7, 20, 40),
+(7, 21, 50),
+(7, 22, 60),
+(7, 23, 70),
+(7, 24, 80),
+
+(8, 25, 90),
+(8, 26, 100),
+(8, 27, 110),
+(8, 28, 120),
+(8, 29, 30),
+
+(9, 30, 40),
+(9, 10, 50),
+(9, 11, 60),
+(9, 12, 70),
+(9, 13, 80),
+
+(10, 11, 35),
+(10, 17, 65),
+(10, 15, 120),
+(10, 12, 45),
+(10, 14, 110),
+
+(11, 18, 95),
+(11, 20, 20),
+(11, 19, 80),
+(11, 13, 60),
+(11, 16, 30),
+
+(12, 21, 70),
+(12, 23, 100),
+(12, 22, 40),
+(12, 30, 55),
+(12, 28, 115),
+
+(13, 29, 50),
+(13, 24, 105),
+(13, 26, 75),
+(13, 25, 25),
+(13, 27, 90),
+
+(14, 10, 85),
+(14, 13, 15),
+(14, 11, 105),
+(14, 17, 65),
+(14, 30, 40);
 
 -- ====================================================
 DROP TABLE IF EXISTS healthStatus;
@@ -113,15 +174,18 @@ insert into healthStatus(memberID, height, weight,bmi, BMR, TDEE, intensity) val
 DROP TABLE IF EXISTS likeFood;
 
 create table likeFood(
+    likeFoodSN int auto_increment,
 	memberID int,
     foodNumber int,
     foodPreference boolean,
-    primary key (memberID, foodNumber)
+    primary key (likeFoodSN)
     -- foreign key memberID references member (memberID),
     -- foreign key (foodNumber) references food (foodNumber)
 );
 
 insert into likeFood (memberID, foodNumber, foodPreference) values (1, 1, true);
 insert into likeFood (memberID, foodNumber, foodPreference) values (1, 2, false);
+insert into likeFood (memberID, foodNumber, foodPreference) values (2, 11, true);
+insert into likeFood (memberID, foodNumber, foodPreference) values (2, 12, false);
 
 -- ====================================================

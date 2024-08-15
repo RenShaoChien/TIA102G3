@@ -63,15 +63,15 @@
                 </div>
 
                 <div class="panel-body">
-                    <form th:action="@{insertLikeFood}" method="post" th:object="${LikeFoodVO}"
-                        enctype="multipart/form-data">
+                    <form th:action="@{insertLikeFood}" method="post" th:object="${LikeFoodVO}" enctype="multipart/form-data">
                         <label for=""><p class="menu-text-title">會員編號</p></label> 
-                        <input class="form-control input-width-50" type="text" name="memberID"> 
+                        <input class="form-control input-width-50" type="text" name="memberID">
+                        <!-- <span th:if="${#fields.hasErrors('memberID')}" th:errors="*{memberID}" class="error" id="memberID.errors"></span> -->
                         <!-- <span th:if="${#fields.hasErrors('memberID')}" th:errors="*{memberID}" class="error" id="memberID.errors"></span>  -->
                         <br> 
-<!--                         <label for=""> <p class="menu-text-title">食物編號</p> </label>  -->
-<!--                         <input class="form-control input-width-50" type="text" name="foodNumber" id="foodNumber">  -->
-                        <!-- <span th:if="${#fields.hasErrors('foodNumber')}" th:errors="*{foodNumber}" class="error" id="foodNumber.errors"></span>  -->
+                        <!-- <label for=""> <p class="menu-text-title">食物編號</p> </label>
+                        <input class="form-control input-width-50" type="text" name="foodNumber" id="foodNumber"> 
+                        <span th:if="${#fields.hasErrors('foodNumber')}" th:errors="*{foodNumber}" class="error" id="foodNumber.errors"></span> -->
                         <br> 
                         選擇食材: 
 					      <select name="foodNumber">

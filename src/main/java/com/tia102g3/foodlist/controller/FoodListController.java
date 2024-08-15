@@ -2,6 +2,8 @@ package com.tia102g3.foodlist.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,8 +63,6 @@ public class FoodListController {
             @RequestParam("foodNumber") String foodNumber ) {
 
         /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
-        // 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
-        
         if (result.hasErrors()) {
             return "menu/addFoodList";
         }
@@ -79,11 +79,11 @@ public class FoodListController {
         model.addAttribute("foodListData", list);
         model.addAttribute("success", "- (新增成功)");
 
-//        return "redirect:/food/listAllFood"; // 新增成功後重導至IndexController_inSpringBoot.java的第58行@GetMapping("/emp/listAllEmp")
-        return "menu/listAllFoodList"; // 新增成功後重導至IndexController_inSpringBoot.java的第58行@GetMapping("/emp/listAllEmp")
+//        return "redirect:/food/listAllFood"; 
+        return "menu/listAllFoodList"; // 
     }
     
-    @ModelAttribute("FoodListData")  // for select_page.html 第97 109行用 // for listAllEmp.html 第85行用
+    @ModelAttribute("FoodListData")  // 
     protected List<FoodVO> referenceListData(Model model) {
         
         List<FoodVO> list = foodSvc.getAll();
