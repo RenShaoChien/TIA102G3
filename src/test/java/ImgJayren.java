@@ -1,4 +1,7 @@
 import com.Application;
+import com.tia102g3.coachcourse.model.CoachCourse;
+import com.tia102g3.coachcoursepic.model.CoachCoursePic;
+import com.tia102g3.coachcoursepic.model.CoachCoursePicDAO;
 import com.tia102g3.systemcourse.model.SystemCourse;
 import com.tia102g3.systemcoursepic.model.SystemCoursePic;
 import com.tia102g3.systemcoursepic.model.SystemCoursePicDAO;
@@ -6,12 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 /**
  * ClassName： ImgJayren
@@ -28,10 +32,12 @@ public class ImgJayren {
     @Autowired
     SystemCoursePicDAO dao;
     @Autowired
-    private ResourceLoader resourceLoader;
+    CoachCoursePicDAO dao1;
 
     @Test
     public void pic() throws IOException {
+
+
         ClassPathResource resource1 = new ClassPathResource("static/back_end_img/jayren/1-1.jpeg");
         ClassPathResource resource2 = new ClassPathResource("static/back_end_img/jayren/1-2.jpg");
         ClassPathResource resource3 = new ClassPathResource("static/back_end_img/jayren/1-3.jpeg");
@@ -77,17 +83,24 @@ public class ImgJayren {
         dao.save(new SystemCoursePic(21, new SystemCourse(10), Files.readAllBytes(resource21.getFile().toPath())));
 
     }
+
+
     @Test
-    public void test2() {
-        Resource resource = resourceLoader.getResource("classpath:back_end_img/jayren/1-4.jpeg");
-        try {
-            if (resource.exists()) {
-                System.out.println("File found via ResourceLoader!");
-            } else {
-                System.out.println("File not found via ResourceLoader.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void test2() throws IOException {
+        Random rd = new Random();
+
+        ClassPathResource resource22 = new ClassPathResource("static/back_end_img/jayren/01.jpg");
+        ClassPathResource resource23 = new ClassPathResource("static/back_end_img/jayren/02.png");
+        ClassPathResource resource24 = new ClassPathResource("static/back_end_img/jayren/03.jpg");
+        ClassPathResource resource25 = new ClassPathResource("static/back_end_img/jayren/04.jpeg");
+        ClassPathResource resource26 = new ClassPathResource("static/back_end_img/jayren/05.png");
+        ClassPathResource resource27 = new ClassPathResource("static/back_end_img/jayren/06.jpg");
+        ClassPathResource resource28 = new ClassPathResource("static/back_end_img/jayren/07.png");
+
+        List<ClassPathResource> pic = Arrays.asList(resource22, resource23, resource24, resource25, resource26, resource27, resource28);
+        for (int i = 0; i < 20; i++) {
+            dao1.save(new CoachCoursePic(i + 1, new CoachCourse(i + 1), Files.readAllBytes(pic.get(rd.nextInt(pic.size())).getFile().toPath())));
         }
+
     }
 }
