@@ -1,6 +1,9 @@
 package com.tia102g3.order.model;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +27,7 @@ public class OrderService {
         OrderVO ov = new OrderVO();
         ov.setOrderID((Integer) row[0]);
         ov.setMember(new Member((Integer) row[1]));
-        ov.setOrderDate((java.sql.Date) row[2]);
+        ov.setOrderDate((java.sql.Timestamp) row[2]);
         ov.setStatus((String) row[3]);
         ov.setTotalPrice((Integer) row[4]);
         return ov;
@@ -33,5 +36,9 @@ public class OrderService {
     public Long getOrderCount(String keyword) {
         return repository.getOrderCount(keyword);
     }
+
+	public void updateOrder(@Valid OrderVO ov) throws IOException{
+		repository.save(ov);
+	}
 
 }

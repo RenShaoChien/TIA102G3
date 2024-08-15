@@ -1,15 +1,17 @@
 package com;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.tia102g3.member.model.Member;
+import com.tia102g3.order.model.OrderRepository;
+import com.tia102g3.order.model.OrderService;
+import com.tia102g3.order.model.OrderVO;
 
 
 @SpringBootApplication
@@ -34,6 +36,13 @@ public class Test_Application_CommandLineRunner_ShoppingCart implements CommandL
 //	ShoppingCartService shoppingCartService;
 	
 	@Autowired
+	OrderService orderService;
+	
+	@Autowired
+	OrderRepository orderRepository;
+	
+	
+	@Autowired
     private SessionFactory sessionFactory;
 	
 	public static void main(String[] args) {
@@ -42,6 +51,36 @@ public class Test_Application_CommandLineRunner_ShoppingCart implements CommandL
 
     @Override
     public void run(String...args) throws Exception {
+    	
+
+    	
+    	
+    	//● 新增
+//    	Member member = new Member();
+//    	member.setMemberID(1);
+//    	OrderVO orderVO1 = new OrderVO();
+//    	orderVO1.setMember(member);
+//    	orderVO1.setOrderDate(java.sql.Timestamp.valueOf("2024-08-15 00:00:01"));
+//    	orderVO1.setStatus("300");
+//    	orderVO1.setTotalPrice(300);		
+//    	orderRepository.save(orderVO1); 
+    	
+		//● 查詢-getAll (多方emp2.hbm.xml必須設為lazy="false")(優!)
+    	List<OrderVO> list = orderRepository.findAll();
+		for (OrderVO aOrder : list) {
+			System.out.print(aOrder.getOrderID() + ",");
+			System.out.print(aOrder.getMember().getMemberID() + ",");
+			System.out.print(aOrder.getOrderDate() + ",");
+			System.out.print(aOrder.getStatus() + ",");
+			System.out.print(aOrder.getTotalPrice() + ",");
+//			// 注意以下三行的寫法 (優!)
+//			System.out.print(aEmp.getDeptVO().getDeptno() + ",");
+//			System.out.print(aEmp.getDeptVO().getDname() + ",");
+//			System.out.print(aEmp.getDeptVO().getLoc());
+//			System.out.println();
+		}
+		System.out.print("成功!!");
+    	
 
     	//● 新增
 //		DeptVO deptVO = new DeptVO(); // 部門POJO
@@ -297,13 +336,19 @@ public class Test_Application_CommandLineRunner_ShoppingCart implements CommandL
 		
     }
 
-	public static byte[] getPictureByteArray(String path)throws IOException {
-
-		FileInputStream fis = new FileInputStream(path);
-		byte[] buffer = new byte[fis.available()];
-		fis.read(buffer);
-		fis.close();
-		return buffer;
-
-	}
+//	public static byte[] getPictureByteArray(String path)throws IOException {
+//
+//		FileInputStream fis = new FileInputStream(path);
+//		byte[] buffer = new byte[fis.available()];
+//		fis.read(buffer);
+//		fis.close();
+//		return buffer;
+//
+//	}
+    
+//==================================以下為訂單================================================// 
+    
+    
 }
+
+
