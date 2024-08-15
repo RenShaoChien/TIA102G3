@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.tia102g3.restifo.model.RestIfoService;
+import com.tia102g3.restifo.model.RestIfoVO;
 import com.tia102g3.restmap.model.RestMapService;
 import com.tia102g3.restmap.model.RestMapVO;
 
@@ -34,8 +35,12 @@ public class MapController {
 			return temp;
 		}).toList();
 		model.addAttribute("restMapList", fList);
-		return "map"; // 導向 map.html 模板
 
+		// 獲取所有 RestIfoVO 並添加到模型中
+		List<RestIfoVO> restIfoListData = restIfoService.getAll();
+		model.addAttribute("restIfoListData", restIfoListData);
+
+		return "map"; // 導向 map.html 模板
 	}
 
 }
