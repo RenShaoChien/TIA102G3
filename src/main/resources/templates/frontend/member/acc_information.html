@@ -1,14 +1,28 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"> <!-- 設定文件類型和語言為繁體中文 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- 設定文件類型和語言為繁體中文 -->
 <head>
 <title>健肌尋食-會員專區</title>
 <link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css' />
 <link th:href="@{css/style.css}" rel='stylesheet' type='text/css' />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700'
+	rel='stylesheet' type='text/css'>
+<script type="application/x-javascript">
+	
+	
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+
+
+</script>
 <script th:src="@{js/jquery.min.js}"></script>
 
 <!-- grid-slider -->
@@ -19,234 +33,218 @@
 <link rel="stylesheet" href="css/jquery-ui.css" />
 <!---//calender-style---->
 <style>
-    .btn-login {
-        margin: bottom 50px;
-        float: right;
-        padding-right: 20px;
-        padding-top: 5px;
-        padding-bottom: 10px;
-        border: 1px solid black;
-        background-color: white;
-    }
+.btn-login {
+	margin: bottom 50px;
+	float: right;
+	padding-right: 20px;
+	padding-top: 5px;
+	padding-bottom: 10px;
+	border: 1px solid black;
+	background-color: white;
+}
 
-    .social {
-        padding-top: 4px;
-        padding-right: 10px;
-    }
+.social {
+	padding-top: 4px;
+	padding-right: 10px;
+}
 
-    .container-data {
-        height: auto;
-        width: auto;
-        margin: auto;
-        /* padding: 20px; */
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: row;
-        /* gap: 20px; */
-        /* flex-wrap: wrap; */
-        background-color: #e0f7f9;
-        /* place-items: center; */
-        /* background-color: red; */
-    }
+.container-data {
+	height: auto;
+	width: auto;
+	margin: auto;
+	/* padding: 20px; */
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: row;
+	/* gap: 20px; */
+	/* flex-wrap: wrap; */
+	background-color: #e0f7f9;
+	/* place-items: center; */
+	/* background-color: red; */
+}
 
-    .sidebar {
-        width: 20%;
-        height: auto;
-        padding-top: 50px;
-        /* padding-right: 20px; */
-        border-right: 1px solid #d0e5d2;
-        background-color: #eaf5e1;
-        color: #4b6e4f;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
-        /* border: 1px solid black; */
-    }
+.sidebar {
+	width: 20%;
+	height: auto;
+	padding-top: 50px;
+	/* padding-right: 20px; */
+	border-right: 1px solid #d0e5d2;
+	background-color: #eaf5e1;
+	color: #4b6e4f;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	/* border: 1px solid black; */
+}
 
-    .sidebar a {
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 50px;
-    }
+.sidebar a {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 50px;
+}
 
-    h2 {
-        display: block;
-        width: 100%;
-        text-align: center;
-        margin: 0;
-        padding: 20px;
-        border-bottom: 3px solid black;
-    }
+h2 {
+	display: block;
+	width: 100%;
+	text-align: center;
+	margin: 0;
+	padding: 20px;
+	border-bottom: 3px solid black;
+}
 
-    .content-data {
-        width: 100%;
-    }
+.content-data {
+	width: 100%;
+}
 
-    .content-data input {
-        border-radius: 30px;
-    }
+.content-data input {
+	border-radius: 30px;
+}
 
-    .form-container {
-        width: auto;
-        height: auto;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        gap: 20px;
-        flex-wrap: wrap;
-    }
+.form-container {
+	width: auto;
+	height: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 20px;
+	flex-wrap: wrap;
+}
 
+.form-row {
+	padding: 40px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	flex-wrap: wrap;
+	/* background-color: yellow; */
+	border-color: black;
+}
 
-    .form-row {
-        padding: 40px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        flex-wrap: wrap;
-        /* background-color: yellow; */
-        border-color: black;
-    }
+.form-section input {
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
 
-    .form-section input {
-        width: 300px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
+.form-section2 input {
+	width: 100px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
 
-    .form-section2 input {
-        width: 100px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
+.button0 input {
+	margin-right: 100px;
+	float: right;
+	background: #00BFF0;
+	border: none;
+	color: #FFF;
+	padding: 10px 20px;
+	cursor: pointer;
+	font-family: 'Open Sans', sans-serif;
+	outline: none;
+	font-size: 1em;
+	border-radius: 5px;
+	transition: background 0.3s;
+}
 
-    .button0 input {
-        margin-right: 100px;
-        float: right;
-        background: #00BFF0;
-        border: none;
-        color: #FFF;
-        padding: 10px 20px;
-        cursor: pointer;
-        font-family: 'Open Sans', sans-serif;
-        outline: none;
-        font-size: 1em;
-        border-radius: 5px;
-        transition: background 0.3s;
-    }
+.clear {
+	clear: both;
+}
 
-    .clear {
-        clear: both;
-    }
+.error {
+	color: red;
+	text-align: center;
+}
 
-    .error {
-        color: red;
-        text-align: center;
-    }
+.logout-button {
+	background-color: red;
+	border-radius: 30px;
+}
+
 </style>
 </head>
 
 <body>
-    <!-- start header_bottom -->
-    <div class="header-bottom">
-        <div class="btn-login">
-            <a href="login.html">Log In</a>
-        </div>
-        <div class="container">
-            <div class="header-bottom_left">
-                <i class="phone"> </i><span>1-200-346-2986</span>
-            </div>
-            <div class="social">
-                <ul>
-                    <li class="facebook"><a href="#"><span> </span></a></li>
-                    <li class="google"><a href="#"><span> </span></a></li>
-                </ul>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <!-- start menu -->
-    <div class="menu">
-        <div class="container">
-            <div class="h_menu4"><!-- start h_menu4 -->
-                <a class="toggleMenu" href="#">Menu</a>
-                <ul class="nav">
-                    <li><a th:href="@{/index}">Home</a></li>
-					<li><a th:href="@{/account_information}">會員專區</a></li>
-					<li><a th:href="@{/trainers}">專屬你的訓練</a>
-					<li><a href="classes.html">Classes</a></li>
+	<div class="menu">
+		<div class="container">
+			<div class="h_menu4">
+				<!-- start h_menu4 -->
+				<a class="toggleMenu" href="#">Menu</a>
+				<ul class="nav">
+					<li><a th:href="@{/index}">首頁</a></li>
+					<li class="active"><a th:href="@{/account_information}">會員專區</a></li>
+					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
 					<li><a th:href="@{/menu}">健康餐</a></li>
-					<li><a th:href="@{pricing}">Pricing</a></li>
+					<li><a th:href="@{/pricing}">Pricing</a></li>
 					<li><a th:href="@{/map}">美食地圖</a></li>
 					<li><a th:href="@{/qa}">客服</a></li>
-					<li><a th:href="@{/login}" class="logout-button">登出</a></li>
-                </ul>
-                <script type="text/javascript" src="js/nav.js"></script>
+					<li><a th:href="@{/logout}" class="logout-button">登出</a></li>
+				</ul>
+				<script type="text/javascript" src="js/nav.js"></script>
+			</div>
+			<!-- end h_menu4 -->
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="container-data">
+		<div class="sidebar">
+			<a class="nav-link" th:href="@{/account_information}">修改帳戶資料</a> <a
+				class="nav-link" th:href="@{/change_password}">修改密碼</a> <a
+				class="nav-link" th:href="@{/historical_orders}">歷史訂單</a> <a
+				class="nav-link" th:href="@{/receipt_information}">常用收件資訊</a> <a
+				class="nav-link" th:href="@{/acc_information}">新增信用卡資訊</a>
+		</div>
+		<div class="content-data">
+			<h2>
+				一般會員 (<span th:text="${name}"></span>)
+			</h2>
+			<form action="#" th:action="@{/submit}" method="POST" enctype="multipart/form-data" onsubmit="return showSuccessAlert();">
+    <input type="hidden" name="redirectPage" value="acc_information">
+    <div class="form-container">
+        <div class="form-row">
+            <div class="form-section">
+                <label for="cardNumber">信用卡號碼:</label> <br>
+                <input type="text" id="cardNumber" name="cardNumber" th:value="*{cardNumber}" placeholder="請輸入信用卡號碼">
             </div>
-            <!-- end h_menu4 -->
-            <div class="clear"></div>
+            <div class="form-section2">
+                <label for="cardValidTime">信用卡到期日 (MM/YY):</label> <br>
+                <input type="text" id="cardValidTime" name="cardValidTime" th:value="*{cardValidTime}" placeholder="MM/YY">
+                <div id="expiry-error" class="error"></div>
+            </div>
+            <div class="form-section2">
+                <label for="cardLast3No">安全驗證碼:</label> <br>
+                <input type="text" id="cardLast3No" name="cardLast3No" th:value="*{cardLast3No}" placeholder="卡片後3碼">
+            </div>
+            <div class="form-section">
+                <label for="cardName">持卡者姓名:</label> <br>
+                <input type="text" id="cardName" name="cardName" th:value="*{cardName}" placeholder="請輸入卡片上的姓名">
+            </div>
+            <div class="form-section">
+                <label for="cardPhone">持卡者電話:</label> <br>
+                <input type="text" id="cardPhone" name="cardPhone" th:value="*{cardPhone}" placeholder="請輸入帳單地址">
+            </div>
         </div>
     </div>
-    <div class="container-data">
-        <div class="sidebar">
-            <a class="nav-link" th:href="@{/account_information}">修改帳戶資料</a>
-			<a class="nav-link" th:href="@{/change_password}">修改密碼</a>
-			<a class="nav-link" th:href="@{/historical_orders}">歷史訂單</a>
-			<a class="nav-link" th:href="@{/receipt_information}">常用收件資訊</a>
-			<a class="nav-link" th:href="@{/acc_information}">新增信用卡資訊</a>
-        </div>
-        <div class="content-data">
-            <h2>一般會員 (<span th:text="${name}"></span>)</h2>
-            <form action="/submit" method="POST">
-                <div class="form-container">
-                    <div class="form-row">
-                        <div class="form-section">
-                            <label for="card-number">信用卡號碼:</label>
-                            <br>
-                            <input type="text" id="card-number" name="card-number" placeholder="請輸入信用卡號碼">
-                        </div>
-                        <div class="form-section2">
-                            <label for="expiry-date">信用卡到期日 (MM/YY):</label>
-                            <br>
-                            <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY"
-                                oninput="validateExpiryDate(this)">
-                            <div id="expiry-error" class="error"></div>
-                        </div>
-                        <div class="form-section2">
-                            <label for="security-code">安全驗證碼:</label>
-                            <br>
-                            <input type="text" id="security-code" name="security-code" placeholder="卡片後3碼">
-                        </div>
-                        <div class="form-section">
-                            <label for="card-name">持卡者姓名:</label>
-                            <br>
-                            <input type="text" id="card-name" name="card-name" placeholder="請輸入卡片上的姓名">
-                        </div>
-                        <div class="form-section">
-                            <label for="bill-address">帳單地址:</label>
-                            <br>
-                            <input type="text" id="bill-address" name="bill-address" placeholder="請輸入帳單地址">
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-                <div class="button0">
-                    <input type="submit" name="Submit" value="儲存">
-                </div>
-                <div class="clear"></div>
-            </form>
-        </div>
+    <div class="clear"></div>
+    <div class="button0">
+        <input type="submit" name="Submit" value="儲存">
     </div>
-    <!-- end menu -->
-    <div class="footer-bottom">
+    <div class="clear"></div>
+</form>
+		</div>
+	</div>
+	<!-- end menu -->
+	<div class="footer-bottom">
 		<div class="container">
 			<div class="row section group">
 				<div class="col-md-4">
 					<div class="social"
-						 style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
-						<img src="images/cutecatloge.png" style="width: 100%; height: 100%"/>
+						style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
+						<img src="images/cutecatloge.png"
+							style="width: 100%; height: 100%" />
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -255,9 +253,12 @@
 					</div>
 					<p class="m_9">
 						「健肌尋食」是一個簡單的概念，意思是通過運動來增強肌肉，同時尋找健康的食物來補充營養，這樣可以讓我們的身體更強壯，生活更健康愉快。</p>
-					<p class="address">Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02) 3333 4444</span>
+					<p class="address">
+						Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02)
+							3333 4444</span>
 					</p>
-					<p class="address">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
+					<p class="address">
+						Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
 					</p>
 				</div>
 				<div class="col-md-4">
@@ -286,35 +287,41 @@
 			<div class="clear"></div>
 		</div>
 	</div>
-    <script>
-        function validateExpiryDate(input) {
-            const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/; // MM/YY 格式
-            const errorElement = document.getElementById('expiry-error');
-            const successElement = document.getElementById('expiry-success');
+	<script>
+		function validateExpiryDate(input) {
+			const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/; // MM/YY 格式
+			const errorElement = document.getElementById('expiry-error');
+			const successElement = document.getElementById('expiry-success');
 
-            if (expiryPattern.test(input.value)) {
-                errorElement.textContent = '';
-                successElement.textContent = '到期日格式正確';
-            } else {
-                errorElement.textContent = '請輸入正確的格式 (MM/YY)';
-                successElement.textContent = '';
-            }
-        }
-     // 如果連結指向當前頁面，阻止預設行為
-        document.querySelectorAll('.nav-link').forEach(function(link) {
-	        link.addEventListener('click', function(event) {
-	            // 獲取當前頁面的 URL
-	            var currentUrl = window.location.pathname;
-	            // 獲取點擊的連結的 href
-	            var linkUrl = event.target.getAttribute('href');
-	            
-	            if (currentUrl === linkUrl) {
-	                event.preventDefault();
-	            }
-	        });
-	    });
-     	// 如果連結指向當前頁面，阻止預設行為
-    </script>
+			if (expiryPattern.test(input.value)) {
+				errorElement.textContent = '';
+				successElement.textContent = '到期日格式正確';
+			} else {
+				errorElement.textContent = '請輸入正確的格式 (MM/YY)';
+				successElement.textContent = '';
+			}
+		}
+		// 如果連結指向當前頁面，阻止預設行為
+		document.querySelectorAll('.nav-link').forEach(function(link) {
+			link.addEventListener('click', function(event) {
+				// 獲取當前頁面的 URL
+				var currentUrl = window.location.pathname;
+				// 獲取點擊的連結的 href
+				var linkUrl = event.target.getAttribute('href');
+
+				if (currentUrl === linkUrl) {
+					event.preventDefault();
+				}
+			});
+		});
+		// 如果連結指向當前頁面，阻止預設行為
+		function showSuccessAlert() {
+	        // 顯示成功提示框
+	        alert('儲存成功');
+	        // 返回 true 以允許表單提交
+	        return true;
+	    }
+	</script>
 </body>
 
 </html>

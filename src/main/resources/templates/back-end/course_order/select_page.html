@@ -198,21 +198,12 @@ h2 {
                 <form method="post" th:action="@{listCourseOrders_ByCompositeQuery}">
                     <font color="blue">萬用複合查詢:</font><br>
                     輸入課程訂單ID: <input type="text" name="courseOrderID" placeholder="課程訂單ID"><br>
-                    輸入會員ID: <input type="text" name="memberID" placeholder="會員ID"><br>
-                    輸入教練課程ID: <input type="text" name="coachCourseID" placeholder="教練課程ID"><br>
+                    輸入會員ID: <input type="text" name="member.memberID" placeholder="會員ID"><br>
+                    輸入教練課程ID: <input type="text" name="coachCourse.id" placeholder="教練課程ID"><br>
                     訂單日期: <input name="orderDate" type="date">
                     <input type="submit" value="送出" class="button">
                 </form>
             </li>
-        </ul>
-
-        <h4>
-            <span>課程訂單管理</span>
-        </h4>
-        <ul>
-            <li><h5>
-                    <a class="button" th:href='addCourseOrder'>Add New Course Order</a>
-                </h5></li>
         </ul>
     </div>
 
