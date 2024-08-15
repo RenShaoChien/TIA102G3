@@ -219,13 +219,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="info-item label m_9" th:text="| ☺ 運動名稱 ： *{courseName}|">運動名稱：跑步(Running)</div>
             </div>
             <div class="result-group">
-                <div class="info-item">運動組數：每次跑2組</div>
+                <div class="info-item" th:text="${#strings.isEmpty(systemCourse.rps) ? ' ☹ 一次運動時間約→ ' + systemCourse.eachExerciseTime +' ←': ' ☹ 每組約→ ' + systemCourse.rps + ' ←下'}"></div>
             </div>
             <div class="result-group">
-                <div class="info-item label">運動時間：每組跑 30 分鐘</div>
+                <div class="info-item label" th:text="${#strings.isEmpty(systemCourse.swp) ? ' ☹ 總共運動時間約→ ' + systemCourse.sportTime + ' ←': ' ☹ 每次約→ ' + systemCourse.swp + ' ←組'}">運動時間：每組跑 30 分鐘</div>
             </div>
             <div class="result-group">
-                <div class="info-item">卡路里消耗消耗約400卡路里</div>
+                <div class="info-item" th:text="|卡路里消耗約→ *{burnCalories} ←卡路里|">卡路里消耗消耗約400卡路里</div>
             </div>
             <div class="result-group">
                 <div class="info-item label">推薦教練課程：<a href="#">課程名稱</a></div>

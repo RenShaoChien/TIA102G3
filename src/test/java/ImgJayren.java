@@ -92,16 +92,14 @@ public class ImgJayren {
     public void test2() throws IOException {
         Random rd = new Random();
 
-        ClassPathResource resource22 = new ClassPathResource("static/back_end_img/jayren/a.jpg");
-        ClassPathResource resource23 = new ClassPathResource("static/back_end_img/jayren/b.jpg");
-        ClassPathResource resource24 = new ClassPathResource("static/back_end_img/jayren/c.jpg");
-        ClassPathResource resource25 = new ClassPathResource("static/back_end_img/jayren/d.jpg");
-        ClassPathResource resource26 = new ClassPathResource("static/back_end_img/jayren/e.jpg");
-        ClassPathResource resource27 = new ClassPathResource("static/back_end_img/jayren/f.jpg");
-        ClassPathResource resource28 = new ClassPathResource("static/back_end_img/jayren/g.jpg");
-        ClassPathResource resource29 = new ClassPathResource("static/back_end_img/jayren/h.jpg");
+        ClassPathResource resource22 = new ClassPathResource("static/back_end_img/jayren/c1.jpg");
+        ClassPathResource resource23 = new ClassPathResource("static/back_end_img/jayren/c5.jpg");
+        ClassPathResource resource24 = new ClassPathResource("static/back_end_img/jayren/c3.jpg");
+        ClassPathResource resource25 = new ClassPathResource("static/back_end_img/jayren/c6.jpg");
+        ClassPathResource resource26 = new ClassPathResource("static/back_end_img/jayren/c7.jpg");
+        ClassPathResource resource27 = new ClassPathResource("static/back_end_img/jayren/c4.jpg");
 
-        List<ClassPathResource> pic = Arrays.asList(resource22, resource23, resource24, resource25, resource26, resource27, resource28, resource29);
+        List<ClassPathResource> pic = Arrays.asList(resource22, resource23, resource24, resource25, resource26, resource27);
         int a = 1;
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 3; j++) {
