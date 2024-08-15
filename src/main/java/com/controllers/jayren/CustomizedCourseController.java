@@ -8,8 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -35,7 +37,6 @@ public class CustomizedCourseController {
     public String customizedCourse(ModelMap model) {
 
 
-
         return "trainers/customizedcourse";
     }
 
@@ -44,13 +45,23 @@ public class CustomizedCourseController {
     public String getCustomizedCourse(Model model,
                                       @RequestParam("sportTypes") String sportTypes, @RequestParam("sportEventName") String sportEventName,
                                       @RequestParam("sportEquipment") String sportEquipment, @RequestParam("target-area") String keyword,
-                                      @RequestParam("courseLevel") String courseLevel, @RequestParam("loseWeight") String loseWeight) {
+                                      @RequestParam("courseLevel") String courseLevel, @RequestParam("loseWeight") String loseWeight,
+                                      RedirectAttributes redirectAttributes) {
+        try {
+            Random rd = new Random();
+            SystemCourse randomCourse;
+            List<SystemCourse> customizedCourses = scService.getSystemCoursesByReqPara(sportTypes, sportEventName, sportEquipment, keyword, courseLevel);
+            if (customizedCourses.size() > 0){
+                randomCourse = customizedCourses.get(rd.nextInt(customizedCourses.size()));
+                model.addAttribute("systemCourse", randomCourse);
 
-        System.out.println( "sportTypes: " + sportTypes + ", sportEventName: " + sportEventName + ", sportEquipment: " + sportEquipment + ", target-area:" + keyword + ", courseLevel: " + courseLevel + ", loseWeight: " + loseWeight);
-        List<SystemCourse> customizedCourses = scService.getSystemCoursesByReqPara(sportTypes, sportEventName, sportEquipment, keyword, courseLevel);
-        model.addAttribute("systemCourse", customizedCourses.get(0));
-
-
+            }else
+                throw new IllegalArgumentException("customizedCourses.size() < 0");
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message", "目前沒有合適您的運動");
+            return "redirect:/trainers/enter.do";
+        }
         return "trainers/customizedresult";
     }
 

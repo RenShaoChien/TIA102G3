@@ -1,457 +1,386 @@
-<!--A Design by W3layouts
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"> <!-- 設定文件類型和語言為繁體中文 -->
 <head>
-<title>Free Gym Website Template | About :: w3layouts</title>
-<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
-<link href="css/style.css" rel='stylesheet' type='text/css' />
+<title>健肌尋食-會員專區</title>
+<link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css' />
+<link th:href="@{css/style.css}" rel='stylesheet' type='text/css' />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<script src="js/jquery.min.js"></script>
+<script th:src="@{js/jquery.min.js}"></script>
+
 <!-- grid-slider -->
 <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
 <script type="text/javascript" src="js/jquery.contentcarousel.js"></script>
 <!-- //grid-slider -->
 <!---calender-style---->
 <link rel="stylesheet" href="css/jquery-ui.css" />
-<!---//calender-style---->				  
+<!---//calender-style---->
+<style>
+	.btn-login {
+		margin: bottom 50px;
+		float: right;
+		padding-right: 20px;
+		padding-top: 5px;
+		padding-bottom: 10px;
+		border: 1px solid black;
+		background-color: white;
+	}
+
+	.social {
+		padding-top: 4px;
+		padding-right: 10px;
+	}
+
+	.container-data {
+		height: auto;
+		width: auto;
+		margin: auto;
+		/* padding: 20px; */
+		background-color: #fff;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		display: flex;
+		flex-direction: row;
+		/* gap: 20px; */
+		/* flex-wrap: wrap; */
+		background-color: #e0f7f9;
+		/* place-items: center; */
+		/* background-color: red; */
+	}
+	
+	.logout-button{
+		background-color: red;
+		border-radius: 30px;
+	}
+
+	.sidebar {
+		width: 20%;
+		height: auto;
+		padding-top: 50px;
+		/* padding-right: 20px; */
+		border-right: 1px solid #d0e5d2;
+		background-color: #eaf5e1;
+		color: #4b6e4f;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		gap: 50px;
+		/* border: 1px solid black; */
+	}
+
+	.sidebar a {
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 50px;
+	}
+
+	h2 {
+		display: block;
+		width: 100%;
+		text-align: center;
+		margin: 0;
+		padding: 20px;
+		border-bottom: 3px solid black;
+	}
+
+	.content-data {
+		width: 100%;
+		position: relative;
+	}
+
+	.content-data input {
+		border-radius: 30px;
+	}
+
+	.form-container {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		/* align-items: center; */
+		justify-content: center;
+		gap: 20px;
+		flex-wrap: wrap;
+		/* place-items: center; */
+	}
+
+	.form-row {
+		display: flex;
+		flex-direction: column;
+		gap: 50px;
+		flex-wrap: wrap;
+		/* background-color: yellow; */
+		border-color: black;
+		position: absolute;
+		top: 150px;
+		right: 20px;
+		bottom: 20px;
+		left: 400px;
+		/* padding: 40px; */
+	}
+
+	.form-section0 {
+		height: 100%;
+		width: 300px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		position: absolute;
+		/* top: 100px; */
+		right: 0px;
+		bottom: 0px;
+		left: 50px;
+		/* background-color: #4b6e4f; */
+	}
+
+	.form-section0 input {
+		position: absolute;
+		width: auto;
+		height: auto;
+		margin-top: 300px;
+		padding: 10px;
+		border-radius: 30px;
+		font-size: 15px;
+		padding-left: 100px;
+		/* background-color: #4b6e4f; */
+	}
+
+	.form-section0 img {
+		/* display: none; */
+		text-align: center;
+		max-width: 250px;
+		max-height: 250px;
+		overflow: hidden;
+		width: auto;
+		height: auto;
+		/* object-fit: cover; */
+		border-radius: 50%;
+		border: 1px solid #ddd;
+		/* margin-bottom: 20px; */
+	}
+
+	.form-row2 {
+		display: flex;
+		flex-direction: column;
+		gap: 50px;
+		flex-wrap: wrap;
+		position: absolute;
+		top: 150px;
+		right: 20px;
+		bottom: 20px;
+		left: 700px;
+		/* background-color: rebeccapurple; */
+		/* border-color: black; */
+	}
+
+	.button0 {
+		position: absolute;
+		top: 530px;
+		right: 40px;
+		/* bottom: 20px; */
+		left: 650px;
+	}
+
+	.button0 input {
+		margin-right: 20px;
+		float: right;
+		background: #00BFF0;
+		border: none;
+		color: #FFF;
+		padding: 10px 20px;
+		cursor: pointer;
+		font-family: 'Open Sans', sans-serif;
+		outline: none;
+		font-size: 1em;
+		border-radius: 5px;
+		transition: background 0.3s;
+	}
+
+	.clear {
+		clear: both;
+	}
+</style>
 </head>
+
 <body>
-
-
-
-<!-- start header_bottom -->
-	  <div class="header-bottom">
-		 <div class="container">
+	<!-- start header_bottom -->
+	<div class="header-bottom">
+		<div class="container">
 			<div class="header-bottom_left">
 				<i class="phone"> </i><span>1-200-346-2986</span>
 			</div>
-			<div class="social">	
-			   <ul>	
-				  <li class="facebook"><a href="#"><span> </span></a></li>
-				  <li class="twitter"><a href="#"><span> </span></a></li>
-				  <li class="pinterest"><a href="#"><span> </span></a></li>	
-				  <li class="google"><a href="#"><span> </span></a></li>
-				  <li class="tumblr"><a href="#"><span> </span></a></li>
-				  <li class="instagram"><a href="#"><span> </span></a></li>	
-				  <li class="rss"><a href="#"><span> </span></a></li>							
-			   </ul>
-		   </div>
-		   <div class="clear"></div>
+			<div class="social">
+				<ul>
+					<li class="facebook"><a href="#"><span> </span></a></li>
+					<li class="google"><a href="#"><span> </span></a></li>
+				</ul>
+			</div>
+			<div class="clear"></div>
 		</div>
-	  </div>
-	  <!-- start menu -->
-    <div class="menu">
-	  <div class="container">
-		 <div class="logo">
-			<a href="index.html"><img src="images/logo.png" alt=""/></a>
-		 </div>
-		 <div class="h_menu4"><!-- start h_menu4 -->
-		   <a class="toggleMenu" href="#">Menu</a>
-			 <ul class="nav">
-			   <li><a href="index.html">Home</a></li>
-			   <li class="active"><a href="about.html">About</a></li>
-			   <li><a href="trainers.html">Trainers</a></li>
-			   <li><a href="classes.html">Classes</a></li>
-			   <li><a href="blog.html">Blog</a></li>
-			   <li><a href="pricing.html">Pricing</a></li>
-			   <li><a href="contact.html">Contact</a></li>
-			 </ul>
-			  <script type="text/javascript" src="js/nav.js"></script>
-		  </div><!-- end h_menu4 -->
-		 <div class="clear"></div>
-	  </div>
 	</div>
-	<!-- end menu -->
+	<!-- start menu -->
+	<div class="menu">
+    <div class="container">
+        <div class="h_menu4">
+            <ul class="nav">
+                <li><a th:href="@{/index}">Home</a></li>
+                <li><a th:href="@{/account_information}">會員專區</a></li>
+                <li><a th:href="@{/trainers}">專屬你的訓練</a>
+                <li><a href="classes.html">Classes</a></li>
+                <li><a th:href="@{/menu}">健康餐</a></li>
+                <li><a th:href="@{pricing}">Pricing</a></li>
+                <li><a th:href="@{/map}">美食地圖</a></li>
+                <li><a th:href="@{/qa}">客服</a></li> 
+                <li><a th:href="@{/login}" class="logout-button">登出</a></li>
+            </ul>
+            <script type="text/javascript" src="js/nav.js"></script>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="container-data">
+    <div class="sidebar">
+        <a th:href="@{/account_information}" data-page="/account_information">修改帳戶資料</a>
+		<a th:href="@{/change_password}" data-page="/change_password">修改密碼</a>
+		<a th:href="@{/historical_orders}" data-page="/historical_orders">歷史訂單</a>
+		<a th:href="@{/receipt_information}" data-page="/receipt_information">常用收件資訊</a>
+		<a th:href="@{/acc_information}" data-page="/acc_information">新增信用卡資訊</a>
+    </div>
+    <div class="content-data">
+        <iframe id="contentFrame" style="width:100%; height:90vh; border:none;"></iframe>
+    </div>
+</div>
 
+<!-- Footer -->
+<div class="footer-bottom">
+    <div class="container">
+        <div class="row section group">
+            <div class="col-md-4">
+                <h4 class="m_7">訂閱電子報</h4>
+                <p class="m_8">關於我們有關的飲食通知</p>
+                <form class="subscribe">
+                    <input type="text" value="輸入電子郵件" onfocus="this.value = '';"
+                        onblur="if (this.value == '') {this.value = '輸入電子郵件';}">
+                </form>
+                <div class="subscribe1">
+                    <a href="#">送出電子郵件<i class="but_arrow"> </i></a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="f-logo">
+                    <img src="images/logo.png" alt="" />
+                </div>
+                <p class="m_9">關於現代人對於健康越來越有意識，但時常沒有正確的觀念來執行，導致會讓人無法繼續維持下去。
+                    <br>
+                    於是乎我們就想要建立一個可以幫助大家 & 功能方便網站，可以透過此網站來學習正確的觀念，並且記錄自己的生活是否有達到健康的水準。
+                </p>
+                <p class="address">電話 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(00) 222 666 444</span></p>
+                <p class="address">電子郵件 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">info[at]mycompany.com</span></p>
+            </div>
+            <div class="col-md-4">
+                <ul class="list">
+                    <h4 class="m_7">主頁</h4>
+                    <li><a href="#">會員</a></li>
+                    <li><a href="#">教練介紹</a></li>
+                    <li><a href="#">教室</a></li>
+                    <li><a href="#">點數</a></li>
+                    <li><a href="#">商城</a></li>
+                    <li><a href="#">健康地圖</a></li>
+                </ul>
+                <ul class="list1">
+                    <h4 class="m_7">Community</h4>
+                    <li><a href="#">部落格</a></li>
+                    <li><a href="#">Forum</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Newsletter</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<div class="copyright">
+    <div class="container">
+        <div class="copy">
+            <p>© 2014 Template by <a href="http://w3layouts.com" target="_blank"> w3layouts</a></p>
+        </div>
+        <div class="social">
+            <ul>
+                <li class="facebook"><a href="#"><span> </span></a></li>
+                <li class="google"><a href="#"><span> </span></a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function () {
+        // 當點擊導航連結時
+        document.querySelectorAll('.nav a, .sidebar a').forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault(); // 防止連結默認的跳轉行為
+                var page = this.getAttribute('data-page'); // 獲取data-page屬性值
+                document.querySelector('#contentFrame').setAttribute('src', page); // 設定iframe的src
+                var pageTitle = this.textContent; // 獲取被點擊的連結文本
+                document.querySelector('#pageTitle').textContent = pageTitle; // 更新標題
+            });
+        });
 
+        // 點擊登出按鈕
+        document.querySelector('#logoutBtn').addEventListener('click', function (e) {
+            window.location.href = '/adminLogin';
+        });
 
+        // 漢堡按鈕的顯示和隱藏
+        document.querySelector('button.btn_hamburger').addEventListener('click', function () {
+            document.querySelector('aside.aside').classList.toggle('-on');
+        });
+    });
+    document.querySelectorAll('.sidebar a').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            var page = this.getAttribute('data-page');
+            var pageTitle = this.textContent;
+            var contentFrame = document.querySelector('#contentFrame');
+            
+            contentFrame.src = page;
+            contentFrame.onload = function () {
+                contentFrame.contentWindow.postMessage({
+                    type: 'UPDATE_NAME',
+                    name: document.querySelector('#pageTitle').textContent
+                }, '*');
+            };
+            document.querySelector('#pageTitle').textContent = pageTitle;
+        });
+    });
+    
+    document.querySelectorAll('.sidebar a').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            var page = this.getAttribute('data-page');
+            var name = document.querySelector('#pageTitle').textContent;
+            var contentFrame = document.querySelector('#contentFrame');
+            
+            contentFrame.src = page;
+            contentFrame.onload = function() {
+                contentFrame.contentWindow.postMessage({
+                    type: 'UPDATE_NAME',
+                    name: name
+                }, '*');
+            };
+        });
+    });
+    
 
-	<div class="main">
-	   <div class="about_banner_img"><img src="images/about_img.jpg" class="img-responsive" alt=""/></div>
-		 <div class="about_banner_wrap">
-      	    <h1 class="m_11">About Us</h1>
-      	 </div>
-      	 <div class="about-wrapper">
-      	    <div class="container">
-		       <div class="row about-top">
-				 <div class="col-md-5">
-				  <img src="images/about_img1.jpg" class="img-responsive" alt=""/> 
-			     </div>
-				 <div class="col-md-7 about-left-text">
-				   <h2>Lorem ipsum dolorsit!</h2>
-				   <p>aliquam erat volutpat. Ut wisi enim ad minim veniam, quis <br>nostrud exerci tation ullamcorper suscipit lobortis.</p>
-				   <h4>ullamcorper - <span class="m_12">Gymsport Responsible</span></h4>
-				 </div>
-                 <div class="clear"></div>	
-               </div>
-		    </div>
-	      </div>
-	      <div class="container">
-	       <div class="about_trainer">
-		      <h3 class="m_2">Our Trainers</h3>
-		      <div class="row about_box">
-		      	<div class="col-md-4">
-				  <div class="box1">
-				  	<div class="box1_left">
- 					  <img src="images/about_img3.jpg" class="img-responsive" alt=""/>				  		
-					  <div class="desc1">
-						<h3>Lorem Ipsum<br><span class="m_text">Spinning</span></h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer.</p>
-						<div class="coursel_list">
-							<i class="a_heart"> </i>
-							<i class="like1"> </i>
-						</div>
-						<div class="coursel_list1">
-							<i class="a_twt"> </i>
-							<i class="a_fb"> </i>
-						</div>
-						<div class="clear"></div>
-					 </div>
-					</div>
-					<div class="box1_right">
- 					 <h4>Qualifications</h4>
- 					 <p>Lorem ipsum dolor consect adipiscing elit, diamnonu nibh euismod dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim </p>
- 					  <h4>Speciality</h4>
- 					 <p class="para1">diam nonummy euismod tincidunt ut laoreet dolore magna aliquam volutpat.</p>
-				    </div>
-				   <div class="clear"></div>
-				  </div>
-				</div>
-				<div class="col-md-4">
-				  <div class="box2">
-				  	<div class="box1_left">
- 					  <img src="images/about_img2.jpg" class="img-responsive" alt=""/>				  		
-					  <div class="desc2">
-						<h3>Lorem Ipsum<br><span class="m_text">Spinning</span></h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer.</p>
-						<div class="coursel_list">
-							<i class="heart1"> </i>
-							<i class="like"> </i>
-						</div>
-						<div class="coursel_list1">
-							<i class="twt"> </i>
-							<i class="fb"> </i>
-						</div>
-						<div class="clear"></div>
-					 </div>
-					</div>
-					<div class="box1_right">
- 					 <h4 class="right_text">Qualifications</h4>
- 					 <p class="right_text1">Lorem ipsum dolor consect adipiscing elit, diamnonu nibh euismod dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim </p>
- 					 <h4 class="right_text">Speciality</h4>
- 					 <p class="right_text2">diam nonummy euismod tincidunt ut laoreet dolore magna aliquam volutpat.</p>
-				    </div>
-				   <div class="clear"></div>
-				  </div>
-				</div>
-				<div class="col-md-4">
-				  <div class="box1">
-				  	<div class="box1_left">
- 					  <img src="images/about_img4.jpg" class="img-responsive" alt=""/>				  		
-					  <div class="desc1">
-						<h3>Lorem Ipsum<br><span class="m_text">Spinning</span></h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer.</p>
-						<div class="coursel_list">
-							<i class="a_heart"> </i>
-							<i class="like1"> </i>
-						</div>
-						<div class="coursel_list1">
-							<i class="a_twt"> </i>
-							<i class="a_fb"> </i>
-						</div>
-						<div class="clear"></div>
-					 </div>
-					</div>
-					<div class="box1_right">
- 					 <h4>Qualifications</h4>
- 					 <p>Lorem ipsum dolor consect adipiscing elit, diamnonu nibh euismod dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim </p>
- 					  <h4>Speciality</h4>
- 					 <p class="para1">diam nonummy euismod tincidunt ut laoreet dolore magna aliquam volutpat.</p>
-				    </div>
-				   <div class="clear"></div>
-				  </div>
-				</div>
-				<div class="clear"></div>
-		     </div>
-		     <div class="row about_box1">
-		      <div class="col-md-4">
-				  <div class="box2">
-				  	<div class="box1_left">
- 					  <img src="images/about_img5.jpg" class="img-responsive" alt=""/>				  		
-					  <div class="desc2">
-						<h3>Lorem Ipsum<br><span class="m_text">Spinning</span></h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer.</p>
-						<div class="coursel_list">
-							<i class="heart1"> </i>
-							<i class="like"> </i>
-						</div>
-						<div class="coursel_list1">
-							<i class="twt"> </i>
-							<i class="fb"> </i>
-						</div>
-						<div class="clear"></div>
-					 </div>
-					</div>
-					<div class="box1_right">
- 					 <h4 class="right_text">Qualifications</h4>
- 					 <p class="right_text1">Lorem ipsum dolor consect adipiscing elit, diamnonu nibh euismod dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim </p>
- 					 <h4 class="right_text">Speciality</h4>
- 					 <p class="right_text2">diam nonummy euismod tincidunt ut laoreet dolore magna aliquam volutpat.</p>
-				    </div>
-				   <div class="clear"></div>
-				  </div>
-				</div>
-				<div class="col-md-4">
-				 <div class="box1">
-				  	<div class="box1_left">
- 					  <img src="images/about_img7.jpg" class="img-responsive" alt=""/>				  		
-					  <div class="desc1">
-						<h3>Lorem Ipsum<br><span class="m_text">Spinning</span></h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer.</p>
-						<div class="coursel_list">
-							<i class="a_heart"> </i>
-							<i class="like1"> </i>
-						</div>
-						<div class="coursel_list1">
-							<i class="a_twt"> </i>
-							<i class="a_fb"> </i>
-						</div>
-						<div class="clear"></div>
-					 </div>
-					</div>
-					<div class="box1_right">
- 					 <h4>Qualifications</h4>
- 					 <p>Lorem ipsum dolor consect adipiscing elit, diamnonu nibh euismod dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim </p>
- 					  <h4>Speciality</h4>
- 					 <p class="para1">diam nonummy euismod tincidunt ut laoreet dolore magna aliquam volutpat.</p>
-				    </div>
-				   <div class="clear"></div>
-				  </div>
-				</div>
-				<div class="col-md-4">
-				  <div class="box2">
-				  	<div class="box1_left">
- 					  <img src="images/about_img6.jpg" class="img-responsive" alt=""/>				  		
-					  <div class="desc2">
-						<h3>Lorem Ipsum<br><span class="m_text">Spinning</span></h3>
-						<p>Lorem ipsum dolor sit amet, consectetuer.</p>
-						<div class="coursel_list">
-							<i class="heart1"> </i>
-							<i class="like"> </i>
-						</div>
-						<div class="coursel_list1">
-							<i class="twt"> </i>
-							<i class="fb"> </i>
-						</div>
-						<div class="clear"></div>
-					 </div>
-					</div>
-					<div class="box1_right">
- 					 <h4 class="right_text">Qualifications</h4>
- 					 <p class="right_text1">Lorem ipsum dolor consect adipiscing elit, diamnonu nibh euismod dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim </p>
- 					 <h4 class="right_text">Speciality</h4>
- 					 <p class="right_text2">diam nonummy euismod tincidunt ut laoreet dolore magna aliquam volutpat.</p>
-				    </div>
-				   <div class="clear"></div>
-				  </div>
-				</div>
-				<div class="clear"></div>
-		     </div>
-		   </div>
-	    </div>
-	    <div class="login">
-	  	    <div class="row login_details">
-		 	  <div class="col-md-6">
-				  <div class="join">
-				  	 <h3>Why Join ?</h3>
-				  	 <h4>sed diam nonummy nibh euismod</h4>
-				  	 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam<br> nibh euismod tincidunt ut laoreet dolore magna . </p>	
-				  	 <div class="btn3">
-				       <a href="#">Join Today</a>
-			         </div>	
-				  </div>
-				</div>
-				 <div class="col-md-6">
-				  <div class="join-right">
-				  	 <h3>Why Join ?</h3>
-				  	 <h4>sed diam nonummy nibh euismod</h4>
-				  	 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam<br> nibh euismod tincidunt ut laoreet dolore magna . </p>	
-				  	 <div class="buttons_login">
-				  	 <div class="btn4">
-				       <a href="login.html">Log In</a>
-			         </div>	
-			         <div class="p-ww">
-					  <form>
-					   <input class="date" id="datepicker" type="text" value="View Calender" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'View Calender';}">
-					  </form>
-				     </div>
-			         <div class="clear"></div>
-			         <!---strat-date-piker---->
-				  <script src="js/jquery-ui.js"></script>
-				  <script>
-				  $(function() {
-				    $( "#datepicker" ).datepicker();
-				  });
-				  </script>
-				  </div>
-				  </div>
-				</div>
-				<div class="clear"></div>
-		   </div>
-	  </div>
-	  <div class="testimonial">
-		 	<div class="container">
-		 		<i class="quot"> </i>
-		 		<p>diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendreri</p>
-		 		<p class="ceo">quis nostrud, <span class="ceo1">tation - ullamcorper</span></p>
-		 	</div>
-	   </div>
-	   <div class="about_gallery">
-		 	<div class="container">
-		 	  <div class="col-md-8">
-		     	 <h3 class="m_2">Gallery</h3>
-		     	 <div id="ca-container" class="ca-container">
-				    <div class="ca-wrapper">
-				         <div class="ca-item ca-item-1">
-						   <div class="ca-item-main">
-								<div class="ca-icon"> </div>
-								<div class="ca-icon1"> </div>
-							</div>
-						  </div>
-						<div class="ca-item ca-item-2">
-							<div class="ca-item-main">
-								<div class="ca-icon"> </div>
-								<div class="ca-icon2"> </div>
-							</div>
-						</div>
-						<div class="ca-item ca-item-3">
-							<div class="ca-item-main">
-								<div class="ca-icon"> </div>
-								<div class="ca-icon3"> </div>
-							</div>
-						</div>
-						<div class="ca-item ca-item-4">
-							<div class="ca-item-main">
-								<div class="ca-icon"> </div>
-								<div class="ca-icon4"> </div>
-						     </div>
-						</div>
-						<div class="ca-item ca-item-5">
-							<div class="ca-item-main">
-								<div class="ca-icon"> </div>
-								<div class="ca-icon5"> </div>
-							</div>
-						</div>
-						<div class="ca-item ca-item-6">
-							<div class="ca-item-main">
-								<div class="ca-icon"> </div>
-								<div class="ca-icon6"> </div>
-							</div>
-						</div>
-						<div class="ca-item ca-item-7">
-							<div class="ca-item-main">
-								<div class="ca-icon"> </div>
-								<div class="ca-icon7"> </div>
-							</div>
-						</div>
-						<div class="ca-item ca-item-8">
-							<div class="ca-item-main">
-								<div class="ca-icon"> </div>
-								<div class="ca-icon"> </div>
-							</div>
-						</div>
-			    </div>
-			 </div>
-			 <script type="text/javascript">
-				$('#ca-container').contentcarousel();
-			</script>
-		   </div>
-		   <div class="col-md-4">
-		   	 <h3 class="m_2">Partner</h3>
-			  <ul class="partner">
-			  	<li><img src="images/p6.png" alt=""/></li>
-			  	<li><img src="images/p5.png" alt=""/></li>
-			  	<li><img src="images/p4.png" alt=""/></li>
-			  	<li><img src="images/p3.png" alt=""/></li>
-			  	<li><img src="images/p2.png" alt=""/></li>
-			  	<li><img src="images/p1.png" alt=""/></li>
-			  	 <div class="clear"></div>
-			  </ul>
-		    </div>
-	       <div class="clear"></div>
-	       </div>
-		  </div>
-		 </div>
-		  <div class="footer-bottom">
-		   <div class="container">
-		 	 <div class="row section group">
-				<div class="col-md-4">
-				   <h4 class="m_7">Newsletter Signup</h4>
-				   <p class="m_8">Lorem ipsum dolor sit amet, consectetuer adipiscing elit sed diam nonummy.</p>
-				      <form class="subscribe">
-			             <input type="text" value="Insert Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Insert Email';}">
-					  </form>
-			          <div class="subscribe1">
-			            <a href="#">Submit Email<i class="but_arrow"> </i></a>
-			          </div>
-				</div>
-				<div class="col-md-4">
-					<div class="f-logo">
-						<img src="images/logo.png" alt=""/>
-					</div>
-					<p class="m_9">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis</p>
-					<p class="address">Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(00) 222 666 444</span></p>
-					<p class="address">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">info[at]mycompany.com</span></p>
-				</div>
-				<div class="col-md-4">
-					<ul class="list">
-						<h4 class="m_7">Menu</h4>
-						<li><a href="#">About</a></li>
-						<li><a href="#">Trainers</a></li>
-						<li><a href="#">Classes</a></li>
-						<li><a href="#">Pricing</a></li>
-						<li><a href="#">Privacy</a></li>
-						<li><a href="#">Contact</a></li>
-					</ul>
-					<ul class="list1">
-						<h4 class="m_7">Community</h4>
-						<li><a href="#">Blog</a></li>
-						<li><a href="#">Forum</a></li>
-						<li><a href="#">Support</a></li>
-						<li><a href="#">Newsletter</a></li>
-					</ul>
-				</div>
-				<div class="clear"></div>
-	  		  </div>
-		 	</div>
-		 </div>
-		 <div class="copyright">
-		  <div class="container">
-		    <div class="copy">
-		        <p>© 2014 Template by <a href="http://w3layouts.com" target="_blank"> w3layouts</a></p>
-		    </div>
-		    <div class="social">	
-			   <ul>	
-				  <li class="facebook"><a href="#"><span> </span></a></li>
-				  <li class="twitter"><a href="#"><span> </span></a></li>
-				  <li class="pinterest"><a href="#"><span> </span></a></li>	
-				  <li class="google"><a href="#"><span> </span></a></li>
-				  <li class="tumblr"><a href="#"><span> </span></a></li>
-				  <li class="instagram"><a href="#"><span> </span></a></li>	
-				  <li class="rss"><a href="#"><span> </span></a></li>							
-			   </ul>
-		    </div>
-		   <div class="clear"></div>
-		  </div>
-	     </div>
+    sessionStorage.setItem('userName', document.querySelector('#pageTitle').textContent);
+<!-- iframe 內的頁面 -->
+    window.addEventListener('message', function (event) {
+        if (event.data.type === 'UPDATE_NAME') {
+            document.querySelector('#nameDisplay').textContent = event.data.name;
+        }
+    });
+</script>
 </body>
+
 </html>

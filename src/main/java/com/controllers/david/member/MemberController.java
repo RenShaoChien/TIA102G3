@@ -24,9 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tia102g3.member.model.Member;
 import com.tia102g3.member.service.MemberService;
 
-
-
-
 @Controller
 @RequestMapping("/member")
 public class MemberController {

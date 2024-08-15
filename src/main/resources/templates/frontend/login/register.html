@@ -12,40 +12,101 @@
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <script th:src="@{js/jquery.min.js}"></script>
 	<style>
-		.news-letter {
-			display: inline-block;
-		}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    position: relative; /* 确保错误消息在同一位置 */
+}
 
-		.register-top-grid input {
-			width: 90%;
-			padding: 8px;
-			font-size: 0.8125em;
-		}
-		
-		.register-top-grid input[type="text"], .register-bottom-grid input[type="text"] {
-			border: 1px solid black;
-			outline-color:#00BFF0;
-			width: 90%;
-			font-size: 0.8125em;
-			padding: 8px;
-			font-family: 'Open Sans', sans-serif;
-		}
-		
-		.button1 input {
-			float: right;
-			background: #00BFF0;
-			border: none;
-			color: #FFF;
-			padding: 10px 20px;
-			cursor: pointer;
-			font-family: 'Open Sans', sans-serif;
-			outline: none;
-			font-size: 1em;
-			border-radius: 5px;
-			transition: background 0.3s;
-		}
-		
-	</style>
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group .error-message {
+    color: red;
+    font-size: 12px;
+    position: absolute; /* 绝对定位以便与输入框对齐 */
+    top: 100%; /* 将错误消息放置在输入框下方 */
+    left: 0;
+    display: none; /* 默认隐藏错误消息 */
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+#accountError{
+	margin-top: 0;
+}
+
+.clear {
+    clear: both;
+}
+
+.news-letter {
+	display: inline-block;
+}
+
+.register-top-grid input {
+	width: 90%;
+	padding: 8px;
+	font-size: 0.8125em;
+}
+
+.register-top-grid input[type="text"], .register-bottom-grid input[type="text"]
+	{
+	border: 1px solid black;
+	outline-color: #00BFF0;
+	width: 90%;
+	font-size: 0.8125em;
+	padding: 8px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.register-top-grid input[type="password"], .register-bottom-grid input[type="password"]
+	{
+	border: 1px solid black;
+	outline-color: #00BFF0;
+	width: 90%;
+	font-size: 0.8125em;
+	padding: 8px;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.button1 input {
+	float: right;
+	background: #00BFF0;
+	border: none;
+	color: #FFF;
+	padding: 10px 20px;
+	cursor: pointer;
+	font-family: 'Open Sans', sans-serif;
+	outline: none;
+	font-size: 1em;
+	border-radius: 5px;
+	transition: background 0.3s;
+}
+
+input[type="submit"]:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#accountError {
+	font-size: 13px;
+}
+</style>
 </head>
 
 <body>
@@ -73,13 +134,15 @@
 			<div class="h_menu4"><!-- start h_menu4 -->
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
-					<li><a th:href="@{index}">主頁</a></li>
-					<li class="active"><a th:href="@{login}">會員專區</a></li>
-					<li><a href="trainers.html">課程</a></li>
-					<li><a href="classes.html">教室</a></li>
-					<li><a href="blog.html">健康飲食</a></li>
-					<li><a href="pricing.html">線上商城</a></li>
-					<li><a href="contact.html">健康地圖</a></li>
+                	<li><a th:href="@{/index}">Home</a></li>
+					<li><a th:href="@{/account_information}">會員專區</a></li>
+					<li><a th:href="@{/trainers}">專屬你的訓練</a>
+					<li><a href="classes.html">Classes</a></li>
+					<li><a th:href="@{/menu}">健康餐</a></li>
+					<li><a th:href="@{pricing}">Pricing</a></li>
+					<li><a th:href="@{/map}">美食地圖</a></li>
+					<li><a th:href="@{/qa}">客服</a></li>
+					<li><a th:href="@{/login}">登入</a></li>
 				</ul>
 				<script type="text/javascript" src="js/nav.js"></script>
 			</div><!-- end h_menu4 -->
@@ -87,128 +150,121 @@
 		</div>
 	</div>
 	<div class="register-grids">
-		<div class="container">
-			<form id="registerForm" method="post" action="/register">
-				<div class="register-top-grid">
-					<h2>歡迎加入</h2>
-					<div>
-						<span>請輸入帳號</span>
-						<input type="text" id="account" name="account" required>
-					</div>
-					<div>
-						<span>請輸入密碼</span>
-						<input type="password" id="password" name="password" required>
-					</div>
-					<div>
-						<span>姓名</span>
-						<input type="text" id="name" name="name" required>
-					</div>
-					<div>
-						<span>確認密碼</span>
-						<input type="password" id="password-confirm" name="password-confirm" required>
-					</div>
-					<div>
-						<span>請輸入手機號碼</span>
-						<input type="text" id="phone" name="phone" required>
-					</div>
-					<div>
-						<span>請輸入地址</span>
-						<input type="text" id="address" name="address" required>
-					</div>
-				</div>
-				<div class="clear"> </div>
-				<div class="register-bottom-grid">
-					<div>
-						<span>您的身分別是?</span>
-						<a class="news-letter" href="#">
-							<label class="radio">
-								<input type="radio" name="membership" value="general" required><i> </i>一般會員
-							</label>
-						</a>
-						<a class="news-letter" href="#">
-							<label class="radio">
-								<input type="radio" name="membership" value="coach" required><i> </i>教練會員
-							</label>
-						</a>
-					</div>
-				</div>
-				<div class="clear"> </div>
-				<div class="button1">
-					<input type="submit" value="送出">
-				</div>
-				<div class="clear"></div>
-				<div id="message"></div>
-			</form>
-		</div>
-	</div>
+    <div class="container">
+        <form id="registerForm" method="post" action="/register">
+            <div class="register-top-grid">
+                <h2>歡迎加入</h2>
+                
+                <div class="form-group">
+                    <label for="account">請輸入帳號</label>
+                    <input type="text" id="account" name="account" required>
+                    <div id="accountError" class="error-message">此帳號已經被使用，請選擇其他帳號。</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">請輸入密碼</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="name">姓名</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password-confirm">確認密碼</label>
+                    <input type="password" id="password-confirm" name="password-confirm" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">請輸入手機號碼</label>
+                    <input type="text" id="phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">請輸入地址</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+            </div>
+            
+            <div class="clear"> </div>
+            
+            <div class="register-bottom-grid">
+                <div>
+                    <span>您的身分別是?</span>
+                    <a class="news-letter" href="#">
+                        <label class="radio">
+                            <input type="radio" name="membership" value="general" required><i> </i>一般會員
+                        </label>
+                    </a>
+                    <a class="news-letter" href="#">
+                        <label class="radio">
+                            <input type="radio" name="membership" value="coach" required><i> </i>教練會員
+                        </label>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="clear"> </div>
+            
+            <div th:if="${errorMessage != null}">
+                <p style="color:red;" th:text="${errorMessage}"></p>
+            </div>
+            
+            <div class="button1">
+                <input type="submit" value="送出" disabled>
+            </div>
+            
+            <div class="clear"></div>
+            <div id="message"></div>
+        </form>
+    </div>
+</div>
 	<!-- end menu -->
-	<div class="main">
-		<div class="footer-bottom">
-			<div class="container">
-				<div class="row section group">
-					<div class="col-md-4">
-						<h4 class="m_7">訂閱電子報</h4>
-						<!-- 簡短描述新聞訂閱 -->
-						<p class="m_8">關於我們有關的飲食通知</p>
-						<!-- 訂閱表單 -->
-						<form class="subscribe">
-							<!-- 電子郵件輸入框 -->
-							<input type="text" value="輸入電子郵件" onfocus="this.value = '';"
-								onblur="if (this.value == '') {this.value = '輸入電子郵件';}">
-						</form>
-						<!-- 提交按鈕 -->
-						<div class="subscribe1">
-							<a href="#">送出電子郵件<i class="but_arrow"> </i></a>
-						</div>
+	<div class="footer-bottom">
+		<div class="container">
+			<div class="row section group">
+				<div class="col-md-4">
+					<div class="social"
+						 style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
+						<img src="images/cutecatloge.png" style="width: 100%; height: 100%"/>
 					</div>
-					<div class="col-md-4">
-						<div class="f-logo">
-							<img src="images/logo.png" alt="" />
-						</div>
-						<p class="m_9">關於現代人對於健康越來越有意識，但時常沒有正確的觀念來執行，導致會讓人無法繼續維持下去。
-							<br>
-							於是乎我們就想要建立一個可以幫助大家 & 功能方便網站，可以透過此網站來學習正確的觀念，並且記錄自己的生活是否有達到健康的水準。
-						</p>
-						<p class="address">電話 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(00) 222 666 444</span>
-						</p>
-						<p class="address">電子郵件 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-								class="m_10">info[at]mycompany.com</span></p>
-					</div>
-					<div class="col-md-4">
-						<ul class="list">
-							<h4 class="m_7">Menu</h4>
-							<li><a href="#">會員</a></li>
-							<li><a href="#">Trainers</a></li>
-							<li><a href="#">Classes</a></li>
-							<li><a href="#">Pricing</a></li>
-							<li><a href="#">Privacy</a></li>
-							<li><a href="#">Contact</a></li>
-						</ul>
-						<ul class="list1">
-							<h4 class="m_7">Community</h4>
-							<li><a href="#">部落格</a></li>
-							<li><a href="#">Forum</a></li>
-							<li><a href="#">Support</a></li>
-							<li><a href="#">Newsletter</a></li>
-						</ul>
-					</div>
-					<div class="clear"></div>
 				</div>
-			</div>
-		</div>
-		<div class="copyright">
-			<div class="container">
-				<div class="copy">
-					<p>© 2014 Template by <a href="http://w3layouts.com" target="_blank"> w3layouts</a></p>
+				<div class="col-md-4">
+					<div class="f-logo">
+						<h1>健肌尋食</h1>
+					</div>
+					<p class="m_9">
+						「健肌尋食」是一個簡單的概念，意思是通過運動來增強肌肉，同時尋找健康的食物來補充營養，這樣可以讓我們的身體更強壯，生活更健康愉快。</p>
+					<p class="address">Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02) 3333 4444</span>
+					</p>
+					<p class="address">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
+					</p>
 				</div>
-				<div class="social">
-					<ul>
-						<li class="facebook"><a href="#"><span> </span></a></li>
-						<li class="google"><a href="#"><span> </span></a></li>
+				<div class="col-md-4">
+					<ul class="list">
+						<h4 class="m_7">關於我們</h4>
+						<li><a href="#">隱私權政策</a></li>
+						<li><a href="#">著作權聲明</a></li>
+						<li><a href="#">聯絡我們</a></li>
+					</ul>
+					<ul class="list1">
+						<h4 class="m_7">相關網站</h4>
+						<li><a href="https:/www.google.com">google</a></li>
+						<li><a href="https:/www.youtube.com">youtube</a></li>
+						<li><a href="#">Support</a></li>
 					</ul>
 				</div>
 				<div class="clear"></div>
 			</div>
+		</div>
+	</div>
+	<div class="copyright">
+		<div class="container">
+			<div class="copy">
+				<p>Copyright © 2024 健肌尋食 by TIA102G3</p>
+			</div>
+			<div class="clear"></div>
 		</div>
 	</div>
 <script>
@@ -259,6 +315,48 @@
 			document.getElementById('coachPageLink').click(); // 教練會員頁面
 		}
 	}
+	$(document).ready(function() {
+	    let isAccountValid = false;
+
+	    $('#account').on('input', function() {
+	        var account = $(this).val();
+	        if (account.length > 0) {
+	            $.ajax({
+	                url: '/check-account',
+	                type: 'GET',
+	                data: { account: account },
+	                success: function(response) {
+	                    if (response) {
+	                        $('#accountError').show();
+	                        isAccountValid = false;
+	                        $('#registerForm input[type="submit"]').attr('disabled', 'disabled');
+	                    } else {
+	                        $('#accountError').hide();
+	                        isAccountValid = true;
+	                        $('#registerForm input[type="submit"]').removeAttr('disabled');
+	                    }
+	                },
+	                error: function() {
+	                    $('#accountError').text('無法檢查帳號，請稍後再試').show();
+	                    isAccountValid = false;
+	                    $('#registerForm input[type="submit"]').attr('disabled', 'disabled');
+	                }
+	            });
+	        } else {
+	            $('#accountError').hide();
+	            isAccountValid = true;
+	            $('#registerForm input[type="submit"]').removeAttr('disabled');
+	        }
+	    });
+
+	    $('#registerForm').on('submit', function(e) {
+	        if (!isAccountValid) {
+	            alert('帳號已被使用，請更換帳號後再試。');
+	            e.preventDefault(); // Prevent form submission
+	        }
+	    });
+	});
+
 </script>
 </body>
 
