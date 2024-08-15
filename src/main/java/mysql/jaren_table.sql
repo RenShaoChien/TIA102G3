@@ -70,7 +70,11 @@ values ('跪式伏地挺身', '伏地挺身', '重量運動', '徒手', 1, 80, 1
 量、改善姿勢、增加柔軟度，並且促進全身肌肉的協調與平衡。', 'https://www.youtube.com/embed/3jn09b63yMg?si=SbUZg3vHeLQ5hnhw'),
     ('彈力繩皮拉提斯', '皮拉提斯', '重量運動', '彈力繩', 3, 200, null, '12分鐘', '1小時', null, '主要鍛鍊部位：核心肌群、背部、臀部、腿部及手臂。
 運動效益：結合皮拉提斯和彈力繩的訓練可以增強核心力量、改善姿勢和柔軟度，同時提高全身的肌肉耐力與張力。彈力繩的阻力可以增加運動的強度，有助於塑造更緊實的肌肉線條。', 'https://www.youtube.com/embed/bHL8kHE8_zE?si=7qmnb-Z2JyMKOGdq'),
-    ('弓步', '弓步', '重量運動', '徒手', 1, 80, )
+    ('弓步', '弓步', '重量運動', '徒手', 1, 80, 15, null, null, 4, '主要鍛煉大腿、臀部和核心肌群
+幫助增強下半身力量，提高腿部穩定性和平衡能力', 'https://www.youtube.com/embed/M_pEaqqFpLI?si=ouRXKcohKw2-HFR6'),
+    ('初級跑步', '跑步', '心肺運動', '徒手', 1, 200, null, '30分鐘', '1小時', null, '主要鍛煉心臟和肺部功能。', 'https://www.youtube.com/embed/q3v5EmXV4B8?si=FAHLMpJhgvz3pkJI'),
+    ('中級跑步', '跑步', '心肺運動', '跑步機', 2, 250, null, '30分鐘', '1小時', 'null', '肌肉訓練：主要鍛煉下半身肌肉，包括大腿、小腿和臀部肌肉
+幫助：提升心肺功能，增強下半身肌肉，有助於減重和燃燒脂肪','https://www.youtube.com/embed/PVRxR0-nlR0?si=AK1TwmTh-P42b16X');
 
 
 CREATE TABLE system_course_pic
@@ -79,7 +83,6 @@ CREATE TABLE system_course_pic
     systemCourseID    INT NOT NULL COMMENT '系統課程ID。外鍵，關聯到system_course表的systemCourseID',
     pic               LONGBLOB COMMENT '圖片。存儲與系統課程相關的圖片'
 ) COMMENT ='系統課程照片表';
-
 
 
 CREATE TABLE coach_specialty
