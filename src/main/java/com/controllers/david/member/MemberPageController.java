@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tia102g3.member.model.Member;
+import com.tia102g3.member.model.PasswordChangeDTO;
 import com.tia102g3.member.service.MemberService;
 
 @Controller
@@ -87,37 +89,45 @@ public class MemberPageController {
 	}
 
 	// 前台會員頁面Controller
-	@GetMapping("account_information")
-	public String account_information(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-		Member member = (Member) session.getAttribute("user");
+	@GetMapping("/account_information")
+	public String accountInformation(HttpServletRequest request, Model model) {
+	    HttpSession session = request.getSession(false);
+	    
+	    // 檢查是否登入
+	    if (session == null || !Boolean.TRUE.equals(session.getAttribute("loggedIn"))) {
+	        return "redirect:/login?error=not_logged_in"; // 重定向到登入頁面，帶上錯誤參數
+	    }
+	    
+	    Member member = (Member) session.getAttribute("user");
+	    if (member != null) {
+	        Integer memberID = member.getMemberID();
+	        Member memberDetails = memberSvc.findById(memberID);
 
-		if (member != null) {
-			Integer memberID = member.getMemberID();
-			Member memberDetails = memberSvc.findById(memberID);
+	        if (memberDetails != null) {
+	            model.addAttribute("member", memberDetails); // 添加 Member 對象到模型中
+	            model.addAttribute("name", memberDetails.getName()); // 添加 name 屬性到模型中
+	        }
+	    }
 
-			if (memberDetails != null) {
-				model.addAttribute("member", memberDetails); // 添加 Member 對象到模型中
-				model.addAttribute("name", memberDetails.getName()); // 添加 name 屬性到模型中
-			}
-		}
-		return "frontend/member/account_information";
+	    return "frontend/member/account_information"; // 返回對應的視圖名稱
 	}
 
 	@GetMapping("change_password")
 	public String change_password(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-		Member member = (Member) session.getAttribute("user");
+	    HttpSession session = request.getSession();
+	    Member member = (Member) session.getAttribute("user");
 
-		if (member != null) {
-			Integer memberID = member.getMemberID();
-			Member memberDetails = memberSvc.findById(memberID);
+	    if (member != null) {
+	        Integer memberID = member.getMemberID();
+	        Member memberDetails = memberSvc.findById(memberID);
 
-			if (memberDetails != null) {
-				model.addAttribute("name", memberDetails.getName());
-			}
-		}
-		return "frontend/member/change_password";
+	        if (memberDetails != null) {
+	            model.addAttribute("member", memberDetails);
+	            model.addAttribute("name", memberDetails.getName());
+	            model.addAttribute("passwordChangeDTO", new PasswordChangeDTO());
+	        }
+	    }
+	    return "frontend/member/change_password";
 	}
 
 	@GetMapping("historical_orders")
@@ -135,27 +145,50 @@ public class MemberPageController {
 			Member memberDetails = memberSvc.findById(memberID);
 
 			if (memberDetails != null) {
-				model.addAttribute("name", memberDetails.getName());
+				model.addAttribute("member", memberDetails); // 添加 Member 對象到模型中
+				model.addAttribute("name", memberDetails.getName()); // 添加 name 屬性到模型中
+				model.addAttribute("cardNumber", memberDetails.getCardNumber());
 			}
 		}
 		return "frontend/member/receipt_information";
 	}
 
-	@GetMapping("acc_information")
-	public String acc_information(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-		Member member = (Member) session.getAttribute("user");
+	@GetMapping("/acc_information")
+	public String accInformation(HttpServletRequest request, Model model) {
+	    HttpSession session = request.getSession();
+	    Member member = (Member) session.getAttribute("user");
 
-		if (member != null) {
-			Integer memberID = member.getMemberID();
-			Member memberDetails = memberSvc.findById(memberID);
+	    if (member != null) {
+	        Integer memberID = member.getMemberID();
+	        Member memberDetails = memberSvc.findById(memberID);
 
-			if (memberDetails != null) {
-				model.addAttribute("name", memberDetails.getName());
-			}
-		}
-		return "frontend/member/acc_information";
+	        if (memberDetails != null) {
+	            // 確保這些屬性在 Member 類中存在並有值
+	            model.addAttribute("cardNumber", memberDetails.getCardNumber());
+	            model.addAttribute("cardValidTime", memberDetails.getCardValidTime() != null ? memberDetails.getCardValidTime().toString() : ""); // 格式化為字符串
+	            model.addAttribute("cardLast3No", memberDetails.getCardLast3No());
+	            model.addAttribute("cardName", memberDetails.getCardName());
+	            model.addAttribute("cardPhone", memberDetails.getCardPhone());
+	        }
+	    }
+
+	    return "frontend/member/acc_information";
 	}
+	
+	@GetMapping("/api/getMemberDetails")
+    @ResponseBody
+    public Member getMemberDetails(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute("user");
+
+        if (member != null) {
+            Integer memberID = member.getMemberID();
+            Member memberDetails = memberSvc.findById(memberID);
+
+            return memberDetails; // 返回會員詳細信息作為 JSON 響應
+        }
+        return null;
+    }
 
 	@PostMapping("/submit")
 	public String submitAccountInformation(
@@ -173,9 +206,11 @@ public class MemberPageController {
 	        @RequestParam(value = "cardValidTime", required = false) String cardValidTime,
 	        @RequestParam(value = "cardLast3No", required = false) String cardLast3No,
 	        @RequestParam(value = "cardPhone", required = false) String cardPhone,
+	        @RequestParam(value = "oldPassword", required = false) String oldPassword,
+	        @RequestParam(value = "newPassword", required = false) String newPassword,
+	        @RequestParam(value = "newPasswordAgain", required = false) String newPasswordAgain,
 	        @RequestParam("redirectPage") String redirectPage, HttpServletRequest request) {
 
-	    // 從 Session 獲取會員資料
 	    HttpSession session = request.getSession();
 	    Member member = (Member) session.getAttribute("user");
 
@@ -184,53 +219,60 @@ public class MemberPageController {
 	        Member memberDetails = memberSvc.findById(memberID);
 
 	        if (memberDetails != null) {
-	            // 更新會員資料
-	            if (name != null)
-	                memberDetails.setName(name);
-	            if (gender != null)
-	                memberDetails.setGender(gender);
-	            if (birthday != null)
-	                memberDetails.setBD(Date.valueOf(birthday)); // 轉換 LocalDate 為 java.sql.Date
-	            if (phone != null)
-	                memberDetails.setPhone(phone);
-	            if (address != null)
-	                memberDetails.setAddress(address);
-	            if (receiver != null)
-	                memberDetails.setReceiver(receiver);
-	            if (receiverAddress != null)
-	                memberDetails.setReceiverAddress(receiverAddress);
-	            if (receiverPhone != null)
-	                memberDetails.setReceiverPhone(receiverPhone);
-	            if (cardName != null)
-	                memberDetails.setCardName(cardName);
-	            if (cardNumber != null)
-	                memberDetails.setCardNumber(cardNumber);
-	            if (cardValidTime != null)
-	                memberDetails.setCardValidTime(cardValidTime);
-	            if (cardLast3No != null)
-	                memberDetails.setCardLast3No(cardLast3No);
-	            if (cardPhone != null)
-	                memberDetails.setCardPhone(cardPhone);
+	            if ("change_password".equals(redirectPage)) {
+	                // 比較明文密碼
+	                if (!oldPassword.equals(memberDetails.getPassword())) {
+	                    return "redirect:/change_password?error=incorrect_old_password";
+	                }
+	                if (!newPassword.equals(newPasswordAgain)) {
+	                    return "redirect:/change_password?error=new_password_mismatch";
+	                }
+	                memberDetails.setPassword(newPassword);
+	                
+	            } else {
+	                // 更新其他會員資料的邏輯
+	                if (name != null)
+	                    memberDetails.setName(name);
+	                if (gender != null)
+	                    memberDetails.setGender(gender);
+	                if (birthday != null)
+	                    memberDetails.setBD(Date.valueOf(birthday));
+	                if (phone != null)
+	                    memberDetails.setPhone(phone);
+	                if (address != null)
+	                    memberDetails.setAddress(address);
+	                if (receiver != null)
+	                    memberDetails.setReceiver(receiver);
+	                if (receiverAddress != null)
+	                    memberDetails.setReceiverAddress(receiverAddress);
+	                if (receiverPhone != null)
+	                    memberDetails.setReceiverPhone(receiverPhone);
+	                if (cardName != null)
+	                    memberDetails.setCardName(cardName);
+	                if (cardNumber != null)
+	                    memberDetails.setCardNumber(cardNumber);
+	                if (cardValidTime != null)
+	                    memberDetails.setCardValidTime(cardValidTime);
+	                if (cardLast3No != null)
+	                    memberDetails.setCardLast3No(cardLast3No);
+	                if (cardPhone != null)
+	                    memberDetails.setCardPhone(cardPhone);
 
-	            // 處理檔案上傳
-	            if (personalPhotos != null && !personalPhotos.isEmpty()) {
-	                try {
-	                    memberDetails.setPersonalPhotos(personalPhotos.getBytes());
-	                } catch (IOException e) {
-	                    e.printStackTrace();
-	                    // 處理檔案上傳失敗的情況
+	                // 處理檔案上傳
+	                if (personalPhotos != null && !personalPhotos.isEmpty()) {
+	                    try {
+	                        memberDetails.setPersonalPhotos(personalPhotos.getBytes());
+	                    } catch (IOException e) {
+	                        e.printStackTrace();
+	                    }
 	                }
 	            }
 
-	            // 保存更新的會員資料
 	            memberSvc.updateMember(memberDetails);
-
-	            // 更新 Session 中的會員資料
 	            session.setAttribute("user", memberDetails);
 	        }
 	    }
 
-	    // 根據 redirectPage 的值重定向到不同頁面
 	    switch (redirectPage) {
 	    case "account_information":
 	        return "redirect:/account_information";
@@ -241,7 +283,8 @@ public class MemberPageController {
 	    case "acc_information":
 	        return "redirect:/acc_information";
 	    default:
-	        return "redirect:/account_information"; // 預設重定向
+	        return "redirect:/account_information";
 	    }
 	}
+
 }

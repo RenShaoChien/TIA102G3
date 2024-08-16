@@ -237,9 +237,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                               th:style="${#strings.isEmpty(coachCourseID) ? '' : 'display: none;'}"></textarea><br/>
 
                     </label></label></label></label></label></div>
-                <!--                <button class="next_button" type="submit" onclick="window.location.href='./credit_card.html'" value="確認並前往付款">-->
-                <!--                    確認並前往付款-->
-                <!--                </button>-->
+                               <button class="next_button" type="submit" onclick="window.location.href='./credit_card.html'" value="確認並前往付款">
+                                   確認並前往付款
+                               </button>
                 <input type="submit" value="確認並前往付款">
                 <input type="hidden" name="coachCourseID" th:value="${#strings.isEmpty(coachCourseID) ? 'null' : coachCourseID}">
 

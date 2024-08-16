@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 
 @Entity
@@ -22,7 +23,7 @@ public class OrderVO implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "memberID", referencedColumnName = "memberID")
 	private Member member;
-	private Date orderDate ;
+	private Timestamp orderDate ;
 	private String status;
 	private Integer totalPrice;
 }

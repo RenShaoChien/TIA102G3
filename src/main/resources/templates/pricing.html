@@ -140,10 +140,11 @@ h3.m_3 {
 					<li><a th:href="@{/index}">Home</a></li>
 					<li><a th:href="@{member/account_information}">會員專區</a></li>
 					<li><a th:href="@{trainers}">專屬你的訓練</a></li>
-					<li><a href="classes.html">Classes</a></li>
-					<li><a href="menu">Menu</a></li>
-					<li class="active"><a th:href="@{pricing}">Pricing</a></li>
-					<li><a href="contact.html">Contact</a></li>
+					<li><a th:href="@{/menu}">健康餐</a></li>
+					<li class="active"><a th:href="@{pricing}">購物商城</a></li>
+					<li><a th:href="@{/map}">美食地圖</a></li>
+					<li><a th:href="@{/qa}">客服</a></li>
+					<li><a th:href="@{/logout}" class="logout-button">登出</a></li>
 				</ul>
 				<script type="text/javascript" src="js/nav.js"></script>
 			</div>
@@ -170,6 +171,7 @@ h3.m_3 {
 <!-- 											<p class="card-text" th:text="${productVO.intro}">產品介紹</p>										 -->
 <!-- 										</th:block> -->
 <!-- 									</div> -->
+
 				
 				
 				<div th:if="${(productList != null) and !productList.empty}">
@@ -186,6 +188,7 @@ h3.m_3 {
 									<small class="text-muted" th:text="${productVO.price + '元'}">價格</small>
 								</div>
 								<div class="btn-group">
+
 <!-- 														<a method="post" th:value="${productVO.productID}" th:action="@{getOne_For_Display}" -->
 <!-- 														   class="btn btn-sm btn-outline-secondary">查看詳情</a> -->
 									<!-- <a th:href="@{/shoppingcart}" class="button">加到購物車</a> -->
