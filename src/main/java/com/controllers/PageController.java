@@ -73,12 +73,7 @@ public class PageController {
 //    public String menu(Model model) {
 //        return "menu";
 //    }
-
-
-    @GetMapping("/menu")
-    public String menu(Model model) {
-        return "menu";
-    }
+    
 
     @GetMapping("/member")
     public String member(Model model) {
