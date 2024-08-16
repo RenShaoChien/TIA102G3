@@ -44,7 +44,9 @@ form div div {
 <body>
 
 	<nav
-		class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		class="navbar navbar-expand-md navbar-dark fixed-top justify-content-center"
+		style="background-color: #0ABAB5;">
+
 		<div align="center">
 			<h2>推薦健康餐店家 新增</h2>
 			<h3>
@@ -88,8 +90,8 @@ form div div {
 					th:if="${#fields.hasErrors('restTel')}" th:errors="*{restTel}"
 					class="error" id="restTel.errors"></span>
 			</div>
-			
-			
+
+
 			<div>
 				<label>緯度:</label> <input type="text" th:field="*{restMapVO.mapLat}"
 					onclick="hideContent('mapLat.errors');" /><br /> <span

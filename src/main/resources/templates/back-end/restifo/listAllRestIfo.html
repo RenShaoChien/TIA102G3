@@ -61,7 +61,9 @@ body {
 <body>
 
 	<nav
-		class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		class="navbar navbar-expand-md navbar-dark fixed-top justify-content-center"
+		style="background-color: #0ABAB5;">
+
 		<div align="center">
 			<h2>所有推薦餐廳資料</h2>
 			<h3>
@@ -108,9 +110,10 @@ body {
 
 					</td>
 					<td>
-						<form method="post" th:action="@{/restifo/delete}" style="margin-bottom: 0px;">
-    					<input type="submit" value="刪除"> 
-    					<input type="hidden" name="restLoc" th:value="${restIfoVO.restLoc}">
+						<form method="post" th:action="@{/restifo/delete}"
+							style="margin-bottom: 0px;">
+							<input type="submit" value="刪除"> <input type="hidden"
+								name="restLoc" th:value="${restIfoVO.restLoc}">
 						</form>
 					</td>
 				</tr>
