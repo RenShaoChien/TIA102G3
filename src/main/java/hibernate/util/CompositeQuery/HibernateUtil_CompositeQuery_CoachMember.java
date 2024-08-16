@@ -20,24 +20,30 @@ public class HibernateUtil_CompositeQuery_CoachMember {
         Predicate predicate = null;
 
         switch (columnName) {
-            case "cMemberID":
-                predicate = builder.equal(root.get(columnName), Integer.valueOf(value));
-                break;
-            case "bD": // 假設是 Date
-                predicate = builder.equal(root.get(columnName), java.sql.Date.valueOf(value));
-                break;
-            case "name":
-            case "email":
-                predicate = builder.like(root.get(columnName), "%" + value + "%");
-                break;
-            // 添加更多字段的處理邏輯
-            default:
-                // 處理未知字段或忽略
-                break;
-        }
-
-        return predicate;
+        case "memberID":
+            predicate = builder.equal(root.get(columnName), Integer.valueOf(value));
+            break;
+        case "regDate": // 修正為註冊日期字段
+            try {
+                java.sql.Date sqlDate = java.sql.Date.valueOf(value);
+                predicate = builder.equal(root.get(columnName), sqlDate);
+            } catch (IllegalArgumentException e) {
+                // 處理日期格式錯誤
+                predicate = builder.disjunction(); // 返回一個總是為假的條件
+            }
+            break;
+        case "name":
+        case "email":
+            predicate = builder.like(root.get(columnName), "%" + value + "%");
+            break;
+        // 添加更多字段的處理邏輯
+        default:
+            // 處理未知字段或忽略
+            break;
     }
+
+    return predicate;
+}
 
     @SuppressWarnings("unchecked")
     public static List<CoachMember> getAllCoachMembers(Map<String, String[]> map, Session session) {

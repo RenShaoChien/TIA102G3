@@ -2,13 +2,9 @@ package com.controllers;
 
 
 
-import java.util.ArrayList;
-
 import java.util.List;
 
-
-import com.tia102g3.coachcourse.model.CourseStatus;
-import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,8 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import com.tia102g3.product.model.ProductVO;
+import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
 import com.tia102g3.product.model.ProductService;
+import com.tia102g3.product.model.ProductVO;
 
 /**
  * ClassName： PageController package：com.controllers Description：
@@ -35,15 +32,18 @@ public class PageController {
 
     @Autowired
     private CoachCourseServiceImpl ccService;
-
-
-    @GetMapping("/")
-    public String index(Model model) {
-        return "index";
-    }
     
-    @GetMapping("/index")
-    public String about(Model model) {
+//    @Autowired
+//    private FoodService foodSvc;
+//    
+//    @Autowired
+//    private MenuService menuSvc;
+
+
+    @GetMapping({"/", "/index"})
+    public String indexPage(HttpSession session, Model model) {
+        Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
+        model.addAttribute("loggedIn", loggedIn != null && loggedIn);
         return "index";
     }
 
@@ -57,15 +57,29 @@ public class PageController {
         return "admin";
     }
 
-    @GetMapping("/menu")
-    public String menu(Model model) {
-        return "menu";
-    }
+
+//    @GetMapping("/menu")
+//    public String menu(Model model) {
+//        LikeFoodVO likeFoodVO = new LikeFoodVO();
+//        List<MenuVO> menuVO = new ArrayList<>();
+//        menuVO = menuSvc.getAll();
+//        model.addAttribute("likeFoodVO", likeFoodVO);
+//        model.addAttribute("FoodListData", foodSvc.getAll());
+//        model.addAttribute("menuVO", menuVO);
+//        return "menu";
+//    }
+
+//    @GetMapping("/menu")
+//    public String menu(Model model) {
+//        return "menu";
+//    }
+    
 
     @GetMapping("/member")
     public String member(Model model) {
         return "member";
     }
+
     
     @GetMapping("/pricing")
     public String pricing(Model model) {

@@ -44,22 +44,6 @@
 </head>
 
 <body>
-    <!-- start header_bottom -->
-    <div class="header-bottom">
-        <div class="container">
-            <div class="header-bottom_left">
-                <i class="phone"> </i><span>1-200-346-2986</span>
-            </div>
-            <div class="social">
-                <ul>
-                    <li class="facebook"><a href="#"><span> </span></a></li>
-                    <li class="google"><a href="#"><span> </span></a></li>
-                </ul>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <!-- start menu -->
     <div class="menu">
         <div class="container">
             <div class="logo">
@@ -68,15 +52,14 @@
             <div class="h_menu4"><!-- start h_menu4 -->
                 <a class="toggleMenu" href="#">Menu</a>
                 <ul class="nav">
-                    <li><a th:href="@{/index}">Home</a></li>
-					<li><a th:href="@{/account_information}">會員專區</a></li>
-					<li><a th:href="@{/trainers}">專屬你的訓練</a>
-					<li><a href="classes.html">Classes</a></li>
-					<li><a th:href="@{/menu}">健康餐</a></li>
-					<li><a th:href="@{pricing}">Pricing</a></li>
-					<li><a th:href="@{/map}">美食地圖</a></li>
-					<li><a th:href="@{/qa}">客服</a></li>
-					<li><a th:href="@{/login}">登入</a></li>
+                    <li><a th:href="@{/index}" onclick="return confirmLeavePage();">首頁</a></li>
+					<li><a th:href="@{/account_information}" onclick="return promptLogin();">會員專區</a></li>
+					<li><a th:href="@{/trainers}" onclick="return promptLogin();">專屬你的訓練</a></li>
+					<li><a th:href="@{/menu}" onclick="return promptLogin();">健康餐</a></li>
+					<li><a th:href="@{/pricing}" onclick="return promptLogin();">購物商城</a></li>
+					<li><a th:href="@{/map}" onclick="return confirmLeavePage();">美食地圖</a></li>
+					<li><a th:href="@{/qa}" onclick="return confirmLeavePage();">客服</a></li>
+					<li class="active"><a th:href="@{/login}" onclick="return confirmLeavePage();">登入</a></li>
                 </ul>
                 <script type="text/javascript" src="js/nav.js"></script>
             </div><!-- end h_menu4 -->
@@ -142,6 +125,16 @@
 			<div class="clear"></div>
 		</div>
 	</div>
+	<script>
+	function promptLogin() {
+		alert('請先完成登入');
+		return false; // 阻止預設行為
+	}
+
+	function confirmLeavePage() {
+		return confirm('確定要離開註冊頁面嗎？');
+	}
+</script>
 </body>
 
 </html>

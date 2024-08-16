@@ -119,40 +119,40 @@ button:hover {
 <div class="container">
     <h3><b>所有欄位皆為必填欄位</b></h3>
     <form th:action="@{insert}" method="post" th:object="${courseOrder}" enctype="multipart/form-data">
-        <div>
-            <label>會員ID:</label>
-            <input type="text" th:field="*{memberID}" onclick="hideContent('memberID.errors');" />
-            <span th:if="${#fields.hasErrors('memberID')}" th:errors="*{memberID}" class="error" id="memberID.errors"></span>
-        </div>
+    <div>
+        <label>會員ID:</label>
+        <input type="text" th:field="*{memberID}" onclick="hideContent('memberID.errors');" />
+        <span th:if="${#fields.hasErrors('memberID')}" th:errors="*{memberID}" class="error" id="memberID.errors"></span>
+    </div>
 
-        <div>
-            <label>教練課程ID:</label>
-            <input type="text" th:field="*{coachCourse.id}" onclick="hideContent('coachCourse.id.errors');" />
-            <span th:if="${#fields.hasErrors('coachCourse.id')}" th:errors="*{coachCourse.id}" class="error" id="coachCourse.id.errors"></span>
-        </div>
+    <div>
+        <label>教練課程ID:</label>
+        <input type="text" th:field="*{coachCourse.id}" onclick="hideContent('coachCourse.id.errors');" />
+        <span th:if="${#fields.hasErrors('coachCourse.id')}" th:errors="*{coachCourse.id}" class="error" id="coachCourse.id.errors"></span>
+    </div>
 
-        <div>
-            <label>金額:</label>
-            <input type="text" th:field="*{price}" onclick="hideContent('price.errors');" />
-            <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error" id="price.errors"></span>
-        </div>
-        
-        <div>
-            <label>訂單日期:</label>
-            <input type="date" th:field="*{orderDate}" onclick="hideContent('orderDate.errors');" />
-            <span th:if="${#fields.hasErrors('orderDate')}" th:errors="*{orderDate}" class="error" id="orderDate.errors"></span>
-        </div>
+    <div>
+        <label>金額:</label>
+        <input type="text" th:field="*{price}" onclick="hideContent('price.errors');" />
+        <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error" id="price.errors"></span>
+    </div>
+    
+    <div>
+        <label>訂單日期:</label>
+        <input type="date" th:field="*{orderDate}" onclick="hideContent('orderDate.errors');" />
+        <span th:if="${#fields.hasErrors('orderDate')}" th:errors="*{orderDate}" class="error" id="orderDate.errors"></span>
+    </div>
 
-        <div>
-            <label>課程狀態:</label>
-            <input type="text" th:field="*{status}" onclick="hideContent('status.errors');" />
-            <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="error" id="status.errors"></span>
-        </div>
+    <div>
+        <label>課程狀態:</label>
+        <input type="text" th:field="*{status}" onclick="hideContent('status.errors');" />
+        <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="error" id="status.errors"></span>
+    </div>
 
-        <div>
-            <button type="submit" id="submit">送出新增</button>
-        </div>
-    </form>
+    <div>
+        <button type="submit" id="submit">送出新增</button>
+    </div>
+</form>
 </div>
 
 <!-- JavaScript part -->

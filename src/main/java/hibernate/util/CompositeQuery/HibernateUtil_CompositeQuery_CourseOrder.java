@@ -6,37 +6,49 @@ import java.util.Map;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.courseorder.model.CourseOrder;
+import com.tia102g3.member.model.Member;
 
 public class HibernateUtil_CompositeQuery_CourseOrder {
 
-    public static Predicate getPredicateForCourseOrder(CriteriaBuilder builder, Root<CourseOrder> root, String columnName, String value) {
-        Predicate predicate = null;
-
-        switch (columnName) {
-            case "courseOrderID":
-            case "memberID":
-            case "coachCourseID":
-            case "price":
-            case "status":
-                predicate = builder.equal(root.get(columnName), Integer.valueOf(value));
-                break;
-            case "orderDate":
-                predicate = builder.equal(root.get(columnName), java.sql.Date.valueOf(value));
-                break;
-            default:
-                // 處理未知字段或忽略
-                break;
-        }
-
-        return predicate;
-    }
+	public static Predicate getPredicateForCourseOrder(CriteriaBuilder builder, Root<CourseOrder> root, String columnName, String value) {
+	    Predicate predicate = null;
+	    String[] parts = columnName.split("\\.");  // 支持嵌套屬性，例如 "member.memberID"
+	    
+	    if (parts.length == 1) {
+	        // 單層屬性
+	        switch (parts[0]) {
+	            case "courseOrderID":
+	            case "price":
+	            case "status":
+	                predicate = builder.equal(root.get(parts[0]), Integer.valueOf(value));
+	                break;
+	            case "orderDate":
+	                predicate = builder.equal(root.get(parts[0]), java.sql.Date.valueOf(value));
+	                break;
+	            default:
+	                break;
+	        }
+	    } else if (parts.length == 2) {
+	        // 嵌套屬性
+	        if ("member".equals(parts[0]) && "memberID".equals(parts[1])) {
+	            Join<CourseOrder, Member> memberJoin = root.join("member");
+	            predicate = builder.equal(memberJoin.get("memberID"), value);
+	        } else if ("coachCourse".equals(parts[0]) && "id".equals(parts[1])) {
+	            Join<CourseOrder, CoachCourse> coachCourseJoin = root.join("coachCourse");
+	            predicate = builder.equal(coachCourseJoin.get("id"), Integer.valueOf(value));
+	        }
+	    }
+	    return predicate;
+	}
 
     @SuppressWarnings("unchecked")
     public static List<CourseOrder> getAllCourseOrders(Map<String, String[]> map, Session session) {

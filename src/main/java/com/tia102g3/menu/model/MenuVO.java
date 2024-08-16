@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "menu")
@@ -17,6 +18,7 @@ public class MenuVO implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "menuNumber", updatable = false)
+	@NotNull(message="餐點編號: 請勿空白")
 	private Integer menuNumber;
 	
 	@Column(name = "menuName")

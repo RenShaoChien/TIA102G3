@@ -1,31 +1,3 @@
-CREATE DATABASE IF NOT EXISTS tia102g3;
-
-USE tia102g3;
-
-DROP TABLE IF EXISTS admin_id;
-DROP TABLE IF EXISTS coach_course;
-DROP TABLE IF EXISTS coach_course_pic;
-drop TABLE IF EXISTS coach_member;
-DROP TABLE IF EXISTS coach_specialty;
-DROP TABLE IF EXISTS course_order;
-DROP TABLE IF EXISTS customized_course;
-DROP TABLE IF EXISTS food;
-DROP TABLE IF EXISTS health_status;
-DROP TABLE IF EXISTS like_food;
-DROP TABLE IF EXISTS MEMBER;
-DROP TABLE IF EXISTS member_menu_relation;
-DROP TABLE IF EXISTS menu;
-DROP TABLE IF EXISTS order_details;
-DROP TABLE IF EXISTS orderid;
-DROP TABLE IF EXISTS product;
-DROP TABLE IF EXISTS product_pic;
-DROP TABLE IF EXISTS rest_lfo;
-DROP TABLE IF EXISTS rest_map;
-DROP TABLE IF EXISTS shopping_cart;
-DROP TABLE IF EXISTS sport_course;
-DROP TABLE IF EXISTS system_course;
-DROP TABLE IF EXISTS system_course_pic;
-
 CREATE TABLE member (
     memberID INT AUTO_INCREMENT PRIMARY KEY COMMENT '會員ID。主鍵，自動遞增',
     personalPhotos LONGBLOB COMMENT '個人照片',
@@ -50,8 +22,11 @@ CREATE TABLE member (
 
 INSERT INTO member (personalPhotos, name, account, password, email, gender, phone, address, bD, regDate, receiver, receiverAddress, receiverPhone, cardName, cardNumber, cardValidTime, cardLast3No, cardPhone)
 VALUES 
-(NULL, '王小明', 'xiaoming', 'password123', 'xiaoming@example.com', '男', '0912345678', '台北市中山區', '1990-01-01', '2024-08-10', '李小華', '台北市信義區', '0987654321', 'VISA', '1234567890123456', '12/25', '123', '0911223344'),
-(NULL, '李小華', 'xiaohua', 'password456', 'xiaohua@example.com', '女', '0922334455', '台中市西屯區', '1992-05-20', '2024-08-10', '王小明', '台中市南屯區', '0933445566', 'MasterCard', '6543210987654321', '10/23', '321', '0922334455');
+(NULL, '王小明', 'xiaoming', 'xm123', 'xiaoming@example.com', '男', '0912345678', '台北市中山區', '1990-01-01', '2024-08-10', '李小華', '台北市信義區', '0987654321', 'VISA', '1234567890123456', '12/25', '123', '0911223344'),
+(NULL, '李小華', 'xiaohua', 'xh456', 'xiaohua@example.com', '女', '0922334455', '台中市西屯區', '1992-05-20', '2024-08-10', '王小明', '台中市南屯區', '0933445566', 'MasterCard', '6543210987654321', '10/23', '321', '0922334455'),
+(NULL, '張大偉', 'zhang', 'zw789', 'zhang@example.com', '男', '0933221100', '高雄市三民區', '1988-08-15', '2024-08-10', '林美麗', '高雄市前鎮區', '0955112233', 'VISA', '9876543210987654', '01/27', '456', '0933221100'),
+(NULL, '李美慧', 'lima', 'lm012', 'lima@example.com', '女', '0944332211', '台南市安平區', '1995-11-25', '2024-08-10', '陳志明', '台南市北區', '0966889900', 'MasterCard', '3216549870654321', '07/25', '789', '0944332211'),
+(NULL, '陳建國', 'chen', 'cj345', 'chen@example.com', '男', '0922113344', '新竹市東區', '1983-12-05', '2024-08-10', '林芳瑜', '新竹市西區', '0988772233', 'VISA', '4567890123456789', '09/28', '321', '0922113344');
 
 CREATE TABLE coach_member (
     cMemberID INT AUTO_INCREMENT PRIMARY KEY COMMENT '教練會員ID。主鍵，自動遞增',
@@ -78,8 +53,12 @@ CREATE TABLE coach_member (
 
 INSERT INTO coach_member (personalPhotos, status, name, account, password, email, gender, phone, address, bD, regDate, receiver, receiverAddress, receiverPhone, cardName, cardNumber, cardValidTime, cardLast3No, cardPhone)
 VALUES 
-(NULL, '1', '陳教練', 'coachchen', 'coachpassword1', 'coachchen@example.com', '男', '0988776655', '台南市東區', '1985-03-15', '2024-08-10', '張三', '台南市南區', '0977665544', 'VISA', '9876543210123456', '09/26', '456', '0988776655'),
-(NULL, '2', '林教練', 'coachlin', 'coachpassword2', 'coachlin@example.com', '女', '0911223344', '高雄市左營區', '1988-07-25', '2024-08-10', '李四', '高雄市鼓山區', '0966554433', 'MasterCard', '3216549870321654', '11/24', '654', '0911223344');
+(NULL, '1', '任教練', 'ren', 'renpw', 'coachchen@example.com', '男', '0988776655', '台南市東區', '1985-03-15', '2024-08-10', '張三', '台南市南區', '0977665544', 'VISA', '9876543210123456', '09/26', '456', '0988776655'),
+(NULL, '2', '劉教練', 'liu', 'liupw', 'coachlin@example.com', '男', '0911223344', '高雄市左營區', '1988-07-25', '2024-08-10', '李四', '高雄市鼓山區', '0966554433', 'MasterCard', '3216549870321654', '11/24', '654', '0911223344'),
+(NULL, '3', '曾教練', 'zeng', 'zengpw', 'coachwang@example.com', '女', '0911887766', '台北市信義區', '1982-11-23', '2024-08-10', '王五', '台北市大安區', '0988991122', 'VISA', '1234567890123456', '12/25', '789', '0911887766'),
+(NULL, '4', '侯教練', 'hou', 'houpw', 'coachli@example.com', '男', '0933221100', '新北市板橋區', '1990-01-18', '2024-08-10', '趙六', '新北市新店區', '0977123456', 'MasterCard', '6543210987654321', '08/23', '321', '0933221100'),
+(NULL, '5', '李教練', 'li', 'lipw', 'coachhuang@example.com', '男', '0922334455', '桃園市中壢區', '1986-06-30', '2024-08-10', '孫七', '桃園市蘆竹區', '0988123456', 'VISA', '1122334455667788', '05/27', '112', '0922334455');
+
 
 CREATE TABLE course_order (
     courseOrderID INT AUTO_INCREMENT PRIMARY KEY COMMENT '課程訂單ID。主鍵，自動遞增',
@@ -94,6 +73,9 @@ INSERT INTO course_order (memberID, coachCourseID, orderDate, price, status)
 VALUES 
 (1, 1, '2024-08-10 10:30:00', 3000, 1),
 (2, 2, '2024-08-10 15:45:00', 2500, 0);
+(3, 3, '2024-08-11 09:00:00', 2800, 1),
+(4, 4, '2024-08-11 13:30:00', 3200, 0),
+(5, 5, '2024-08-12 16:00:00', 2900, 1);
 
 CREATE TABLE admin_id (
     admin_ID INT AUTO_INCREMENT PRIMARY KEY COMMENT '管理員ID。主鍵，自動遞增',
