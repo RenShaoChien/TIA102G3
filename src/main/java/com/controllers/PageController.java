@@ -91,10 +91,10 @@ public class PageController {
         return "product/product_intro";
     }
     
-    @GetMapping("/shoppingcart")
-    public String shoppingcart(Model model) {
-        return "product/shopping_cart";
-    }
+//    @GetMapping("/shoppingcart")
+//    public String shoppingcart(Model model) {
+//        return "product/shopping_cart";
+//    }
     
     @ModelAttribute("productList")
     protected List<ProductVO> productList(Model model){

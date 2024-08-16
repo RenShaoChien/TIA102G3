@@ -239,7 +239,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<ul class="price1">
 
 					<div class="dl_info">
-						<table>
+						<!-- <table>
 							<tr>
 								<td class="abc">商品名稱</td>
 								<td>商品圖片</td>
@@ -256,12 +256,36 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<td>100元</td>
 								<td><button type="button" class="btn">刪除</button></td>
 							</tr>
-						</table>
+						</table> -->
+
+						<table id="example" class="display" style="width: 100%">
+							<thead >
+							  <tr style="background-color:#428bca">
+								  <th>名稱</th>
+								  <th>數量</th>
+								  <th>單價</th>
+								  <th>小計</th>
+							  </tr>
+							</thead>
+							  
+							<tbody>
+								<th:block th:each="product : ${productList}">
+									<tr>
+										<td th:text="${product.name}"></td>
+										<td th:text="${product.quantity}"></td>
+										<td th:text="${product.price}"></td>
+										<td th:text="${product.price * product.quantity}"></td>
+									</tr>
+								</th:block>
+							</tbody>
+						  </table>
+						
 						<span>此次共消費：100元</span>
 						<br>
-						<a class="popup-with-zoom-anim" href="#small-dialog"><button type="submit">下一步</button></a>
+						<button type="submit">下一步</button>
+						<!-- <a class="popup-with-zoom-anim" href="#small-dialog"><button type="submit">下一步</button></a> -->
 						<!-----pop-up-grid-放入購物車---->
-						<div id="small-dialog" class="mfp-hide">
+						<!-- <div id="small-dialog" class="mfp-hide">
 							<div class="pop_up">
 								<div class="payment-online-form-left">
 									<form>
@@ -277,12 +301,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										<div class="clear"> </div>
 
 										<ul class="payment-sendbtns">
-											<li><input type="submit" value="登入"></li>
+											<li><input type="submit" value="登入"></li> -->
 											<!-- href要改成忘記密碼的頁面 -->
-											<li><input type="submit" value="忘記密碼"
-													onclick="window.location.href='./product_intro.html'"></li>
+											<!-- <li><input type="submit" value="忘記密碼"
+													onclick="window.location.href='./product_intro.html'"></li> -->
 											<!-- href要改成忘記密碼的頁面 -->
-											<li><input type="submit" value="免費註冊"
+											<!-- <li><input type="submit" value="免費註冊"
 													onclick="window.location.href='./product_intro.html'"></li>
 											<a th:href="@{/orderChecking}" class="button">前往確認訂單</a>
 										</ul>
@@ -290,7 +314,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									</form>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<!-----pop-up-grid--放入購物車------>
 
 					</div>

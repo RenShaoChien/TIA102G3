@@ -165,14 +165,7 @@ h3.m_3 {
 		<div class="container">
 			<div class="row price_plans">
 			<h3 class="m_2">商品瀏覽</h3>
-			<div class="price_plans_box">
-<!-- 									<div> -->
-<!-- 										<th:block th:each="productVO : ${productList}"> -->
-<!-- 											<p class="card-text" th:text="${productVO.intro}">產品介紹</p>										 -->
-<!-- 										</th:block> -->
-<!-- 									</div> -->
-
-				
+			<div class="price_plans_box">				
 				
 				<div th:if="${(productList != null) and !productList.empty}">
 					<div class="col-md-4" th:each="productVO : ${productList}">
@@ -182,22 +175,17 @@ h3.m_3 {
 								class="card-img-top" alt="Product Image"
 								style="height: 200px; object-fit: cover;">
 							<div class="card-body">
-								<h5 class="card-title" th:text="${productVO.prodName}">產品名稱</h5>
-								<p class="card-text" th:text="${productVO.intro}">產品介紹</p>
-								<div class="d-flex justify-content-between align-items-center">
-									<small class="text-muted" th:text="${productVO.price + '元'}">價格</small>
-								</div>
-								<div class="btn-group">
-
-<!-- 														<a method="post" th:value="${productVO.productID}" th:action="@{getOne_For_Display}" -->
-<!-- 														   class="btn btn-sm btn-outline-secondary">查看詳情</a> -->
-									<!-- <a th:href="@{/shoppingcart}" class="button">加到購物車</a> -->
-								</div>
 								<div class="product" th:data-product-id="${productVO.productID}">
+									<!-- <h5 class="card-title">產品名稱</h5> -->
+									<h5 class="card-title" th:text="${productVO.prodName}">默認產品名稱</h5>
+									
+									<span class="card-text" th:text="${productVO.intro}">產品介紹</span>
+									<div class="d-flex justify-content-between align-items-center">
+										<span>價格</span>
+										<small class="text-muted" th:text="${productVO.price}"></small>
+									</div>
 									<label for="quantity">數量:</label>
-									<select name="quantity" 
-											th:id="'quantity-' + ${productVO.productID}" 
-											th:data-product-id="${productVO.productID}">
+									<select name="quantity" th:id="'quantity-' + ${productVO.productID}">
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
@@ -209,39 +197,21 @@ h3.m_3 {
 										<option value="9">9</option>
 										<option value="10">10</option>
 									</select>
+									<button class="add-to-cart" 
+											th:attr="id=${productVO.productID}" 
+											th:data-product-id="${productVO.productID}">加到購物車</button>
+											<a th:href="@{/shoppingcart}" class="button">加到購物車測試</a>
 								</div>
 								
 								
 								<div>
-									<button class="add-to-cart" 
-											th:attr="id=${productVO.productID}" 
-											th:data-product-id="${productVO.productID}">加到購物車</button>
 								</div>
 							</div>
 						</div>
-
-<!-- 												<div class="card mb-4 shadow-sm"> -->
-<!-- 												    <img -->
-<!-- 												        th:src="@{|/course/DBGifReader?picID=${productVO.productID}&source=productPic|}" -->
-<!-- 												        class="card-img-top" alt="Product Image" -->
-<!-- 												        style="height: 200px; object-fit: cover;"> -->
-<!-- 												    <div class="card-body"> -->
-<!-- 												        <h5 class="card-title" th:text="${productVO.prodName}" id="prodName-${productVO.productID}">產品名稱</h5> -->
-<!-- 												        <p class="card-text" th:text="${productVO.intro}" id="intro-${productVO.productID}">產品介紹</p> -->
-<!-- 												        <div class="d-flex justify-content-between align-items-center"> -->
-<!-- 												            <small class="text-muted" th:text="${productVO.price + '元'}" id="price-${productVO.productID}">價格</small> -->
-<!-- 												        </div> -->
-<!-- 												        <div class="btn-group"> -->
-<!-- 												            <button type="button" class="btn btn-sm btn-outline-secondary view-details" data-product-id="${productVO.productID}"> -->
-<!-- 												                查看詳情 -->
-<!-- 												            </button> -->
-<!-- 												        </div> -->
-<!-- 												    </div> -->
-<!-- 												</div> -->
 							
 					</div>
 				</div>
-					
+					<!-- product List is null -->
 					<div
 						th:if="${productList == null or productList.empty}">
 						<p>目前沒有可用的產品。</p>
@@ -253,85 +223,6 @@ h3.m_3 {
 	</div>
 	</div>
 
-
-	<div class="about_gallery">
-		<div class="container">
-		
-			<div class="col-md-4">
-				<h3 class="m_3">商品照片</h3>
-				<ul class="partner">
-<!-- 					<li><img id="img1" th:src="@{/course/DBGifReader} + ?picID=${productVO.productID}" alt="" /></li> -->
-					<div class="clear"></div>
-				</ul>
-			</div>
-		
-			<div class="col-md-8">
-				<h3 class="m_3">詳細資訊</h3>
-<!-- 				<div id="ca-container" class="ca-container" th:if="${getOne_For_Display}"> -->
-<!-- 					<span>名稱:</span><span th:text="${productVO.prodName}"></span><br/> -->
-<!-- 					<span>價錢:</span><span th:text="${productVO.price + '元'}"></span><br/> -->
-<!-- 					<span>簡介:</span><span th:text="${productVO.intro}"></span><br/> -->
-<!-- 				</div> -->
-				
-<!-- 				<div id="details-${productVO.productID}" class="ca-container" style="display:none;"> -->
-<!--     				<span>名稱:</span><span th:text="${productVO.prodName}"></span><br/> -->
-<!--    			 		<span>價錢:</span><span th:text="${productVO.price + '元'}"></span><br/> -->
-<!--     				<span>簡介:</span><span th:text="${productVO.intro}"></span><br/> -->
-<!-- 				</div> -->
-				
-<!-- 				<div id="ca-container" class="ca-container" style="display: none;"> -->
-<!--     				<span>名稱:</span><span id="prodName"></span><br/> -->
-<!--     				<span>價錢:</span><span id="price"></span><br/> -->
-<!--     				<span>簡介:</span><span id="intro"></span><br/> -->
-<!-- 				</div> -->
-				
-<!-- 				<div id="ca-container" class="ca-container" style="display:none;"> -->
-<!--     				<span>名稱:</span><span id="prodName"></span><br/> -->
-<!--    	 				<span>價錢:</span><span id="price"></span><br/> -->
-<!--     				<span>簡介:</span><span id="intro"></span><br/> -->
-<!-- 				</div> -->
-				
-<!-- 				<script> -->
-
-<!-- // 				$(document).ready(function(){ -->
-<!-- // 				    $('.view-details').on('click', function(){ -->
-<!-- // 				        var productId = $(this).data('product-id'); -->
-				        
-<!-- // 				        // 使用 AJAX 發送請求獲取產品資料 -->
-<!-- // 				        $.ajax({ -->
-<!-- // 				            type: "POST", -->
-<!-- // 				            url: "/getOne_For_Display",  // 你的後端處理URL -->
-<!-- // 				            data: { productID: productId }, -->
-<!-- // 				            success: function(response) { -->
-<!-- // 				                // 假設返回的 response 是包含產品資訊的JSON對象 -->
-<!-- // 				                $('#prodName').text(response.prodName); -->
-<!-- // 				                $('#price').text(response.price + '元'); -->
-<!-- // 				                $('#intro').text(response.intro); -->
-				                
-<!-- // 				                // 顯示產品資訊的區塊 -->
-<!-- // 				                $('#ca-container').show(); -->
-<!-- // 				            }, -->
-<!-- // 				            error: function(){ -->
-<!-- // 				                alert('獲取產品詳情失敗'); -->
-<!-- // 				            } -->
-<!-- // 				        }); -->
-<!-- // 				    }); -->
-<!-- // 				}); -->
-
-
-<!-- 				</script> -->
-				
-				
-				
-				<script type="text/javascript">
-					$('#ca-container').contentcarousel();
-				</script>
-			</div>
-
-			<div class="clear"></div>
-		</div>
-	</div>
-	
 		<ul class="price_question">
 		<div class="container">
 			<li class="question_left">
@@ -423,83 +314,77 @@ h3.m_3 {
 	</div>
 	
 	<script type="text/javascript">
-	// $(document).ready(function() {
-	//     $('.view-details').on('click', function() {
-	//         var productId = $(this).data('product-id');
+// 	$(document).ready(function() {
+// 		$('.add-to-cart').click(function() {
+// 			// 从按钮的 data-product-id 属性中获取商品 ID
+// 			const productId = $(this).data('product-id');
+// 			// 从对应的选择框中获取数量
+// 			const quantity = $(`#quantity-${productId}`).val();
 
-	//         // 抓取相應產品的資料
-	//         var prodName = $('#prodName-' + productId).text();
-	//         var price = $('#price-' + productId).text();
-	//         var intro = $('#intro-' + productId).text();
+// 			console.log('商品ID:', productId);
+// 			console.log('數量:', quantity);
 
-	//         // 將資料顯示在 ca-container
-	//         $('#prodName').text(prodName);
-	//         $('#price').text(price);
-	//         $('#intro').text(intro);
+// 			// 发送 AJAX 请求
+// 			$.ajax({
+// 			    url: 'http://localhost:8080/redis/save',
+// 			    type: 'POST',
+// 			    contentType: 'application/json',
+// 			    data: JSON.stringify({ id: productId, quantity: quantity }),
+// 			    success: function(data) {
+// 			        console.log('成功:', data);
+// 			        // 可以在这里添加成功提示或处理响应
+// 			    },
+// 			    error: function(error) {
+// 			        console.error('错误:', error);
+// 			        // 处理错误
+// 			    }
+// 			});
+// 		});
+// 	});
 
-	//         // 顯示產品資訊的區塊
-	//         $('#ca-container').show();
-	//     });
-	// });
+    $(document).ready(function() {
+	    $('.add-to-cart').click(function() {
+	        // 从按钮的 data-product-id 属性中获取商品 ID
+	        const productId = $(this).data('product-id');
+	        
+	        // 从对应的选择框中获取数量
+	        const quantity = $(`#quantity-${productId}`).val();
 	
-	// document.addEventListener('DOMContentLoaded', () => {
-	//     document.querySelectorAll('.add-to-cart').forEach(button => {
-	//         button.addEventListener('click', function() {
-	//             // 从按钮的 data-product-id 属性中获取商品 ID
-	//             const productId = this.getAttribute('data-product-id');
-	//             // 从对应的选择框中获取数量
-	//             const quantity = document.querySelector(`#quantity-${productId}`).value;
-
-	//             // 发送 AJAX 请求
-	//             fetch('http://localhost:8080/redis/save', {
-	//                 method: 'POST',
-	//                 headers: {
-	//                     'Content-Type': 'application/json',
-	//                 },
-	//                 body: JSON.stringify({ id: productId, quantity: quantity }),
-	//             })
-	//             .then(response => response.json())
-	//             .then(data => {
-	//                 console.log('成功:', data);
-	//                 // 可以在这里添加成功提示或处理响应
-	//             })
-	//             .catch((error) => {
-	//                 console.error('错误:', error);
-	//                 // 处理错误
-	//             });
-	//         });
-	//     });
-	// });
-
-	$(document).ready(function() {
-		$('.add-to-cart').click(function() {
-			// 从按钮的 data-product-id 属性中获取商品 ID
-			const productId = $(this).data('product-id');
-			// 从对应的选择框中获取数量
-			const quantity = $(`#quantity-${productId}`).val();
-
-			console.log('商品ID:', productId);
-			console.log('數量:', quantity);
-
-			// 发送 AJAX 请求
-			$.ajax({
-			    url: 'http://localhost:8080/redis/save',
-			    type: 'POST',
-			    contentType: 'application/json',
-			    data: JSON.stringify({ id: productId, quantity: quantity }),
-			    success: function(data) {
-			        console.log('成功:', data);
-			        // 可以在这里添加成功提示或处理响应
-			    },
-			    error: function(error) {
-			        console.error('错误:', error);
-			        // 处理错误
-			    }
-			});
-		});
+	        // 查找父级 .product 容器，并获取 <h5> 和 <small> 标签内的文本
+	        const productContainer = $(this).closest('.product');
+	        let productName = productContainer.find('.card-title').text();
+	        let productPrice = productContainer.find('.text-muted').text();
+			const memberID = "1234";
+				
+			console.log('memberID:', memberID);
+	        console.log('商品ID:', productId);
+	        console.log('數量:', quantity);
+	        console.log('商品名稱:', productName);
+	        console.log('商品價格:', productPrice);
+	
+	        // 发送 AJAX 请求
+	        $.ajax({
+	            // url: 'http://localhost:8080/redis/save',
+	            url: 'http://localhost:8080/redis/saveOrder',
+	            type: 'POST',
+	            contentType: 'application/json',
+	            data: JSON.stringify({
+					memberID: memberID,  // 請提供正確的 memberID
+					productList: [
+						{ id: productId, quantity: quantity, name: productName, price: productPrice }
+					]
+    			}),
+	            success: function(data) {
+	                console.log('成功:', data);
+	                // 可以在这里添加成功提示或处理响应
+	            },
+	            error: function(error) {
+	                console.error('错误:', error);
+	                // 处理错误
+	            }
+	        });
+	    });
 	});
-
-
 
 	</script>
 	
