@@ -63,11 +63,13 @@
                 </div>
 
                 <div class="panel-body">
-                    <form th:action="@{insertFoodList}" method="post" th:object="${LikeFoodVO}"
+                    <form th:action="@{insertFoodList}" method="post" th:object="${foodListVO}"
                         enctype="multipart/form-data">
                         <label for=""><p class="menu-text-title">健康餐編號</p></label> 
+                        <!-- <input type="text" th:field="*{menuVO.menuNumber}" /> -->
+                        <!-- <div th:if="${#fields.hasErrors('menuVO.menuNumber')}" th:errors="*{menuVO.menuNumber}">Error</div> -->
                         <input class="form-control input-width-50" type="text" name="menuNumber"> 
-                        <!-- <span th:if="${#fields.hasErrors('memberID')}" th:errors="*{memberID}" class="error" id="memberID.errors"></span>  -->
+                        <!-- <span th:if="${#fields.hasErrors('menuVO.menuNumber')}" th:errors="*{menuVO.menuNumber}" class="error" id="menuVO.menuNumber.errors"></span>  -->
                         <br> 
 <!--                         <label for=""> <p class="menu-text-title">食物編號</p> </label>  -->
 <!--                         <input class="form-control input-width-50" type="text" name="foodNumber" id="foodNumber">  -->
@@ -82,8 +84,10 @@
                         <br>
                         
                         <label for=""><p class="menu-text-title">食材重量</p></label> 
-                        <input class="form-control input-width-50" type="text" name="foodWeight"> 
-                        <!-- <span th:if="${#fields.hasErrors('memberID')}" th:errors="*{memberID}" class="error" id="memberID.errors"></span>  -->
+                        <input type="text" th:field="*{foodWeight}" />
+                        <!-- <div th:if="${#fields.hasErrors('foodWeight')}" th:errors="*{foodWeight}">Error</div> -->
+                        <!-- <input class="form-control input-width-50" type="text" name="foodWeight">  -->
+                        <!-- <span th:if="${#fields.hasErrors('foodWeight')}" th:errors="*{foodWeight}" class="error" id="foodWeight.errors"></span>  -->
                         
 <!--                         <p class="menu-text-title">食物偏好</p> -->
 <!--                         </label><br>  -->

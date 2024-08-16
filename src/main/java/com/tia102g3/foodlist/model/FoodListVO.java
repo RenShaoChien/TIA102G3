@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import com.tia102g3.food.model.FoodVO;
 import com.tia102g3.menu.model.MenuVO;
@@ -24,6 +26,7 @@ public class FoodListVO implements java.io.Serializable {
 	
 	@OneToOne
     @JoinColumn(name = "menuNumber", referencedColumnName = "menuNumber")
+//	@Valid
 	private MenuVO menuVO;
 	
 	@ManyToOne
@@ -32,6 +35,7 @@ public class FoodListVO implements java.io.Serializable {
 	
 	
 	@Column(name="foodWeight")
+	@NotNull(message="食物重量: 請勿空白")
 	private Integer foodWeight;
 	
 	

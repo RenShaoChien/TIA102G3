@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.tia102g3.food.model.FoodVO;
 
@@ -22,6 +23,7 @@ public class LikeFoodVO implements Serializable {
     private Integer likeFoodSN;
 	
 	@Column(name = "memberID")
+	@NotNull(message="會員編號: 請勿空白")
 	private Integer memberID;
 	
 	@ManyToOne
