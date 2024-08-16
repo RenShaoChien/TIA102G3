@@ -1,7 +1,10 @@
 import com.Application;
+import com.tia102g3.coachcertificate.model.CoachCertificate;
+import com.tia102g3.coachcertificate.model.CoachCertificateDAO;
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachcoursepic.model.CoachCoursePic;
 import com.tia102g3.coachcoursepic.model.CoachCoursePicDAO;
+import com.tia102g3.coachmember.model.CoachMember;
 import com.tia102g3.systemcourse.model.SystemCourse;
 import com.tia102g3.systemcoursepic.model.SystemCoursePic;
 import com.tia102g3.systemcoursepic.model.SystemCoursePicDAO;
@@ -89,18 +92,29 @@ public class ImgJayren {
     public void test2() throws IOException {
         Random rd = new Random();
 
-        ClassPathResource resource22 = new ClassPathResource("static/back_end_img/jayren/01.jpg");
-        ClassPathResource resource23 = new ClassPathResource("static/back_end_img/jayren/02.png");
-        ClassPathResource resource24 = new ClassPathResource("static/back_end_img/jayren/03.jpg");
-        ClassPathResource resource25 = new ClassPathResource("static/back_end_img/jayren/04.jpeg");
-        ClassPathResource resource26 = new ClassPathResource("static/back_end_img/jayren/05.png");
-        ClassPathResource resource27 = new ClassPathResource("static/back_end_img/jayren/06.jpg");
-        ClassPathResource resource28 = new ClassPathResource("static/back_end_img/jayren/07.png");
+        ClassPathResource resource22 = new ClassPathResource("static/back_end_img/jayren/c1.jpg");
+        ClassPathResource resource23 = new ClassPathResource("static/back_end_img/jayren/c5.jpg");
+        ClassPathResource resource24 = new ClassPathResource("static/back_end_img/jayren/c3.jpg");
+        ClassPathResource resource25 = new ClassPathResource("static/back_end_img/jayren/c6.jpg");
+        ClassPathResource resource26 = new ClassPathResource("static/back_end_img/jayren/c7.jpg");
+        ClassPathResource resource27 = new ClassPathResource("static/back_end_img/jayren/c4.jpg");
 
-        List<ClassPathResource> pic = Arrays.asList(resource22, resource23, resource24, resource25, resource26, resource27, resource28);
+        List<ClassPathResource> pic = Arrays.asList(resource22, resource23, resource24, resource25, resource26, resource27);
+        int a = 1;
         for (int i = 0; i < 20; i++) {
-            dao1.save(new CoachCoursePic(i + 1, new CoachCourse(i + 1), Files.readAllBytes(pic.get(rd.nextInt(pic.size())).getFile().toPath())));
+            for (int j = 0; j < 3; j++) {
+                dao1.save(new CoachCoursePic(a++, new CoachCourse(i + 1), Files.readAllBytes(pic.get(rd.nextInt(pic.size())).getFile().toPath())));
+            }
         }
 
+    }
+    @Autowired
+    CoachCertificateDAO coachCertificateDAO;
+    @Test
+    public void test3() throws IOException {
+        ClassPathResource resource = new ClassPathResource("static/back_end_img/jayren/certificate.jpg");
+        for (int i = 0; i < 4; i++) {
+            coachCertificateDAO.save(new CoachCertificate(i + 1, new CoachMember(i + 1), "C級重量訓練教練證", Files.readAllBytes(resource.getFile().toPath())));
+        }
     }
 }

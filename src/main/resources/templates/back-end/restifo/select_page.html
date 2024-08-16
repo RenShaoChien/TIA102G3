@@ -69,11 +69,13 @@ div.b {
 <body>
 
 	<nav
-		class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		class="navbar navbar-expand-md navbar-dark fixed-top justify-content-center"
+		style="background-color: #0ABAB5;">
+
 		<div align="center">
 			<h2>推薦健康餐店家 管理</h2>
 			<h3>
-				<a class="navbar-brand" th:href="@{/}">回index.html</a>
+				<a class="navbar-brand" th:href="@{/restifo/select_page}">回查詢頁</a>
 			</h3>
 		</div>
 	</nav>
@@ -96,8 +98,7 @@ div.b {
 					輸入餐廳編號: <input type="text" name="restLoc"
 						th:value="${param.restLoc}"> <input type="submit"
 						value="送出"> (輸入如1)
-				</form>
-				<br>
+				</form> <br>
 			</li>
 
 
@@ -108,8 +109,7 @@ div.b {
 						<option th:each="restIfoVO : ${restIfoListData}"
 							th:value="${restIfoVO.restLoc}" th:text="${restIfoVO.restLoc}" />
 					</select> <input type="submit" value="送出">
-				</form>
-				<br></li>
+				</form> <br></li>
 
 
 
@@ -119,8 +119,7 @@ div.b {
 						<option th:each="restIfoVO : ${restIfoListData}"
 							th:value="${restIfoVO.restLoc}" th:text="${restIfoVO.restName}" />
 					</select> <input type="submit" value="送出">
-				</form>
-				<br></li>
+				</form> <br></li>
 
 
 
@@ -129,20 +128,18 @@ div.b {
 
 			<li>
 				<form method="post" th:action="@{listRestIfos_ByCompositeQuery}">
-					<font color=blue>萬用複合查詢:</font><br> 
-					輸入餐廳編號: <input type="text" name="restLoc" value=""><br> 
-					
-					輸入餐廳名稱: <input type="text" name="restName" value=""><br>
-					
-					輸入餐廳地址: <input type="text" name="restAddress" value=""><br> 
-					
-<!-- 					選擇地圖編號: -->
-<!-- 					<select th:field="*{restMapVO.mapID}"> -->
-<!-- 						<option value=""> -->
-<!-- 						<option	th:each="restMapVO : ${restMapListData}" th:value="${restMapVO.mapID}" th:text="${restMapVO.mapID}" /> -->
-<!-- 					</select><br>  -->
-				
-       			 	<input type="submit" value="送出">
+					<font color=blue>萬用複合查詢:</font><br> 輸入餐廳編號: <input type="text"
+						name="restLoc" value=""><br> 輸入餐廳名稱: <input
+						type="text" name="restName" value=""><br> 輸入餐廳地址: <input
+						type="text" name="restAddress" value=""><br>
+
+					<!-- 					選擇地圖編號: -->
+					<!-- 					<select th:field="*{restMapVO.mapID}"> -->
+					<!-- 						<option value=""> -->
+					<!-- 						<option	th:each="restMapVO : ${restMapListData}" th:value="${restMapVO.mapID}" th:text="${restMapVO.mapID}" /> -->
+					<!-- 					</select><br>  -->
+
+					<input type="submit" value="送出">
 
 				</form>
 			</li>

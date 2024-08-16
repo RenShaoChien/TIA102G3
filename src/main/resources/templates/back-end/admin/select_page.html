@@ -70,11 +70,12 @@ div.b {
 <body>
 
 	<nav
-		class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		class="navbar navbar-expand-md navbar-dark fixed-top justify-content-center"
+		style="background-color: #0ABAB5;">
 		<div align="center">
 			<h2>管理員資料管理</h2>
 			<h3>
-				<a class="navbar-brand" th:href="@{/}">回index.html</a>
+				<a class="navbar-brand" th:href="@{/admin/select_page}">回查詢頁</a>
 			</h3>
 		</div>
 	</nav>
@@ -129,10 +130,13 @@ div.b {
 					<font color=blue>萬用複合查詢:</font><br> 輸入管理員編號: <input
 						type="text" name="admin_ID" value=""><br> 輸入管理員姓名: <input
 						type="text" name="adminName" value=""><br> 輸入管理員帳號: <input
-						type="text" name="adminUsername" value=""><br> 選擇信箱:
-					<select name="adminEmail">
-				     <option th:each="adminVO : ${adminListData}" th:value="${adminVO.adminEmail}" th:text="${adminVO.adminEmail}" />
-			    </select><br> <INPUT TYPE="SUBMIT" VALUE="送出">
+						type="text" name="adminUsername" value=""><br>
+					<!-- 					選擇信箱: -->
+					<!-- 					<select name="adminEmail"> -->
+					<!-- 						<option th:each="adminVO : ${adminListData}" -->
+					<!-- 							th:value="${adminVO.adminEmail}" th:text="${adminVO.adminEmail}" /> -->
+					<!-- 					</select><br>  -->
+					<INPUT TYPE="SUBMIT" VALUE="送出">
 
 				</form>
 			</li>

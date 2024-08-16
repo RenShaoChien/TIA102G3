@@ -10,20 +10,26 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.tia102g3.restifo.model.RestIfoService;
 import com.tia102g3.restifo.model.RestIfoVO;
+import com.tia102g3.restmap.model.RestMapService;
 
 @Controller
 public class RestIfoPageController {
 	
 	@Autowired
     RestIfoService restIfoSvc;
+	
+	@Autowired
+    RestMapService restMapSvc;
 
     @GetMapping("/restifo/select_page")
     public String select_page(Model model) {
         return "back-end/restifo/select_page";
     }
 
-    @GetMapping("/restifo/listAllRestifo")
+    @GetMapping("/restifo/listAllRestIfo")
     public String listAllRestIfo(Model model) {
+    	List<RestIfoVO> restIfos = restIfoSvc.getAll();
+        model.addAttribute("restIfos", restIfos);
         return "back-end/restifo/listAllRestIfo";
     }
 
