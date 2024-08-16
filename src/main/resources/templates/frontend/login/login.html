@@ -29,22 +29,6 @@ input[type="button"] {
 </head>
 
 <body onload="showAlert()">
-	<!-- start header_bottom -->
-	<div class="header-bottom">
-		<div class="container">
-			<div class="header-bottom_left">
-				<i class="phone"> </i><span>1-200-346-2986</span>
-			</div>
-			<div class="social">
-				<ul>
-					<li class="facebook"><a href="#"><span> </span></a></li>
-					<li class="google"><a href="#"><span> </span></a></li>
-				</ul>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
-	<!-- start menu -->
 	<div class="menu">
     <div class="container">
         <div class="logo">
@@ -54,15 +38,14 @@ input[type="button"] {
             <!-- start h_menu4 -->
             <a class="toggleMenu" href="#">Menu</a>
             <ul class="nav">
-                <li><a th:href="@{/index}">Home</a></li>
+                <li><a th:href="@{/index}">首頁</a></li>
                 <li><a th:href="@{/account_information}" data-requires-login="true">會員專區</a></li>
                 <li><a th:href="@{/trainers}" data-requires-login="true">專屬你的訓練</a></li>
-                <li><a href="classes.html"  data-requires-login="true">Classes</a></li>
                 <li><a th:href="@{/menu}" data-requires-login="true">健康餐</a></li>
-                <li><a th:href="@{/pricing}" data-requires-login="true">Pricing</a></li>
-                <li><a th:href="@{/map}" data-requires-login="true">美食地圖</a></li>
-                <li><a th:href="@{/qa}" data-requires-login="true">客服</a></li>
-                <li><a th:href="@{/login}">登入</a></li>
+                <li><a th:href="@{/pricing}" data-requires-login="true">購物商城</a></li>
+                <li><a th:href="@{/map}">美食地圖</a></li>
+                <li><a th:href="@{/qa}">客服</a></li>
+                <li class="active"><a th:href="@{/loggedIn}">登入</a></li>
             </ul>
             <script type="text/javascript" src="js/nav.js"></script>
         </div>
@@ -215,6 +198,15 @@ input[type="button"] {
 		            }
 		        });
 		    });
+		});
+		document.addEventListener("DOMContentLoaded", function() {
+		    // 獲取 URL 中的錯誤參數
+		    const urlParams = new URLSearchParams(window.location.search);
+		    const error = urlParams.get('error');
+
+		    if (error === 'not_logged_in') {
+		        alert('請先完成登入');
+		    }
 		});
 	</script>
 

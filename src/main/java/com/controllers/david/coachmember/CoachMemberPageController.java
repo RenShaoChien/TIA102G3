@@ -54,20 +54,28 @@ public class CoachMemberPageController {
 	}
 	
 	// 前台教練會員頁面Controller
-	@GetMapping("coach_account_information")
-	public String coach_account_information(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-        CoachMember coachMember = (CoachMember) session.getAttribute("user");
+	@GetMapping("/coach_account_information")
+	public String coachAccountInformation(HttpServletRequest request, Model model) {
+	    HttpSession session = request.getSession(false);
+	    
+	    // 檢查是否登入
+	    if (session == null || !Boolean.TRUE.equals(session.getAttribute("loggedIn"))) {
+	        return "redirect:/login?error=not_logged_in"; // 重定向到登入頁面，帶上錯誤參數
+	    }
+	    
+	    // 獲取 CoachMember 物件
+	    CoachMember coachMember = (CoachMember) session.getAttribute("user");
+	    
+	    if (coachMember != null) {
+	        Integer cMemberID = coachMember.getCMemberID();
+	        CoachMember coachMemberDetails = coachMemberSvc.findById(cMemberID);
+	        
+	        if (coachMemberDetails != null) {
+	            model.addAttribute("name", coachMemberDetails.getName()); // 添加 name 屬性到模型中
+	        }
+	    }
 
-        if (coachMember != null) {
-            Integer cMemberID = coachMember.getCMemberID();
-            CoachMember coachMemberDetails = coachMemberSvc.findById(cMemberID);
-            
-            if (coachMemberDetails != null) {
-                model.addAttribute("name", coachMemberDetails.getName());
-            }
-        }
-		return "frontend/coach_member/coach_account_information";
+	    return "frontend/coach_member/coach_account_information"; // 返回對應的視圖名稱
 	}
 	
 	@GetMapping("coach_account_skill")

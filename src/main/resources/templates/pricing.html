@@ -164,35 +164,61 @@ h3.m_3 {
 		<div class="border"></div>
 		<div class="container">
 			<div class="row price_plans">
-								<h3 class="m_2">商品瀏覽</h3>
-								<div class="price_plans_box">
+			<h3 class="m_2">商品瀏覽</h3>
+			<div class="price_plans_box">
 <!-- 									<div> -->
 <!-- 										<th:block th:each="productVO : ${productList}"> -->
 <!-- 											<p class="card-text" th:text="${productVO.intro}">產品介紹</p>										 -->
 <!-- 										</th:block> -->
 <!-- 									</div> -->
-									
-									
-									<div th:if="${(productList != null) and !productList.empty}">
-										<div class="col-md-4" th:each="productVO : ${productList}">
-											<div class="card mb-4 shadow-sm">
-												<img
-													th:src="@{|/course/DBGifReader?picID=${productVO.productID}&source=productPic|}"
-													class="card-img-top" alt="Product Image"
-													style="height: 200px; object-fit: cover;">
-												<div class="card-body">
-													<h5 class="card-title" th:text="'產品名稱： ' + ${productVO.prodName}">產品名稱</h5>
-													<p class="card-text" th:text="'簡介： ' + ${productVO.intro}">產品介紹</p>
-													<div class="d-flex justify-content-between align-items-center">
-														<small class="text-muted" th:text="'價格： ' + ${productVO.price + '元'}">價格</small>
-													</div>
-													<div class="btn-group">
+
+				
+				
+				<div th:if="${(productList != null) and !productList.empty}">
+					<div class="col-md-4" th:each="productVO : ${productList}">
+						<div class="card mb-4 shadow-sm">
+							<img
+								th:src="@{|/course/DBGifReader?picID=${productVO.productID}&source=productPic|}"
+								class="card-img-top" alt="Product Image"
+								style="height: 200px; object-fit: cover;">
+							<div class="card-body">
+								<h5 class="card-title" th:text="${productVO.prodName}">產品名稱</h5>
+								<p class="card-text" th:text="${productVO.intro}">產品介紹</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<small class="text-muted" th:text="${productVO.price + '元'}">價格</small>
+								</div>
+								<div class="btn-group">
+
 <!-- 														<a method="post" th:value="${productVO.productID}" th:action="@{getOne_For_Display}" -->
 <!-- 														   class="btn btn-sm btn-outline-secondary">查看詳情</a> -->
-														<a th:href="@{/shoppingcart}" class="button">加到購物車</a>
-													</div>
-												</div>
-											</div>
+									<!-- <a th:href="@{/shoppingcart}" class="button">加到購物車</a> -->
+								</div>
+								<div class="product" th:data-product-id="${productVO.productID}">
+									<label for="quantity">數量:</label>
+									<select name="quantity" 
+											th:id="'quantity-' + ${productVO.productID}" 
+											th:data-product-id="${productVO.productID}">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+										<option value="7">7</option>
+										<option value="8">8</option>
+										<option value="9">9</option>
+										<option value="10">10</option>
+									</select>
+								</div>
+								
+								
+								<div>
+									<button class="add-to-cart" 
+											th:attr="id=${productVO.productID}" 
+											th:data-product-id="${productVO.productID}">加到購物車</button>
+								</div>
+							</div>
+						</div>
 
 <!-- 												<div class="card mb-4 shadow-sm"> -->
 <!-- 												    <img -->
@@ -212,13 +238,14 @@ h3.m_3 {
 <!-- 												        </div> -->
 <!-- 												    </div> -->
 <!-- 												</div> -->
-												
-										</div>
-									</div>
-									<div
-										th:if="${productList == null or productList.empty}">
-										<p>目前沒有可用的產品。</p>
-									</div>
+							
+					</div>
+				</div>
+					
+					<div
+						th:if="${productList == null or productList.empty}">
+						<p>目前沒有可用的產品。</p>
+					</div>
 			</div>
 
 			<div class="clear"></div>
@@ -396,24 +423,83 @@ h3.m_3 {
 	</div>
 	
 	<script type="text/javascript">
+	// $(document).ready(function() {
+	//     $('.view-details').on('click', function() {
+	//         var productId = $(this).data('product-id');
+
+	//         // 抓取相應產品的資料
+	//         var prodName = $('#prodName-' + productId).text();
+	//         var price = $('#price-' + productId).text();
+	//         var intro = $('#intro-' + productId).text();
+
+	//         // 將資料顯示在 ca-container
+	//         $('#prodName').text(prodName);
+	//         $('#price').text(price);
+	//         $('#intro').text(intro);
+
+	//         // 顯示產品資訊的區塊
+	//         $('#ca-container').show();
+	//     });
+	// });
+	
+	// document.addEventListener('DOMContentLoaded', () => {
+	//     document.querySelectorAll('.add-to-cart').forEach(button => {
+	//         button.addEventListener('click', function() {
+	//             // 从按钮的 data-product-id 属性中获取商品 ID
+	//             const productId = this.getAttribute('data-product-id');
+	//             // 从对应的选择框中获取数量
+	//             const quantity = document.querySelector(`#quantity-${productId}`).value;
+
+	//             // 发送 AJAX 请求
+	//             fetch('http://localhost:8080/redis/save', {
+	//                 method: 'POST',
+	//                 headers: {
+	//                     'Content-Type': 'application/json',
+	//                 },
+	//                 body: JSON.stringify({ id: productId, quantity: quantity }),
+	//             })
+	//             .then(response => response.json())
+	//             .then(data => {
+	//                 console.log('成功:', data);
+	//                 // 可以在这里添加成功提示或处理响应
+	//             })
+	//             .catch((error) => {
+	//                 console.error('错误:', error);
+	//                 // 处理错误
+	//             });
+	//         });
+	//     });
+	// });
+
 	$(document).ready(function() {
-	    $('.view-details').on('click', function() {
-	        var productId = $(this).data('product-id');
+		$('.add-to-cart').click(function() {
+			// 从按钮的 data-product-id 属性中获取商品 ID
+			const productId = $(this).data('product-id');
+			// 从对应的选择框中获取数量
+			const quantity = $(`#quantity-${productId}`).val();
 
-	        // 抓取相應產品的資料
-	        var prodName = $('#prodName-' + productId).text();
-	        var price = $('#price-' + productId).text();
-	        var intro = $('#intro-' + productId).text();
+			console.log('商品ID:', productId);
+			console.log('數量:', quantity);
 
-	        // 將資料顯示在 ca-container
-	        $('#prodName').text(prodName);
-	        $('#price').text(price);
-	        $('#intro').text(intro);
-
-	        // 顯示產品資訊的區塊
-	        $('#ca-container').show();
-	    });
+			// 发送 AJAX 请求
+			$.ajax({
+			    url: 'http://localhost:8080/redis/save',
+			    type: 'POST',
+			    contentType: 'application/json',
+			    data: JSON.stringify({ id: productId, quantity: quantity }),
+			    success: function(data) {
+			        console.log('成功:', data);
+			        // 可以在这里添加成功提示或处理响应
+			    },
+			    error: function(error) {
+			        console.error('错误:', error);
+			        // 处理错误
+			    }
+			});
+		});
 	});
+
+
 
 	</script>
 	

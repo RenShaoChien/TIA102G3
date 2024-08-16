@@ -225,35 +225,15 @@ input[readonly] {
 </head>
 
 <body>
-	<!-- start header_bottom -->
-	<div class="header-bottom">
-		<div class="btn-login">
-			<a href="login.html">Log In</a>
-		</div>
-		<div class="container">
-			<div class="header-bottom_left">
-				<i class="phone"> </i><span>1-200-346-2986</span>
-			</div>
-			<div class="social">
-				<ul>
-					<li class="facebook"><a href="#"><span> </span></a></li>
-					<li class="google"><a href="#"><span> </span></a></li>
-				</ul>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
-	<!-- start menu -->
 	<div class="menu">
 		<div class="container">
 			<div class="h_menu4">
 				<!-- start h_menu4 -->
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
-					<li><a th:href="@{/index}">Home</a></li>
-					<li><a th:href="@{/account_information}">會員專區</a></li>
-					<li><a th:href="@{/trainers}">專屬你的訓練</a>
-					<li><a href="classes.html">Classes</a></li>
+					<li><a th:href="@{/index}">首頁</a></li>
+					<li class="active"><a th:href="@{/account_information}">會員專區</a></li>
+					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
 					<li><a th:href="@{/menu}">健康餐</a></li>
 					<li><a th:href="@{/pricing}">Pricing</a></li>
 					<li><a th:href="@{/map}">美食地圖</a></li>
@@ -268,17 +248,15 @@ input[readonly] {
 	</div>
 	<div class="container-data">
 		<div class="sidebar">
-			<a class="nav-link" th:href="@{/account_information}">修改帳戶資料</a> <a
-				class="nav-link" th:href="@{/change_password}">修改密碼</a> <a
-				class="nav-link" th:href="@{/historical_orders}">歷史訂單</a> <a
-				class="nav-link" th:href="@{/receipt_information}">常用收件資訊</a> <a
-				class="nav-link" th:href="@{/acc_information}">新增信用卡資訊</a>
+			<a class="nav-link" th:href="@{/account_information}">修改帳戶資料</a>
+			<a class="nav-link" th:href="@{/change_password}">修改密碼</a>
+			<a class="nav-link" th:href="@{/historical_orders}">歷史訂單</a>
+			<a class="nav-link" th:href="@{/receipt_information}">常用收件資訊</a>
+			<a class="nav-link" th:href="@{/acc_information}">新增信用卡資訊</a>
 		</div>
 		<div class="content-data">
-			<h2>
-				一般會員: <span th:text="${name}"></span>
-			</h2>
-			<form action="/submit" method="POST" enctype="multipart/form-data">
+			<h2>一般會員: <span th:text="${name}"></span></h2>
+			<form action="/submit" method="POST" enctype="multipart/form-data" onsubmit="return showSuccessAlert();">
 				<input type="hidden" name="redirectPage" value="account_information">
 				<div class="form-container">
 					<div class="form-section0">
@@ -292,17 +270,15 @@ input[readonly] {
 					<div class="form-row">
 						<div class="form-section">
 							<label for="account">帳號:</label> <br>
-							<!-- 確保 th:value 正確 -->
-							<input type="text" id="account" name="account"
-								th:value="${member.account}" readonly>
+							<input type="text" id="account" name="account" th:value="${member.account}" readonly>
 						</div>
 						<div class="form-section">
-							<label for="email">電子郵件:</label> <br> <input type="email"
-								id="email" name="email" th:value="${member.email}" readonly>
+							<label for="email">電子郵件:</label> <br>
+							<input type="email" id="email" name="email" th:value="${member.email}" readonly>
 						</div>
 						<div class="form-section">
-							<label for="name">姓名:</label> <br> <input type="text"
-								id="name" name="name" th:value="${member.name}">
+							<label for="name">姓名:</label> <br>
+							<input type="text" id="name" name="name" th:value="${member.name}">
 						</div>
 					</div>
 					<div class="form-row2">
@@ -405,6 +381,12 @@ input[readonly] {
 			});
 		});
 		// 如果連結指向當前頁面，阻止預設行為
+		function showSuccessAlert() {
+        // 顯示成功提示框
+        alert('儲存成功');
+        // 返回 true 以允許表單提交
+        return true;
+    }
 	</script>
 </body>
 

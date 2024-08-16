@@ -133,29 +133,114 @@
     .clear {
         clear: both;
     }
+    
+    .logout-button {
+	background-color: red;
+	border-radius: 30px;
+}
+
 </style>
 </head>
 
 <body>
-    <!-- start header_bottom -->
-    <div class="header-bottom">
-        <div class="btn-login">
-            <a href="login.html">Log In</a>
-        </div>
+    <div class="menu">
         <div class="container">
-            <div class="header-bottom_left">
-                <i class="phone"> </i><span>1-200-346-2986</span>
-            </div>
-            <div class="social">
-                <ul>
-                    <li class="facebook"><a href="#"><span> </span></a></li>
-                    <li class="google"><a href="#"><span> </span></a></li>
+            <div class="h_menu4"><!-- start h_menu4 -->
+                <a class="toggleMenu" href="#">Menu</a>
+                <ul class="nav">
+                    <li><a th:href="@{/index}">首頁</a></li>
+					<li class="active"><a th:href="@{/account_information}">會員專區</a></li>
+					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
+					<li><a th:href="@{/menu}">健康餐</a></li>
+					<li><a th:href="@{/pricing}">Pricing</a></li>
+					<li><a th:href="@{/map}">美食地圖</a></li>
+					<li><a th:href="@{/qa}">客服</a></li>
+					<li><a th:href="@{/logout}" class="logout-button">登出</a></li>
                 </ul>
+                <script type="text/javascript" src="js/nav.js"></script>
+            </div>
+            <!-- end h_menu4 -->
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="container-data">
+        <div class="sidebar">
+            <a class="nav-link" th:href="@{/account_information}">修改帳戶資料</a>
+			<a class="nav-link" th:href="@{/change_password}">修改密碼</a>
+			<a class="nav-link" th:href="@{/historical_orders}">歷史訂單</a>
+			<a class="nav-link" th:href="@{/receipt_information}">常用收件資訊</a>
+			<a class="nav-link" th:href="@{/acc_information}">新增信用卡資訊</a>
+        </div>
+        <div class="content-data">
+            <div class="filter">
+                <label for="status">訂單狀態:</label>
+                <select id="status" name="status">
+                    <option value="all">全部</option>
+                    <option value="completed">已完成</option>
+                    <option value="processing">處理中</option>
+                </select>
+    
+                <label for="payment">付款狀態:</label>
+                <select id="payment" name="payment">
+                    <option value="all">全部</option>
+                    <option value="paid">已付款</option>
+                    <option value="unpaid">未付款</option>
+                </select>
+            </div>
+    
+            <!-- 訂單標題 -->
+            <div class="order">
+                <div class="order-item">訂單編號</div>
+                <div class="order-item">訂單時間</div>
+                <div class="order-item">訂單狀態</div>
+                <div class="order-item">付款狀態</div>
+                <div class="order-item">配送狀態</div>
+                <div class="order-item">配送方式</div>
+                <div class="order-item">總計金額</div>
+            </div>
+    
+            <!-- 顯示結果的區域 -->
+            <div class="results">
+                <div class="item status-completed payment-paid">
+                    <span>訂單編號 - 1</span>
+                    <span>2024-07-30</span>
+                    <span>已完成</span>
+                    <span>已付款</span>
+                    <span>已配送</span>
+                    <span>快遞</span>
+                    <span>$100</span>
+                </div>
+                <div class="item status-processing payment-unpaid">
+                    <span>訂單編號 - 2</span>
+                    <span>2024-07-29</span>
+                    <span>處理中</span>
+                    <span>未付款</span>
+                    <span>未配送</span>
+                    <span>自取</span>
+                    <span>$150</span>
+                </div>
+                <div class="item status-completed payment-paid">
+                    <span>訂單編號 - 3</span>
+                    <span>2024-07-28</span>
+                    <span>已完成</span>
+                    <span>已付款</span>
+                    <span>已配送</span>
+                    <span>快遞</span>
+                    <span>$200</span>
+                </div>
+                <div class="item status-completed payment-unpaid">
+                    <span>訂單編號 - 4</span>
+                    <span>2024-07-27</span>
+                    <span>已完成</span>
+                    <span>未付款</span>
+                    <span>已配送</span>
+                    <span>快遞</span>
+                    <span>$250</span>
+                </div>
             </div>
             <div class="clear"></div>
         </div>
     </div>
-    <!-- start menu -->
  <div class="footer-bottom">
 		<div class="container">
 			<div class="row section group">

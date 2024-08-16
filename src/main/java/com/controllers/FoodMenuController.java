@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.controllers.mark.RedisService;
 import com.tia102g3.food.model.FoodService;
 import com.tia102g3.food.model.FoodVO;
 import com.tia102g3.healthstatus.model.HealthStatusService;
@@ -42,6 +43,10 @@ public class FoodMenuController {
     
     @Autowired
     MenuService menuSvc;
+    
+    @Autowired
+    private RedisService redisService;
+//    System.out.println(redisService.get("someKey"));
 
     @GetMapping("/backstage")
     public String backstage(ModelMap model) {
@@ -66,7 +71,7 @@ public class FoodMenuController {
     @GetMapping("/addLikeFood")
     public String addLikeFood(ModelMap model) {
         LikeFoodVO likeFoodVO = new LikeFoodVO();
-        model.addAttribute("likeFoodVO", likeFoodVO);
+        model.addAttribute("likeFoodVO", likeFoodVO);     
         return "menu/addLikeFood";
     }
     
@@ -85,6 +90,8 @@ public class FoodMenuController {
         model.addAttribute("foodListData", list);
         return "menu/listAllFood";
     }
+    
+
     
 //    @GetMapping("/listAllFoodList")
 //    public String listAllMenu(ModelMap model) {
@@ -183,8 +190,7 @@ public class FoodMenuController {
     public String delete(@RequestParam("foodNumber") String foodNumber, ModelMap model) {
         /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
         /*************************** 2.開始刪除資料 *****************************************/
-        // EmpService empSvc = new EmpService();
-//        empSvc.deleteEmp(Integer.valueOf(empno));
+
         /*************************** 3.刪除完成,準備轉交(Send the Success view) **************/
         List<FoodVO> list = foodSvc.getAll();
         model.addAttribute("foodListData", list);
@@ -198,39 +204,37 @@ public class FoodMenuController {
     public String insert(@Valid HealthStatusVO healthStatusVO, BindingResult result, ModelMap model) {
 
         /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
-        // 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
-        
         if (result.hasErrors()) {
+//            return "menu/addHealthStatus";
             return "menu/addHealthStatus";
         }
 
         /*************************** 2.開始新增資料 *****************************************/
-        // EmpService empSvc = new EmpService();
         healthStatusSvc.addHealthStatus(healthStatusVO);
         /*************************** 3.新增完成,準備轉交(Send the Success view) **************/
         List<HealthStatusVO> list = healthStatusSvc.getAll();
         model.addAttribute("healthStatusListData", list);
         model.addAttribute("success", "- (新增成功)");
 
-//        return "redirect:/food/listAllFood"; // 新增成功後重導至IndexController_inSpringBoot.java的第58行@GetMapping("/emp/listAllEmp")
-        return "menu/backstage"; // 新增成功後重導至IndexController_inSpringBoot.java的第58行@GetMapping("/emp/listAllEmp")
+//        return "redirect:/food/listAllFood";
+        return "menu/backstage";
     }
     
-    
+ // ======== add Like Food data ========
     @PostMapping("insertLikeFood")
-    public String insert(LikeFoodVO likeFoodVO, BindingResult result, ModelMap model, 
-            @RequestParam("foodNumber") String foodNumber) {
-
+    public String insert(@Valid LikeFoodVO likeFoodVO, BindingResult result, ModelMap model) {
+        //@RequestParam("foodNumber") String foodNumber
         /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
         // 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
         
         if (result.hasErrors()) {
+//            return "menu/addLikeFood";
             return "menu/addLikeFood";
         }
 
         /*************************** 2.開始新增資料 *****************************************/
-        FoodVO foodVO = foodSvc.getOneFood(Integer.valueOf(foodNumber));
-        likeFoodVO.setFoodVO(foodVO);
+//        FoodVO foodVO = foodSvc.getOneFood(Integer.valueOf(foodNumber));
+//        likeFoodVO.setFoodVO(foodVO);
 //        System.out.print("foodNumber: ");
 //        System.out.println(foodNumber);
 //        System.out.print("likeFoodVO: ");
@@ -241,12 +245,13 @@ public class FoodMenuController {
         model.addAttribute("likeFoodListData", list);
         model.addAttribute("success", "- (新增成功)");
 
-//        return "redirect:/food/listAllFood"; // 新增成功後重導至IndexController_inSpringBoot.java的第58行@GetMapping("/emp/listAllEmp")
-        return "menu/listAllLikeFood"; // 新增成功後重導至IndexController_inSpringBoot.java的第58行@GetMapping("/emp/listAllEmp")
+//        return "redirect:/food/listAllFood";
+        return "menu/backstage";
+//        return "menu/listAllLikeFood"; 
     }
     
-    
-    @ModelAttribute("FoodListData")  // for select_page.html 第97 109行用 // for listAllEmp.html 第85行用
+    //
+    @ModelAttribute("FoodListData")  
     protected List<FoodVO> referenceListData(Model model) {
         
         List<FoodVO> list = foodSvc.getAll();

@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.courseorder.model.CourseOrder;
 import com.tia102g3.courseorder.service.CourseOrderService;
+import com.tia102g3.member.model.Member;
 
 @Controller
 @RequestMapping("/course_order")
@@ -75,10 +77,22 @@ public class CourseOrderController {
      * 處理更新課程訂單資料的POST請求並驗證用戶輸入
      */
     @PostMapping("update")
-    public String update(@Valid CourseOrder courseOrder, BindingResult result, ModelMap model) throws IOException {
+    public String update(@Valid CourseOrder courseOrder, BindingResult result, ModelMap model, HttpServletRequest req) throws IOException {
         // 去除BindingResult中不需要的FieldError紀錄
 //        result = removeFieldError(courseOrder, result, "personalPhotos");
-
+        String memberStr = req.getParameter("member");
+        if (memberStr!= null &&!memberStr.isEmpty()) {
+            int memberID = Integer.parseInt(memberStr);
+            Member member = new Member(memberID);
+            courseOrder.setMember(member); 
+        }
+        String coachCourseStr = req.getParameter("coachCourse");
+        if (coachCourseStr!= null &&!coachCourseStr.isEmpty()) {
+        	int id = Integer.parseInt(coachCourseStr);
+        	CoachCourse coachCourse = new CoachCourse(id);
+        	courseOrder.setCoachCourse(coachCourse); 
+        }
+        
         // 開始修改資料
         courseOrderSvc.updateCourseOrder(courseOrder);
 
