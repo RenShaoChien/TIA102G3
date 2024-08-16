@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -133,40 +133,41 @@
     </style>
 </head>
 <body>
-<div class="checkout-container">
+<div class="checkout-container" th:object="${courseOrder}">
     <header class="checkout-header">
         <h1>健肌尋食</h1>
         <p>信用卡結帳</p>
     </header>
     <div class="order-summary">
         <h2>訂單摘要</h2>
-        <p>健身課程套餐: NT$ 1,200</p>
-        <p>健康飲食計畫: NT$ 800</p>
+        <p th:text="| ★ *{coachCourse.courseName} ★ 套餐 ： NT$ *{coachCourse.coursePrice} 元|">健身課程套餐: NT$ 1,200</p>
         <hr>
-        <p><strong>總計: NT$ 2,000</strong></p>
+        <p><strong th:text="| 總計 ： NT$ *{coachCourse.coursePrice} 元 |">總計: NT$ 2,000</strong></p>
     </div>
     <div class="checkout-form">
-        <form id="payment-form">
+        <form id="payment-form" method="post" th:action="@{/trainers/paying.do}">
             <div class="form-group">
                 <label for="card-name">持卡人姓名</label>
-                <input type="text" id="card-name" name="card-name" placeholder="輸入持卡人姓名" required>
+                <input type="text" id="card-name" name="card-name" placeholder="輸入持卡人姓名" required th:field="*{member.cardName}">
             </div>
             <div class="form-group">
                 <label for="card-number">信用卡號碼</label>
-                <input type="text" id="card-number" name="card-number" placeholder="xxxx-xxxx-xxxx-xxxx" required>
+                <input type="text" id="card-number" name="card-number" placeholder="xxxx-xxxx-xxxx-xxxx" required th:field="*{member.cardNumber}">
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="card-expiry">有效期限</label>
-                    <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required>
+                    <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required th:field="*{member.cardValidTime}">
                 </div>
                 <div class="form-group">
                     <label for="card-cvv">CVV</label>
-                    <input type="text" id="card-cvv" name="card-cvv" placeholder="xxx" required>
+                    <input type="text" id="card-cvv" name="card-cvv" placeholder="xxx" required th:field="*{member.cardLast3No}">
                 </div>
             </div>
             <div class="button-group">
                 <button type="submit" class="btn-submit">立即付款</button>
+                <input type="hidden" th:field="*{member}">
+                <input type="hidden" th:field="*{coachCourse}">
                 <button type="button" class="btn-cancel" id="cancel-button">取消付款</button>
             </div>
         </form>

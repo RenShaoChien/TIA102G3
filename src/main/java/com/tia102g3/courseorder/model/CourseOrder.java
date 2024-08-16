@@ -3,9 +3,7 @@ package com.tia102g3.courseorder.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.member.model.Member;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -15,6 +13,7 @@ import java.sql.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class CourseOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +21,13 @@ public class CourseOrder {
     
     @ManyToOne
     @JoinColumn(name = "memberID", referencedColumnName = "memberID")
+    @NonNull
     private Member member;
     
     @ManyToOne
     @JoinColumn(name = "coachCourseID", referencedColumnName = "id")
     @JsonBackReference
+    @NonNull
     private CoachCourse coachCourse;
     
     private Date orderDate;
