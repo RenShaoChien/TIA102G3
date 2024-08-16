@@ -6,6 +6,7 @@ import com.tia102g3.coachcourse.model.CourseStatus;
 import com.tia102g3.coachcoursepic.model.CoachCoursePic;
 import com.tia102g3.coachcoursepic.model.CoachCoursePicDAO;
 import com.tia102g3.member.model.Member;
+import com.tia102g3.systemcourse.model.SystemCourseLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -110,5 +111,22 @@ public class CoachCourseServiceImpl implements CoachCourseService {
         Long countMembers = ccDAO.findMembersByCourseId(courseID);
         referenceById.setCountMembers(countMembers != null ? countMembers : 0);
         return referenceById;
+    }
+
+    @Override
+    @Transactional
+    public List<CoachCourse> getCoachCoursesByReqPara(String sportTypes, String sportEventName, String sportEquipment, String keyword, String courseLevel) {
+        List<CoachCourse> listByReqPara;
+
+        if (!(listByReqPara = ccDAO.getListByReqPara(CourseStatus.IN_PROGRESS, sportTypes, sportEventName, sportEquipment, keyword, SystemCourseLevel.fromDescription(courseLevel))).isEmpty()) {
+            return listByReqPara;
+        }
+        if (!(listByReqPara = ccDAO.getListByReqPara(CourseStatus.IN_PROGRESS, sportTypes, sportEventName, sportEquipment, keyword)).isEmpty()){
+            return listByReqPara;
+        }
+        if (!(listByReqPara = ccDAO.getListByReqPara(CourseStatus.IN_PROGRESS, sportTypes, sportEventName)).isEmpty()){
+            return listByReqPara;
+        }
+        return List.of();
     }
 }

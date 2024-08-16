@@ -44,4 +44,6 @@ public interface CoachCourseService {
     Optional<CoachCourse> findOneAllAttr(Integer courseID);
 
     CoachCourse getOneOrderCoachCourse(Integer courseID);
+
+    List<CoachCourse> getCoachCoursesByReqPara(String sportTypes, String sportEventName, String sportEquipment, String keyword, String courseLevel);
 }

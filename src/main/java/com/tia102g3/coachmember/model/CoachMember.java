@@ -3,9 +3,7 @@ package com.tia102g3.coachmember.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachspecialty.model.CoachSpecialty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,10 +15,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class CoachMember implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cMemberID")
+    @NonNull
     private Integer cMemberID;
     private byte[] personalPhotos;
     private Integer status;
