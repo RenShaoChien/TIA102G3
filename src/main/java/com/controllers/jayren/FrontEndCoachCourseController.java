@@ -46,7 +46,7 @@ public class FrontEndCoachCourseController {
 
         model.putAll(Map.of("member", member, "coachCourseID", courseID));
 
-        return "product/order_checking";
+        return "trainers/course_order_checking";
     }
 
     @PostMapping("/orderCoachCourse.do")

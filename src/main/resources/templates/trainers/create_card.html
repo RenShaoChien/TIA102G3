@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信用卡結帳</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .checkout-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 20px;
+        }
+
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .checkout-header h1 {
+            font-size: 24px;
+            color: #007bff;
+            margin: 0;
+        }
+
+        .checkout-header p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .checkout-form {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .form-row .form-group:last-child {
+            margin-right: 0;
+        }
+
+        .order-summary {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .order-summary h2 {
+            font-size: 18px;
+            margin: 0 0 10px;
+            color: #007bff;
+        }
+
+        .order-summary p {
+            margin: 0;
+        }
+
+        .btn-submit {
+            width: 48%;
+            padding: 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-cancel {
+            width: 48%;
+            padding: 15px;
+            background-color: #ccc;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 4%;
+        }
+
+        .btn-cancel:hover {
+            background-color: #999;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+<div class="checkout-container">
+    <header class="checkout-header">
+        <h1>健肌尋食</h1>
+        <p>信用卡結帳</p>
+    </header>
+    <div class="order-summary">
+        <h2>訂單摘要</h2>
+        <p>健身課程套餐: NT$ 1,200</p>
+        <p>健康飲食計畫: NT$ 800</p>
+        <hr>
+        <p><strong>總計: NT$ 2,000</strong></p>
+    </div>
+    <div class="checkout-form">
+        <form id="payment-form">
+            <div class="form-group">
+                <label for="card-name">持卡人姓名</label>
+                <input type="text" id="card-name" name="card-name" placeholder="輸入持卡人姓名" required>
+            </div>
+            <div class="form-group">
+                <label for="card-number">信用卡號碼</label>
+                <input type="text" id="card-number" name="card-number" placeholder="xxxx-xxxx-xxxx-xxxx" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="card-expiry">有效期限</label>
+                    <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-cvv">CVV</label>
+                    <input type="text" id="card-cvv" name="card-cvv" placeholder="xxx" required>
+                </div>
+            </div>
+            <div class="button-group">
+                <button type="submit" class="btn-submit">立即付款</button>
+                <button type="button" class="btn-cancel" id="cancel-button">取消付款</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#payment-form').on('submit', function(event) {
+            event.preventDefault();
+            alert('付款成功！謝謝您的購買。');
+            // 在這裡可以加入處理付款的AJAX請求或其他邏輯
+        });
+
+        $('#cancel-button').on('click', function() {
+            if (confirm('確定要取消付款嗎？')) {
+                window.history.back(); // 返回上一頁
+            }
+        });
+    });
+</script>
+</body>
+</html>
