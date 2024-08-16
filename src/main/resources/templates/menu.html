@@ -368,24 +368,96 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 		<!-- Test JavaScript -->
 		<script>
-			$(document).ready(function() {
-				$("#sendDataBtn").click(function() {
-					$.ajax({
-						url: "http://localhost:8080/redis/save",
-						type: "GET",
-						data: {
-							key: "someKey",
-							value: "someValueTest"
-						},
-						success: function(response) {
-							alert("資料發送成功: " + response);
-						},
-						error: function(xhr, status, error) {
-							alert("發送失敗: " + xhr.responseText);
-						}
-					});
-				});
-			});
+// 			$(document).ready(function() {
+// 				$("#sendDataBtn").click(function() {
+// 					$.ajax({
+// 						url: "http://localhost:8080/redis/save",
+// 						type: "GET",
+// 						data: {
+// 							key: "someKey",
+// 							value: "someValueTest"
+// 						},
+// 						success: function(response) {
+// 							alert("資料發送成功: " + response);
+// 						},
+// 						error: function(xhr, status, error) {
+// 							alert("發送失敗: " + xhr.responseText);
+// 						}
+// 					});
+// 				});
+// 			});
+
+            $(document).ready(function () {
+            console.log('ready');
+            function calculateBMI() {
+                let height = parseFloat($('#height').val()) / 100; // convert cm to M
+                let weight = parseFloat($('#weight').val());
+                if (height > 0 && weight > 0) {
+                    var bmi = weight / (height * height);
+                    $('#bmi').val(bmi.toFixed(2));
+                } else {
+                    $('#bmi').val('');
+                }
+            }
+
+            function calculateBMR() {
+                let height = parseFloat($('#height').val());    // unit:cm
+                let weight = parseFloat($('#weight').val());    // unit:kg
+                let age = 30;
+                let gender = 1;
+                let bmr;
+
+                bmr = (13.7 * weight) + (5 * height) - (6.8 * age) + 66;
+                // bmr_female = (9.6 * weight) + (1.8 * height) - (4.7 * age) + 655;
+
+                //                 console.log(bmr);
+
+                if (bmr > 0) {
+                    $('#bmr').val(parseInt(bmr));
+                }
+                else
+                    $('#bmr').val('');
+            }
+
+            function calculateTDEE() {
+                let bmr = parseInt($('#bmr').val());
+                let intensity = parseInt($('input[name="intensity"]').val());
+                let tdee = parseInt(intensity * bmr);
+                if ($('#bmr').val() > 0) {
+                    $('#tdee').val(tdee);
+                }
+                else
+                    $('#tdee').val('');
+            }
+
+            $('#height, #weight').on('input', function () {
+                calculateBMI();
+                calculateBMR();
+            });
+
+            // $('#bmi').on('input',function(){
+            //     calculateBMR();
+            // });
+
+            $('input[name="intensity"]').on('change', function () {
+                // 输出被选中的 radio button 的值
+                intensity = $(this).val()
+                console.log(intensity);
+//                 console.log($('#height').val());
+//                 console.log($('#bmr').val());
+//                 console.log($('input[name="intensity"]').val());
+//                 calculateTDEE();
+                let bmr = parseInt($('#bmr').val());
+//                 let intensity = parseInt($('input[name="intensity"]').val());
+                let tdee = parseInt(intensity * bmr);
+                if ($('#bmr').val() > 0) {
+                    $('#tdee').val(tdee);
+                }
+                else
+                    $('#tdee').val('');             
+                
+            });
+        });
 		</script>
 
 </body>

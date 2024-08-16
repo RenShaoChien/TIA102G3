@@ -1,10 +1,12 @@
 package com.tia102g3.coachcourse.model;
 
 import com.tia102g3.member.model.Member;
+import com.tia102g3.systemcourse.model.SystemCourseLevel;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -111,4 +113,40 @@ public interface CoachCourseDAO extends JpaRepository<CoachCourse, Integer> {
     @Transactional(readOnly = true)
     @Query("SELECT COUNT(DISTINCT o.member) FROM CourseOrder o WHERE o.coachCourse.id = :courseID")
     Long findMembersByCourseId(Integer courseID);
+
+    @Transactional(readOnly = true)
+    @Query("select sc from CoachCourse sc where sc.status = :status AND " +
+            "(:sportTypes is null or sc.sportTypes = :sportTypes) and " +
+            "(:sportEventName is null or sc.sportEventName = :sportEventName) and " +
+            "(:sportEquipment is null or sc.sportEquipment = :sportEquipment) and " +
+            "(:keyword is null or Lower(sc.illustrate) like Lower(concat('%', :keyword, '%'))) and " +
+            "(:courseLevel is null or sc.courseLevel = :courseLevel)")
+    List<CoachCourse> getListByReqPara(CourseStatus status,
+                                       @Param("sportTypes") String sportTypes,
+                                       @Param("sportEventName") String sportEventName,
+                                       @Param("sportEquipment") String sportEquipment,
+                                       @Param("keyword") String keyword,
+                                       @Param("courseLevel") SystemCourseLevel systemCourseLevel);
+
+
+    @Transactional(readOnly = true)
+    @Query("select sc from CoachCourse sc where sc.status = :status AND " +
+            "(:sportTypes is null or sc.sportTypes = :sportTypes) and " +
+            "(:sportEventName is null or sc.sportEventName = :sportEventName) and " +
+            "(:sportEquipment is null or sc.sportEquipment = :sportEquipment) and " +
+            "(:keyword is null or Lower(sc.illustrate) like Lower(concat('%', :keyword, '%')))")
+    List<CoachCourse> getListByReqPara(CourseStatus status,
+                                       @Param("sportTypes") String sportTypes,
+                                       @Param("sportEventName") String sportEventName,
+                                       @Param("sportEquipment") String sportEquipment,
+                                       @Param("keyword") String keyword);
+
+
+    @Transactional(readOnly = true)
+    @Query("select sc from CoachCourse sc where sc.status = :status AND " +
+            "(:sportTypes is null or sc.sportTypes = :sportTypes) and " +
+            "(:sportEventName is null or sc.sportEventName = :sportEventName)")
+    List<CoachCourse> getListByReqPara(CourseStatus status,
+                                       @Param("sportTypes") String sportTypes,
+                                       @Param("sportEventName") String sportEventName);
 }

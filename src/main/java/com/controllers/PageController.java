@@ -6,6 +6,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.tia102g3.coachcourse.model.CourseStatus;
+import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
+import com.tia102g3.product.model.ProductService;
+import com.tia102g3.product.model.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,10 +36,10 @@ public class PageController {
 
     @Autowired
     private CoachCourseServiceImpl ccService;
-    
+
 //    @Autowired
 //    private FoodService foodSvc;
-//    
+//
 //    @Autowired
 //    private MenuService menuSvc;
 
@@ -49,6 +53,7 @@ public class PageController {
 
     @GetMapping("/trainers")
     public String trainers(Model model) {
+        model.addAttribute("coachCourseList", ccService.findAllByStatus(CourseStatus.IN_PROGRESS));
         return "trainers";
     }
 
@@ -73,14 +78,14 @@ public class PageController {
 //    public String menu(Model model) {
 //        return "menu";
 //    }
-    
+
 
     @GetMapping("/member")
     public String member(Model model) {
         return "member";
     }
 
-    
+
     @GetMapping("/pricing")
     public String pricing(Model model) {
         return "pricing";
@@ -91,10 +96,10 @@ public class PageController {
         return "product/product_intro";
     }
     
-    @GetMapping("/shoppingcart")
-    public String shoppingcart(Model model) {
-        return "product/shopping_cart";
-    }
+//    @GetMapping("/shoppingcart")
+//    public String shoppingcart(Model model) {
+//        return "product/shopping_cart";
+//    }
     
     @ModelAttribute("productList")
     protected List<ProductVO> productList(Model model){
