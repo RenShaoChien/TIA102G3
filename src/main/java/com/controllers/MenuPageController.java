@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.controllers.mark.ProductInfo;
+import com.controllers.mark.RedisService;
 import com.tia102g3.adminlogin.service.AdminLoginService;
 import com.tia102g3.food.model.FoodService;
 import com.tia102g3.healthstatus.model.HealthStatusVO;
@@ -29,6 +31,9 @@ public class MenuPageController {
     
     @Autowired
     private AdminLoginService adminSvc;
+    
+    @Autowired
+    private RedisService redisService;
 
     @GetMapping("/menu")
     public String menu(Model model, HttpServletRequest request) {
@@ -41,13 +46,30 @@ public class MenuPageController {
         model.addAttribute("FoodListData", foodSvc.getAll());
         model.addAttribute("menuVO", menuVO);
         
-        HttpSession session = request.getSession();
-        String adminUsername = (String) session.getAttribute("adminUsername");
-        Long adminId = adminSvc.getAdminId(adminUsername);
-        System.out.println("adminId: " + adminId);
-        System.out.println("adminUsername: " + session.getAttribute("adminUsername"));
+//        HttpSession session = request.getSession();
+//        String adminUsername = (String) session.getAttribute("adminUsername");
+//        Long adminId = adminSvc.getAdminId(adminUsername);
+//        System.out.println("adminId: " + adminId);
+//        System.out.println("adminUsername: " + session.getAttribute("adminUsername"));
         return "menu";
     }
     
+    
+    // test shopping cart
+    @GetMapping("/shoppingcart")
+    public String shoppingcart(Model model) {
+        List<ProductInfo> productList = redisService.getProductList("1234");
+        model.addAttribute("productList", productList);
+        
+//        for(ProductInfo pinfo : productList) {
+//            System.out.print("ID: " + pinfo.getId() + ",");
+//            System.out.print("Name: " + pinfo.getName() + ",");
+//            System.out.print("Quantity: " + pinfo.getQuantity() + ",");
+//            System.out.println("Price: " + pinfo.getPrice());
+//            
+//        }
+        
+        return "product/shopping_cart";
+    }
     
 }

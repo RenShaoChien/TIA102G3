@@ -56,7 +56,7 @@ public class IndexMenuController {
 //        List<LikeFoodVO> list = likeFoodSvc.getOneLikeFood(likeFoodVO.getMemberID());
         List<LikeFoodVO> list = likeFoodSvc.getByMemberID(likeFoodVO.getMemberID());
 //        System.out.println(likeFoodSvc.getByMemberID(likeFoodVO.getMemberID()));
-        System.out.println("MemberID: " + likeFoodVO.getMemberID());
+//        System.out.println("MemberID: " + likeFoodVO.getMemberID());
         
         for(LikeFoodVO food : list) {
             System.out.print(food.getFoodVO().getFoodName()+", ");
