@@ -21,7 +21,8 @@ span {
 <body>
 
 	<nav
-		class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center">
+		class="navbar navbar-expand-md navbar-dark fixed-top justify-content-center"
+		style="background-color: #0ABAB5;">
 		<div align="center">
 			<h2>員工個人資料</h2>
 			<h3>
@@ -36,16 +37,11 @@ span {
 		<h3>
 			<span>查詢結果 :</span>
 		</h3>
-		<span>管理員編號:</span>
-		<span th:text="${adminVO.admin_ID}"></span><br /> 
-		<span>管理員姓名:</span>
-		<span th:text="${adminVO.adminName}"></span><br /> 
-		<span>管理員帳號:</span>
-		<span th:text="${adminVO.adminUsername}"></span><br /> 
-		<span>管理員密碼:</span>
-		<span th:text="${adminVO.adminPassword}"></span><br />
-		<span>管理員信箱:</span>
-		<span th:text="${adminVO.adminEmail}"></span><br/>
+		<span>管理員編號:</span> <span th:text="${adminVO.admin_ID}"></span><br />
+		<span>管理員姓名:</span> <span th:text="${adminVO.adminName}"></span><br />
+		<span>管理員帳號:</span> <span th:text="${adminVO.adminUsername}"></span><br />
+		<span>管理員密碼:</span> <span th:text="${adminVO.adminPassword}"></span><br />
+		<span>管理員信箱:</span> <span th:text="${adminVO.adminEmail}"></span><br />
 	</div>
 
 
