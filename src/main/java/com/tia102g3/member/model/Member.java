@@ -1,15 +1,29 @@
 package com.tia102g3.member.model;
 
+import java.sql.Date;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tia102g3.courseorder.model.CourseOrder;
 import com.tia102g3.customizedcourse.model.CustomizedCourse;
 import com.tia102g3.order.model.OrderVO;
-import lombok.*;
 
-import javax.persistence.*;
-import java.sql.Date;
-import java.util.List;
-import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "member")
@@ -46,6 +60,7 @@ public class Member {
     private List<CustomizedCourse> customizedCoursesList;
     @OneToMany(mappedBy = "member")
     @JsonIgnore
+    @ToString.Exclude
     private Set<OrderVO> orderSet;
     @OneToMany(mappedBy = "member")
     @JsonIgnore
@@ -56,4 +71,6 @@ public class Member {
             regDate = new Date(System.currentTimeMillis());
         }
     }
+    @ToString.Exclude
+    private Set<CourseOrder> courseOrderList;    
 }

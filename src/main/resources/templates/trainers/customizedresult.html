@@ -54,7 +54,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             max-width: 1000px;
             margin: 0 auto;
             gap: 5px;
-            border: 1px solid red;
+            border: 0px solid red;
         }
 
         .result-group {
@@ -95,7 +95,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             margin: 0 auto;
             font-size: 18px;
             line-height: 1.6;
-            border: 1px solid gray;
+            border: 0px solid gray;
         }
 
         .course-description h3 {
@@ -117,7 +117,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             background-color: #f0f0f0;
             border-radius: 10px;
             overflow: hidden;
-            border: 1px solid gray;
+            border: 0px solid gray;
             margin-top: 20px;
             padding: 20px;
         }
@@ -197,13 +197,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="h_menu4"><!-- start h_menu4 -->
             <a class="toggleMenu" href="#">Menu</a>
             <ul class="nav">
-                <li><a th:href="@{/index}">Home</a></li>
+                <li><a th:href="@{/index}">首頁</a></li>
                 <li><a th:href="@{/account_information}">會員專區</a></li>
                 <li class="active"><a th:href="@{/trainers}">專屬你的訓練</a></li>
-                <li><a href="../classes.html">Classes</a></li>
                 <li><a th:href="@{/menu}">健康餐</a></li>
-                <li><a th:href="@{pricing}">Pricing</a></li>
+                <li><a th:href="@{/pricing}">購物商城</a></li>
+                <li><a th:href="@{/map}">美食地圖</a></li>
                 <li><a th:href="@{/qa}">客服</a></li>
+                <li><a th:href="@{/logout}" class="logout-button">登出</a></li>
             </ul>
             <script type="text/javascript" th:src="@{/js/nav.js}"></script>
         </div><!-- end h_menu4 -->
@@ -212,76 +213,67 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 <!-- end menu -->
 
-<div th:object="${systemCourse}">
+<div>
     <div class="container">
         <div class="info-container">
-            <div class="result-group">
-                <div class="info-item label m_9" th:text="| ☺ 運動名稱 ： *{courseName}|">運動名稱：跑步(Running)</div>
+            <div class="result-group" th:if="${#strings.isEmpty(systemCourse.systemCourseID)}">
+                <div class="info-item label m_9">沒有適合您的自主訓練課程</div>
+            </div>
+            <div th:style="${#strings.isEmpty(systemCourse.systemCourseID) ? 'display:none' : ''}">
+                <div class="result-group">
+                    <div class="info-item label m_9" th:text="| ☺ 運動名稱 ： ${systemCourse.courseName}|">
+                        運動名稱：跑步(Running)
+                    </div>
+                </div>
+                <div class="result-group">
+                    <div class="info-item"
+                         th:text="${#strings.isEmpty(systemCourse.rps) ? ' ☹ 一次運動時間約→ ' + systemCourse.eachExerciseTime +' ←': ' ☹ 每組約→ ' + systemCourse.rps + ' ←下'}"></div>
+                </div>
+                <div class="result-group">
+                    <div class="info-item label"
+                         th:text="${#strings.isEmpty(systemCourse.swp) ? ' ☹ 總共運動時間約→ ' + systemCourse.sportTime + ' ←': ' ☹ 每次約→ ' + systemCourse.swp + ' ←組'}">
+                        運動時間：每組跑 30 分鐘
+                    </div>
+                </div>
+                <div class="result-group">
+                    <div class="info-item" th:text="| ☺ 卡路里消耗約→ ${systemCourse.burnCalories} ←卡路里|">
+                        卡路里消耗消耗約400卡路里
+                    </div>
+                </div>
             </div>
             <div class="result-group">
-                <div class="info-item">運動組數：每次跑2組</div>
-            </div>
-            <div class="result-group">
-                <div class="info-item label">運動時間：每組跑 30 分鐘</div>
-            </div>
-            <div class="result-group">
-                <div class="info-item">卡路里消耗消耗約400卡路里</div>
-            </div>
-            <div class="result-group">
-                <div class="info-item label">推薦教練課程：<a href="#">課程名稱</a></div>
+                <div class="info-item label">推薦教練課程：
+                    <a th:style="${#strings.isEmpty(coachCourse.courseName) ? 'pointer-events: none; cursor: default; color: black;' : ''}"
+                       th:href="@{|/trainers/currCoachCourse?id=${coachCourse.id}|}"
+                       th:text="| ○ ${#strings.isEmpty(coachCourse.courseName) ? '尚無適合的教練課程' : (coachCourse.courseName)} ● |">課程名稱</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" th:style="${#strings.isEmpty(systemCourse.systemCourseID) ? 'display:none' : ''}">
         <div class="course-description">
             <div class="description-content">
                 <div>
-                    <h3>百式呼吸法（The Hundred）</h3>
-                    <p>1. 仰躺，雙腳併攏，保持腹式呼吸</p>
-                    <p>2. 雙手擺放在身體兩側，雙腳往上抬至離地約45度，頭頸微微離開地面</p>
-                    <p>3. 雙眼注視肚子，雙手以5吸5吐的節奏上下擺動，保持身體穩定，避免聳肩與脖子用力</p>
-                    <p>4. 吸吐5個循環後，再將肩、背慢慢回到地墊上</p>
-                    <h3>交錯伸展（Criss cross）</h3>
-                    <p>1. 仰躺，保持腹式呼吸，膝蓋帶至胸部的位置預備</p>
-                    <p>2. 雙手放腦後，手肘打開，並將頭抬起</p>
-                    <p>3. 左腳往前伸直時，將右邊肩膀和手肘向左膝蓋</p>
-                    <p>4. 轉動時保持頭在高位，手肘張開，持續交換邊，約15組後休息</p>
+                    <p th:utext="${systemCourse.illustrate}">1. 仰躺，雙腳併攏，保持腹式呼吸</p>
                 </div>
                 <div class="description-slider">
                     <div class="slides">
-                        <img th:src="@{/images/pic3.jpg}" alt="Exercise illustration 1">
-                        <img th:src="@{/images/pic1.jpg}" alt="Exercise illustration 2">
-                        <!-- 添加更多图像时请使用相同的格式 -->
+                        <img th:each="pic : ${systemCourse.systemCoursePics}"
+                             th:src="@{|/course/DBGifReader?picID=${pic.systemCoursePicID}&source=systemCoursePic|}"
+                             alt="Exercise illustration 1">
                     </div>
                     <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
                     <button class="next" onclick="plusSlides(1)">&#10095;</button>
                 </div>
-                <div class="video-container">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/bqyHFjyjXPw?si=FoFX6vEp9IuO34ti"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
+                <div class="video-container"
+                     th:utext='|<iframe width="560" height="315" src="${systemCourse.video}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>|'>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!--<label for="myTextarea"></label><textarea id="myTextarea">在此处编辑您的内容...</textarea>-->
-<!--<script src="https://cdn.tiny.cloud/1/8edmna6bemv1cochqpjbc8sa7c4gwctszd2xfkyvnv0j1eky/tinymce/5/tinymce.min.js"></script>-->
-<!--<script>-->
-<!--    tinymce.init({-->
-<!--        selector: '#myTextarea'-->
-<!--    });-->
-<!--</script>-->
-
-<!--<label for="editor"></label><textarea name="content" id="editor" placeholder="在此处编辑您的内容..."></textarea>-->
-<!--<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>-->
-<!--<script>-->
-<!--    ClassicEditor-->
-<!--        .create( document.querySelector( '#editor' ) )-->
-<!--        .catch( error => {-->
 
 <!-- start footer -->
 <div class="footer-bottom">

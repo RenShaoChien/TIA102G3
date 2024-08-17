@@ -1,28 +1,53 @@
 package com.controllers.mark;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RedisService {
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
-    // 存儲數據
-    public void save(String key, Object value) {
-        redisTemplate.opsForValue().set(key, value);
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    // 保存產品列表
+    public void saveProductList(String memberID, List<ProductInfo> productList) {
+        try {
+            ListOperations<String, String> listOps = redisTemplate.opsForList();
+            for (ProductInfo product : productList) {
+                String productJson = objectMapper.writeValueAsString(product);
+                listOps.rightPush(memberID, productJson);
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
-    // 獲取數據
-    public Object get(String key) {
-        return redisTemplate.opsForValue().get(key);
-    }
+    // 獲取產品列表
+    public List<ProductInfo> getProductList(String memberID) {
+        ListOperations<String, String> listOps = redisTemplate.opsForList();
+        List<String> productJsonList = listOps.range(memberID, 0, -1);
 
-    // 刪除數據
-    public void delete(String key) {
-        redisTemplate.delete(key);
+        List<ProductInfo> productList = new ArrayList<>();
+        for (String productJson : productJsonList) {
+            try {
+                ProductInfo product = objectMapper.readValue(productJson, ProductInfo.class);
+                productList.add(product);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+        return productList;
     }
 }
+
 

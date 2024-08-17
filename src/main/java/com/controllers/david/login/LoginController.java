@@ -27,6 +27,7 @@ import com.tia102g3.member.model.Member;
 import com.tia102g3.member.model.MemberRepository;
 import com.tia102g3.member.service.MemberService;
 
+
 @Controller
 public class LoginController {
 
@@ -76,6 +77,17 @@ public class LoginController {
 	        HttpSession session = request.getSession();
 	        session.setAttribute("user", coachMember);
 	        session.setAttribute("loggedIn", true);
+			if (session.getAttribute("pendingCourseID") != null) {
+				String pendingCourseID = session.getAttribute("pendingCourseID").toString();
+				int coachCourseID = Integer.parseInt(pendingCourseID);
+				session.removeAttribute("pendingCourseID");
+				return new RedirectView("/trainers/currCoachCourse?id=" + coachCourseID);
+			}
+			return new RedirectView("/account_information"); // 一般會員頁面
+		} else if (coachMember != null && coachMember.getPassword().equals(password)) {
+			HttpSession session = request.getSession();
+			session.setAttribute("user", coachMember); // 設置教練會員到 session
+			session.setAttribute("loggedIn", true); // 設置登入狀態
 
 	        Cookie loginCookie = new Cookie("user", username);
 	        loginCookie.setMaxAge(1 * 24 * 60 * 60);
@@ -130,7 +142,7 @@ public class LoginController {
 	    HttpSession session = request.getSession(false);
 	    boolean loggedIn = session != null && Boolean.TRUE.equals(session.getAttribute("loggedIn"));
 	    model.addAttribute("loggedIn", loggedIn);
-	    return "somePage"; // Thymeleaf 模板名稱
+	    return "somePage";
 	}
 
 	@PostMapping("/register")

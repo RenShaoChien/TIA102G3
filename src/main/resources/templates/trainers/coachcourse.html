@@ -83,19 +83,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             position: relative;
         }
 
-        .trainer-info {
-            display: flex;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .trainer-image {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
         .trainer-details h4, .trainer-details h5, .trainer-details p {
             margin: 0;
         }
@@ -175,25 +162,34 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             font-weight: bold;
         }
 
-        /*.custom-buttons {*/
-        /*    margin-top: 20px;*/
-        /*    display: flex;*/
-        /*    justify-content: flex-end;*/
-        /*}*/
+        #lightbox {
+            /*   border: 1px solid red; */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: hsla(0, 0%, 0%, .5);
+            z-index: 9999;
 
-        /*.custom-btn {*/
-        /*    padding: 10px 20px;*/
-        /*    background-color: #007bff;*/
-        /*    color: #fff;*/
-        /*    text-decoration: none;*/
-        /*    border-radius: 5px;*/
-        /*    display: inline-block;*/
-        /*    text-align: center;*/
-        /*}*/
+        }
 
-        /*.custom-btn:hover {*/
-        /*    background-color: #0056b3;*/
-        /*}*/
+        .-on {
+            display: none;
+        }
+
+        #lightbox > article {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ddd;
+            padding: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
     </style>
 </head>
@@ -229,13 +225,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="h_menu4"><!-- start h_menu4 -->
             <a class="toggleMenu" href="#">Menu</a>
             <ul class="nav">
-                <li><a th:href="@{/index}">Home</a></li>
+                <li><a th:href="@{/index}">首頁</a></li>
                 <li><a th:href="@{/account_information}">會員專區</a></li>
                 <li class="active"><a th:href="@{/trainers}">專屬你的訓練</a></li>
-                <li><a href="../classes.html">Classes</a></li>
                 <li><a th:href="@{/menu}">健康餐</a></li>
-                <li><a th:href="@{pricing}">Pricing</a></li>
+                <li><a th:href="@{/pricing}">購物商城</a></li>
+                <li><a th:href="@{/map}">美食地圖</a></li>
                 <li><a th:href="@{/qa}">客服</a></li>
+                <li><a th:href="@{/logout}" class="logout-button">登出</a></li>
             </ul>
             <script type="text/javascript" th:src="@{/js/nav.js}"></script>
         </div><!-- end h_menu4 -->
@@ -243,7 +240,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 </div>
 <!-- end menu -->
-
+<div id="lightbox" class="-on">
+    <article>
+        <h1 id="messageContent" th:if="${message}" th:text="${message}" style="color: black"></h1>
+    </article>
+</div>
 
 <div class="custom-container" th:object="${currCourse}">
     <div class="custom-content">
@@ -287,7 +288,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <span th:text="|課程堂數 ： *{noOfClasses} 堂|">課程堂數：</span>
                 </div>
                 <div class="detail-item">
-                    <span th:text="|人數上限 ： *{maxCap} 人|">人數上限：</span>
+                   <span>人數上限 ： <span th:text="${currCourse.maxCap}">0</span>  人____已有 ♀ <span th:text="${orderCount}" style="color: red; font-size: 25px;">0</span> ♂ 人購買</span>
                 </div>
             </div>
             <div class="course-description">
@@ -302,7 +303,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="custom-buttons">
                 <a href="javascript:void(0);" onclick="history.back();" class="custom-btn block3_inner1">前一頁</a>
                 <form th:action="@{/trainers/orderCoachCourse}" method="post">
-                    <input class="block3_inner2 custom-btn" type="submit" value="購買課程">
+                    <input class="block3_inner2 custom-btn" type="submit" th:value="${#strings.isEmpty(currUserOrder) ? '購買課程' : '已購買成功'}" th:disabled="${!#strings.isEmpty(currUserOrder)}">
                     <input type="hidden" name="coachCourseID" th:value="${currCourse.id}">
                 </form>
             </div>
@@ -364,21 +365,43 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
-    $(".btn_modal").on("click", function () {
-        $("#lightbox").fadeIn(1000);
-    });
-
-
-    $(".btn_modal_close, #lightbox").on("click", function () {
-        $("#lightbox").fadeOut(1000);
-    });
-
-    $("#lightbox > article").on("click", function (e) {
-        e.stopPropagation();
-    });
-
     // 輪播圖片區塊  start
     $(document).ready(function () {
+
+        var messageContent = $("#messageContent").text().trim();
+        console.log("檢查燈箱內容:", messageContent);
+
+        if (messageContent.length > 0) {
+            console.log("燈箱內有消息");
+
+            // 移除 -on class 並顯示燈箱
+            $("#lightbox").removeClass("-on").fadeIn(1000);
+
+            // 點擊關閉按鈕關閉燈箱
+            $("button.btn_modal_close").on("click", function () {
+                console.log("關閉按鈕被點擊");
+                $("#lightbox").fadeOut(1000, function () {
+                    $("#lightbox").addClass("-on");
+                });
+            });
+
+            // 防止點擊燈箱內部時關閉燈箱
+            $("#lightbox > article").on("click", function (e) {
+                e.stopPropagation();
+            });
+
+            // 點擊燈箱背景關閉燈箱
+            $("#lightbox").on("click", function () {
+                console.log("背景被點擊");
+                $(this).fadeOut(1000, function () {
+                    $(this).addClass("-on");
+                });
+            });
+        } else {
+            console.log("燈箱內無消息");
+        }
+
+
         let currentIndex = 0;
         const images = $('.custom-image');
         const totalImages = images.length;

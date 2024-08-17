@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tia102g3.member.model.Member;
 import com.tia102g3.member.model.MemberRepository;
@@ -115,4 +116,9 @@ public class MemberService {
         // 傳入查詢參數 map 和新開啟的 Hibernate Session，返回查詢結果的 Member 列表。
         return HibernateUtil_CompositeQuery_Member.getAllMembers(map, sessionFactory.openSession());
     }
+
+	@Transactional
+	public void updateMemberByCourseOrder(Member member) {
+		repository.update(member.getReceiver(), member.getReceiverAddress(), member.getReceiverPhone(), member.getMemberID());
+	}
 }

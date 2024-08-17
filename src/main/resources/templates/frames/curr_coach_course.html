@@ -33,13 +33,12 @@
         }
 
         .slides img {
-            width: 80%; /* 設置圖片寬度為容器寬度 */
+            width: 100%; /* 讓圖片寬度自適應容器寬度 */
             max-height: 350px; /* 設置圖片最大高度 */
-            height: 50%;
-
-            object-fit: cover; /* 保持圖片比例並填充容器 */
-            display: none;
-            border-radius: 5px;
+            height: auto; /* 高度自動調整以保持比例 */
+            object-fit: contain; /* 圖片保持比例縮小，不會被裁剪 */
+            display: none; /* 默認隱藏圖片 */
+            border-radius: 5px; /* 圖片邊角圓滑 */
         }
 
         .custom-text-wrapper {

@@ -138,10 +138,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         }
 
         .preparation-box {
+            position: relative;
             width: 45%;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; /* 確保子元素在水平居中 */
+        }
+
+        .preparation-box img {
+            width: 70%; /* 將圖片縮小至70% */
+            height: auto;
+            object-fit: cover;
+            position: relative;
+            top: 0; /* 將top設置為0，以確保圖片與父元素對齊 */
+            left: 50%;
+            transform: translateX(-100%); /* 水平居中 */
         }
 
         .preparation-box-header {
@@ -287,6 +299,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             word-break: break-all;
             white-space: normal;
         }
+
+        .custom-img-size {
+            width: 302.47px; /* 最终宽度 = 图片原始宽度 + padding*2 */
+            height: 208.017px; /* 最终高度 = 图片原始高度 + padding*2 */
+            object-fit: cover; /* 确保图片不被拉伸或压缩 */
+        }
     </style>
 </head>
 <body>
@@ -321,19 +339,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="h_menu4"><!-- start h_menu4 -->
             <a class="toggleMenu" href="#">Menu</a>
             <ul class="nav">
-                <li><a th:href="@{/index}">Home</a></li>
+                <li><a th:href="@{/index}">首頁</a></li>
                 <li><a th:href="@{/account_information}">會員專區</a></li>
-                <li class="active"><a th:href="@{trainers}">專屬你的訓練</a>
+                <li class="active"><a th:href="@{/trainers}">專屬你的訓練</a>
                     <ul>
                         <li><a href="#sportimportant">運動須知</a></li>
                         <li><a href="#customerizdCourse">客製化課程</a></li>
                         <li><a href="#coachcourse">教練課程</a></li>
                     </ul>
                 </li>
-                <li><a href="classes.html">Classes</a></li>
-                <li><a th:href="@{menu}">健康餐</a></li>
-                <li><a th:href="@{pricing}">Pricing</a></li>
+                <li><a th:href="@{/menu}">健康餐</a></li>
+                <li><a th:href="@{/pricing}">購物商城</a></li>
+                <li><a th:href="@{/map}">美食地圖</a></li>
                 <li><a th:href="@{/qa}">客服</a></li>
+                <li><a th:href="@{/logout}" class="logout-button">登出</a></li>
+
             </ul>
             <script type="text/javascript" th:src="@{js/nav.js}"></script>
         </div><!-- end h_menu4 -->
@@ -348,45 +368,42 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
     <div class="border"></div>
     <div class="container">
-        <div class="classes_wrapper">
-            <div class="row class_box">
-                <div class="blog_box">
-                    <div class="">
-                        <div class="preparation-header">
-                            運動前必須做的準備！
-                        </div>
-                        <div class="preparation-section">
-                            <div class="preparation-box class_left">
-                                <div class="preparation-box-header warm-up blog_grid">運動前 | 暖身 Warm Up</div>
-                                <div class="preparation-box-content">
-                                    <p><img th:src="@{warm-up.png}" alt="運動前 | 暖身"
-                                            style="width: 100%; height: auto; object-fit: cover;"></p>
-                                    <p>
-                                        在展開運動前適當的暖身，正常的暖身可促進血液循環、提高體溫、減輕肌肉及關節的粘滯性，避免肌肉拉傷的危險。</p>
-                                </div>
-                                <div class="preparation-box-footer">
-                                    <a href="#" class="details-btn" style="float: left; pointer-events: none;">推薦</a>
-                                    <a href="https://sport.heho.com.tw/archives/283292" target="_blank"
-                                       class="advice-btn"
-                                       style="float: right; width: 80%;">你做的運動不同，暖身方法也不同，請尋求專業的建議</a>
-                                </div>
+        <div class="row class_box">
+            <div class="blog_box">
+                <div class="row class_box"></div>
+                <div class="">
+                    <div class="preparation-header">
+                        運動前必須做的準備！
+                    </div>
+                    <div class="preparation-section">
+                        <div class="preparation-box class_left">
+                            <img th:src="@{/images/a.png}" alt="運動前 | 暖身" style="width: 50%; height: auto; object-fit: cover;">
+                            <div class="preparation-box-header warm-up blog_grid">運動前 | 暖身 Warm Up</div>
+                            <div class="preparation-box-content">
+                                <p>
+                                    在展開運動前適當的暖身，正常的暖身可促進血液循環、提高體溫、減輕肌肉及關節的粘滯性，避免肌肉拉傷的危險。</p>
                             </div>
-                            <div class="preparation-box class_left">
-                                <div class="preparation-box-header cool-down">
-                                    運動後 | 收操 Cool Down
-                                </div>
-                                <div class="preparation-box-content">
-                                    <p><img th:src="@{cool-down.png}" alt="運動後 | 收操"
-                                            style="width: 100%; height: auto; object-fit: cover;"></p>
-                                    <p>
-                                        突然停止運動可能會造成暈眩及不適。不過運動過後適當的收操、能促進血液回流，避免因血液滯留在四肢而造成頭暈、疲勞。</p>
-                                </div>
-                                <div class="preparation-box-footer">
-                                    <a href="#" class="details-btn" style="float: left; pointer-events: none;">推薦</a>
-                                    <a href="https://sport.heho.com.tw/archives/283303" target="_blank"
-                                       class="advice-btn"
-                                       style="float: right; width: 80%;">收操的動作可不同，請尋求專業的建議</a>
-                                </div>
+                            <div class="preparation-box-footer">
+                                <a href="#" class="details-btn" style="float: left; pointer-events: none;">推薦</a>
+                                <a href="https://sport.heho.com.tw/archives/283292" target="_blank"
+                                   class="advice-btn"
+                                   style="float: right; width: 80%;">你做的運動不同，暖身方法也不同，請尋求專業的建議</a>
+                            </div>
+                        </div>
+                        <div class="preparation-box class_left">
+                            <img th:src="@{/images/b.png}" alt="運動後 | 收操" style="width: 50%; height: auto; object-fit: cover;">
+                            <div class="preparation-box-header cool-down">
+                                運動後 | 收操 Cool Down
+                            </div>
+                            <div class="preparation-box-content">
+                                <p>
+                                    突然停止運動可能會造成暈眩及不適。不過運動過後適當的收操、能促進血液回流，避免因血液滯留在四肢而造成頭暈、疲勞。</p>
+                            </div>
+                            <div class="preparation-box-footer">
+                                <a href="#" class="details-btn" style="float: left; pointer-events: none;">推薦</a>
+                                <a href="https://sport.heho.com.tw/archives/283303" target="_blank"
+                                   class="advice-btn"
+                                   style="float: right; width: 80%;">收操的動作可不同，請尋求專業的建議</a>
                             </div>
                         </div>
                     </div>
@@ -399,27 +416,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
     <div class="border"></div>
     <div class="container">
-        <div class="classes_wrapper">
+        <div class="row class_box"></div>
+        <div class="row class_box">
             <div class="row class_box">
-                <div class="row class_box">
-                    <div class="trainers_center-block">
-                        <div class="left-panel">
-                            <img th:src="@{images/cutecat2.png}" alt="功能介紹圖片" class="intro-image"
-                                 style="display: block">
-                            <!-- 功能介紹圖片 -->
-                        </div>
-                        <div class="right-panel custom-limited-text">
-                            <h1 id="course-title">客製化課程</h1>
-                            <h2 id="course-description">功能介紹</h2>
-                        </div>
-                        <a href="/trainers/enter.do">
-                            <input class="block_inner2" type="button" value="使用功能">
-                        </a>
+                <div class="trainers_center-block">
+                    <div class="left-panel">
+                        <img th:src="@{images/cutecat2.png}" alt="功能介紹圖片" class="intro-image"
+                             style="display: block">
+                        <!-- 功能介紹圖片 -->
                     </div>
+                    <div class="right-panel custom-limited-text">
+                        <h1 id="course-title">客製化課程</h1>
+                        <h2 id="course-description">功能介紹</h2>
+                    </div>
+                    <a href="/trainers/enter.do">
+                        <input class="block_inner2" type="button" value="使用功能">
+                    </a>
                 </div>
-
-                <div class="clear"></div>
             </div>
+            <div class="clear"></div>
         </div>
     </div>
     <div class="about_banner_wrap" style="margin-top: 80px">
@@ -429,17 +444,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
     <div class="container">
+        <div th:if="${#lists.isEmpty(coachCourseList)}">目前尚無任何教練課程，敬請期待 ！</div>
         <div class="classes_wrapper">
-            <div class="row class_box">
-                <div th:if="${#lists.isEmpty(coachCourseList)}">目前尚無任何教練課程，敬請期待 ！</div>
-                <div th:if="${!#lists.isEmpty(coachCourseList)}" th:each="coachCourse, iterStat : ${coachCourseList}">
+            <div th:unless="${#lists.isEmpty(coachCourseList)}" th:each="coachCourse, iterStat : ${coachCourseList}">
+                <div th:class="${iterStat.index % 2 == 1 ? 'row class_box' : ''}">
                     <div class="col-md-6" th:if="${iterStat.index % 2 == 0}">
                         <div class="class_left" th:if="${!#lists.isEmpty(coachCourse.coachCoursePics)}">
                             <img th:src="@{|/course/DBGifReader?picID=${coachCourse.coachCoursePics[0].id}&amp;source=coachCourse|}"
-                                 class="img-responsive" alt="" title="continue">
+                                 class="img-responsive custom-img-size" alt="" title="continue">
                         </div>
                         <div class="class_right">
-                            <h3 th:text="${coachCourse.courseName}">少騫拳擊</h3>
+                            <h3><a th:href="@{|/trainers/currCoachCourse?id=${coachCourse.id}|}"
+                                   th:text="${coachCourse.courseName}">少騫拳擊</a></h3>
                             <p th:text="${coachCourse.courseIntro}">教你當一拳超人</p>
                             <div class="class_img">
                                 <img th:src="@{|/course/DBGifReader?picID=${coachCourse.cMember.cMemberID}&amp;source=cMember|}"
@@ -455,8 +471,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <div class="clear"></div>
                                 <ul class="buttons_class">
                                     <li class="btn6">
-                                        <a class="btn_modal" th:data-lightbox-id="'lightbox-' + ${coachCourse.cMember.cMemberID}">教練課程</a>
-                                        <div class="lightbox" th:id="'lightbox-' + ${coachCourse.cMember.cMemberID}" style="z-index: 9999;">
+                                        <a class="btn_modal"
+                                           th:data-lightbox-id="'lightbox-' + ${coachCourse.cMember.cMemberID}">教練課程</a>
+                                        <div class="lightbox" th:id="'lightbox-' + ${coachCourse.cMember.cMemberID}"
+                                             style="z-index: 9999;">
                                             <article>
                                                 <h1 style="text-align: center;">這裡是當前教練的所有課程</h1>
                                                 <div th:if="${coachCourse != null and coachCourse.cMember != null}">
@@ -485,10 +503,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="col-md-6" th:if="${iterStat.index % 2 == 1}">
                         <div class="class_left" th:if="${!#lists.isEmpty(coachCourse.coachCoursePics)}">
                             <img th:src="@{|/course/DBGifReader?picID=${coachCourse.coachCoursePics[0].id}&amp;source=coachCourse|}"
-                                 class="img-responsive" alt="" title="continue">
+                                 class="img-responsive custom-img-size" alt="" title="continue">
                         </div>
                         <div class="class_right1">
-                            <h3 th:text="${coachCourse.courseName}">少騫拳擊</h3>
+                            <h3><a th:href="@{|/trainers/currCoachCourse?id=${coachCourse.id}|}"
+                                   th:text="${coachCourse.courseName}">少騫拳擊</a></h3>
                             <p th:text="${coachCourse.courseIntro}">教你當一拳超人</p>
                             <div class="class_img">
                                 <img th:src="@{|/course/DBGifReader?picID=${coachCourse.cMember.cMemberID}&amp;source=cMember|}"
@@ -504,8 +523,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <div class="clear"></div>
                                 <ul class="buttons_class">
                                     <li class="btn8">
-                                        <a class="btn_modal" th:data-lightbox-id="'lightbox-' + ${coachCourse.cMember.cMemberID}">教練課程</a>
-                                        <div class="lightbox" th:id="'lightbox-' + ${coachCourse.cMember.cMemberID}" style="z-index: 9999;">
+                                        <a class="btn_modal"
+                                           th:data-lightbox-id="'lightbox-' + ${coachCourse.cMember.cMemberID}">教練課程</a>
+                                        <div class="lightbox" th:id="'lightbox-' + ${coachCourse.cMember.cMemberID}"
+                                             style="z-index: 9999;">
                                             <article>
                                                 <h1 style="text-align: center;">這裡是當前教練的所有課程</h1>
                                                 <div th:if="${coachCourse != null and coachCourse.cMember != null}">
@@ -536,6 +557,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
     </div>
 </div>
+<div class="'row class_box"></div>
 
 <div class="footer-bottom">
     <div class="container">
