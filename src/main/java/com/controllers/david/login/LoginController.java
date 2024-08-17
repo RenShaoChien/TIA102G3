@@ -70,29 +70,25 @@ public class LoginController {
 	        return new RedirectView("/account_information"); // 一般会员页面
 	    } 
 
-	    // 教练会员登录逻辑
 	    else if (coachMember != null && coachMember.getPassword().equals(password)) {
 	        session.setAttribute("user", coachMember);
 	        session.setAttribute("loggedIn", true);
 	        addLoginCookie(response, username);
 
-	        // 处理待定课程的逻辑
 	        if (session.getAttribute("pendingCourseID") != null) {
 	            return handlePendingCourse(session);
 	        }
-	        return new RedirectView("/coach_account_information"); // 教练会员页面
+	        return new RedirectView("/coach_account_information");
 	    } 
 
-	    // 管理员登录逻辑
 	    else if (adminLogin != null && adminLogin.getAdminPassword().equals(password)) {
-	        session.setAttribute("user", adminLogin);
+	        session.setAttribute("admin", adminLogin);
 	        session.setAttribute("loggedIn", true);
 	        addLoginCookie(response, username);
 
-	        return new RedirectView("/admin"); // 管理员控制面板页面
+	        return new RedirectView("/admin");
 	    }
 
-	    // 登录失败，返回登录页面
 	    return new RedirectView("/login?error=invalid");
 	}
 
@@ -123,7 +119,7 @@ public class LoginController {
 	            return "redirect:/admin";
 	        }
 	    }
-	    return "frontend/login/login"; // 返回登录页面
+	    return "frontend/login/login";
 	}
 
 	@GetMapping("/logout")
@@ -171,7 +167,7 @@ public class LoginController {
 
 	        return "redirect:/verify_email";
 
-	    } else if ("coach".equals(membership)) {
+	    } else if ("user".equals(membership)) {
 	        CoachMember coachMember = new CoachMember();
 	        coachMember.setAccount(account);
 	        coachMember.setPassword(password);
