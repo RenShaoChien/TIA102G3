@@ -221,7 +221,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
             <div th:style="${#strings.isEmpty(systemCourse.systemCourseID) ? 'display:none' : ''}">
                 <div class="result-group">
-                    <div class="info-item label m_9" th:text="| ☺ 運動名稱 ： ${systemCourse.courseName}|">運動名稱：跑步(Running)
+                    <div class="info-item label m_9" th:text="| ☺ 運動名稱 ： ${systemCourse.courseName}|">
+                        運動名稱：跑步(Running)
                     </div>
                 </div>
                 <div class="result-group">
@@ -235,12 +236,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>
                 </div>
                 <div class="result-group">
-                    <div class="info-item" th:text="| ☺ 卡路里消耗約→ ${systemCourse.burnCalories} ←卡路里|">卡路里消耗消耗約400卡路里
+                    <div class="info-item" th:text="| ☺ 卡路里消耗約→ ${systemCourse.burnCalories} ←卡路里|">
+                        卡路里消耗消耗約400卡路里
                     </div>
                 </div>
             </div>
             <div class="result-group">
-                <div class="info-item label">推薦教練課程：<a th:href="@{|/trainers/currCoachCourse?id=${coachCourse.id}|}" th:text="| ○ ${coachCourse.courseName} ● |">課程名稱</a></div>
+                <div class="info-item label">推薦教練課程：
+                    <a th:style="${#strings.isEmpty(coachCourse.courseName) ? 'pointer-events: none; cursor: default; color: black;' : ''}"
+                       th:href="@{|/trainers/currCoachCourse?id=${coachCourse.id}|}"
+                       th:text="| ○ ${#strings.isEmpty(coachCourse.courseName) ? '尚無適合的教練課程' : (coachCourse.courseName)} ● |">課程名稱</a>
+                </div>
             </div>
         </div>
     </div>
