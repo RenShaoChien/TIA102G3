@@ -102,11 +102,66 @@ h3.m_3 {
 .about_gallery{
     background: #00BFF0;
 }
+
+/* ======= Fix button ======= */
+body {
+    height: 2000px; /* 用于测试滚动效果 */
+	font-family: Arial, sans-serif;
+}
+
+#fixedDiv {
+    position: fixed;
+    bottom: 20px; /* 距离页面底部20px */
+    right: 20px;  /* 距离页面右侧20px */
+}
+
+#fixedButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#fixedButton:hover {
+    background-color: #0056b3;
+}
+
+.styled-button {
+    background-color: #33b4e7; /* 按钮背景颜色 */
+    color: white; /* 按钮文字颜色 */
+    padding: 10px 20px; /* 按钮内边距 */
+    border: none; /* 去除边框 */
+    border-radius: 5px; /* 圆角边框 */
+    font-size: 16px; /* 文字大小 */
+    cursor: pointer; /* 鼠标指针样式 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 按钮阴影 */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* 添加过渡效果 */
+}
+
+.styled-button:hover {
+    background-color: #00ff26; /* 鼠标悬停时的背景颜色 */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* 鼠标悬停时的阴影效果 */
+}
+
+.styled-button:active {
+    background-color: #1c45ca; /* 按钮被点击时的背景颜色 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 按钮被点击时的阴影效果 */
+}
+
+
 </style>
 
 </head>
 
 <body>
+	<div id="fixedDiv">
+		<form th:action="@{orderCheck}" method="post" enctype="multipart/form-data">
+			<input type="submit" value="結帳" class="styled-button">
+            <!-- <input type="hidden" name="coachCourseID" th:value="${#strings.isEmpty(coachCourseID) ? 'null' : coachCourseID}"> -->
+		</form>
+    </div>
 	<!-- start header_bottom -->
 	<div class="header-bottom">
 		<div class="container">
@@ -137,11 +192,11 @@ h3.m_3 {
 				<!-- start h_menu4 -->
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
-					<li><a th:href="@{/index}">Home</a></li>
-					<li><a th:href="@{member/account_information}">會員專區</a></li>
-					<li><a th:href="@{trainers}">專屬你的訓練</a></li>
+					<li><a th:href="@{/index}">首頁</a></li>
+					<li><a th:href="@{/account_information}">會員專區</a></li>
+					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
 					<li><a th:href="@{/menu}">健康餐</a></li>
-					<li class="active"><a th:href="@{pricing}">購物商城</a></li>
+					<li class="active"><a th:href="@{/pricing}">購物商城</a></li>
 					<li><a th:href="@{/map}">美食地圖</a></li>
 					<li><a th:href="@{/qa}">客服</a></li>
 					<li><a th:href="@{/logout}" class="logout-button">登出</a></li>
@@ -200,7 +255,7 @@ h3.m_3 {
 									<button class="add-to-cart" 
 											th:attr="id=${productVO.productID}" 
 											th:data-product-id="${productVO.productID}">加到購物車</button>
-											<a th:href="@{/shoppingcart}" class="button">加到購物車測試</a>
+											<!-- <a th:href="@{/shoppingcart}" class="button">加到購物車測試</a> -->
 								</div>
 								
 								
@@ -221,6 +276,9 @@ h3.m_3 {
 			<div class="clear"></div>
 		</div>
 	</div>
+	
+	
+
 	</div>
 
 		<ul class="price_question">
@@ -241,53 +299,46 @@ h3.m_3 {
 		<div class="container">
 			<div class="row section group">
 				<div class="col-md-4">
-					<h4 class="m_7">Newsletter Signup</h4>
-					<p class="m_8">Lorem ipsum dolor sit amet, consectetuer
-						adipiscing elit sed diam nonummy.</p>
-					<form class="subscribe">
-						<input type="text" value="Insert Email" onfocus="this.value = '';"
-							onblur="if (this.value == '') {this.value = 'Insert Email';}">
-					</form>
-					<div class="subscribe1">
-						<a href="#">Submit Email<i class="but_arrow"> </i></a>
+					<div class="social"
+						 style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
+						<img th:src="@{images/cutecatloge.png}" style="width: 100%; height: 100%">
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="f-logo">
-						<img src="images/logo.png" alt="" />
+						<h1>健肌尋食</h1>
 					</div>
-					<p class="m_9">Lorem ipsum dolor sit amet, consectetuer
-						adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-						laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim
-						veniam, quis</p>
-					<p class="address">
-						Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(00)
-							222 666 444</span>
+					<p class="m_9">
+						「健肌尋食」是一個簡單的概念，意思是通過運動來增強肌肉，同時尋找健康的食物來補充營養，這樣可以讓我們的身體更強壯，生活更健康愉快。</p>
+					<p class="address">Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02) 3333 4444</span>
 					</p>
-					<p class="address">
-						Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">info[at]mycompany.com</span>
+					<p class="address">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
 					</p>
 				</div>
 				<div class="col-md-4">
 					<ul class="list">
-						<h4 class="m_7">Menu</h4>
-						<li><a href="#">About</a></li>
-						<li><a href="#">Trainers</a></li>
-						<li><a href="#">Classes</a></li>
-						<li><a href="#">Pricing</a></li>
-						<li><a href="#">Privacy</a></li>
-						<li><a href="#">Contact</a></li>
+						<h4 class="m_7">關於我們</h4>
+						<li><a href="#">隱私權政策</a></li>
+						<li><a href="#">著作權聲明</a></li>
+						<li><a href="#">聯絡我們</a></li>
 					</ul>
 					<ul class="list1">
-						<h4 class="m_7">Community</h4>
-						<li><a href="#">Blog</a></li>
-						<li><a href="#">Forum</a></li>
+						<h4 class="m_7">相關網站</h4>
+						<li><a href="https:/www.google.com">google</a></li>
+						<li><a href="https:/www.youtube.com">youtube</a></li>
 						<li><a href="#">Support</a></li>
-						<li><a href="#">Newsletter</a></li>
 					</ul>
 				</div>
 				<div class="clear"></div>
 			</div>
+		</div>
+	</div>
+	<div class="copyright">
+		<div class="container">
+			<div class="copy">
+				<p>Copyright © 2024 健肌尋食 by TIA102G3</p>
+			</div>
+			<div class="clear"></div>
 		</div>
 	</div>
 	<div class="copyright">
@@ -312,6 +363,8 @@ h3.m_3 {
 			<div class="clear"></div>
 		</div>
 	</div>
+
+	
 	
 	<script type="text/javascript">
 // 	$(document).ready(function() {
