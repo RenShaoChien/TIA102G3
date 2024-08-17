@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -56,7 +57,7 @@ public class FrontEndCoachCourseController {
     }
 
     @RequestMapping(value = "/orderCoachCourse", method = {RequestMethod.GET, RequestMethod.POST})
-    public String orderCoachCourse(@RequestParam("coachCourseID") Integer courseID, ModelMap model, HttpSession session) {
+    public String orderCoachCourse(@RequestParam("coachCourseID") Integer courseID, ModelMap model, HttpSession session, HttpServletResponse response) {
         Object memberObj = session.getAttribute("user");
         if (memberObj == null) {
             session.setAttribute("pendingCourseID", courseID);
@@ -69,6 +70,9 @@ public class FrontEndCoachCourseController {
         CourseOrder courseOrder = new CourseOrder(member, coachCourse);
 
         model.putAll(Map.of("courseOrder", courseOrder));
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
 
         return "trainers/course_order_checking";
     }
@@ -85,11 +89,14 @@ public class FrontEndCoachCourseController {
     }
 
     @PostMapping("/paying")
-    public String coachCoursePaying(@Param("courseOrder") CourseOrder courseOrder, ModelMap model) {
+    public String coachCoursePaying(@Param("courseOrder") CourseOrder courseOrder, ModelMap model, HttpServletResponse response) {
         memberService.updateMemberByCourseOrder(courseOrder.getMember());
         courseOrder.setMember(memberService.findById(courseOrder.getMember().getMemberID()));
         ccService.findOneAllAttr(courseOrder.getCoachCourse().getId()).ifPresent(coachCourse -> courseOrder.setCoachCourse(coachCourse));
         model.putAll(Map.of("courseOrder", courseOrder));
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setHeader("Expires", "0");
         return "trainers/create_card";
     }
 
