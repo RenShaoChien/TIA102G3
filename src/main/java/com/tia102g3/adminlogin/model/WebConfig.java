@@ -11,7 +11,7 @@ public class WebConfig {
     public FilterRegistrationBean<AdminLoginFilter> adminLoginFilter() {
         FilterRegistrationBean<AdminLoginFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new AdminLoginFilter());
-        registrationBean.addUrlPatterns("/admin/*"); // 適用於所有 /admin 路徑的請求
+        registrationBean.addUrlPatterns("/admin/*"); // 适用于所有 /admin 路径的请求
         return registrationBean;
     }
 }
