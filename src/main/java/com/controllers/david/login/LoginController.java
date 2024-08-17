@@ -71,7 +71,7 @@ public class LoginController {
 	    } 
 
 	    else if (coachMember != null && coachMember.getPassword().equals(password)) {
-	        session.setAttribute("coach", coachMember);
+	        session.setAttribute("user", coachMember);
 	        session.setAttribute("loggedIn", true);
 	        addLoginCookie(response, username);
 
@@ -111,13 +111,11 @@ public class LoginController {
 	    HttpSession session = request.getSession(false);
 	    if (session != null && Boolean.TRUE.equals(session.getAttribute("loggedIn"))) {
 	        Object user = session.getAttribute("user");
-	        Object coach = session.getAttribute("coach");
-	        Object admin = session.getAttribute("admin");
 	        if (user instanceof Member) {
 	            return "redirect:/account_information";
-	        } else if (coach instanceof CoachMember) {
+	        } else if (user instanceof CoachMember) {
 	            return "redirect:/coach_account_information";
-	        } else if (admin instanceof AdminLogin) {
+	        } else if (user instanceof AdminLogin) {
 	            return "redirect:/admin";
 	        }
 	    }
@@ -169,7 +167,7 @@ public class LoginController {
 
 	        return "redirect:/verify_email";
 
-	    } else if ("coach".equals(membership)) {
+	    } else if ("user".equals(membership)) {
 	        CoachMember coachMember = new CoachMember();
 	        coachMember.setAccount(account);
 	        coachMember.setPassword(password);
