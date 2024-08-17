@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
@@ -42,7 +43,12 @@ public class FrontEndCoachCourseController {
     private MemberService memberService;
 
     @GetMapping("/currCoachCourse")
-    public String currCoachCourse(@RequestParam("id") Integer courseID, ModelMap model) {
+    public String currCoachCourse(@RequestParam("id") Integer courseID, ModelMap model, HttpSession session) {
+        Object userObj = session.getAttribute("user");
+        if (userObj != null) {
+            Member user = (Member) userObj;
+            coService.getOneByMemberIdAndCourseId(user.getMemberID(), courseID).ifPresent(order -> model.putAll(Map.of("currUserOrder", order)));
+        }
         ccService.findOneAllAttr(courseID).ifPresent(course -> model.putAll(Map.of("currCourse", course, "orderCount", course.getCourseOrders().size())));
         return "trainers/coachCourse";
     }
@@ -87,7 +93,7 @@ public class FrontEndCoachCourseController {
 
     @PostMapping("/paying.do")
     @Transactional
-    public String processPayment(@ModelAttribute("courseOrder") CourseOrder courseOrder, ModelMap model){
+    public String processPayment(@ModelAttribute("courseOrder") CourseOrder courseOrder, ModelMap model, RedirectAttributes redirectAttributes){
         boolean paymentSuccess = simulatePaymentProcessing(courseOrder);
         if(paymentSuccess){
             memberService.saveMember(courseOrder.getMember());
@@ -95,7 +101,8 @@ public class FrontEndCoachCourseController {
             courseOrder.setOrderDate(Date.valueOf(LocalDate.now()));
             courseOrder.setPrice(courseOrder.getCoachCourse().getCoursePrice());
             coService.addCourseOrder(courseOrder);
-            model.putAll(Map.of("message", "完成付款，購買成功 ！", "currCourse", courseOrder.getCoachCourse()));
+            redirectAttributes.addFlashAttribute("message", "完成付款，購買成功 ！");
+            model.putAll(Map.of("currCourse", courseOrder.getCoachCourse()));
             return "redirect:/trainers/currCoachCourse?id=" + courseOrder.getCoachCourse().getId();
         }
         model.putAll(Map.of("errorMessage", "支付失敗，請重試或聯絡客服。", "courseOrder", courseOrder));

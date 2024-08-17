@@ -303,7 +303,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <div class="custom-buttons">
                 <a href="javascript:void(0);" onclick="history.back();" class="custom-btn block3_inner1">前一頁</a>
                 <form th:action="@{/trainers/orderCoachCourse}" method="post">
-                    <input class="block3_inner2 custom-btn" type="submit" value="購買課程">
+                    <input class="block3_inner2 custom-btn" type="submit" th:value="${#strings.isEmpty(currUserOrder) ? '購買課程' : '已購買成功'}" th:disabled="${!#strings.isEmpty(currUserOrder)}">
                     <input type="hidden" name="coachCourseID" th:value="${currCourse.id}">
                 </form>
             </div>
