@@ -46,8 +46,10 @@ public class FrontEndCoachCourseController {
     public String currCoachCourse(@RequestParam("id") Integer courseID, ModelMap model, HttpSession session) {
         Object userObj = session.getAttribute("user");
         if (userObj != null) {
-            Member user = (Member) userObj;
-            coService.getOneByMemberIdAndCourseId(user.getMemberID(), courseID).ifPresent(order -> model.putAll(Map.of("currUserOrder", order)));
+            if (userObj instanceof Member) {
+                Member user = (Member) userObj;
+                coService.getOneByMemberIdAndCourseId(user.getMemberID(), courseID).ifPresent(order -> model.putAll(Map.of("currUserOrder", order)));
+            }
         }
         ccService.findOneAllAttr(courseID).ifPresent(course -> model.putAll(Map.of("currCourse", course, "orderCount", course.getCourseOrders().size())));
         return "trainers/coachCourse";
