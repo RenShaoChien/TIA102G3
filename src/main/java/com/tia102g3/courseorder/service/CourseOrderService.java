@@ -1,17 +1,16 @@
 package com.tia102g3.courseorder.service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
+import com.tia102g3.courseorder.model.CourseOrder;
+import com.tia102g3.courseorder.model.CourseOrderRepository;
+import hibernate.util.CompositeQuery.HibernateUtil_CompositeQuery_CourseOrder;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.tia102g3.courseorder.model.CourseOrder;
-import com.tia102g3.courseorder.model.CourseOrderRepository;
-
-import hibernate.util.CompositeQuery.HibernateUtil_CompositeQuery_CourseOrder;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service("courseOrderService")
 public class CourseOrderService {
@@ -53,5 +52,9 @@ public class CourseOrderService {
 	public List<CourseOrder> getAll(Map<String, String[]> map) {
 		// 傳入查詢參數 map 和新開啟的 Hibernate Session，返回查詢結果的 CourseOrder 列表。
 		return HibernateUtil_CompositeQuery_CourseOrder.getAllCourseOrders(map, sessionFactory.openSession());
+	}
+	@Transactional
+	public Optional<CourseOrder> getOneByMemberIdAndCourseId(Integer memberID, Integer courseID) {
+		return repository.findByMemberIdAndCourseId(memberID, courseID);
 	}
 }

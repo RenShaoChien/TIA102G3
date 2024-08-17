@@ -1,10 +1,11 @@
 package com.controllers.david.login;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.tia102g3.coachmember.model.CoachMember;
+import com.tia102g3.coachmember.model.CoachMemberRepository;
+import com.tia102g3.coachmember.service.CoachMemberService;
+import com.tia102g3.member.model.Member;
+import com.tia102g3.member.model.MemberRepository;
+import com.tia102g3.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,12 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.tia102g3.coachmember.model.CoachMember;
-import com.tia102g3.coachmember.model.CoachMemberRepository;
-import com.tia102g3.coachmember.service.CoachMemberService;
-import com.tia102g3.member.model.Member;
-import com.tia102g3.member.model.MemberRepository;
-import com.tia102g3.member.service.MemberService;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class LoginController {
@@ -59,7 +58,7 @@ public class LoginController {
 				String pendingCourseID = session.getAttribute("pendingCourseID").toString();
 				int coachCourseID = Integer.parseInt(pendingCourseID);
 				session.removeAttribute("pendingCourseID");
-				return new RedirectView("/trainers/orderCoachCourse?coachCourseID=" + coachCourseID);
+				return new RedirectView("/trainers/currCoachCourse?id=" + coachCourseID);
 			}
 			return new RedirectView("/account_information"); // 一般會員頁面
 		} else if (coachMember != null && coachMember.getPassword().equals(password)) {
