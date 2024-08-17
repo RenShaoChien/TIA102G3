@@ -198,13 +198,12 @@ public class SystemCourseManagement {
 
 
     @GetMapping("/delSystemCourse.do")
-    public String delSystemCourse(ModelMap model, @RequestParam Integer systemCourseID, HttpSession session) throws Exception {
+    public String delSystemCourse(@RequestParam Integer systemCourseID, HttpSession session) {
         Object pageNoObj = session.getAttribute("pageNo");
         int pageNo = 0;
         if (pageNoObj != null) {
             pageNo = Integer.parseInt(pageNoObj.toString());
         }
-        System.out.println(pageNo);
 
         Object keywordObj = session.getAttribute("keyword");
         String keyword = "";
