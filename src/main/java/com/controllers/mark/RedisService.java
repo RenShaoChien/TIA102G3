@@ -48,6 +48,12 @@ public class RedisService {
         }
         return productList;
     }
+    
+    // 刪除產品列表
+    public void deleteProductList(String memberID) {
+        redisTemplate.delete(memberID);
+    }
+    
 }
 
 
