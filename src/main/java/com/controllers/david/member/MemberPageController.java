@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tia102g3.coachmember.model.CoachMember;
+import com.tia102g3.coachmember.service.CoachMemberService;
 import com.tia102g3.courseorder.model.CourseOrder;
 import com.tia102g3.courseorder.service.CourseOrderService;
 import com.tia102g3.member.model.Member;
@@ -30,6 +32,9 @@ public class MemberPageController {
 
 	@Autowired
 	MemberService memberSvc;
+	
+	@Autowired
+	CoachMemberService coachMemberSvc;
 	
 	@Autowired
 	CourseOrderService courseOrderSvc;
@@ -178,8 +183,10 @@ public class MemberPageController {
 	        return "redirect:/login?error=not_logged_in"; // 重定向到登入頁面，帶上錯誤參數
 	    }
 	    
-	    Member member = (Member) session.getAttribute("user");
-	    if (member != null) {
+	    Object user = session.getAttribute("user");
+	    
+	    if (user instanceof Member) { // 如果是一般會員
+	        Member member = (Member) user;
 	        Integer memberID = member.getMemberID();
 	        Member memberDetails = memberSvc.findById(memberID);
 
@@ -187,9 +194,24 @@ public class MemberPageController {
 	            model.addAttribute("member", memberDetails); // 添加 Member 對象到模型中
 	            model.addAttribute("name", memberDetails.getName()); // 添加 name 屬性到模型中
 	        }
+
+	        return "frontend/member/account_information"; // 返回一般會員的視圖名稱
+
+	    } else if (user instanceof CoachMember) { // 如果是教練會員
+	        CoachMember coachMember = (CoachMember) user;
+	        Integer coachMemberID = coachMember.getCMemberID();
+	        CoachMember coachMemberDetails = coachMemberSvc.findById(coachMemberID);
+
+	        if (coachMemberDetails != null) {
+	            model.addAttribute("coachMember", coachMemberDetails); // 添加 CoachMember 對象到模型中
+	            model.addAttribute("name", coachMemberDetails.getName()); // 添加 name 屬性到模型中
+	        }
+
+	        return "frontend/coach_member/coach_account_information"; // 返回教練會員的視圖名稱
 	    }
 
-	    return "frontend/member/account_information"; // 返回對應的視圖名稱
+	    // 如果用戶不屬於上述兩種情況，重定向到登入頁面
+	    return "redirect:/login?error=unknown_user_type";
 	}
 
 	@GetMapping("change_password")
