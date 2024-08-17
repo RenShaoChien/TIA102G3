@@ -48,4 +48,10 @@ public class CoachMember implements Serializable {
     @OneToMany(mappedBy = "cMember" )
     @JsonBackReference
     private List<CoachCourse> coachCourses;
+    @PrePersist
+    protected void onCreate() {
+        if (regDate == null) {
+            regDate = new Date(System.currentTimeMillis());
+        }
+    }
 }

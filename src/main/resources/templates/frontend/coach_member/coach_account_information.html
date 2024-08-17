@@ -202,43 +202,29 @@
 	.clear {
 		clear: both;
 	}
+	
+	.logout-button {
+	background-color: red;
+	border-radius: 30px;
+}
+
 </style>
 </head>
 
 <body>
-	<!-- start header_bottom -->
-	<div class="header-bottom">
-		<div class="btn-login">
-			<a href="login.html">Log In</a>
-		</div>
-		<div class="container">
-			<div class="header-bottom_left">
-				<i class="phone"> </i><span>1-200-346-2986</span>
-			</div>
-			<div class="social">
-				<ul>
-					<li class="facebook"><a href="#"><span> </span></a></li>
-					<li class="google"><a href="#"><span> </span></a></li>
-				</ul>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
-	<!-- start menu -->
 	<div class="menu">
 		<div class="container">
 			<div class="h_menu4"><!-- start h_menu4 -->
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
-					<li><a th:href="@{/index}">Home</a></li>
-					<li><a th:href="@{/account_information}">會員專區</a></li>
-					<li><a th:href="@{/trainers}">專屬你的訓練</a>
-					<li><a href="classes.html">Classes</a></li>
+					<li><a th:href="@{/index}">首頁</a></li>
+					<li class="active"><a th:href="@{/account_information}">會員專區</a></li>
+					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
 					<li><a th:href="@{/menu}">健康餐</a></li>
-					<li><a th:href="@{pricing}">Pricing</a></li>
+					<li><a th:href="@{/pricing}">Pricing</a></li>
 					<li><a th:href="@{/map}">美食地圖</a></li>
 					<li><a th:href="@{/qa}">客服</a></li>
-					<li><a th:href="@{/login}" class="logout-button">登出</a></li>
+					<li><a th:href="@{/logout}" class="logout-button">登出</a></li>
 				</ul>
 				<script type="text/javascript" src="js/nav.js"></script>
 			</div>
@@ -248,67 +234,57 @@
 	</div>
 	<div class="container-data">
 		<div class="sidebar">
-			<a th:href="@{coach_account_information}">修改帳戶資料</a>
-			<a th:href="@{coach_change_password}">修改密碼</a>
-			<a th:href="@{coach_historical_orders}">歷史訂單</a>
-			<a th:href="@{coach_receipt_information}">常用收件資訊</a>
-			<a th:href="@{coach_acc_information}">新增信用卡資訊</a>
-			<a th:href="@{coach_course_status}">查看課程狀態</a>
-			<a th:href="@{coach_course_products}">登入課程商品</a>
+			<a class="nav-link" th:href="@{/coach_account_information}">修改帳戶資料</a>
+			<a class="nav-link" th:href="@{/coach_change_password}">修改密碼</a>
+			<a class="nav-link" th:href="@{/coach_historical_orders}">歷史訂單</a>
+			<a class="nav-link" th:href="@{/coach_receipt_information}">常用收件資訊</a>
+			<a class="nav-link" th:href="@{/coach_acc_information}">新增信用卡資訊</a>
+			<a class="nav-link" th:href="@{/coach_course_status}">查看課程狀態</a>
+			<a class="nav-link" th:href="@{/coach_course_products}">登錄課程商品</a>
 		</div>
 		<div class="content-data">
 			<h2>教練會員 (<span th:text="${name}"></span>)</h2>
-			<form action="/submit" method="POST">
+			<form action="/submitCoach" method="POST" enctype="multipart/form-data" onsubmit="return showSuccessAlert();">
+				<input type="hidden" name="redirectPage" value="coach_account_information">
 				<div class="form-container">
 					<div class="form-section0">
-						<img id="personalPhotos" src="path_to_default_image" alt="圖片未上傳">
-						<input type="file" id="personalPhotos" name="personalPhotos" accept="image/*"
+						<!-- 確保 th:src 正確 -->
+						<img id="personalPhotosPreview"
+							th:src="@{/coach_member/DBGifReader(cMemberID=${coachMember.cMemberID})}"
+							alt="圖片未上傳"> <input type="file" id="personalPhotos"
+							name="personalPhotos" accept="image/*"
 							onchange="previewImage(event)">
 					</div>
 					<div class="form-row">
 						<div class="form-section">
-							<label for="username">電子郵件:</label>
-							<br>
-							<input type="text" id="custom-input" name="username" value="coach@gmail.com" readonly>
+							<label for="account">帳號:</label> <br>
+							<input type="text" id="account" name="account" th:value="${coachMember.account}" readonly>
 						</div>
 						<div class="form-section">
-							<label for="name">姓名:</label>
-							<br>
-							<input type="text" id="name" name="name" value="王大明" readonly>
+							<label for="email">電子郵件:</label> <br>
+							<input type="email" id="email" name="email" th:value="${coachMember.email}" readonly>
 						</div>
 						<div class="form-section">
-							<label>性別 (只能修改一次):</label>
-							<br>
-							<input type="radio" id="male" name="gender" value="male">
-							<label for="male">男</label>
-							<input type="radio" id="female" name="gender" value="female">
-							<label for="female">女</label>
-						</div>
-						<div class="form-section">
-							<label for="birthday">生日 (只能修改一次):</label>
-							<br>
-							<input type="date" id="birthday" name="birthday" placeholder="YYYY-MM-DD">
+							<label for="name">姓名:</label> <br>
+							<input type="text" id="name" name="name" th:value="${coachMember.name}">
 						</div>
 					</div>
 					<div class="form-row2">
 						<div class="form-section">
-							<label for="phone">電話號碼綁定:</label>
-							<br>
-							<input type="text" id="phone" name="phone" placeholder="請輸入電話">
+							<label>性別:</label> <br> <input type="radio" id="male"
+								name="gender" th:value="男" th:checked="${coachMember.gender == '男'}">
+							<label for="male">男</label> <input type="radio" id="female"
+								name="gender" th:value="女" th:checked="${coachMember.gender == '女'}">
+							<label for="female">女</label>
 						</div>
 						<div class="form-section">
-							<label for="facebook">Facebook 綁定:</label>
-							<br>
-							<input type="text" id="facebook" name="facebook" placeholder="請輸入Facebook帳號">
+							<label for="birthday">生日:</label> <br> <input type="date"
+								id="birthday" name="birthday"
+								th:value="${#dates.format(coachMember.bD, 'yyyy-MM-dd')}">
 						</div>
 						<div class="form-section">
-							<label for="google">Google 綁定:</label>
-							<br>
-							<input type="text" id="google" name="google" placeholder="請輸入Google帳戶">
-						</div>
-						<div class="form-section1">
-							<input type="button" onclick="triggerHiddenLink()" value="新增/修改教練技能" class="btn">
-							<a id="hidden-link" th:href="@{/coach_account_skill}" class="hidden-link"></a>
+							<label for="phone">電話號碼:</label> <br> <input type="text"
+								id="phone" name="phone" th:value="${coachMember.phone}">
 						</div>
 					</div>
 				</div>
@@ -368,20 +344,36 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		function previewImage(event) {
-			const reader = new FileReader();
-			reader.onload = function () {
-				const output = document.getElementById('personalPhotos');
-				output.src = reader.result;
-				output.classList.add('loaded'); // 添加loaded類別
-				document.getElementById('alt-text').classList.add('loaded'); // 添加loaded類別
-			};
-			reader.readAsDataURL(event.target.files[0]);
-		}
-		function triggerHiddenLink() {
-	        // 取得隱藏的 <a> 連結並觸發點擊事件
-	        document.getElementById('hidden-link').click();
-	    }
+	function previewImage(event) {
+		const reader = new FileReader();
+		reader.onload = function() {
+			const output = document.getElementById('personalPhotos');
+			output.src = reader.result;
+			output.classList.add('loaded'); // 添加loaded類別
+			document.getElementById('alt-text').classList.add('loaded'); // 添加loaded類別
+		};
+		reader.readAsDataURL(event.target.files[0]);
+	}
+	// 如果連結指向當前頁面，阻止預設行為
+	document.querySelectorAll('.nav-link').forEach(function(link) {
+		link.addEventListener('click', function(event) {
+			// 獲取當前頁面的 URL
+			var currentUrl = window.location.pathname;
+			// 獲取點擊的連結的 href
+			var linkUrl = event.target.getAttribute('href');
+
+			if (currentUrl === linkUrl) {
+				event.preventDefault();
+			}
+		});
+	});
+	// 如果連結指向當前頁面，阻止預設行為
+	function showSuccessAlert() {
+    // 顯示成功提示框
+    alert('儲存成功');
+    // 返回 true 以允許表單提交
+    return true;
+}
 	</script>
 </body>
 

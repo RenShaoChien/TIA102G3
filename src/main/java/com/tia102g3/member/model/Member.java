@@ -49,5 +49,11 @@ public class Member {
     private Set<OrderVO> orderSet;
     @OneToMany(mappedBy = "member")
     @JsonIgnore
-    private Set<CourseOrder> courseOrderList;    
+    private Set<CourseOrder> courseOrderSet;
+    @PrePersist
+    protected void onCreate() {
+        if (regDate == null) {
+            regDate = new Date(System.currentTimeMillis());
+        }
+    }
 }
