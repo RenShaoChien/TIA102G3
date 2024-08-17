@@ -134,20 +134,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             left: 14%;
             margin: 0;
         }
-
-        .button {
-            line-height: 1.1em;
-            font-size: 1.1em;
-            color: #0c0c0c;
-            text-decoration: none;
-            margin: 3% 0;
-            background-color: #F0F0F0;
-            border: 1px solid #0c0c0c;
-        }
-
-        .button:hover {
-            background-color: #0056b3;
-        }
     </style>
 
 </head>
@@ -206,93 +192,32 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <div class="border"></div>
     <div class="container">
         <div class="row price_plans">
-        <div class="row price_plans">
             <!-- <h3 class="m_2" th:text="${!#strings.isEmpty(coachCourseID) ? '課程訂單' : '宅配資訊'}">宅配資訊</h3> -->
-            <h3 class="m_2">結帳資訊</h3>
-            <form class="price1" th:action="@{${!#strings.isEmpty(coachCourseID) ? '/trainers/transaction' : ''}}" method="post">
-                <!-- 訂單商品資訊 -->
-                <hr>
-                <span class="receiver">商品資訊</span>
-                <hr>
-                <table id="example" class="display" style="width: 100%">
-                    <thead >
-                      <tr style="background-color:#428bca">
-                          <th>名稱</th>
-                          <th>數量</th>
-                          <th>單價</th>
-                          <th>小計</th>
-                      </tr>
-                    </thead>
-                      
-                    <tbody>
-                        <th:block th:each="product : ${productList}">
-                            <tr>
-                                <td th:text="${product.name}"></td>
-                                <td th:text="${product.quantity}"></td>
-                                <td th:text="${product.price}"></td>
-                                <td th:text="${product.price * product.quantity}"></td>
-                            </tr>
-                        </th:block>
-                    </tbody>
-                  </table>
-                <p class="total_price">此次消費總計：100元</p>
-                <hr>
-                <!--宅配資訊 -->
-                <span class="receiver">收件人資訊</span>
-                <hr>
-
-                <div class="dl_info" th:object="${member}">
-                    <label for="receiver_name">姓名：</label>
-                    <input type="text" name="receiver" id="receiver_name"
-                           th:value="${#strings.isEmpty(member.receiver) ? (#strings.isEmpty(member.name) ? '' : member.name) : member.receiver}"><br/>
-                    <label for="receiver_addr">地址：</label>
-                    <input type="text" name="receiverAddress" id="receiver_addr"
-                           th:value="${#strings.isEmpty(member.receiverAddress) ? (#strings.isEmpty(member.address) ? '' : member.address) : member.receiverAddress}"><br/>
-                    <label for="receiver_phone">電話：</label>
-                    <input type="text" name="receiverPhone" id="receiver_phone"
-                           th:value="${#strings.isEmpty(member.receiverPhone) ? (#strings.isEmpty(member.phone) ? '' : member.phone) : member.receiverPhone}"><br/>
-                    <label for="receiver_email">信箱：</label>
-                    <input type="text" name="email" id="receiver_email"
-                           th:value="${#strings.isEmpty(member.email) ? '' : member.email}"><br/>
-                    <label for="receiver_notice" th:style="${#strings.isEmpty(coachCourseID) ? '' : 'display: none;'}">宅配備註：</label>
-                    <br>
-                    <textarea name="" id="receiver_notice" cols="auto" rows="auto"
-                              th:style="${#strings.isEmpty(coachCourseID) ? '' : 'display: none;'}"></textarea><br/>
-
-                </div>
-
-                <div class="dl_info">
-                    <!-- <span class="receiver">本次消費金額共100元</span> -->
-                    <hr>
-                    <label for="credit_card_name">持卡人姓名：</label><input type="text" value="" placeholder=""
-                        id="credit_card_name" th:value="${member.name}"><br>
-                    <label for="credit_card_number">信用卡卡號：</label><input type="text" value="" placeholder=""
-                        id="credit_card_number" th:value="${member.cardNumber}"><br>
-                    <label for="credit_card_exp">有效年月&nbsp;&nbsp;&nbsp; ：</label><input type="text" value=""
-                        placeholder="" id="credit_card_exp" th:value="${member.cardValidTime}"><br>
-                    <label for="credit_card_exp">背面末三碼：</label><input type="text" value="" placeholder=""
-                        id="credit_card_exp" th:value="${member.cardLast3No}"><br>
-                    <input type="checkbox" id="credit_card_is_mb"><label for="receiver_is_mb">&nbsp;同會員信用卡資訊</label>
-                    <hr>
-                </div>
-                <!-- <a class="popup-with-zoom-anim" href="#small-dialog"><button class="next_button"
-                        type="submit">下一步</button></a> -->
-
-
-                <!-- <button class="next_button" type="submit" onclick="window.location.href='./credit_card.html'" value="確認並前往付款">
-                    確認並前往付款
-                </button> -->
-                <!-- <input type="submit" value="確認並前往付款">
-                <input type="hidden" name="coachCourseID" th:value="${#strings.isEmpty(coachCourseID) ? 'null' : coachCourseID}"> -->
-                <a th:href="@{/orderFinish}" class="button">結帳</a>
-                <div class="price_plans_box">
-                    <div class="clear"></div>
-                </div>
-            </form>
-
+            <h3 class="m_2">結帳完成</h3>
             <!-----pop-up-grid-訂購成功頁面---->
             <!---->
-        
+            <div id="small-dialog" class="mfp">
+                <div class="pop_up">
+                    <div class="payment-online-form-left">
+
+                        <form>
+                            <!-- <h4><span class="shipping"> </span>健肌尋食 訂購成功</h4> -->
+                            <ul>
+                                <span>您的訂單已成立！健肌尋食已寄送訂單資訊至您的e-mail，感謝您的購買。</span><br>
+                                <span>如有任何問題請與健肌尋食客服聯繫</span><br>
+                            </ul>
+                            <div class="clear"> </div>
+                        </form>
+                        <div>
+                            <ul class="payment-sendbtns">
+                                <button th:onclick="|window.location.href='@{/index}'|">回首頁</button>
+                            </ul>
+                            <div class="clear"> </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
             <!-----pop-up-grid--訂購成功頁面------>
         </div>
 
