@@ -50,4 +50,10 @@ public class CoachMember implements Serializable {
     @JsonBackReference
     @ToString.Exclude
     private List<CoachCourse> coachCourses;
+    @PrePersist
+    protected void onCreate() {
+        if (regDate == null) {
+            regDate = new Date(System.currentTimeMillis());
+        }
+    }
 }

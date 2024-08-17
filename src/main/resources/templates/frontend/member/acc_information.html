@@ -178,7 +178,7 @@ h2 {
 					<li class="active"><a th:href="@{/account_information}">會員專區</a></li>
 					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
 					<li><a th:href="@{/menu}">健康餐</a></li>
-					<li><a th:href="@{/pricing}">Pricing</a></li>
+					<li><a th:href="@{/pricing}">購物商城</a></li>
 					<li><a th:href="@{/map}">美食地圖</a></li>
 					<li><a th:href="@{/qa}">客服</a></li>
 					<li><a th:href="@{/logout}" class="logout-button">登出</a></li>
@@ -202,38 +202,38 @@ h2 {
 				一般會員 (<span th:text="${name}"></span>)
 			</h2>
 			<form action="#" th:action="@{/submit}" method="POST" enctype="multipart/form-data" onsubmit="return showSuccessAlert();">
-    <input type="hidden" name="redirectPage" value="acc_information">
-    <div class="form-container">
-        <div class="form-row">
-            <div class="form-section">
-                <label for="cardNumber">信用卡號碼:</label> <br>
-                <input type="text" id="cardNumber" name="cardNumber" th:value="*{cardNumber}" placeholder="請輸入信用卡號碼">
-            </div>
-            <div class="form-section2">
-                <label for="cardValidTime">信用卡到期日 (MM/YY):</label> <br>
-                <input type="text" id="cardValidTime" name="cardValidTime" th:value="*{cardValidTime}" placeholder="MM/YY">
-                <div id="expiry-error" class="error"></div>
-            </div>
-            <div class="form-section2">
-                <label for="cardLast3No">安全驗證碼:</label> <br>
-                <input type="text" id="cardLast3No" name="cardLast3No" th:value="*{cardLast3No}" placeholder="卡片後3碼">
-            </div>
-            <div class="form-section">
-                <label for="cardName">持卡者姓名:</label> <br>
-                <input type="text" id="cardName" name="cardName" th:value="*{cardName}" placeholder="請輸入卡片上的姓名">
-            </div>
-            <div class="form-section">
-                <label for="cardPhone">持卡者電話:</label> <br>
-                <input type="text" id="cardPhone" name="cardPhone" th:value="*{cardPhone}" placeholder="請輸入帳單地址">
-            </div>
-        </div>
-    </div>
-    <div class="clear"></div>
-    <div class="button0">
-        <input type="submit" name="Submit" value="儲存">
-    </div>
-    <div class="clear"></div>
-</form>
+    		<input type="hidden" name="redirectPage" value="acc_information">
+    		<div class="form-container">
+        		<div class="form-row">
+            		<div class="form-section">
+                		<label for="cardNumber">信用卡號碼:</label> <br>
+                		<input type="text" id="cardNumber" name="cardNumber" th:value="*{cardNumber}" placeholder="請輸入信用卡號碼">
+            		</div>
+            		<div class="form-section2">
+                		<label for="cardValidTime">信用卡到期日 (MM/YY):</label> <br>
+                		<input type="text" id="cardValidTime" name="cardValidTime" th:value="*{cardValidTime}" placeholder="MM/YY">
+                		<div id="expiry-error" class="error"></div>
+            		</div>
+            		<div class="form-section2">
+                		<label for="cardLast3No">安全驗證碼:</label> <br>
+                		<input type="text" id="cardLast3No" name="cardLast3No" th:value="*{cardLast3No}" placeholder="卡片後3碼">
+            		</div>
+            		<div class="form-section">
+                		<label for="cardName">持卡者姓名:</label> <br>
+                		<input type="text" id="cardName" name="cardName" th:value="*{cardName}" placeholder="請輸入卡片上的姓名">
+            		</div>
+            		<div class="form-section">
+                		<label for="cardPhone">持卡者電話:</label> <br>
+                		<input type="text" id="cardPhone" name="cardPhone" th:value="*{cardPhone}" placeholder="請輸入帳單地址">
+            		</div>
+        		</div>
+    		</div>
+    		<div class="clear"></div>
+    		<div class="button0">
+        		<input type="submit" name="Submit" value="儲存">
+    		</div>
+    		<div class="clear"></div>
+		</form>
 		</div>
 	</div>
 	<!-- end menu -->

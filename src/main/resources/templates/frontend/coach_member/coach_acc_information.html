@@ -147,43 +147,29 @@
         color: red;
         text-align: center;
     }
+    
+    .logout-button {
+	background-color: red;
+	border-radius: 30px;
+}
+
 </style>
 </head>
 
 <body>
-    <!-- start header_bottom -->
-    <div class="header-bottom">
-        <div class="btn-login">
-            <a href="login.html">Log In</a>
-        </div>
-        <div class="container">
-            <div class="header-bottom_left">
-                <i class="phone"> </i><span>1-200-346-2986</span>
-            </div>
-            <div class="social">
-                <ul>
-                    <li class="facebook"><a href="#"><span> </span></a></li>
-                    <li class="google"><a href="#"><span> </span></a></li>
-                </ul>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <!-- start menu -->
     <div class="menu">
         <div class="container">
             <div class="h_menu4"><!-- start h_menu4 -->
                 <a class="toggleMenu" href="#">Menu</a>
                 <ul class="nav">
-                    <li><a th:href="@{/index}">Home</a></li>
-					<li><a th:href="@{/account_information}">會員專區</a></li>
-					<li><a th:href="@{/trainers}">專屬你的訓練</a>
-					<li><a href="classes.html">Classes</a></li>
+                    <li><a th:href="@{/index}">首頁</a></li>
+					<li class="active"><a th:href="@{/account_information}">會員專區</a></li>
+					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
 					<li><a th:href="@{/menu}">健康餐</a></li>
-					<li><a th:href="@{pricing}">Pricing</a></li>
+					<li><a th:href="@{/pricing}">購物商城</a></li>
 					<li><a th:href="@{/map}">美食地圖</a></li>
 					<li><a th:href="@{/qa}">客服</a></li>
-					<li><a th:href="@{/login}" class="logout-button">登出</a></li>
+					<li><a th:href="@{/logout}" class="logout-button">登出</a></li>
                 </ul>
                 <script type="text/javascript" src="js/nav.js"></script>
             </div>
@@ -193,54 +179,49 @@
     </div>
     <div class="container-data">
         <div class="sidebar">
-            <a th:href="@{coach_account_information}">修改帳戶資料</a>
-			<a th:href="@{coach_change_password}">修改密碼</a>
-			<a th:href="@{coach_historical_orders}">歷史訂單</a>
-			<a th:href="@{coach_receipt_information}">常用收件資訊</a>
-			<a th:href="@{coach_acc_information}">新增信用卡資訊</a>
-			<a th:href="@{coach_course_status}">查看課程狀態</a>
-			<a th:href="@{coach_course_products}">登入課程商品</a>
+            <a class="nav-link" th:href="@{/coach_account_information}">修改帳戶資料</a>
+			<a class="nav-link" th:href="@{/coach_change_password}">修改密碼</a>
+			<a class="nav-link" th:href="@{/coach_historical_orders}">歷史訂單</a>
+			<a class="nav-link" th:href="@{/coach_receipt_information}">常用收件資訊</a>
+			<a class="nav-link" th:href="@{/coach_acc_information}">新增信用卡資訊</a>
+			<a class="nav-link" th:href="@{/coach_course_status}">查看課程狀態</a>
+			<a class="nav-link" th:href="@{/coach_course_products}">登錄課程商品</a>
         </div>
         <div class="content-data">
             <h2>教練會員 (<span th:text="${name}"></span>)</h2>
-            <form action="/submit" method="POST">
-                <div class="form-container">
-                    <div class="form-row">
-                        <div class="form-section">
-                            <label for="card-number">信用卡號碼:</label>
-                            <br>
-                            <input type="text" id="card-number" name="card-number" placeholder="請輸入信用卡號碼">
-                        </div>
-                        <div class="form-section2">
-                            <label for="expiry-date">信用卡到期日 (MM/YY):</label>
-                            <br>
-                            <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY"
-                                oninput="validateExpiryDate(this)">
-                            <div id="expiry-error" class="error"></div>
-                        </div>
-                        <div class="form-section2">
-                            <label for="security-code">安全驗證碼:</label>
-                            <br>
-                            <input type="text" id="security-code" name="security-code" placeholder="卡片後3碼">
-                        </div>
-                        <div class="form-section">
-                            <label for="card-name">持卡者姓名:</label>
-                            <br>
-                            <input type="text" id="card-name" name="card-name" placeholder="請輸入卡片上的姓名">
-                        </div>
-                        <div class="form-section">
-                            <label for="bill-address">帳單地址:</label>
-                            <br>
-                            <input type="text" id="bill-address" name="bill-address" placeholder="請輸入帳單地址">
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-                <div class="button0">
-                    <input type="submit" name="Submit" value="儲存">
-                </div>
-                <div class="clear"></div>
-            </form>
+            <form action="#" th:action="@{/submitCoach}" method="POST" enctype="multipart/form-data" onsubmit="return showSuccessAlert();">
+    		<input type="hidden" name="redirectPage" value="coach_acc_information">
+    		<div class="form-container">
+        		<div class="form-row">
+            		<div class="form-section">
+                		<label for="cardNumber">信用卡號碼:</label> <br>
+                		<input type="text" id="cardNumber" name="cardNumber" th:value="*{cardNumber}" placeholder="請輸入信用卡號碼">
+            		</div>
+            		<div class="form-section2">
+                		<label for="cardValidTime">信用卡到期日 (MM/YY):</label> <br>
+                		<input type="text" id="cardValidTime" name="cardValidTime" th:value="*{cardValidTime}" placeholder="MM/YY">
+                		<div id="expiry-error" class="error"></div>
+            		</div>
+            		<div class="form-section2">
+                		<label for="cardLast3No">安全驗證碼:</label> <br>
+                		<input type="text" id="cardLast3No" name="cardLast3No" th:value="*{cardLast3No}" placeholder="卡片後3碼">
+            		</div>
+            		<div class="form-section">
+                		<label for="cardName">持卡者姓名:</label> <br>
+                		<input type="text" id="cardName" name="cardName" th:value="*{cardName}" placeholder="請輸入卡片上的姓名">
+            		</div>
+            		<div class="form-section">
+                		<label for="cardPhone">持卡者電話:</label> <br>
+                		<input type="text" id="cardPhone" name="cardPhone" th:value="*{cardPhone}" placeholder="請輸入帳單地址">
+            		</div>
+        		</div>
+    		</div>
+    		<div class="clear"></div>
+    		<div class="button0">
+        		<input type="submit" name="Submit" value="儲存">
+    		</div>
+    		<div class="clear"></div>
+		</form>
         </div>
     </div>
     <!-- end menu -->
@@ -291,19 +272,39 @@
 		</div>
 	</div>
     <script>
-        function validateExpiryDate(input) {
-            const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/; // MM/YY 格式
-            const errorElement = document.getElementById('expiry-error');
-            const successElement = document.getElementById('expiry-success');
+    function validateExpiryDate(input) {
+		const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/; // MM/YY 格式
+		const errorElement = document.getElementById('expiry-error');
+		const successElement = document.getElementById('expiry-success');
 
-            if (expiryPattern.test(input.value)) {
-                errorElement.textContent = '';
-                successElement.textContent = '到期日格式正確';
-            } else {
-                errorElement.textContent = '請輸入正確的格式 (MM/YY)';
-                successElement.textContent = '';
-            }
-        }
+		if (expiryPattern.test(input.value)) {
+			errorElement.textContent = '';
+			successElement.textContent = '到期日格式正確';
+		} else {
+			errorElement.textContent = '請輸入正確的格式 (MM/YY)';
+			successElement.textContent = '';
+		}
+	}
+	// 如果連結指向當前頁面，阻止預設行為
+	document.querySelectorAll('.nav-link').forEach(function(link) {
+		link.addEventListener('click', function(event) {
+			// 獲取當前頁面的 URL
+			var currentUrl = window.location.pathname;
+			// 獲取點擊的連結的 href
+			var linkUrl = event.target.getAttribute('href');
+
+			if (currentUrl === linkUrl) {
+				event.preventDefault();
+			}
+		});
+	});
+	// 如果連結指向當前頁面，阻止預設行為
+	function showSuccessAlert() {
+        // 顯示成功提示框
+        alert('儲存成功');
+        // 返回 true 以允許表單提交
+        return true;
+    }
     </script>
 </body>
 
