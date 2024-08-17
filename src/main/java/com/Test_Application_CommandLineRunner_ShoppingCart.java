@@ -8,10 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.tia102g3.member.model.Member;
 import com.tia102g3.order.model.OrderRepository;
 import com.tia102g3.order.model.OrderService;
-import com.tia102g3.order.model.OrderVO;
+import com.tia102g3.orderdetails.model.OrderDetailsRepository;
+import com.tia102g3.orderdetails.model.OrderDetailsVO;
+import com.tia102g3.product.model.ProductRepository;
 
 
 @SpringBootApplication
@@ -26,12 +27,12 @@ public class Test_Application_CommandLineRunner_ShoppingCart implements CommandL
 //	@Autowired
 //	ShoppingCartRepository shoppingCartRepository;
 	
-//	@Autowired
-//	ProductRepository productRepository;
+	@Autowired
+	ProductRepository productRepository;
 	
 //	@Autowired
 //	Product_PICRepository product_PICRepository;
-	
+//	
 //	@Autowired
 //	ShoppingCartService shoppingCartService;
 	
@@ -40,6 +41,9 @@ public class Test_Application_CommandLineRunner_ShoppingCart implements CommandL
 	
 	@Autowired
 	OrderRepository orderRepository;
+	
+	@Autowired
+	OrderDetailsRepository orderDetailsRepository;
 	
 	
 	@Autowired
@@ -52,7 +56,28 @@ public class Test_Application_CommandLineRunner_ShoppingCart implements CommandL
     @Override
     public void run(String...args) throws Exception {
     	
-
+    	//● 新增
+//    	OrderDetailsVO odv = new OrderDetailsVO();
+//    	odv.setProductID(1);
+//    	odv.setQuantity(1);
+//    	odv.setOrderID(1);		
+//    	orderDetailsRepository.save(odv); 
+    	
+    	
+		//● 查詢-getAll (多方emp2.hbm.xml必須設為lazy="false")(優!)
+//    	List<OrderDetailsVO> list = orderDetailsRepository.findAll();
+//		for (OrderDetailsVO aOrderD : list) {
+//			System.out.print(aOrderD.getOrdDtIID() + ",");
+//			System.out.print(aOrderD.getProductID() + ",");
+//			System.out.print(aOrderD.getQuantity() + ",");
+//			System.out.print(aOrderD.getOrderID() + ",");
+//			// 注意以下三行的寫法 (優!)
+//			System.out.print(aEmp.getDeptVO().getDeptno() + ",");
+//			System.out.print(aEmp.getDeptVO().getDname() + ",");
+//			System.out.print(aEmp.getDeptVO().getLoc());
+//			System.out.println();
+//		}
+//		System.out.print("成功!!");
     	
     	
     	//● 新增
@@ -66,20 +91,20 @@ public class Test_Application_CommandLineRunner_ShoppingCart implements CommandL
 //    	orderRepository.save(orderVO1); 
     	
 		//● 查詢-getAll (多方emp2.hbm.xml必須設為lazy="false")(優!)
-    	List<OrderVO> list = orderRepository.findAll();
-		for (OrderVO aOrder : list) {
-			System.out.print(aOrder.getOrderID() + ",");
-			System.out.print(aOrder.getMember().getMemberID() + ",");
-			System.out.print(aOrder.getOrderDate() + ",");
-			System.out.print(aOrder.getStatus() + ",");
-			System.out.print(aOrder.getTotalPrice() + ",");
+//    	List<OrderVO> list = orderRepository.findAll();
+//		for (OrderVO aOrder : list) {
+//			System.out.print(aOrder.getOrderID() + ",");
+//			System.out.print(aOrder.getMember().getMemberID() + ",");
+//			System.out.print(aOrder.getOrderDate() + ",");
+//			System.out.print(aOrder.getStatus() + ",");
+//			System.out.print(aOrder.getTotalPrice() + ",");
 //			// 注意以下三行的寫法 (優!)
 //			System.out.print(aEmp.getDeptVO().getDeptno() + ",");
 //			System.out.print(aEmp.getDeptVO().getDname() + ",");
 //			System.out.print(aEmp.getDeptVO().getLoc());
 //			System.out.println();
-		}
-		System.out.print("成功!!");
+//		}
+//		System.out.print("成功!!");
     	
 
     	//● 新增
@@ -287,7 +312,7 @@ public class Test_Application_CommandLineRunner_ShoppingCart implements CommandL
 //    			System.out.println("\n---------------------");
     	    	
     			//● 刪除   //●●● --> EmployeeRepository.java 內自訂的刪除方法
-//    			productRepository.deleteById(22);
+//    			productRepository.deleteById(1);
 //    	    	System.out.println("成功!!!!");
 //==================================以上為商品================================================//     	
     	

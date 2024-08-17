@@ -1,12 +1,25 @@
 package com.tia102g3.order.model;
 
-import com.tia102g3.member.model.Member;
-import lombok.*;
-
-import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.tia102g3.member.model.Member;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 
 @Entity
@@ -22,6 +35,8 @@ public class OrderVO implements Serializable{
 	private Integer orderID;
 	@ManyToOne
 	@JoinColumn(name = "memberID", referencedColumnName = "memberID")
+//    @ToString.Exclude // 避免無限循環
+//    @EqualsAndHashCode.Exclude // 避免無限循環
 	private Member member;
 	private Timestamp orderDate ;
 	private String status;

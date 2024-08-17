@@ -158,7 +158,7 @@
             <th class="courseList_th">訂單狀態</th>
             <th class="courseList_th">總金額</th>
             <th class="courseList_th">查閱</th>
-            <th class="courseList_th">刪除</th>
+            <th class="courseList_th">修改狀態</th>
         </tr>
         <tr th:if="${#lists.isEmpty(session.orderList)}">
             <td colspan="14">對不起，查無符合的訂單!</td>
@@ -172,9 +172,8 @@
             <td class="courseList_td" th:text="*{orderDate}"></td>
             <td class="courseList_td" th:text="*{status}"></td>
             <td class="courseList_td" th:text="*{totalPrice}"></td>
-            <td class="courseList_td"><a th:href="@{|/order/search?orderID=*{orderID}|}"><img th:src="@{/images/search.png}" class="courseList_img" alt="Example Image"/></a>
-            <td class="courseList_td"><img th:src="@{/images/delet.png}" class="courseList_img"
-                                           th:onclick="|delOrderID(*{orderID}, ${session.pageNo})|"></td>
+            <td class="courseList_td"><a th:href="@{|/orderdetails/orderDetailsList?orderID=*{orderID}|}"><img th:src="@{/images/search.png}" class="courseList_img" alt="Example Image"/></a>
+            <td class="courseList_td"><a th:href="@{|/order/edit?orderID=*{orderID}|}"><img th:src="@{/images/edit.png}" class="courseList_img"></td>
         </tr>
     </table>
     <div style="border: 0px solid red ; width: 60%; margin-left: 20% ; margin-top: 4px" class="center">

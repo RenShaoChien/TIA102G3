@@ -2,7 +2,7 @@
 <html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>新增訂單</title>
+    <title>新增訂單明細</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -105,10 +105,13 @@
 <body>
 
 <div class="form-container">
-    <h2>新增訂單</h2>
+    <h2>新增訂單明細</h2>
 
-
-    <form th:action="@{/order/addOrder.do}" method="post" th:object="${order}" enctype="multipart/form-data">
+<!-- 	<form> -->
+<!-- 	<input type="hidden" th:field="*{orderID}" th:text="*{orderID}"> -->
+<!-- 	</form> -->
+	
+    <form th:action="@{/orderdetails/addOrderDetails.do}" method="post" th:object="${orderdetails}" enctype="multipart/form-data">
         <!-- 顯示錯誤信息 -->
         <div th:if="${validationErrors != null}">
             <ul>
@@ -121,38 +124,38 @@
         <!--            <span th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}" class="error" id="courseName.errors"></span>-->
         <!--        </div>-->
 
-<!--         <div> -->
-<!--             <label>訂單編號:</label> -->
-<!--             <input th:field="*{orderID}" type="text"/><br/> -->
-<!--              <span class="error" id="courseName.errors" th:errors="*{orderID}" --> 
-<!--                    th:if="${#fields.hasErrors('orderID')}"></span> --> 
-<!--         </div> -->
+        <div>
+            <label>商品編號:</label>
+            <input th:field="*{productID}" type="text"/><br/>
+            <span class="error" id="courseName.errors" th:errors="*{productID}"
+                  th:if="${#fields.hasErrors('productID')}"></span>
+        </div>
         <br>
         <div class="form-field">
-            <label>會員編號：</label>
-            <input th:field="*{member.memberID}" type="text"/><br/>
-            <span class="error" id="courseName.errors" th:errors="*{member.memberID}"
-                  th:if="${#fields.hasErrors('member')}"></span>
+            <label>商品數量：</label>
+            <input th:field="*{quantity}" type="text"/><br/>
+            <span class="error" id="courseName.errors" th:errors="*{quantity}"
+                  th:if="${#fields.hasErrors('quantity')}"></span>
         </div>
 
         <div class="form-field">
-            <label>訂單日期：</label>
-            <input th:field="*{orderDate}" type="text"/><br/>
-            <span class="error" id="courseName.errors" th:errors="*{orderDate}"
-                  th:if="${#fields.hasErrors('orderDate')}"></span>
+            <label>訂單編號：</label>
+       		<input th:field="*{orderID}" type="text"/><br/>
+            <span class="error" id="courseName.errors" th:errors="*{orderID}"
+                  th:if="${#fields.hasErrors('orderID')}"></span>
         </div>
-        <div class="form-field">
-            <label>訂單總金額：</label>
-            <input th:field="*{totalPrice}" type="text"/><br/>
-            <span class="error" id="courseName.errors" th:errors="*{totalPrice}"
-                  th:if="${#fields.hasErrors('totalPrice')}"></span>
-        </div>
-        <div class="form-field">
-            <label>訂單狀態：</label>
-            <input th:field="*{status}" type="text"/><br/>
-            <span class="error" id="courseName.errors" th:errors="*{status}"
-                  th:if="${#fields.hasErrors('status')}"></span>
-        </div>
+<!--         <div class="form-field"> -->
+<!--             <label>商品簡介：</label> -->
+<!--             <textarea th:field="*{intro}" cols="auto" rows="auto"></textarea><br/> -->
+<!--             <span class="error" th:if="${#fields.hasErrors('intro')}" th:errors="*{intro}" -->
+<!--                   id="illustrate.errors"></span> -->
+<!--         </div> -->
+<!--         <div class="form-field"> -->
+<!--             <label>上傳圖片(一張)：</label> -->
+<!--             <input type="file" name="productImage" id="productImage" accept="image/*"><br/> -->
+<!--             <div id="imagePreview"></div> -->
+<!--             <span id="imageError" style="color:red;"></span> -->
+<!--         </div> -->
         <input type="submit" value="新增">
     </form>
 </div>
