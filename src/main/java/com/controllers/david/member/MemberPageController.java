@@ -395,5 +395,4 @@ public class MemberPageController {
 	    }
 	}
 
-
 }
