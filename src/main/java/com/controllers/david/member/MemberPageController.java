@@ -184,6 +184,7 @@ public class MemberPageController {
 	    }
 	    
 	    Object user = session.getAttribute("user");
+	    Object coach = session.getAttribute("coach");
 	    
 	    if (user instanceof Member) { // 如果是一般會員
 	        Member member = (Member) user;
@@ -197,8 +198,8 @@ public class MemberPageController {
 
 	        return "frontend/member/account_information"; // 返回一般會員的視圖名稱
 
-	    } else if (user instanceof CoachMember) { // 如果是教練會員
-	        CoachMember coachMember = (CoachMember) user;
+	    } else if (coach instanceof CoachMember) { // 如果是教練會員
+	        CoachMember coachMember = (CoachMember) coach;
 	        Integer coachMemberID = coachMember.getCMemberID();
 	        CoachMember coachMemberDetails = coachMemberSvc.findById(coachMemberID);
 

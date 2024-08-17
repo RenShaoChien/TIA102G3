@@ -124,7 +124,7 @@ public class CoachMemberPageController {
 	    }
 	    
 	    // 獲取 CoachMember 物件
-	    CoachMember coachMember = (CoachMember) session.getAttribute("user");
+	    CoachMember coachMember = (CoachMember) session.getAttribute("coach");
 	    
 	    if (coachMember != null) {
 	        Integer cMemberID = coachMember.getCMemberID();
@@ -142,7 +142,7 @@ public class CoachMemberPageController {
 	@GetMapping("coach_account_skill")
 	public String coach_account_skill(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-        CoachMember coachMember = (CoachMember) session.getAttribute("user");
+        CoachMember coachMember = (CoachMember) session.getAttribute("coach");
 
         if (coachMember != null) {
             Integer cMemberID = coachMember.getCMemberID();
@@ -158,7 +158,7 @@ public class CoachMemberPageController {
 	@GetMapping("/coach_change_password")
 	public String coachChangePassword(HttpServletRequest request, Model model) {
 	    HttpSession session = request.getSession();
-	    CoachMember coachMember = (CoachMember) session.getAttribute("user");
+	    CoachMember coachMember = (CoachMember) session.getAttribute("coach");
 
 	    if (coachMember != null) {
 	        Integer cMemberID = coachMember.getCMemberID();
@@ -181,7 +181,7 @@ public class CoachMemberPageController {
 	@GetMapping("coach_receipt_information")
 	public String coach_receipt_information(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-        CoachMember coachMember = (CoachMember) session.getAttribute("user");
+        CoachMember coachMember = (CoachMember) session.getAttribute("coach");
 
         if (coachMember != null) {
             Integer cMemberID = coachMember.getCMemberID();
@@ -199,7 +199,7 @@ public class CoachMemberPageController {
 	@GetMapping("coach_acc_information")
 	public String coach_acc_information(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-        CoachMember coachMember = (CoachMember) session.getAttribute("user");
+        CoachMember coachMember = (CoachMember) session.getAttribute("coach");
 
         if (coachMember != null) {
             Integer cMemberID = coachMember.getCMemberID();
@@ -231,7 +231,7 @@ public class CoachMemberPageController {
     @ResponseBody
     public CoachMember getCoachMemberDetails(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        CoachMember coachMember = (CoachMember) session.getAttribute("user");
+        CoachMember coachMember = (CoachMember) session.getAttribute("coach");
         
 
         if (coachMember != null) {
@@ -266,7 +266,7 @@ public class CoachMemberPageController {
 	        HttpServletRequest request) {
 
 	    HttpSession session = request.getSession(); // 取得 HTTP Session
-	    CoachMember coachMember = (CoachMember) session.getAttribute("user"); // 從 Session 中取得當前教練
+	    CoachMember coachMember = (CoachMember) session.getAttribute("coach"); // 從 Session 中取得當前教練
 
 	    if (coachMember != null) { // 如果教練存在
 	        Integer cMemberID = coachMember.getCMemberID(); // 取得教練 ID
@@ -323,7 +323,7 @@ public class CoachMemberPageController {
 	            }
 
 	            coachMemberSvc.updateCoachMember(coachMemberDetails); // 更新教練資料到資料庫
-	            session.setAttribute("user", coachMemberDetails); // 更新 Session 中的教練資料
+	            session.setAttribute("coach", coachMemberDetails); // 更新 Session 中的教練資料
 	        }
 	    }
 
