@@ -44,8 +44,10 @@ public class CoachMember implements Serializable {
 
     @OneToMany(mappedBy = "cMember" )
     @JsonBackReference
+    @ToString.Exclude
     private List<CoachSpecialty> coachSpecialties;
     @OneToMany(mappedBy = "cMember" )
     @JsonBackReference
+    @ToString.Exclude
     private List<CoachCourse> coachCourses;
 }
