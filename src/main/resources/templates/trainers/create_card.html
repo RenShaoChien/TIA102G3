@@ -46,6 +46,7 @@
 
         .form-group {
             margin-bottom: 15px;
+            width: 100%;
         }
 
         .form-group label {
@@ -61,20 +62,17 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 14px;
+            box-sizing: border-box;
         }
 
         .form-row {
             display: flex;
             justify-content: space-between;
+            gap: 10px; /* 添加间距以避免重叠 */
         }
 
         .form-row .form-group {
             flex: 1;
-            margin-right: 10px;
-        }
-
-        .form-row .form-group:last-child {
-            margin-right: 0;
         }
 
         .order-summary {
@@ -119,7 +117,6 @@
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
-            margin-left: 4%;
         }
 
         .btn-cancel:hover {
@@ -129,23 +126,58 @@
         .button-group {
             display: flex;
             justify-content: space-between;
+            gap: 10px; /* 添加间距以避免重叠 */
+        }
+
+        #lightbox {
+            /*   border: 1px solid red; */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: hsla(0, 0%, 0%, .5);
+
+
+        }
+        .-on{
+            display: none;
+        }
+        #lightbox > article {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ddd;
+            padding: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
 <body>
-<div class="checkout-container" th:object="${courseOrder}">
+<div class="checkout-container">
     <header class="checkout-header">
         <h1>健肌尋食</h1>
         <p>信用卡結帳</p>
+        <div id="lightbox" class="-on">
+            <article>
+                <h1 id="messageContent" th:if="${errorMessage}" th:text="${errorMessage}" style="color: black"></h1>
+                <button type="button" class="btn_modal_close">關閉</button>
+            </article>
+        </div>
     </header>
+
     <div class="order-summary">
         <h2>訂單摘要</h2>
-        <p th:text="| ★ *{coachCourse.courseName} ★ 套餐 ： NT$ *{coachCourse.coursePrice} 元|">健身課程套餐: NT$ 1,200</p>
+        <p th:text="| ★ ${courseOrder.coachCourse.courseName} ★ 套餐 ： NT$ ${courseOrder.coachCourse.coursePrice} 元|">健身課程套餐: NT$ 1,200</p>
         <hr>
-        <p><strong th:text="| 總計 ： NT$ *{coachCourse.coursePrice} 元 |">總計: NT$ 2,000</strong></p>
+        <p><strong th:text="| 總計 ： NT$ ${courseOrder.coachCourse.coursePrice} 元 |">總計: NT$ 2,000</strong></p>
     </div>
     <div class="checkout-form">
-        <form id="payment-form" method="post" th:action="@{/trainers/paying.do}">
+        <form id="payment-form" method="post" th:action="@{/trainers/paying.do}" th:object="${courseOrder}">
             <div class="form-group">
                 <label for="card-name">持卡人姓名</label>
                 <input type="text" id="card-name" name="card-name" placeholder="輸入持卡人姓名" required th:field="*{member.cardName}">
@@ -177,11 +209,38 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#payment-form').on('submit', function(event) {
-            event.preventDefault();
-            alert('付款成功！謝謝您的購買。');
-            // 在這裡可以加入處理付款的AJAX請求或其他邏輯
-        });
+        var messageContent = $("#messageContent").text().trim();
+        console.log("檢查燈箱內容:", messageContent);
+
+        if (messageContent.length > 0) {
+            console.log("燈箱內有消息");
+
+            // 移除 -on class 並顯示燈箱
+            $("#lightbox").removeClass("-on").fadeIn(1000);
+
+            // 點擊關閉按鈕關閉燈箱
+            $("button.btn_modal_close").on("click", function() {
+                console.log("關閉按鈕被點擊");
+                $("#lightbox").fadeOut(1000, function() {
+                    $("#lightbox").addClass("-on");
+                });
+            });
+
+            // 防止點擊燈箱內部時關閉燈箱
+            $("#lightbox > article").on("click", function(e) {
+                e.stopPropagation();
+            });
+
+            // 點擊燈箱背景關閉燈箱
+            $("#lightbox").on("click", function() {
+                console.log("背景被點擊");
+                $(this).fadeOut(1000, function() {
+                    $(this).addClass("-on");
+                });
+            });
+        } else {
+            console.log("燈箱內無消息");
+        }
 
         $('#cancel-button').on('click', function() {
             if (confirm('確定要取消付款嗎？')) {

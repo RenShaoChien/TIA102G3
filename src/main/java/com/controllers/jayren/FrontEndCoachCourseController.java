@@ -11,10 +11,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
@@ -75,10 +78,45 @@ public class FrontEndCoachCourseController {
 
     @PostMapping("/paying")
     public String coachCoursePaying(@Param("courseOrder") CourseOrder courseOrder, ModelMap model) {
+        memberService.updateMemberByCourseOrder(courseOrder.getMember());
         courseOrder.setMember(memberService.findById(courseOrder.getMember().getMemberID()));
         ccService.findOneAllAttr(courseOrder.getCoachCourse().getId()).ifPresent(coachCourse -> courseOrder.setCoachCourse(coachCourse));
         model.putAll(Map.of("courseOrder", courseOrder));
         return "trainers/create_card";
+    }
+
+    @PostMapping("/paying.do")
+    @Transactional
+    public String processPayment(@ModelAttribute("courseOrder") CourseOrder courseOrder, ModelMap model){
+        boolean paymentSuccess = simulatePaymentProcessing(courseOrder);
+        if(paymentSuccess){
+            memberService.saveMember(courseOrder.getMember());
+            courseOrder.setStatus(1);
+            courseOrder.setOrderDate(Date.valueOf(LocalDate.now()));
+            courseOrder.setPrice(courseOrder.getCoachCourse().getCoursePrice());
+            coService.addCourseOrder(courseOrder);
+            model.putAll(Map.of("message", "完成付款，購買成功 ！", "currCourse", courseOrder.getCoachCourse()));
+            return "trainers/coachCourse";
+        }
+        model.putAll(Map.of("errorMessage", "支付失敗，請重試或聯絡客服。", "courseOrder", courseOrder));
+        return "trainers/create_card";
+    }
+
+    private boolean simulatePaymentProcessing(CourseOrder courseOrder) {
+        // 模擬支付處理過程，假設成功返回 true
+        // 在真實應用中，這裡可以是調用支付網關的 API 或其他支付邏輯
+        System.out.println("Processing payment for CourseOrder: " + courseOrder.getCourseOrderID());
+
+        // 模擬處理延遲
+        try {
+            Thread.sleep(1000); // 模擬一秒的支付處理時間
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        // 模擬隨機支付成功與否
+        return Math.random() > 0.1;
     }
 
 }

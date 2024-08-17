@@ -22,6 +22,7 @@ public class CourseOrder {
     @ManyToOne
     @JoinColumn(name = "memberID", referencedColumnName = "memberID")
     @NonNull
+    @ToString.Exclude
     private Member member;
     
     @ManyToOne
