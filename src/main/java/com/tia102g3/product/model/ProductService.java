@@ -63,6 +63,11 @@ public class ProductService {
         return products;
     }
 
+	public ProductVO findById(Integer productID) {
+		// TODO Auto-generated method stub
+		return repository.getById(productID);
+	}
+
 
 //	public byte[] getProductPic(Integer productID) {
 //		// 使用Repository获取ProductVO

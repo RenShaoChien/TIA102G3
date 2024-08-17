@@ -171,9 +171,9 @@
             <td class="courseList_td" th:text="*{productID}"></td>
             <td class="courseList_td" th:text="*{quantity}"></td>
             <td class="courseList_td" th:text="*{orderID}"></td>
-            <td class="courseList_td"><a th:href="@{|/orderdetails/edit?ordDtIID=*{ordDtIID}|}"><img th:src="@{/images/edit.png}" class="courseList_img" alt="Example Image"/></a>
+            <td class="courseList_td"><a th:href="@{|/orderdetails/edit?ordDtIID=*{ordDtIID}&orderID=*{orderID}|}"><img th:src="@{/images/edit.png}" class="courseList_img" alt="Example Image"/></a></td>
             <td class="courseList_td"><img th:src="@{/images/delet.png}" class="courseList_img"
-                                           th:onclick="|delOrderDetailsID(*{ordDtIID}, ${session.pageNo})|"></td>
+                                           th:onclick="|delOrderDetailsID(*{ordDtIID}, *{orderID})|"></td>
         </tr>
     </table>
     <div style="border: 0px solid red ; width: 60%; margin-left: 20% ; margin-top: 4px" class="center">
@@ -189,11 +189,12 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script !src="">
-    function delOrderDetailsID(ordDtIID) {
-        if (confirm("確定要刪除嗎?")) {
-            document.location.href = "/orderdetails/delOrder.do?orderID=" + orderID;
-        }
+function delOrderDetailsID(ordDtIID, orderID) {
+    if (confirm("確定要刪除嗎?")) {
+        document.location.href = "/orderdetails/delOrderDetails.do?ordDtIID=" + ordDtIID + "&orderID=" + orderID;
     }
+}
+
 
     function page(pageNo) {
         window.location.href = "/orderdetails/orderDetailsList?pageNo=" + pageNo;
