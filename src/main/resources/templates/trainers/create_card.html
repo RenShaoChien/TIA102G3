@@ -176,7 +176,7 @@
         <p><strong th:text="| 總計 ： NT$ ${courseOrder.coachCourse.coursePrice} 元 |">總計: NT$ 2,000</strong></p>
     </div>
     <div class="checkout-form">
-        <form id="payment-form" method="post" th:action="@{/trainers/paying.do}" th:object="${courseOrder}">
+        <form id="payment-form" method="post" th:action="@{/trainers/paying.do}" th:object="${courseOrder}" onsubmit="disableSubmitButton();">
             <div class="form-group">
                 <label for="card-name">持卡人姓名</label>
                 <input type="text" id="card-name" name="card-name" placeholder="輸入持卡人姓名" required th:field="*{member.cardName}">
@@ -207,6 +207,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
+    function disableSubmitButton() {
+        document.getElementById('submitBtn').disabled = true;
+    }
     $(document).ready(function() {
         var messageContent = $("#messageContent").text().trim();
         console.log("檢查燈箱內容:", messageContent);
