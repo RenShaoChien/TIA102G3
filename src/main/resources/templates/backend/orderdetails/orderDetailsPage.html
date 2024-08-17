@@ -146,25 +146,25 @@
                 <input type="text" name="keyword" th:value="${session.keyword}" placeholder="請輸入查詢關鍵字..." class="search-input">
                 <button type="submit" class="btn">查詢</button>
             </form>
-            <a th:href="@{/order/addOrder}"
+            <a th:href="@{/orderdetails/addOrderDetails}"
                style="text-decoration: none;float: right;margin-right: 30px;">添加訂單明細</a>
         </div>
     </div>
-    <span>訂單編號： </span><span th:text="*{orderID}"></span>
 
     <table class="courseList_table">
         <tr class="courseList_tr">
             <th class="courseList_th">明細編號</th>
             <th class="courseList_th">商品編號</th>
             <th class="courseList_th">商品數量</th>
+            <th class="courseList_th">訂單編號</th>
             <th class="courseList_th">編輯</th>
             <th class="courseList_th">刪除</th>
         </tr>
-        <tr th:if="${#lists.isEmpty(session.orderDetailsList)}">
+        <tr th:if="${#lists.isEmpty(orderDetailsList)}">
             <td colspan="14">對不起，查無符合的訂單明細!</td>
         </tr>
-        <tr class="courseList_tr" th:unless="${#lists.isEmpty(session.orderDetailsList)}"
-            th:each="orderDetailsVO : ${session.orderDetailsList}" th:object="${orderDetailsVO}">
+        <tr class="courseList_tr" th:unless="${#lists.isEmpty(orderDetailsList)}"
+            th:each="orderDetailsVO : ${orderDetailsList}" th:object="${orderDetailsVO}">
             <td class="courseList_td" th:text="*{ordDtIID}">
 <!--             <a class="courseList_a" th:text="*{productID}" th:href="@{|/product/edit?productID=*{productID}|}"></a> -->
             </td>
@@ -191,7 +191,7 @@
 <script !src="">
     function delOrderDetailsID(ordDtIID) {
         if (confirm("確定要刪除嗎?")) {
-            document.location.href = "/order/delOrder.do?orderID=" + orderID;
+            document.location.href = "/orderdetails/delOrder.do?orderID=" + orderID;
         }
     }
 
