@@ -36,6 +36,7 @@
     }
 
     .container-data {
+    	position: relative;
         height: auto;
         width: auto;
         margin: auto;
@@ -126,17 +127,25 @@
         /* background-color: #4b6e4f; */
     }
 
-    .form-section2 select {
-        border-radius: 30px;
-        margin-top: 10px;
-        margin-right: 10px;
-        width: 130px;
-        border: 2px solid black;
-    }
+   .form-section2 input {
+		width: 350px;
+	}
 
-    .form-section3 input {
-        width: 250px;
-    }
+	.form-section3 input {
+		width: 280px;
+	}
+
+	.readonly-input {
+		background-color: #e9ecef; /* 淺灰色背景 */
+		color: #6c757d; /* 灰色文字 */
+		cursor: not-allowed; /* 禁用指針效果 */
+	}
+	
+	.button0{
+		position: absolute;
+		bottom: 50px;
+    	right: 50px; 
+	}
 
     .button0 input {
         margin-right: 100px;
@@ -152,47 +161,55 @@
         border-radius: 5px;
         transition: background 0.3s;
     }
+    
+    .fill-button {
+    	background-color: #4CAF50; /* 綠色背景 */
+    	color: white; /* 文字顏色為白色 */
+    	border: none; /* 無邊框 */
+    	border-radius: 5px; /* 圓角邊框 */
+    	padding: 8px 16px; /* 內邊距 */
+    	font-size: 14px; /* 文字大小 */
+    	cursor: pointer; /* 滑鼠游標變為指標 */
+    	transition: background-color 0.3s, transform 0.2s; /* 背景色和變形的過渡效果 */
+	}
+
+	.fill-button:hover {
+    	background-color: #45a049; /* 當滑鼠懸停時變為較深的綠色 */
+    	transform: scale(1.05); /* 當滑鼠懸停時略微放大 */
+	}
+
+	.fill-button:active {
+    	background-color: #3e8e41; /* 當按下時變為更深的綠色 */
+    	transform: scale(0.98); /* 當按下時略微縮小 */
+	}
+    
 
     .clear {
         clear: both;
     }
+    
+    .logout-button {
+	background-color: red;
+	border-radius: 30px;
+}
+
 </style>
 </head>
 
 <body>
-    <!-- start header_bottom -->
-    <div class="header-bottom">
-        <div class="btn-login">
-            <a href="login.html">Log In</a>
-        </div>
-        <div class="container">
-            <div class="header-bottom_left">
-                <i class="phone"> </i><span>1-200-346-2986</span>
-            </div>
-            <div class="social">
-                <ul>
-                    <li class="facebook"><a href="#"><span> </span></a></li>
-                    <li class="google"><a href="#"><span> </span></a></li>
-                </ul>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <!-- start menu -->
     <div class="menu">
         <div class="container">
             <div class="h_menu4"><!-- start h_menu4 -->
                 <a class="toggleMenu" href="#">Menu</a>
                 <ul class="nav">
-                    <li><a th:href="@{/index}">Home</a></li>
-					<li><a th:href="@{/account_information}">會員專區</a></li>
-					<li><a th:href="@{/trainers}">專屬你的訓練</a>
-					<li><a href="classes.html">Classes</a></li>
+                    <li><a th:href="@{/index}">首頁</a></li>
+					<li class="active"><a th:href="@{/account_information}">會員專區</a></li>
+					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
 					<li><a th:href="@{/menu}">健康餐</a></li>
-					<li><a th:href="@{pricing}">Pricing</a></li>
+					<li><a th:href="@{/pricing}">購物商城</a></li>
 					<li><a th:href="@{/map}">美食地圖</a></li>
 					<li><a th:href="@{/qa}">客服</a></li>
-					<li><a th:href="@{/login}" class="logout-button">登出</a></li>
+					<li><a th:href="@{/logout}" class="logout-button">登出</a></li>
                 </ul>
                 <script type="text/javascript" src="js/nav.js"></script>
             </div>
@@ -202,90 +219,64 @@
     </div>
     <div class="container-data">
         <div class="sidebar">
-            <a th:href="@{coach_account_information}">修改帳戶資料</a>
-			<a th:href="@{coach_change_password}">修改密碼</a>
-			<a th:href="@{coach_historical_orders}">歷史訂單</a>
-			<a th:href="@{coach_receipt_information}">常用收件資訊</a>
-			<a th:href="@{coach_acc_information}">新增信用卡資訊</a>
-			<a th:href="@{coach_course_status}">查看課程狀態</a>
-			<a th:href="@{coach_course_products}">登入課程商品</a>
+            <a class="nav-link" th:href="@{/coach_account_information}">修改帳戶資料</a>
+			<a class="nav-link" th:href="@{/coach_change_password}">修改密碼</a>
+			<a class="nav-link" th:href="@{/coach_historical_orders}">歷史訂單</a>
+			<a class="nav-link" th:href="@{/coach_receipt_information}">常用收件資訊</a>
+			<a class="nav-link" th:href="@{/coach_acc_information}">新增信用卡資訊</a>
+			<a class="nav-link" th:href="@{/coach_course_status}">查看課程狀態</a>
+			<a class="nav-link" th:href="@{/coach_course_products}">登錄課程商品</a>
         </div>
         <div class="content-data">
             <h2>教練會員 (<span th:text="${name}"></span>)</h2>
-            <form action="/submit" method="POST">
-                <div class="form-container">
-                    <div class="form-row">
-                        <div class="form-section">
-                            <label for="username">收件人姓名:</label>
-                            <br>
-                            <input type="text" id="custom-input" name="username" placeholder="請輸入收件者姓名">
-                        </div>
-                        <div class="form-section">
-                            <label for="name">收件人電話:</label>
-                            <br>
-                            <input type="text" id="name" name="name" placeholder="請輸入收件者電話">
-                        </div>
-                        <div class="form-section">
-                            <label for="birthday">預設信用卡(不可修改):</label>
-                            <br>
-                            <input type="text" id="birthday" name="birthday" placeholder="YYYY-MM-DD" readonly>
-                        </div>
-                    </div>
-                    <div class="form-row2">
-                        <div class="form-section">
-                            <label for="nation">收件國家:</label>
-                            <br>
-                            <input type="text" id="nation" name="nation" value="台灣" readonly>
-                        </div>
-                        <div class="form-section2">
-                            <div class="city">
-                                <label for="county">縣市:</label>
-                                <select id="county" name="county" onchange="updateDistricts()">
-                                    <option value="">請選擇縣市</option>
-                                    <option value="台北市">台北市</option>
-                                    <option value="新北市">新北市</option>
-                                    <option value="桃園市">桃園市</option>
-                                    <option value="台中市">台中市</option>
-                                    <option value="台南市">台南市</option>
-                                    <option value="高雄市">高雄市</option>
-                                    <option value="基隆市">基隆市</option>
-                                    <option value="新竹市">新竹市</option>
-                                    <option value="嘉義市">嘉義市</option>
-                                    <option value="新竹縣">新竹縣</option>
-                                    <option value="苗栗縣">苗栗縣</option>
-                                    <option value="彰化縣">彰化縣</option>
-                                    <option value="南投縣">南投縣</option>
-                                    <option value="雲林縣">雲林縣</option>
-                                    <option value="嘉義縣">嘉義縣</option>
-                                    <option value="屏東縣">屏東縣</option>
-                                    <option value="宜蘭縣">宜蘭縣</option>
-                                    <option value="花蓮縣">花蓮縣</option>
-                                    <option value="台東縣">台東縣</option>
-                                    <option value="澎湖縣">澎湖縣</option>
-                                    <option value="金門縣">金門縣</option>
-                                    <option value="連江縣">連江縣</option>
-                                </select>
-                            </div>
-                            <div class="area">
-                                <label for="district">地區:</label>
-                                <select id="district" name="district">
-                                    <option value="">請先選擇縣市</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-section3">
-                            <label for="address">地址:</label>
-                            <br>
-                            <input type="text" id="address" name="address" placeholder="請輸入地址與樓層戶號">
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-                <div class="button0">
-                    <input type="submit" name="Submit" value="儲存">
-                </div>
-                <div class="clear"></div>
-            </form>
+            <form action="#" th:action="@{/submitCoach}" method="POST"
+				enctype="multipart/form-data" onsubmit="return showSuccessAlert();">
+				<input type="hidden" name="redirectPage" value="coach_receipt_information">
+				<div class="form-container">
+					<div class="form-row">
+						<div class="form-section">
+							<label for="receiver">收件人姓名:</label>
+							<div class="input-container">
+								<input type="text" id="receiver" name="receiver"
+									th:value="${coachMember.receiver}" placeholder="請輸入收件者姓名">
+								<button type="button" class="fill-button"
+									onclick="fillForm('receiver')">同姓名</button>
+							</div>
+						</div>
+						<div class="form-section">
+							<label for="receiverPhone">收件人電話:</label>
+							<div class="input-container">
+								<input type="text" id="receiverPhone" name="receiverPhone"
+									th:value="${coachMember.receiverPhone}" placeholder="請輸入收件者電話">
+								<button type="button" class="fill-button"
+									onclick="fillForm('receiverPhone')">同電話</button>
+							</div>
+						</div>
+					</div>
+					<div class="form-row2">
+						<div class="form-section2">
+							<label for="receiverAddress">收件地址:</label>
+							<div class="input-container">
+								<input type="text" id="receiverAddress" name="receiverAddress"
+									th:value="${coachMember.receiverAddress}" placeholder="請輸入地址與樓層戶號">
+								<button type="button" class="fill-button"
+									onclick="fillForm('receiverAddress')">同地址</button>
+							</div>
+						</div>
+						<div class="form-section3">
+							<label for="cardNumber">預設信用卡號:</label> <br> <input
+								type="text" id="cardNumber" name="cardNumber"
+								th:value="*{cardNumber}" placeholder="請輸入信用卡號碼" readonly
+								class="readonly-input">
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<div class="button0">
+					<input type="submit" name="Submit" value="儲存">
+				</div>
+				<div class="clear"></div>
+			</form>
         </div>
     </div>
     <!-- end menu -->
@@ -336,48 +327,30 @@
 		</div>
 	</div>
     <script>
-        const districtData = {
-            "台北市": ["中正區", "大同區", "中山區", "松山區", "大安區", "萬華區", "信義區", "士林區", "北投區", "內湖區", "南港區", "文山區"],
-            "新北市": ["板橋區", "新莊區", "中和區", "永和區", "土城區", "樹林區", "三峽區", "鶯歌區", "三重區", "蘆洲區", "五股區", "泰山區", "林口區", "八里區", "淡水區", "三芝區", "石門區", "金山區", "萬里區", "汐止區", "瑞芳區", "貢寮區", "平溪區", "雙溪區", "新店區", "深坑區", "石碇區", "坪林區", "烏來區"],
-            "桃園市": ["桃園區", "中壢區", "平鎮區", "八德區", "楊梅區", "蘆竹區", "大溪區", "龍潭區", "龜山區", "大園區", "觀音區", "新屋區", "復興區"],
-            "台中市": ["中區", "東區", "南區", "西區", "北區", "北屯區", "西屯區", "南屯區", "太平區", "大里區", "霧峰區", "烏日區", "豐原區", "后里區", "石岡區", "東勢區", "和平區", "新社區", "潭子區", "大雅區", "神岡區", "大肚區", "沙鹿區", "龍井區", "梧棲區", "清水區", "大甲區", "外埔區", "大安區"],
-            "台南市": ["中西區", "東區", "南區", "北區", "安平區", "安南區", "永康區", "歸仁區", "新化區", "左鎮區", "玉井區", "楠西區", "南化區", "仁德區", "關廟區", "龍崎區", "官田區", "麻豆區", "佳里區", "西港區", "七股區", "將軍區", "學甲區", "北門區", "新營區", "後壁區", "白河區", "東山區", "六甲區", "下營區", "柳營區", "鹽水區", "善化區", "大內區", "山上區", "新市區", "安定區"],
-            "高雄市": ["新興區", "前金區", "苓雅區", "鹽埕區", "鼓山區", "旗津區", "前鎮區", "三民區", "楠梓區", "小港區", "左營區", "仁武區", "大社區", "岡山區", "路竹區", "阿蓮區", "田寮區", "燕巢區", "橋頭區", "梓官區", "彌陀區", "永安區", "湖內區", "鳳山區", "大寮區", "林園區", "鳥松區", "大樹區", "旗山區", "美濃區", "六龜區", "內門區", "杉林區", "甲仙區", "桃源區", "那瑪夏區", "茂林區", "茄萣區"],
-            "基隆市": ["中正區", "七堵區", "暖暖區", "仁愛區", "中山區", "安樂區", "信義區"],
-            "新竹市": ["東區", "北區", "香山區"],
-            "嘉義市": ["東區", "西區"],
-            "新竹縣": ["竹北市", "竹東鎮", "新埔鎮", "關西鎮", "湖口鄉", "新豐鄉", "芎林鄉", "橫山鄉", "北埔鄉", "寶山鄉", "峨眉鄉", "尖石鄉", "五峰鄉"],
-            "苗栗縣": ["苗栗市", "竹南鎮", "頭份市", "後龍鎮", "通霄鎮", "苑裡鎮", "卓蘭鎮", "造橋鄉", "西湖鄉", "頭屋鄉", "公館鄉", "銅鑼鄉", "三義鄉", "大湖鄉", "獅潭鄉", "三灣鄉", "南庄鄉", "泰安鄉"],
-            "彰化縣": ["彰化市", "鹿港鎮", "和美鎮", "線西鄉", "伸港鄉", "福興鄉", "秀水鄉", "花壇鄉", "芬園鄉", "員林市", "溪湖鎮", "田中鎮", "大村鄉", "埔鹽鄉", "埔心鄉", "永靖鄉", "社頭鄉", "二水鄉", "北斗鎮", "二林鎮", "田尾鄉", "埤頭鄉", "芳苑鄉", "大城鄉", "竹塘鄉", "溪州鄉"],
-            "南投縣": ["南投市", "埔里鎮", "草屯鎮", "竹山鎮", "集集鎮", "名間鄉", "鹿谷鄉", "中寮鄉", "魚池鄉", "國姓鄉", "水里鄉", "信義鄉", "仁愛鄉"],
-            "雲林縣": ["斗六市", "斗南鎮", "虎尾鎮", "西螺鎮", "土庫鎮", "北港鎮", "古坑鄉", "大埤鄉", "莿桐鄉", "林內鄉", "二崙鄉", "崙背鄉", "麥寮鄉", "東勢鄉", "褒忠鄉", "臺西鄉", "元長鄉", "四湖鄉", "口湖鄉", "水林鄉"],
-            "嘉義縣": ["太保市", "朴子市", "布袋鎮", "大林鎮", "民雄鄉", "溪口鄉", "新港鄉", "六腳鄉", "東石鄉", "義竹鄉", "鹿草鄉", "水上鄉", "中埔鄉", "竹崎鄉", "梅山鄉", "番路鄉", "大埔鄉", "阿里山鄉"],
-            "屏東縣": ["屏東市", "潮州鎮", "東港鎮", "恆春鎮", "萬丹鄉", "長治鄉", "麟洛鄉", "九如鄉", "里港鄉", "鹽埔鄉", "高樹鄉", "萬巒鄉", "內埔鄉", "竹田鄉", "新埤鄉", "枋寮鄉", "新園鄉", "崁頂鄉", "林邊鄉", "南州鄉", "佳冬鄉", "琉球鄉", "車城鄉", "滿州鄉", "枋山鄉", "霧臺鄉", "瑪家鄉", "泰武鄉", "來義鄉", "春日鄉", "獅子鄉", "牡丹鄉", "三地門鄉"],
-            "宜蘭縣": ["宜蘭市", "羅東鎮", "蘇澳鎮", "頭城鎮", "礁溪鄉", "壯圍鄉", "員山鄉", "冬山鄉", "五結鄉", "三星鄉", "大同鄉", "南澳鄉"],
-            "花蓮縣": ["花蓮市", "鳳林鎮", "玉里鎮", "新城鄉", "吉安鄉", "壽豐鄉", "光復鄉", "豐濱鄉", "瑞穗鄉", "富里鄉", "秀林鄉", "萬榮鄉", "卓溪鄉"],
-            "台東縣": ["台東市", "成功鎮", "關山鎮", "卑南鄉", "鹿野鄉", "池上鄉", "東河鄉", "長濱鄉", "太麻里鄉", "大武鄉", "綠島鄉", "海端鄉", "延平鄉", "金峰鄉", "達仁鄉", "蘭嶼鄉"],
-            "澎湖縣": ["馬公市", "湖西鄉", "白沙鄉", "西嶼鄉", "望安鄉", "七美鄉"],
-            "金門縣": ["金沙鎮", "金湖鎮", "金寧鄉", "金城鎮", "烈嶼鄉", "烏坵鄉"],
-            "連江縣": ["南竿鄉", "北竿鄉", "莒光鄉", "東引鄉"]
-        };
-
-        function updateDistricts() {
-            const countySelect = document.getElementById('county');
-            const districtSelect = document.getElementById('district');
-            const selectedCounty = countySelect.value;
-
-            districtSelect.innerHTML = '<option value="">請選擇地區</option>'; // 清空地區選單
-
-            if (selectedCounty) {
-                const districts = districtData[selectedCounty];
-                districts.forEach(function (district) {
-                    const option = document.createElement('option');
-                    option.value = district;
-                    option.textContent = district;
-                    districtSelect.appendChild(option);
-                });
-            }
-        }
+    function fillForm(targetField) {
+	    // 使用 AJAX 獲取資料庫中的會員資料
+	    fetch('/api/getCoachMemberDetails') // 假設你有一個 API 端點來獲取當前登錄會員的詳細信息
+	        .then(response => response.json())
+	        .then(data => {
+	            // 根據按鈕目標設置對應欄位的值
+	            if (targetField === 'receiver') {
+	                document.getElementById('receiver').value = data.name;
+	            } else if (targetField === 'receiverPhone') {
+	                document.getElementById('receiverPhone').value = data.phone;
+	            } else if (targetField === 'receiverAddress') {
+	                document.getElementById('receiverAddress').value = data.address;
+	            }
+	        })
+	        .catch(error => {
+	            console.error('Error fetching member details:', error);
+	        });
+	}
+	function showSuccessAlert() {
+        // 顯示成功提示框
+        alert('儲存成功');
+        // 返回 true 以允許表單提交
+        return true;
+    }
     </script>
 </body>
 

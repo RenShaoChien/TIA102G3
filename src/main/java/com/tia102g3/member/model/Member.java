@@ -1,3 +1,4 @@
+
 package com.tia102g3.member.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -51,5 +52,11 @@ public class Member {
     @OneToMany(mappedBy = "member")
     @JsonIgnore
     @ToString.Exclude
-    private Set<CourseOrder> courseOrderList;    
+    private Set<CourseOrder> courseOrderSet;    
+    @PrePersist
+    protected void onCreate() {
+        if (regDate == null) {
+            regDate = new Date(System.currentTimeMillis());
+        }
+    }
 }

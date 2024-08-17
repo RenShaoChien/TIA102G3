@@ -136,6 +136,12 @@
     .clear {
         clear: both;
     }
+    
+    .logout-button {
+	background-color: red;
+	border-radius: 30px;
+}
+
 </style>
 </head>
 
@@ -164,15 +170,14 @@
             <div class="h_menu4"><!-- start h_menu4 -->
                 <a class="toggleMenu" href="#">Menu</a>
                 <ul class="nav">
-                    <li><a th:href="@{/index}">Home</a></li>
-					<li><a th:href="@{/account_information}">會員專區</a></li>
-					<li><a th:href="@{/trainers}">專屬你的訓練</a>
-					<li><a href="classes.html">Classes</a></li>
+                    <li><a th:href="@{/index}">首頁</a></li>
+					<li class="active"><a th:href="@{/account_information}">會員專區</a></li>
+					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
 					<li><a th:href="@{/menu}">健康餐</a></li>
-					<li><a th:href="@{pricing}">Pricing</a></li>
+					<li><a th:href="@{/pricing}">購物商城</a></li>
 					<li><a th:href="@{/map}">美食地圖</a></li>
 					<li><a th:href="@{/qa}">客服</a></li>
-					<li><a th:href="@{/login}" class="logout-button">登出</a></li>
+					<li><a th:href="@{/logout}" class="logout-button">登出</a></li>
                 </ul>
                 <script type="text/javascript" src="js/nav.js"></script>
             </div>
@@ -182,13 +187,13 @@
     </div>
     <div class="container-data">
         <div class="sidebar">
-            <a th:href="@{coach_account_information}">修改帳戶資料</a>
-			<a th:href="@{coach_change_password}">修改密碼</a>
-			<a th:href="@{coach_historical_orders}">歷史訂單</a>
-			<a th:href="@{coach_receipt_information}">常用收件資訊</a>
-			<a th:href="@{coach_acc_information}">新增信用卡資訊</a>
-			<a th:href="@{coach_course_status}">查看課程狀態</a>
-			<a th:href="@{coach_course_products}">登入課程商品</a>
+            <a class="nav-link" th:href="@{/coach_account_information}">修改帳戶資料</a>
+			<a class="nav-link" th:href="@{/coach_change_password}">修改密碼</a>
+			<a class="nav-link" th:href="@{/coach_historical_orders}">歷史訂單</a>
+			<a class="nav-link" th:href="@{/coach_receipt_information}">常用收件資訊</a>
+			<a class="nav-link" th:href="@{/coach_acc_information}">新增信用卡資訊</a>
+			<a class="nav-link" th:href="@{/coach_course_status}">查看課程狀態</a>
+			<a class="nav-link" th:href="@{/coach_course_products}">登錄課程商品</a>
         </div>
         <div class="content-data">
             <div class="filter">
