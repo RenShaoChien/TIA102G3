@@ -49,67 +49,65 @@ public class LoginController {
 	@PostMapping("/login")
 	public RedirectView login(@RequestParam String username, @RequestParam String password,
 	        HttpServletRequest request, HttpServletResponse response) {
-	    // 查找会员
+
+	    // 尝试从数据库中获取不同类型的用户
 	    Member member = memberRepository.findByAccount(username);
-	    // 查找教练会员
 	    CoachMember coachMember = coachMemberRepository.findByAccount(username);
-	    // 查找管理员
 	    AdminLogin adminLogin = adminLoginRepository.findByAdminUsername(username);
 
+	    HttpSession session = request.getSession();
+
+	    // 一般会员登录逻辑
 	    if (member != null && member.getPassword().equals(password)) {
-	        HttpSession session = request.getSession();
 	        session.setAttribute("user", member);
 	        session.setAttribute("loggedIn", true);
+	        addLoginCookie(response, username);
 
-	        Cookie loginCookie = new Cookie("user", username);
-	        loginCookie.setMaxAge(1 * 24 * 60 * 60);
-	        loginCookie.setPath("/");
-	        response.addCookie(loginCookie);
-
+	        // 处理待定课程的逻辑
 	        if (session.getAttribute("pendingCourseID") != null) {
-	            String pendingCourseID = session.getAttribute("pendingCourseID").toString();
-	            int coachCourseID = Integer.parseInt(pendingCourseID);
-	            session.removeAttribute("pendingCourseID");
-	            return new RedirectView("/trainers/orderCoachCourse?coachCourseID=" + coachCourseID);
+	            return handlePendingCourse(session);
 	        }
 	        return new RedirectView("/account_information"); // 一般会员页面
-	    } else if (coachMember != null && coachMember.getPassword().equals(password)) {
-	        HttpSession session = request.getSession();
+	    } 
+
+	    // 教练会员登录逻辑
+	    else if (coachMember != null && coachMember.getPassword().equals(password)) {
 	        session.setAttribute("user", coachMember);
 	        session.setAttribute("loggedIn", true);
-			if (session.getAttribute("pendingCourseID") != null) {
-				String pendingCourseID = session.getAttribute("pendingCourseID").toString();
-				int coachCourseID = Integer.parseInt(pendingCourseID);
-				session.removeAttribute("pendingCourseID");
-				return new RedirectView("/trainers/currCoachCourse?id=" + coachCourseID);
-			}
-			return new RedirectView("/account_information"); // 一般會員頁面
-		} else if (coachMember != null && coachMember.getPassword().equals(password)) {
-			HttpSession session = request.getSession();
-			session.setAttribute("user", coachMember); // 設置教練會員到 session
-			session.setAttribute("loggedIn", true); // 設置登入狀態
+	        addLoginCookie(response, username);
 
-	        Cookie loginCookie = new Cookie("user", username);
-	        loginCookie.setMaxAge(1 * 24 * 60 * 60);
-	        loginCookie.setPath("/");
-	        response.addCookie(loginCookie);
-
+	        // 处理待定课程的逻辑
+	        if (session.getAttribute("pendingCourseID") != null) {
+	            return handlePendingCourse(session);
+	        }
 	        return new RedirectView("/coach_account_information"); // 教练会员页面
-	    } else if (adminLogin != null && adminLogin.getAdminPassword().equals(password)) {
-	        HttpSession session = request.getSession();
+	    } 
+
+	    // 管理员登录逻辑
+	    else if (adminLogin != null && adminLogin.getAdminPassword().equals(password)) {
 	        session.setAttribute("user", adminLogin);
 	        session.setAttribute("loggedIn", true);
-
-	        Cookie loginCookie = new Cookie("user", username);
-	        loginCookie.setMaxAge(1 * 24 * 60 * 60);
-	        loginCookie.setPath("/");
-	        response.addCookie(loginCookie);
+	        addLoginCookie(response, username);
 
 	        return new RedirectView("/admin"); // 管理员控制面板页面
 	    }
 
 	    // 登录失败，返回登录页面
 	    return new RedirectView("/login?error=invalid");
+	}
+
+	private void addLoginCookie(HttpServletResponse response, String username) {
+	    Cookie loginCookie = new Cookie("user", username);
+	    loginCookie.setMaxAge(1 * 24 * 60 * 60);
+	    loginCookie.setPath("/");
+	    response.addCookie(loginCookie);
+	}
+
+	private RedirectView handlePendingCourse(HttpSession session) {
+	    String pendingCourseID = session.getAttribute("pendingCourseID").toString();
+	    int coachCourseID = Integer.parseInt(pendingCourseID);
+	    session.removeAttribute("pendingCourseID");
+	    return new RedirectView("/trainers/orderCoachCourse?coachCourseID=" + coachCourseID);
 	}
 
 	@GetMapping("/loggedIn")
