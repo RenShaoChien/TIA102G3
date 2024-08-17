@@ -43,7 +43,7 @@ public class FrontEndCoachCourseController {
 
     @GetMapping("/currCoachCourse")
     public String currCoachCourse(@RequestParam("id") Integer courseID, ModelMap model) {
-        ccService.findOneAllAttr(courseID).ifPresent(course -> model.put("currCourse", course));
+        ccService.findOneAllAttr(courseID).ifPresent(course -> model.putAll(Map.of("currCourse", course, "orderCount", course.getCourseOrders().size())));
         return "trainers/coachCourse";
     }
 
@@ -96,7 +96,7 @@ public class FrontEndCoachCourseController {
             courseOrder.setPrice(courseOrder.getCoachCourse().getCoursePrice());
             coService.addCourseOrder(courseOrder);
             model.putAll(Map.of("message", "完成付款，購買成功 ！", "currCourse", courseOrder.getCoachCourse()));
-            return "trainers/coachCourse";
+            return "redirect:/trainers/currCoachCourse?id=" + courseOrder.getCoachCourse().getId();
         }
         model.putAll(Map.of("errorMessage", "支付失敗，請重試或聯絡客服。", "courseOrder", courseOrder));
         return "trainers/create_card";

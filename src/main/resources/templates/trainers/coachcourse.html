@@ -82,14 +82,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             box-sizing: border-box;
             position: relative;
         }
+
         .trainer-details h4, .trainer-details h5, .trainer-details p {
             margin: 0;
         }
+
         .custom-buttons {
             margin-top: 20px;
             display: flex; /* 使用 flex 佈局 */
             gap: 10px; /* 添加按鈕之間的間距 */
         }
+
         .custom-btn {
             padding: 10px 20px;
             background-color: #007bff;
@@ -99,6 +102,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             display: inline-block; /* 確保按鈕為 inline-block */
             text-align: center;
         }
+
         .custom-btn:hover {
             background-color: #0056b3;
         }
@@ -157,6 +161,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             margin-top: 20px;
             font-weight: bold;
         }
+
         #lightbox {
             /*   border: 1px solid red; */
             position: fixed;
@@ -168,9 +173,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             z-index: 9999;
 
         }
-        .-on{
+
+        .-on {
             display: none;
         }
+
         #lightbox > article {
             background-color: white;
             width: 90%;
@@ -281,7 +288,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <span th:text="|課程堂數 ： *{noOfClasses} 堂|">課程堂數：</span>
                 </div>
                 <div class="detail-item">
-                    <span th:text="|人數上限 ： *{maxCap} 人|">人數上限：</span>
+                   <span>人數上限 ： <span th:text="${currCourse.maxCap}">0</span>  人____已有 ♀ <span th:text="${orderCount}" style="color: red; font-size: 25px;">0</span> ♂ 人購買</span>
                 </div>
             </div>
             <div class="course-description">
@@ -371,22 +378,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             $("#lightbox").removeClass("-on").fadeIn(1000);
 
             // 點擊關閉按鈕關閉燈箱
-            $("button.btn_modal_close").on("click", function() {
+            $("button.btn_modal_close").on("click", function () {
                 console.log("關閉按鈕被點擊");
-                $("#lightbox").fadeOut(1000, function() {
+                $("#lightbox").fadeOut(1000, function () {
                     $("#lightbox").addClass("-on");
                 });
             });
 
             // 防止點擊燈箱內部時關閉燈箱
-            $("#lightbox > article").on("click", function(e) {
+            $("#lightbox > article").on("click", function (e) {
                 e.stopPropagation();
             });
 
             // 點擊燈箱背景關閉燈箱
-            $("#lightbox").on("click", function() {
+            $("#lightbox").on("click", function () {
                 console.log("背景被點擊");
-                $(this).fadeOut(1000, function() {
+                $(this).fadeOut(1000, function () {
                     $(this).addClass("-on");
                 });
             });
