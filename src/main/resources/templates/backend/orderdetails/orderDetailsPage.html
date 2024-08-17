@@ -146,7 +146,7 @@
                 <input type="text" name="keyword" th:value="${session.keyword}" placeholder="請輸入查詢關鍵字..." class="search-input">
                 <button type="submit" class="btn">查詢</button>
             </form>
-            <a th:href="@{/orderdetails/addOrderDetails}"
+            <a th:href="@{|/orderdetails/addOrderDetails?orderID=${orderID}|}"
                style="text-decoration: none;float: right;margin-right: 30px;">添加訂單明細</a>
         </div>
     </div>

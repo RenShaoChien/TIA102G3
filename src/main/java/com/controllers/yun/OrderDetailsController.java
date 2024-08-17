@@ -2,6 +2,7 @@ package com.controllers.yun;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -74,20 +75,21 @@ public class OrderDetailsController {
 //		session.setAttribute("pageCount", pageCount);
 
 		List<OrderDetailsVO> orderDetailList = orderDservice.findAllById(orderID);
-		System.out.println(orderDetailList);
+//		System.out.println(orderDetailList);
 		model.addAttribute("orderDetailsList", orderDetailList);
+		model.addAttribute("orderID", orderID);
 		return "/backend/orderdetails/orderDetailsPage";
 	}
 
 	@GetMapping("/addOrderDetails")
-	public String addOrderDetails(ModelMap model) {
+	public String addOrderDetails(ModelMap model, @RequestParam("orderID") Integer orderID) {
 		OrderDetailsVO odv = new OrderDetailsVO();
-		model.addAttribute("orderdetails", odv);
+		model.putAll(Map.of("orderdetails", odv, "orderID", orderID));
 		return "backend/orderdetails/addOrderDetails";
 	}
 
 	@PostMapping("/addOrderDetails.do")
-	public String addOrder(OrderDetailsVO orderDetailsVO, BindingResult result, RedirectAttributes redirectAttributes, Model model)
+	public String addOrder(OrderDetailsVO orderDetailsVO, BindingResult result, RedirectAttributes redirectAttributes, Model model, @RequestParam Integer orderID)
 			throws Exception {
 
 		if (result.hasErrors()) {
@@ -100,7 +102,7 @@ public class OrderDetailsController {
 			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("message", "操作失敗"); // 將失敗訊息添加到 model 中
 		}
-		return "redirect:/orderdetails/orderDetailsList";
+		return "redirect:/orderdetails/orderDetailsList?orderID=" + orderID;
 	}
 
 	/*
