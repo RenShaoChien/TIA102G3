@@ -41,8 +41,6 @@ import com.tia102g3.product.model.ProductService;
 import com.tia102g3.product.model.ProductVO;
 import com.utils.StringUtil;
 
-
-
 @Controller
 @RequestMapping("/product")
 @Validated
@@ -50,7 +48,7 @@ public class ProductController {
 
 	@Autowired
 	ProductService productservice;
-	
+
 	@Autowired
 	ProductRepository repository;
 
@@ -205,16 +203,15 @@ public class ProductController {
 	// ============前台頁面=======================//
 
 	@GetMapping("/products")
-    public String getProducts(Model model) {
-        System.out.println("ProductController: 開始調用 productService.getAll()");
-        List<ProductVO> products = productservice.getAll();
-        model.addAttribute("productList", products);
-        System.out.println("ProductController: 添加了 " + products.size() + " 個產品到模型中");
-        System.out.println("ProductController: 返回 'pricing' 視圖");
-        return "pricing";
-    }
-	
-	
+	public String getProducts(Model model) {
+		System.out.println("ProductController: 開始調用 productService.getAll()");
+		List<ProductVO> products = productservice.getAll();
+		model.addAttribute("productList", products);
+		System.out.println("ProductController: 添加了 " + products.size() + " 個產品到模型中");
+		System.out.println("ProductController: 返回 'pricing' 視圖");
+		return "pricing";
+	}
+
 //	@PostMapping("getOne_For_Display")
 //	public String getOne_For_Display(
 //		/***************************1.接收請求參數 - 輸入格式的錯誤處理*************************/
@@ -247,7 +244,7 @@ public class ProductController {
 ////		return "back-end/emp/listOneEmp";  // 查詢完成後轉交listOneEmp.html
 //		return "pricing"; // 查詢完成後轉交select_page.html由其第158行insert listOneEmp.html內的th:fragment="listOneEmp-div
 //	}
-	
+
 //	@GetMapping("/getOne_For_Display/{productID}")
 //	@ResponseBody
 //	public ResponseEntity<ProductVO> getOneForDisplay(@PathVariable("productId") Integer productID) {
@@ -258,25 +255,20 @@ public class ProductController {
 //            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 //        }
 //	}
-	
+
 //    @ModelAttribute("data-product-id")
 //    protected List<ProductVO> productList(Model model){
 //    	List<ProductVO> products = productservice.findProductById(productID);
 //    	return repository.getReferenceById(productID);
 //    }
-	
+
 	@RequestMapping("/product/getOne_For_Display")
 	@PostMapping("/getOne_For_Display")
 	@ResponseBody
 	public ProductVO getOneForDisplay(@RequestParam("productID") String productID) {
-	    // 從資料庫查找對應的產品
-	    ProductVO product = productservice.findProductById(Integer.valueOf(productID));
-	    return product;  // 返回 JSON
+		// 從資料庫查找對應的產品
+		ProductVO product = productservice.findProductById(Integer.valueOf(productID));
+		return product; // 返回 JSON
 	}
-
-	
-	
-
-
 
 }

@@ -40,5 +40,8 @@ public interface OrderDetailsRepository extends JpaRepository<OrderDetailsVO, In
                     "orderID LIKE CONCAT('%', :keyword, '%') OR "  ,
             nativeQuery = true)
 	Long getOrderDetailsCount(@Param("keyword")String keyword);
+    
+    
+    List<OrderDetailsVO> findAllByOrderID(Integer orderID);
 }
 

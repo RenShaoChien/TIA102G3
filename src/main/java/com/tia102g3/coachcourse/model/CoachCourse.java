@@ -1,7 +1,6 @@
 package com.tia102g3.coachcourse.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tia102g3.coachcoursepic.model.CoachCoursePic;
 import com.tia102g3.coachmember.model.CoachMember;
 import com.tia102g3.courseorder.model.CourseOrder;
@@ -38,7 +37,7 @@ public class CoachCourse implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "cMemberID", referencedColumnName = "cMemberID", nullable = false)
-    @JsonManagedReference
+//    @JsonManagedReference
     private CoachMember cMember;
 
     private String courseName;
@@ -77,9 +76,11 @@ public class CoachCourse implements Serializable {
     private String courseIntro;
 
     @OneToMany(mappedBy = "coachCourse")
+    @ToString.Exclude
     private List<CoachCoursePic> coachCoursePics;
 
     @OneToMany(mappedBy = "coachCourse")
+    @ToString.Exclude
     private List<CourseOrder> courseOrders;
 
     @Transient

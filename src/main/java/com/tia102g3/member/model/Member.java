@@ -46,8 +46,10 @@ public class Member {
     private List<CustomizedCourse> customizedCoursesList;
     @OneToMany(mappedBy = "member")
     @JsonIgnore
+    @ToString.Exclude
     private Set<OrderVO> orderSet;
     @OneToMany(mappedBy = "member")
     @JsonIgnore
+    @ToString.Exclude
     private Set<CourseOrder> courseOrderList;    
 }

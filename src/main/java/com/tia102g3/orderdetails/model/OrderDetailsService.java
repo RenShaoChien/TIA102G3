@@ -1,5 +1,6 @@
 package com.tia102g3.orderdetails.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -27,7 +28,7 @@ public class OrderDetailsService{
 //		repository.save(orderDetailsVO);
 //	}
 
-	public void deletOrderDetails(Integer ordDtlID) {
+	public void deleteOrderDetails(Integer ordDtlID) {
 		repository.deleteById(ordDtlID);
 	}
 	
@@ -45,7 +46,7 @@ public class OrderDetailsService{
 		return repository.getReferenceById(ordDtlID);
 	}
 
-	public List<OrderDetailsVO> getOrderDetailsList(String keyword, int offset){
+	public List<OrderDetailsVO> getOrderDetailsList(String keyword, Integer offset){
 		List<Object[]> orderDetailsObjList = repository.getOrderDetailsList(keyword, offset);
 		return orderDetailsObjList.stream().map(this::convertToOrderDetailsVO).toList();
 	}
@@ -74,4 +75,13 @@ public class OrderDetailsService{
 
         return orderDetails;
 	}
+	
+	
+	public List<OrderDetailsVO> findAllById(Integer orderId) {
+//		ArrayList<Integer> list = new ArrayList<>();
+//		list.add(orderId);
+		return repository.findAllByOrderID(orderId);
+	}
+	
 }
+

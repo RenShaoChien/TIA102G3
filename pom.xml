@@ -185,9 +185,6 @@
     </dependencies>
 
 
-
-
-
     <build>
         <finalName>TIA102G3</finalName>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven

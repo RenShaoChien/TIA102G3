@@ -2,12 +2,12 @@
 
 package com.tia102g3.member.model;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 public interface MemberRepository extends JpaRepository<Member, Integer> {
 
@@ -23,4 +23,9 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 	Member findByAccount(String account);
 	boolean existsByAccount(String account);
 	Member findByEmail(String email);
+
+	@Transactional
+	@Modifying
+	@Query(value = "update Member m set m.receiver = :receiver, m.receiverAddress = :receiverAddress, m.receiverPhone = :receiverPhone where m.memberID = :memberID")
+	void update(String receiver, String receiverAddress, String receiverPhone, Integer memberID);
 }

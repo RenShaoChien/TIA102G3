@@ -447,8 +447,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div th:if="${#lists.isEmpty(coachCourseList)}">目前尚無任何教練課程，敬請期待 ！</div>
         <div class="classes_wrapper">
             <div th:unless="${#lists.isEmpty(coachCourseList)}" th:each="coachCourse, iterStat : ${coachCourseList}">
-                <div th:class="${iterStat.index % 2 == 0 ? 'row class_box' : ''}">
-                    <div class="col-md-6" th:if="${iterStat.index % 2 == 1}">
+                <div th:class="${iterStat.index % 2 == 1 ? 'row class_box' : ''}">
+                    <div class="col-md-6" th:if="${iterStat.index % 2 == 0}">
                         <div class="class_left" th:if="${!#lists.isEmpty(coachCourse.coachCoursePics)}">
                             <img th:src="@{|/course/DBGifReader?picID=${coachCourse.coachCoursePics[0].id}&amp;source=coachCourse|}"
                                  class="img-responsive custom-img-size" alt="" title="continue">

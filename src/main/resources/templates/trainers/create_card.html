@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信用卡結帳</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .checkout-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 20px;
+        }
+
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .checkout-header h1 {
+            font-size: 24px;
+            color: #007bff;
+            margin: 0;
+        }
+
+        .checkout-header p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .checkout-form {
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px; /* 添加间距以避免重叠 */
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .order-summary {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .order-summary h2 {
+            font-size: 18px;
+            margin: 0 0 10px;
+            color: #007bff;
+        }
+
+        .order-summary p {
+            margin: 0;
+        }
+
+        .btn-submit {
+            width: 48%;
+            padding: 15px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-cancel {
+            width: 48%;
+            padding: 15px;
+            background-color: #ccc;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn-cancel:hover {
+            background-color: #999;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px; /* 添加间距以避免重叠 */
+        }
+
+        #lightbox {
+            /*   border: 1px solid red; */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: hsla(0, 0%, 0%, .5);
+
+
+        }
+        .-on{
+            display: none;
+        }
+        #lightbox > article {
+            background-color: white;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ddd;
+            padding: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+<div class="checkout-container">
+    <header class="checkout-header">
+        <h1>健肌尋食</h1>
+        <p>信用卡結帳</p>
+        <div id="lightbox" class="-on">
+            <article>
+                <h1 id="messageContent" th:if="${errorMessage}" th:text="${errorMessage}" style="color: black"></h1>
+            </article>
+        </div>
+    </header>
+
+    <div class="order-summary">
+        <h2>訂單摘要</h2>
+        <p th:text="| ★ ${courseOrder.coachCourse.courseName} ★ 套餐 ： NT$ ${courseOrder.coachCourse.coursePrice} 元|">健身課程套餐: NT$ 1,200</p>
+        <hr>
+        <p><strong th:text="| 總計 ： NT$ ${courseOrder.coachCourse.coursePrice} 元 |">總計: NT$ 2,000</strong></p>
+    </div>
+    <div class="checkout-form">
+        <form id="payment-form" method="post" th:action="@{/trainers/paying.do}" th:object="${courseOrder}">
+            <div class="form-group">
+                <label for="card-name">持卡人姓名</label>
+                <input type="text" id="card-name" name="card-name" placeholder="輸入持卡人姓名" required th:field="*{member.cardName}">
+            </div>
+            <div class="form-group">
+                <label for="card-number">信用卡號碼</label>
+                <input type="text" id="card-number" name="card-number" placeholder="xxxx-xxxx-xxxx-xxxx" required th:field="*{member.cardNumber}">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="card-expiry">有效期限</label>
+                    <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required th:field="*{member.cardValidTime}">
+                </div>
+                <div class="form-group">
+                    <label for="card-cvv">CVV</label>
+                    <input type="text" id="card-cvv" name="card-cvv" placeholder="xxx" required th:field="*{member.cardLast3No}">
+                </div>
+            </div>
+            <div class="button-group">
+                <button type="submit" class="btn-submit">立即付款</button>
+                <input type="hidden" th:field="*{member}">
+                <input type="hidden" th:field="*{coachCourse}">
+                <button type="button" class="btn-cancel" id="cancel-button">取消付款</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var messageContent = $("#messageContent").text().trim();
+        console.log("檢查燈箱內容:", messageContent);
+
+        if (messageContent.length > 0) {
+            console.log("燈箱內有消息");
+
+            // 移除 -on class 並顯示燈箱
+            $("#lightbox").removeClass("-on").fadeIn(1000);
+
+            // 點擊關閉按鈕關閉燈箱
+            $("button.btn_modal_close").on("click", function() {
+                console.log("關閉按鈕被點擊");
+                $("#lightbox").fadeOut(1000, function() {
+                    $("#lightbox").addClass("-on");
+                });
+            });
+
+            // 防止點擊燈箱內部時關閉燈箱
+            $("#lightbox > article").on("click", function(e) {
+                e.stopPropagation();
+            });
+
+            // 點擊燈箱背景關閉燈箱
+            $("#lightbox").on("click", function() {
+                console.log("背景被點擊");
+                $(this).fadeOut(1000, function() {
+                    $(this).addClass("-on");
+                });
+            });
+        } else {
+            console.log("燈箱內無消息");
+        }
+
+        $('#cancel-button').on('click', function() {
+            if (confirm('確定要取消付款嗎？')) {
+                window.history.back(); // 返回上一頁
+            }
+        });
+    });
+</script>
+</body>
+</html>
