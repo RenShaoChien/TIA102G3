@@ -68,11 +68,16 @@ public class FrontEndCoachCourseController {
             return "redirect:/trainers/currCoachCourse?id=" + courseID;
         }
         Member member = (Member) memberObj;
+        int result = coService.getOneByMemberIdAndCourseId(member.getMemberID(), courseID)
+                .map(existingCo -> 1)
+                .orElse(0);
+        System.out.println("這裡是有沒有購買的boolean:" + result);
+
         Optional<CoachCourse> optionalCoachCourse = ccService.findOneAllAttr(courseID);
         CoachCourse coachCourse = optionalCoachCourse.get();
         CourseOrder courseOrder = new CourseOrder(member, coachCourse);
 
-        model.putAll(Map.of("courseOrder", courseOrder));
+        model.putAll(Map.of("courseOrder", courseOrder, "result", result));
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "0");

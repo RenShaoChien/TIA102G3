@@ -262,8 +262,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script th:inline="javascript">
 
+
+
     var coachCourseID = /*[[${courseOrder.coachCourse.id}]]*/ '[[${courseOrder.coachCourse.id}]]';
     (function () {
+        var result = /*[[${result}]]*/ 'result';
+
         $(document).ready(function () {
             if (coachCourseID != null) {
                 $.ajax({
@@ -295,6 +299,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             if (data.maxCap - data.countMembers == 0) {
                                 $('input[type="submit"]').attr('disabled', true);
                                 $('input[type="submit"]').val('已無名額');
+                            }else if (result === 1){
+                                $('input[type="submit"]').attr('disabled', true);
+                                $('input[type="submit"]').val('您已購買');
                             } else {
                                 // 確保按鈕在名額不為0時可點擊並顯示原名
                                 $('input[type="submit"]').attr('disabled', false);
