@@ -100,6 +100,7 @@
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	border-radius: 5px;
 	margin: 20px auto;
+	max-height: 50%;
 }
 
 .courseList_header {
@@ -372,7 +373,7 @@ button {
     var currentPage = 1;
     var totalPages = 1;
 
-    filterCourses(currentStatus, null, 1, 5, keyword);
+    filterCourses(currentStatus, null, 1, 3, keyword);
 
     function updatePageButtons() {
         $('#firstPageBtn').prop('disabled', currentPage === 1);
@@ -394,7 +395,7 @@ button {
 
     $('#searchForm').on('submit', function (event) {
         event.preventDefault(); // 阻止表單的默認提交動作
-        filterCourses(currentStatus, null, 1, 5, $('#coachCoursesKeyword').val());
+        filterCourses(currentStatus, null, 1, 3, $('#coachCoursesKeyword').val());
     });
 
     $('#firstPageBtn').on('click', function () {
@@ -414,7 +415,7 @@ button {
         console.log("Last page button clicked");
     });
 
-    function filterCourses(status, button, pageNo = 1, pageSize = 5, keyword = '') {
+    function filterCourses(status, button, pageNo = 1, pageSize = 3, keyword = '') {
         console.log("Status selected:", status);
         currentStatus = status;
         currentPage = pageNo;

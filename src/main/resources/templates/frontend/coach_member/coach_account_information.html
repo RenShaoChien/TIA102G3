@@ -2,14 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>健肌尋食-教練會員</title>
+<title>健肌尋食-教練會員</title>
 <link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css' />
 <link th:href="@{css/style.css}" rel='stylesheet' type='text/css' />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700'
+	rel='stylesheet' type='text/css'>
+<script type="application/x-javascript">
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+</script>
 <script th:src="@{js/jquery.min.js}"></script>
 
 <!-- grid-slider -->
@@ -20,204 +27,224 @@
 <link rel="stylesheet" href="css/jquery-ui.css" />
 <!---//calender-style---->
 <style>
-	.btn-login {
-		margin: bottom 50px;
-		float: right;
-		padding-right: 20px;
-		padding-top: 5px;
-		padding-bottom: 10px;
-		border: 1px solid black;
-		background-color: white;
-	}
+.btn-login {
+	margin: bottom 50px;
+	float: right;
+	padding-right: 20px;
+	padding-top: 5px;
+	padding-bottom: 10px;
+	border: 1px solid black;
+	background-color: white;
+}
 
-	.social {
-		padding-top: 4px;
-		padding-right: 10px;
-	}
+.social {
+	padding-top: 4px;
+	padding-right: 10px;
+}
 
-	.container-data {
-		height: auto;
-		width: auto;
-		margin: auto;
-		/* padding: 20px; */
-		background-color: #fff;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		display: flex;
-		flex-direction: row;
-		/* gap: 20px; */
-		/* flex-wrap: wrap; */
-		background-color: #e0f7f9;
-		/* place-items: center; */
-		/* background-color: red; */
-	}
+.container-data {
+	height: auto;
+	width: auto;
+	margin: auto;
+	/* padding: 20px; */
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: row;
+	/* gap: 20px; */
+	/* flex-wrap: wrap; */
+	background-color: #e0f7f9;
+	/* place-items: center; */
+	/* background-color: red; */
+}
 
-	.sidebar {
-		width: 20%;
-		height: 600px;
-		overflow-y: auto;
-		padding-top: 50px;
-		/* padding-right: 20px; */
-		border-right: 1px solid #d0e5d2;
-		background-color: #eaf5e1;
-		color: #4b6e4f;
-		text-align: center;
-		display: flex;
-		flex-direction: column;
-		gap: 50px;
-		/* border: 1px solid black; */
-	}
+.sidebar {
+	width: 20%;
+	height: 600px;
+	overflow-y: auto;
+	padding-top: 50px;
+	/* padding-right: 20px; */
+	border-right: 1px solid #d0e5d2;
+	background-color: #eaf5e1;
+	color: #4b6e4f;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	/* border: 1px solid black; */
+}
 
-	.sidebar a {
-		border-bottom: 1px solid #ccc;
-		padding-bottom: 50px;
-	}
+.sidebar a {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 50px;
+}
 
-	h2 {
-		display: block;
-		width: 100%;
-		text-align: center;
-		margin: 0;
-		padding: 20px;
-		border-bottom: 3px solid black;
-	}
+h2 {
+	display: block;
+	width: 100%;
+	text-align: center;
+	margin: 0;
+	padding: 20px;
+	border-bottom: 3px solid black;
+}
 
-	.content-data {
-		width: 100%;
-		position: relative;
-	}
+.content-data {
+	width: 100%;
+	position: relative;
+}
 
-	.content-data input {
-		border-radius: 30px;
-	}
+.content-data input {
+	border-radius: 30px;
+}
 
-	.form-container {
-		width: 100%;
-		display: flex;
-		flex-direction: row;
-		/* align-items: center; */
-		justify-content: center;
-		gap: 20px;
-		flex-wrap: wrap;
-		/* place-items: center; */
-	}
+.form-container {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	/* align-items: center; */
+	justify-content: center;
+	gap: 20px;
+	flex-wrap: wrap;
+	/* place-items: center; */
+}
 
-	.form-row {
-		display: flex;
-		flex-direction: column;
-		gap: 50px;
-		flex-wrap: wrap;
-		/* background-color: yellow; */
-		border-color: black;
-		position: absolute;
-		top: 150px;
-		right: 20px;
-		bottom: 20px;
-		left: 400px;
-		/* padding: 40px; */
-	}
+.form-row {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	flex-wrap: wrap;
+	/* background-color: yellow; */
+	border-color: black;
+	position: absolute;
+	top: 150px;
+	right: 20px;
+	bottom: 20px;
+	left: 400px;
+	/* padding: 40px; */
+}
 
-	.form-section0 {
-		height: 100%;
-		width: 300px;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		position: absolute;
-		/* top: 100px; */
-		right: 0px;
-		bottom: 0px;
-		left: 50px;
-		/* background-color: #4b6e4f; */
-	}
+.form-section0 {
+	height: 100%;
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	/* top: 100px; */
+	right: 0px;
+	bottom: 0px;
+	left: 50px;
+	/* background-color: #4b6e4f; */
+}
 
-	.form-section0 input {
-		position: absolute;
-		width: auto;
-		height: auto;
-		margin-top: 300px;
-		padding: 10px;
-		border-radius: 30px;
-		font-size: 15px;
-		padding-left: 100px;
-		/* background-color: #4b6e4f; */
-	}
+.form-section0 input {
+	position: absolute;
+	width: auto;
+	height: auto;
+	margin-top: 300px;
+	padding: 10px;
+	border-radius: 30px;
+	font-size: 15px;
+	padding-left: 100px;
+	/* background-color: #4b6e4f; */
+}
 
-	.form-section0 img {
-		/* display: none; */
-		text-align: center;
-		max-width: 250px;
-		max-height: 250px;
-		overflow: hidden;
-		width: auto;
-		height: auto;
-		/* object-fit: cover; */
-		border-radius: 50%;
-		border: 1px solid #ddd;
-		/* margin-bottom: 20px; */
-	}
-	
-	.form-section1 input{
-		border-radius: 30px;
-		border: 2px solid black;
-	}
+.form-section0 img {
+	/* display: none; */
+	text-align: center;
+	max-width: 250px;
+	max-height: 250px;
+	overflow: hidden;
+	width: auto;
+	height: auto;
+	/* object-fit: cover; */
+	border-radius: 50%;
+	border: 1px solid #ddd;
+	/* margin-bottom: 20px; */
+}
 
-	.form-row2 {
-		display: flex;
-		flex-direction: column;
-		gap: 50px;
-		flex-wrap: wrap;
-		position: absolute;
-		top: 150px;
-		right: 20px;
-		bottom: 20px;
-		left: 700px;
-		/* background-color: rebeccapurple; */
-		/* border-color: black; */
-	}
+.form-section1 input {
+	border-radius: 30px;
+	border: 2px solid black;
+}
 
-	.button0 {
-		position: absolute;
-		top: 530px;
-		right: 40px;
-		/* bottom: 20px; */
-		left: 650px;
-	}
+.form-row2 {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	flex-wrap: wrap;
+	position: absolute;
+	top: 150px;
+	right: 20px;
+	bottom: 20px;
+	left: 700px;
+	/* background-color: rebeccapurple; */
+	/* border-color: black; */
+}
 
-	.button0 input {
-		margin-right: 100px;
-		float: right;
-		background: #00BFF0;
-		border: none;
-		color: #FFF;
-		padding: 10px 20px;
-		cursor: pointer;
-		font-family: 'Open Sans', sans-serif;
-		outline: none;
-		font-size: 1em;
-		border-radius: 5px;
-		transition: background 0.3s;
-	}
+.button0 {
+	position: absolute;
+	top: 530px;
+	right: 40px;
+	/* bottom: 20px; */
+	left: 650px;
+}
 
-	.clear {
-		clear: both;
-	}
-	
-	.logout-button {
+.button0 input {
+	margin-right: 100px;
+	float: right;
+	background: #00BFF0;
+	border: none;
+	color: #FFF;
+	padding: 10px 20px;
+	cursor: pointer;
+	font-family: 'Open Sans', sans-serif;
+	outline: none;
+	font-size: 1em;
+	border-radius: 5px;
+	transition: background 0.3s;
+}
+
+.clear {
+	clear: both;
+}
+
+.logout-button {
 	background-color: red;
 	border-radius: 30px;
 }
 
+.skill-button {
+        background-color: #4CAF50; /* 綠色背景 */
+        color: white; /* 白色文字 */
+        border: none; /* 無邊框 */
+        padding: 10px 20px; /* 內邊距 */
+        text-align: center; /* 文字居中 */
+        text-decoration: none; /* 無下劃線 */
+        display: inline-block; /* 行內塊 */
+        font-size: 16px; /* 字體大小 */
+        margin-top: 50px; /* 與上方元素距離 */
+        cursor: pointer; /* 鼠標樣式 */
+        border-radius: 5px; /* 圓角 */
+        transition: background-color 0.3s ease; /* 背景顏色過渡效果 */
+    }
+
+    .skill-button:hover {
+        background-color: #45a049; /* 滑鼠懸停時的背景顏色 */
+    }
+    
 </style>
 </head>
 
 <body>
 	<div class="menu">
 		<div class="container">
-		<div class="logo">
-				<a th:href="@{/index}"><img th:src="@{images/logo.png}" alt=""/></a>
-		 	</div>
-			<div class="h_menu4"><!-- start h_menu4 -->
+			<div class="logo">
+				<a th:href="@{/index}"><img th:src="@{images/logo.png}" alt="" /></a>
+			</div>
+			<div class="h_menu4">
+				<!-- start h_menu4 -->
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
 					<li><a th:href="@{/index}">首頁</a></li>
@@ -238,16 +265,20 @@
 	<div class="container-data">
 		<div class="sidebar">
 			<a class="nav-link" th:href="@{/coach_account_information}">修改帳戶資料</a>
-			<a class="nav-link" th:href="@{/coach_change_password}">修改密碼</a>
-			<a class="nav-link" th:href="@{/coach_receipt_information}">常用收件資訊</a>
-			<a class="nav-link" th:href="@{/coach_acc_information}">新增信用卡資訊</a>
-			<a class="nav-link" th:href="@{/coach_course_status}">查看課程狀態</a>
-			<a class="nav-link" th:href="@{/coach_course_products}">登錄課程商品</a>
+			<a class="nav-link" th:href="@{/coach_change_password}">修改密碼</a> <a
+				class="nav-link" th:href="@{/coach_receipt_information}">常用收件資訊</a>
+			<a class="nav-link" th:href="@{/coach_acc_information}">新增信用卡資訊</a> <a
+				class="nav-link" th:href="@{/coach_course_status}">查看課程狀態</a> <a
+				class="nav-link" th:href="@{/coach_course_products}">登錄課程商品</a>
 		</div>
 		<div class="content-data">
-			<h2>教練會員 (<span th:text="${name}"></span>)</h2>
-			<form action="/submitCoach" method="POST" enctype="multipart/form-data" onsubmit="return showSuccessAlert();">
-				<input type="hidden" name="redirectPage" value="coach_account_information">
+			<h2>
+				教練會員 (<span th:text="${name}"></span>)
+			</h2>
+			<form action="/submitCoach" method="POST"
+				enctype="multipart/form-data" onsubmit="return showSuccessAlert();">
+				<input type="hidden" name="redirectPage"
+					value="coach_account_information">
 				<div class="form-container">
 					<div class="form-section0">
 						<!-- 確保 th:src 正確 -->
@@ -259,25 +290,31 @@
 					</div>
 					<div class="form-row">
 						<div class="form-section">
-							<label for="account">帳號:</label> <br>
-							<input type="text" id="account" name="account" th:value="${coachMember.account}" readonly>
+							<label for="account">帳號:</label> <br> <input type="text"
+								id="account" name="account" th:value="${coachMember.account}"
+								readonly>
 						</div>
 						<div class="form-section">
-							<label for="email">電子郵件:</label> <br>
-							<input type="email" id="email" name="email" th:value="${coachMember.email}" readonly>
+							<label for="email">電子郵件:</label> <br> <input type="email"
+								id="email" name="email" th:value="${coachMember.email}" readonly>
 						</div>
 						<div class="form-section">
-							<label for="name">姓名:</label> <br>
-							<input type="text" id="name" name="name" th:value="${coachMember.name}">
+							<label for="name">姓名:</label> <br> <input type="text"
+								id="name" name="name" th:value="${coachMember.name}">
+								<br>
+							<button type="button" class="skill-button"
+								onclick="window.location.href='/coach_account_skill'">新增/修改教練技能</button>
 						</div>
 					</div>
 					<div class="form-row2">
 						<div class="form-section">
 							<label>性別:</label> <br> <input type="radio" id="male"
-								name="gender" th:value="男" th:checked="${coachMember.gender == '男'}">
-							<label for="male">男</label> <input type="radio" id="female"
-								name="gender" th:value="女" th:checked="${coachMember.gender == '女'}">
-							<label for="female">女</label>
+								name="gender" th:value="男"
+								th:checked="${coachMember.gender == '男'}"> <label
+								for="male">男</label> <input type="radio" id="female"
+								name="gender" th:value="女"
+								th:checked="${coachMember.gender == '女'}"> <label
+								for="female">女</label>
 						</div>
 						<div class="form-section">
 							<label for="birthday">生日:</label> <br> <input type="date"
@@ -304,8 +341,9 @@
 			<div class="row section group">
 				<div class="col-md-4">
 					<div class="social"
-						 style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
-						<img src="images/cutecatloge.png" style="width: 100%; height: 100%"/>
+						style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
+						<img src="images/cutecatloge.png"
+							style="width: 100%; height: 100%" />
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -314,9 +352,12 @@
 					</div>
 					<p class="m_9">
 						「健肌尋食」是一個簡單的概念，意思是通過運動來增強肌肉，同時尋找健康的食物來補充營養，這樣可以讓我們的身體更強壯，生活更健康愉快。</p>
-					<p class="address">Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02) 3333 4444</span>
+					<p class="address">
+						Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02)
+							3333 4444</span>
 					</p>
-					<p class="address">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
+					<p class="address">
+						Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
 					</p>
 				</div>
 				<div class="col-md-4">
@@ -346,36 +387,36 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-	function previewImage(event) {
-		const reader = new FileReader();
-		reader.onload = function() {
-			const output = document.getElementById('personalPhotos');
-			output.src = reader.result;
-			output.classList.add('loaded'); // 添加loaded類別
-			document.getElementById('alt-text').classList.add('loaded'); // 添加loaded類別
-		};
-		reader.readAsDataURL(event.target.files[0]);
-	}
-	// 如果連結指向當前頁面，阻止預設行為
-	document.querySelectorAll('.nav-link').forEach(function(link) {
-		link.addEventListener('click', function(event) {
-			// 獲取當前頁面的 URL
-			var currentUrl = window.location.pathname;
-			// 獲取點擊的連結的 href
-			var linkUrl = event.target.getAttribute('href');
+		function previewImage(event) {
+			const reader = new FileReader();
+			reader.onload = function() {
+				const output = document.getElementById('personalPhotos');
+				output.src = reader.result;
+				output.classList.add('loaded'); // 添加loaded類別
+				document.getElementById('alt-text').classList.add('loaded'); // 添加loaded類別
+			};
+			reader.readAsDataURL(event.target.files[0]);
+		}
+		// 如果連結指向當前頁面，阻止預設行為
+		document.querySelectorAll('.nav-link').forEach(function(link) {
+			link.addEventListener('click', function(event) {
+				// 獲取當前頁面的 URL
+				var currentUrl = window.location.pathname;
+				// 獲取點擊的連結的 href
+				var linkUrl = event.target.getAttribute('href');
 
-			if (currentUrl === linkUrl) {
-				event.preventDefault();
-			}
+				if (currentUrl === linkUrl) {
+					event.preventDefault();
+				}
+			});
 		});
-	});
-	// 如果連結指向當前頁面，阻止預設行為
-	function showSuccessAlert() {
-    // 顯示成功提示框
-    alert('儲存成功');
-    // 返回 true 以允許表單提交
-    return true;
-}
+		// 如果連結指向當前頁面，阻止預設行為
+		function showSuccessAlert() {
+			// 顯示成功提示框
+			alert('儲存成功');
+			// 返回 true 以允許表單提交
+			return true;
+		}
 	</script>
 </body>
 
