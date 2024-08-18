@@ -12,8 +12,8 @@ public class LikeFoodService {
     @Autowired
     LikeFoodRepository repository;
 
-    public void deleteMemberID(Integer memberID) {
-        repository.deleteById(memberID);
+    public void deleteLikeFoodSN(Integer likeFoodSN) {
+        repository.deleteById(likeFoodSN);
     }
 
     public List<LikeFoodVO> getAll() {

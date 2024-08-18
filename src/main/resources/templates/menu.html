@@ -404,54 +404,29 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				
 								<!-- Display food preferences -->
 								<div class="table-responsive">
-									<!-- <table class="table table-striped">
-										<thead>
-											<tr>
-												<th>名稱</th>
-												<th>喜好</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>米飯</td>
-												<td>喜歡</td>
-											</tr>
-											<tr>
-												<td>茄子</td>
-												<td>不喜歡</td>
-											</tr>
-										</tbody>
-									</table> -->
-
 									<table class="table table-striped">
 										<thead >
 										  <tr style="background-color:#428bca">
 											<th>名稱</th>
-											<th>喜好</th>
-											<!-- <th>喜好</th>
-											<th>修改</th>
-											<th>刪除</th> -->
+											<th>喜好</th>											
+											<th>刪除</th>
 										  </tr>
 										</thead>
 										  
 										<tbody>
 											  <th:block th:each="likeFoodList : ${LikeFoodList}">
 												  <tr>
-													<!-- <td th:text="${likeFoodList.memberID}"></td> -->
 													<td th:text="${likeFoodList.getFoodVO.getFoodName}"></td>
 													<td>
 														<span th:if="${likeFoodList.foodPreference}" th:text="'喜歡'"></span>
 														<span th:if="${!likeFoodList.foodPreference}" th:text="'不喜歡'"></span>
 													</td>
-													<!-- <td>
-														<form method="post" th:action="@{getOne_For_Update}" style="margin-bottom: 0px;">
-														<input type="submit" value="修改">
-													
-													</td>
 													<td>
-														<form method="post" th:action="@{delete}" style="margin-bottom: 0px;">
-														<input type="submit" value="刪除">
-													</td> -->
+														<form method="post" th:action="@{deleteLikeFood}" style="margin-bottom: 0px;">
+														   <input type="submit" value="刪除">
+														   <input type="hidden" name="likeFoodSN" th:value="${likeFoodList.likeFoodSN}"></form>
+													  </td>
+													
 													</tr>
 											  </th:block>
 										</tbody>

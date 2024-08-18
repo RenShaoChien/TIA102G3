@@ -71,11 +71,6 @@ body {
 		<th>食材類型編號</th>
 		<th>食材名稱</th>
 		<th>食材熱量</th>
-<!-- 		<th>雇用日期</th> -->
-<!-- 		<th>薪水</th> -->
-<!-- 		<th>獎金</th> -->
-<!-- 		<th>照片</th> -->
-<!-- 		<th>部門</th> -->
 		<th>修改</th>
 		<th>刪除</th>
 	</tr>
@@ -89,22 +84,15 @@ body {
 				<td th:text="${foodVO.foodName}"></td>
 				<td th:text="${foodVO.foodCalories}"></td>
 				
-<!-- 				<td th:text="${empVO.hiredate}"></td> -->
-<!-- 				<td th:text="${empVO.sal}"></td> -->
-<!-- 				<td th:text="${empVO.comm}"></td> -->
-<!-- 				<td><img th:src="@{/emp/DBGifReader} + '?empno=' + ${empVO.empno}" width="100px"></td> -->
-<!-- 				<td th:text="${empVO.deptVO.deptno} + '-[' + ${empVO.deptVO.dname} + ']'"></td> -->
 				<td>
 				<form method="post" th:action="@{getOne_For_Update}" style="margin-bottom: 0px;">
 					<input type="submit" value="修改">
 					<input type="hidden" name="foodNumber" th:value="${foodVO.foodNumber}"></form>
-				
 				</td>
 				<td>
 				<form method="post" th:action="@{delete}" style="margin-bottom: 0px;">
 					<input type="submit" value="刪除">
 					<input type="hidden" name="foodNumber" th:value="${foodVO.foodNumber}"></form>
-				
 				</td>
 			</tr>
 		</th:block>
