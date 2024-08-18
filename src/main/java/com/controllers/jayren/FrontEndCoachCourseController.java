@@ -2,6 +2,7 @@ package com.controllers.jayren;
 
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
+import com.tia102g3.coachmember.model.CoachMember;
 import com.tia102g3.courseorder.model.CourseOrder;
 import com.tia102g3.courseorder.service.CourseOrderService;
 import com.tia102g3.member.model.Member;
@@ -63,7 +64,9 @@ public class FrontEndCoachCourseController {
             session.setAttribute("pendingCourseID", courseID);
             return "redirect:/login";
         }
-
+        if (memberObj instanceof CoachMember) {
+            return "redirect:/trainers/currCoachCourse?id=" + courseID;
+        }
         Member member = (Member) memberObj;
         Optional<CoachCourse> optionalCoachCourse = ccService.findOneAllAttr(courseID);
         CoachCourse coachCourse = optionalCoachCourse.get();
