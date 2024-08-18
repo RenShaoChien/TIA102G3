@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -13,17 +14,7 @@
 <link
 	href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700'
 	rel='stylesheet' type='text/css'>
-<script type="application/x-javascript">
-	
-	
-	
-	
-	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
 
-
-
-
-</script>
 <script src="js/jquery.min.js"></script>
 <!-- grid-slider -->
 <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
@@ -31,35 +22,66 @@
 <script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
 <!-- //grid-slider -->
 
-
+<!-- 加載 Google Maps API -->
 <script type="text/javascript"
-	src="https://www.gstatic.com/charts/loader.js"></script>
-<script th:inline="javascript" type="text/javascript">
-    google.charts.load("current", {
-      "packages": ["map"],
-      // Note: you will need to get a mapsApiKey for your project.
-      // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-      "mapsApiKey": "AIzaSyDDylvnIujpKBxv3GQ9RQHglVSs-kPaoBE"
-    });
-    google.charts.setOnLoadCallback(drawChart);
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDylvnIujpKBxv3GQ9RQHglVSs-kPaoBE"></script>
 
-    const restMapList = /*[[${restMapList}]]*/'';
-    console.log("restMapList:", restMapList);
+<script th:inline="javascript">
+    // 將後端的 restMapList 和 restIfoListData 傳遞到 JavaScript
+    var restMapList = /*[[${restMapList}]]*/ [];  // 將Thymeleaf 表達式 ${restMapList} 的數據綁定到 JavaScript 變量 restMapList 中
+    var restIfoListData = /*[[${restIfoListData}]]*/ [];  
+    
+    // console.log("restMapList:", restMapList);
+    // console.log("restIfoListData:", restIfoListData);
 
-    function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-        ['mapLat', 'mapLng', 'mapID'],
-        ...restMapList
-      ]);
+    // 判斷 restMapList 是否為空，如果為空則在控制台輸出錯誤信息
+    if (!restMapList || restMapList.length === 0) {  // 如果 restMapList 是空的或未定義，則輸出錯誤信息
+        console.error("restMapList is empty or undefined.");
+    } else {
+        // 創建 Google 地圖的函數
+        function drawChart() {
+            const map = new google.maps.Map(document.getElementById('map_div'), {  // 使用 Google Maps API 創建一個地圖實例
+                zoom: 14,  
+                center: { lat: parseFloat(restMapList[0][0]), lng: parseFloat(restMapList[0][1]) },  // 將地圖的中心點設置為 restMapList 中第一個餐廳的經緯度
+                mapTypeId: google.maps.MapTypeId.ROADMAP 
+            });
 
-      var map = new google.visualization.Map(document.getElementById('map_div'));
-      map.draw(data, {
-        showTooltip: true,
-        showInfoWindow: true
-      });
+            // 遍歷 restMapList 中的每個項目，為每個項目在地圖上添加一個標記
+            restMapList.forEach((item, index) => {  // forEach 遍歷 restMapList，每個 item 對應一個餐廳的位置
+                const [lat, lng, id] = item;  // 解構賦值，從 item 中提取經度 (lat)、緯度 (lng) 和地圖 ID (id)
+                const position = { lat: parseFloat(lat), lng: parseFloat(lng) };  // 將經緯度從字符串轉換為浮點數，並存入 position 對象
+
+                const marker = new google.maps.Marker({  // 使用 Google Maps API 創建一個標記
+                    position: position,  // 設置標記的位置為指定的經緯度
+                    map: map,  // 將標記添加到地圖上
+                    title: `Map ID: ${id}`  // 設置標記的標題，當鼠標懸停在標記上時顯示
+                });
+
+                // 為標記添加點擊事件監聽器
+                marker.addListener('click', () => {  // 當標記被點擊時，執行此匿名函數
+                    const restIfo = restIfoListData[index];  // 根據 index 從 restIfoListData 中獲取對應的餐廳信息
+                    const content = `  // 構建一個包含餐廳詳細信息的 HTML 字符串
+                        <div>
+                            <h4>${restIfo.restName}</h4>  
+                            <p>電話: ${restIfo.restTel}</p>  
+                            <p>地址: ${restIfo.restAddress}</p>  
+                            <p>營業時間: ${restIfo.restTime}</p>  
+                        </div>
+                    `;
+                    const infoWindow = new google.maps.InfoWindow({  // 使用 Google Maps API 創建一個信息窗口
+                        content: content  // 設置信息窗口的內容為上面構建的 HTML 字符串
+                    });
+                    infoWindow.open(map, marker);  // 在地圖上打開信息窗口，並將其與相應的標記關聯
+                });
+            });
+        }
+
+        // 當窗口加載完畢時，調用 drawChart 函數來繪製地圖
+        window.onload = drawChart;  // 當頁面完全加載後，調用drawChart 函數
     }
+</script>
 
-  </script>
+
 <style>
 .container-flex {
 	display: flex;
@@ -99,17 +121,6 @@ th, td {
 			<div class="header-bottom_left">
 				<i class="phone"> </i><span>02-3333-4444</span>
 			</div>
-			<!-- 			<div class="social"> -->
-			<!-- 				<ul> -->
-			<!-- 					<li class="facebook"><a href="#"><span> </span></a></li> -->
-			<!-- 					<li class="twitter"><a href="#"><span> </span></a></li> -->
-			<!-- 					<li class="pinterest"><a href="#"><span> </span></a></li> -->
-			<!-- 					<li class="google"><a href="#"><span> </span></a></li> -->
-			<!-- 					<li class="tumblr"><a href="#"><span> </span></a></li> -->
-			<!-- 					<li class="instagram"><a href="#"><span> </span></a></li> -->
-			<!-- 					<li class="rss"><a href="#"><span> </span></a></li> -->
-			<!-- 				</ul> -->
-			<!-- 			</div> -->
 			<div class="clear"></div>
 		</div>
 	</div>
@@ -124,16 +135,16 @@ th, td {
 				<a class="toggleMenu" href="#">選單</a>
 				<ul class="nav">
 					<li><a th:href="@{/index}">首頁</a></li>
-					<li><a th:href="@{/account_information}">會員專區</a></li>
-					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
-					<li><a th:href="@{/menu}">健康餐</a></li>
-					<li><a th:href="@{/pricing}">購物商城</a></li>
+					<li th:if="${isLoggedIn}"><a th:href="@{/account_information}">會員專區</a></li>
+					<li th:if="${isLoggedIn}"><a th:href="@{/trainers}">專屬你的訓練</a></li>
+					<li th:if="${isLoggedIn}"><a th:href="@{/menu}">健康餐</a></li>
+					<li th:if="${isLoggedIn}"><a th:href="@{/pricing}">購物商城</a></li>
 					<li><a th:href="@{/map}">美食地圖</a>
 						<ul>
 							<li><a th:href="@{/foodmap}">口袋店家</a></li>
 						</ul></li>
 					<li><a th:href="@{/qa}">客服</a></li>
-					<li><a th:href="@{/login}" class="login-button">登入</a></li>
+					<li><a th:href="@{/loggedIn}">登入</a></li>
 				</ul>
 				<script type="text/javascript" src="js/nav.js"></script>
 			</div>
@@ -162,13 +173,11 @@ th, td {
 					<th:block th:each="restIfoVO : ${restIfoListData}">
 						<tr>
 							<td
-								th:text="${restIfoVO.restMapVO != null} ? ${restIfoVO.restMapVO.mapID} + '-[' + ${restIfoVO.restMapVO.mapID} + ']' : 'N/A'">
-							</td>
+								th:text="${restIfoVO.restMapVO != null} ? ${restIfoVO.restMapVO.mapID} + '-[' + ${restIfoVO.restMapVO.mapID} + ']' : 'N/A'"></td>
 							<td th:text="${restIfoVO.restName}"></td>
 							<td th:text="${restIfoVO.restAddress}"></td>
 							<td th:text="${restIfoVO.restTime}"></td>
 							<td th:text="${restIfoVO.restTel}"></td>
-
 							<td th:text="${restIfoVO.restLoc}"></td>
 						</tr>
 					</th:block>
@@ -226,20 +235,6 @@ th, td {
 			</div>
 			<div class="clear"></div>
 		</div>
-	</div>
-	<!-- 	<div class="social"> -->
-	<!-- 		<ul> -->
-	<!-- 			<li class="facebook"><a href="#"><span> </span></a></li> -->
-	<!-- 			<li class="twitter"><a href="#"><span> </span></a></li> -->
-	<!-- 			<li class="pinterest"><a href="#"><span> </span></a></li> -->
-	<!-- 			<li class="google"><a href="#"><span> </span></a></li> -->
-	<!-- 			<li class="tumblr"><a href="#"><span> </span></a></li> -->
-	<!-- 			<li class="instagram"><a href="#"><span> </span></a></li> -->
-	<!-- 			<li class="rss"><a href="#"><span> </span></a></li> -->
-	<!-- 		</ul> -->
-	<!-- 	</div> -->
-	<div class="clear"></div>
-	</div>
 	</div>
 </body>
 
