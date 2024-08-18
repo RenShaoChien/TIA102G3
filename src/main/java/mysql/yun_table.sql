@@ -64,3 +64,10 @@ create TABLE order_details(
    orderID INT NOT NULL,
    PRIMARY KEY ( ordDtIID )
 );
+
+INSERT INTO order_details (ordDtIID, productID, quantity, orderID)
+VALUES
+(1, 1, 1, 1),  -- 對應 orderID = 1
+(2, 12, 1, 1);  -- 對應 orderID = 1
+
+
