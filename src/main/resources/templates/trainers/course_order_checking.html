@@ -201,7 +201,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </label></label></label></label></label>
                 </div>
                 <input type="submit" value="確認並前往付款">
-<!--                <input id="submitButton" th:type="submit" th:disabled="${result == 1}" th:value="${result == 1 ? '您已購買過課程' : '確認並前往付款'}">-->
                 <input type="hidden" th:field="*{member.memberID}">
                 <input type="hidden" th:field="*{coachCourse.id}">
                 <div class="price_plans_box">
