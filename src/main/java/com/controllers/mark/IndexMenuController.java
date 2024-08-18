@@ -72,6 +72,21 @@ public class IndexMenuController {
 //        return "redirect:/menu/listAllLikeFood"; 
     }
     
+    @PostMapping("deleteLikeFood")
+    public String deleteLikeFood(@RequestParam("likeFoodSN") String likeFoodSN, ModelMap model) {
+        /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+        /*************************** 2.開始刪除資料 *****************************************/
+        // EmpService empSvc = new EmpService();
+        likeFoodSvc.deleteLikeFoodSN(Integer.valueOf(likeFoodSN));
+        /*************************** 3.刪除完成,準備轉交(Send the Success view) **************/
+        List<LikeFoodVO> list = likeFoodSvc.getAll();
+        model.addAttribute("likeFoodListData", list);
+        model.addAttribute("success", "- (新增成功)");
+        return "redirect:/menu"; // 刪除完成後轉交listAllEmp.html
+    }
+    
+    
+    
  // ======== add Health Status data ========
     @PostMapping("insertHealthStatus")
     public String insert(@Valid HealthStatusVO healthStatusVO, BindingResult result, ModelMap model) {

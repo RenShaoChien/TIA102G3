@@ -28,4 +28,9 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 	@Modifying
 	@Query(value = "update Member m set m.receiver = :receiver, m.receiverAddress = :receiverAddress, m.receiverPhone = :receiverPhone where m.memberID = :memberID")
 	void update(String receiver, String receiverAddress, String receiverPhone, Integer memberID);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "update Member m set m.personalPhotos = :personalPhotos where m.memberID = :memberID")
+	void updateMember(byte[] personalPhotos , Integer memberID);
 }

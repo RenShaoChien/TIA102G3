@@ -25,4 +25,9 @@ public interface CoachMemberRepository extends JpaRepository<CoachMember, Intege
 	CoachMember findByAccount(String account);
 	boolean existsByAccount(String account);
 	CoachMember findByEmail(String email);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "update CoachMember m set m.personalPhotos = :personalPhotos where m.cMemberID = :cMemberID")
+	void updateCoachMember(byte[] personalPhotos , Integer cMemberID);
 }

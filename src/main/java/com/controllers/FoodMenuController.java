@@ -190,6 +190,7 @@ public class FoodMenuController {
     public String delete(@RequestParam("foodNumber") String foodNumber, ModelMap model) {
         /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
         /*************************** 2.開始刪除資料 *****************************************/
+        foodSvc.deleteByFoodNum(Integer.valueOf(foodNumber));
 
         /*************************** 3.刪除完成,準備轉交(Send the Success view) **************/
         List<FoodVO> list = foodSvc.getAll();
@@ -222,8 +223,8 @@ public class FoodMenuController {
     
  // ======== add Like Food data ========
     @PostMapping("insertLikeFood")
-    public String insert(@Valid LikeFoodVO likeFoodVO, BindingResult result, ModelMap model) {
-        //@RequestParam("foodNumber") String foodNumber
+    public String insert(@Valid LikeFoodVO likeFoodVO, @RequestParam("foodNumber") String foodNumber, BindingResult result, ModelMap model) {
+        
         /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
         // 去除BindingResult中upFiles欄位的FieldError紀錄 --> 見第172行
         
@@ -233,8 +234,8 @@ public class FoodMenuController {
         }
 
         /*************************** 2.開始新增資料 *****************************************/
-//        FoodVO foodVO = foodSvc.getOneFood(Integer.valueOf(foodNumber));
-//        likeFoodVO.setFoodVO(foodVO);
+        FoodVO foodVO = foodSvc.getOneFood(Integer.valueOf(foodNumber));
+        likeFoodVO.setFoodVO(foodVO);
 //        System.out.print("foodNumber: ");
 //        System.out.println(foodNumber);
 //        System.out.print("likeFoodVO: ");
@@ -250,7 +251,20 @@ public class FoodMenuController {
 //        return "menu/listAllLikeFood"; 
     }
     
-    //
+    @PostMapping("deleteLikeFood")
+    public String deleteLikeFood(@RequestParam("likeFoodSN") String likeFoodSN, ModelMap model) {
+        /*************************** 1.接收請求參數 - 輸入格式的錯誤處理 ************************/
+        /*************************** 2.開始刪除資料 *****************************************/
+        // EmpService empSvc = new EmpService();
+        likeFoodSvc.deleteLikeFoodSN(Integer.valueOf(likeFoodSN));
+        /*************************** 3.刪除完成,準備轉交(Send the Success view) **************/
+        List<LikeFoodVO> list = likeFoodSvc.getAll();
+        model.addAttribute("likeFoodListData", list);
+        model.addAttribute("success", "- (新增成功)");
+        return "menu/listAllLikeFood"; // 刪除完成後轉交listAllEmp.html
+    }
+    
+       
     @ModelAttribute("FoodListData")  
     protected List<FoodVO> referenceListData(Model model) {
         

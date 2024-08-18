@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>食材資料修改 - update_food_input.html</title>
+<title>食材資料修改</title>
 
 <head th:insert="~{/menu/included-fragment}"></head>
 <style type="text/css">
@@ -48,7 +48,7 @@
     <div>
 <!-- 		<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top justify-content-center"> -->
 		<nav class="navbar navbar-expand-md navbar-dark bg-success justify-content-center">
-				 <div align="center"> <h2>員工資料修改 - update_food_input.html</h2>
+				 <div align="center"> <h2>食材資料修改</h2>
 				 <h3><a class="navbar-brand" th:href="@{/food/select_page}"><img th:src="@{/images/back1.gif}">回查詢頁</a></h3></div>
 		</nav>
     </div>
@@ -80,35 +80,6 @@
 			<input type="text" th:field="*{foodCalories}" onclick="hideContent('foodCalories.errors');" /><br/>
 			<span  th:if="${#fields.hasErrors('foodCalories')}" th:errors="*{foodCalories}" class="error" id="foodCalories.errors"></span>
 			</div>
-
-<!-- 			<div> -->
-<!-- 			<label>薪水:</label> -->
-<!-- 			<input type="text" th:field="*{sal}" onclick="hideContent('sal.errors');" /><br/> -->
-<!-- 			<span  th:if="${#fields.hasErrors('sal')}" th:errors="*{sal}" class="error" id="sal.errors"></span> -->
-<!-- 			</div> -->
-			
-<!-- 			<div> -->
-<!-- 			<label>獎金:</label> -->
-<!-- 			<input type="text" th:field="*{comm}" onclick="hideContent('comm.errors');" /><br/> -->
-<!-- 			<span  th:if="${#fields.hasErrors('comm')}" th:errors="*{comm}" class="error" id="comm.errors"></span> -->
-<!-- 			</div> -->
-			
-<!-- 			<div> -->
-<!-- 			<label>部門:</label> -->
-<!-- 			<select th:field="*{deptVO.deptno}"> -->
-<!-- 				<option th:each="deptVO : ${deptListData}" th:value="${deptVO.deptno}" th:text="${deptVO.dname}" /> -->
-<!-- 			</select> -->
-<!-- 			<span th:if="${#fields.hasErrors('deptVO.deptno')}" th:errors="*{deptVO.deptno}" class="error" id="deptVO.deptno.errors"></span> -->
-<!-- 			</div> -->
-				
-			
-			
-<!-- 			<div> -->
-<!-- 			<label>照片:</label> -->
-<!-- 			<input type="file" th:field="*{upFiles}" onclick="previewImage()" multiple="multiple" /> -->
-<!--             可以不修改圖片 <span  th:if="${#fields.hasErrors('upFiles')}" th:errors="*{upFiles}" class="error" id="upFiles.errors"></span> -->
-<!-- 			<div id="blob_holder"><img th:src="@{/emp/DBGifReader} + '?empno=' + ${empVO.empno}" width="100px"></div> -->
-<!-- 			</div> -->
 			
 			<div>
 				<div></div>

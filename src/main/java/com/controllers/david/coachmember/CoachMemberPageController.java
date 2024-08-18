@@ -3,7 +3,10 @@ package com.controllers.david.coachmember;
 import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -43,7 +46,7 @@ public class CoachMemberPageController {
     @Autowired
     SystemCourseServiceImpl scService;
     
-    @GetMapping("/coach_member/coachMember_review_index")
+    @GetMapping("/coachMember_review_index")
 	public String coachMember_review_index(Model model) {
 		return "coachMember_review_index";
 	}
@@ -66,6 +69,33 @@ public class CoachMemberPageController {
 	@GetMapping("/coach_review_details")
 	public String coach_review_details(Model model) {
 		return "back-end/coach_member/coach_review_details";
+	}
+	
+	@GetMapping("/course/filterCoachMembers")
+	@ResponseBody
+	public Map<String, Object> filterCourses(
+	        @RequestParam("status") String status,
+	        @RequestParam(value = "keyword", required = false) String keyword,
+	        @RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
+	        @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
+
+	    List<Map<String, String>> courses = new ArrayList<>();
+
+	    // 假資料
+	    for (int i = 1; i <= 5; i++) {
+	        Map<String, String> course = new HashMap<>();
+	        course.put("coachName", "教練" + i);
+	        course.put("courseName", "課程" + i);
+	        course.put("status", status);
+	        course.put("id", String.valueOf(i));
+	        courses.add(course);
+	    }
+
+	    // 返回假資料和頁面信息
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("courses", courses);
+	    response.put("totalPages", 3); // 假設總頁數為3
+	    return response;
 	}
 
 	@ModelAttribute("coachMemberListData") // for select_page.html 第97 109行用 // for listAllMember.html 第85行用
@@ -155,21 +185,65 @@ public class CoachMemberPageController {
 	    return "frontend/coach_member/coach_account_information"; // 返回對應的視圖名稱
 	}
 	
-	@GetMapping("coach_account_skill")
+	@GetMapping("/coach_account_skill")
 	public String coach_account_skill(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-        CoachMember coachMember = (CoachMember) session.getAttribute("user");
+	    HttpSession session = request.getSession();
+	    CoachMember coachMember = (CoachMember) session.getAttribute("user");
 
-        if (coachMember != null) {
-            Integer cMemberID = coachMember.getCMemberID();
-            CoachMember coachMemberDetails = coachMemberSvc.findById(cMemberID);
-            
-            if (coachMemberDetails != null) {
-                model.addAttribute("name", coachMemberDetails.getName());
-            }
-        }
-		return "frontend/coach_member/coach_account_skill";
+	    if (coachMember != null) {
+	        Integer cMemberID = coachMember.getCMemberID();
+	        CoachMember coachMemberDetails = coachMemberSvc.findById(cMemberID);
+	        
+	        if (coachMemberDetails != null) {
+	            model.addAttribute("name", coachMemberDetails.getName());
+	        }
+	    }
+	    return "frontend/coach_member/coach_account_skill";
 	}
+
+	@PostMapping("/coach_account_skill")
+	public String processCoachSkill(HttpServletRequest request, Model model,
+	                                @RequestParam("sportTypes") String sportTypes,
+	                                @RequestParam("sportEventName") String sportEventName,
+	                                @RequestParam("sportEquipment") String sportEquipment,
+	                                @RequestParam("target-area") String targetArea,
+	                                @RequestParam("courseLevel") String courseLevel,
+	                                @RequestParam("loseWeight") String loseWeight,
+	                                RedirectAttributes redirectAttributes) {
+	    HttpSession session = request.getSession();
+	    CoachMember coachMember = (CoachMember) session.getAttribute("user");
+
+	    if (coachMember == null) {
+	        redirectAttributes.addFlashAttribute("message", "請先登入！");
+	        return "redirect:/login"; // 替換成你的登入頁面路徑
+	    }
+
+	    try {
+	        SportEvent sportEvent = new SportEvent();
+	        sportEvent.setSportTypes(sportTypes);
+	        sportEvent.setSportEventName(sportEventName);
+	        sportEvent.setSportEquipment(sportEquipment);
+
+	        seService.addOne(sportEvent);
+
+	        Random rd = new Random();
+	        List<SystemCourse> customizedCourses = scService.getSystemCoursesByReqPara(
+	            sportTypes, sportEventName, sportEquipment, targetArea, courseLevel
+	        );
+	        if (customizedCourses.size() > 0) {
+	            SystemCourse randomCourse = customizedCourses.get(rd.nextInt(customizedCourses.size()));
+	            model.addAttribute("systemCourse", randomCourse);
+	        } else {
+	            throw new IllegalArgumentException("目前沒有合適您的運動");
+	        }
+	        return "redirect:/coach_account_information";
+	    } catch (IllegalArgumentException e) {
+	        e.printStackTrace();
+	        redirectAttributes.addFlashAttribute("message", "目前沒有合適您的運動");
+	        return "redirect:/coach_account_skill";
+	    }
+	}
+
 	
 	@GetMapping("/coach_change_password")
 	public String coachChangePassword(HttpServletRequest request, Model model) {
