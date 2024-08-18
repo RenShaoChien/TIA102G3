@@ -86,10 +86,10 @@ public class PageController {
     }
 
 
-    @GetMapping("/pricing")
-    public String pricing(Model model) {
-        return "pricing";
-    }
+//    @GetMapping("/pricing")
+//    public String pricing(Model model) {
+//        return "pricing";
+//    }
     
     @GetMapping("/productintro")
     public String productintro(Model model) {
@@ -101,11 +101,11 @@ public class PageController {
 //        return "product/shopping_cart";
 //    }
     
-    @ModelAttribute("productList")
-    protected List<ProductVO> productList(Model model){
-    	List<ProductVO> products = productservice.getAll();
-    	return products;
-    }
+//    @ModelAttribute("productList")
+//    protected List<ProductVO> productList(Model model){
+//    	List<ProductVO> products = productservice.getAll();
+//    	return products;
+//    }
     
 
     @GetMapping("/orderChecking")

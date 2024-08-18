@@ -113,6 +113,7 @@ body {
     position: fixed;
     bottom: 20px; /* 距离页面底部20px */
     right: 20px;  /* 距离页面右侧20px */
+	z-index: 1000; /* 确保按钮在最上层 */
 }
 
 #fixedButton {
@@ -149,6 +150,10 @@ body {
     background-color: #1c45ca; /* 按钮被点击时的背景颜色 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 按钮被点击时的阴影效果 */
 }
+
+.hidden {
+        display: none;
+    }
 
 
 </style>
@@ -219,6 +224,11 @@ body {
 		<div class="border"></div>
 		<div class="container">
 			<div class="row price_plans">
+				<!-- member id -->
+				<div>
+					<h5 class="hidden">會員ID: </h5>
+					<h5 class="hidden" id="mID" th:text="${memberID}"></h5>
+				</div>
 			<h3 class="m_2">商品瀏覽</h3>
 			<div class="price_plans_box">				
 				
@@ -407,7 +417,8 @@ body {
 	        const productContainer = $(this).closest('.product');
 	        let productName = productContainer.find('.card-title').text();
 	        let productPrice = productContainer.find('.text-muted').text();
-			const memberID = "1234";
+			// 獲取 <h5 id="mID"> 中的文本值
+			const memberID = $('#mID').text().trim();
 				
 			console.log('memberID:', memberID);
 	        console.log('商品ID:', productId);
@@ -419,6 +430,7 @@ body {
 	        $.ajax({
 	            // url: 'http://localhost:8080/redis/save',
 	            url: 'http://localhost:8080/redis/saveOrder',
+				// url: 'http://tia102g3.ddns.net/redis/saveOrder',
 	            type: 'POST',
 	            contentType: 'application/json',
 	            data: JSON.stringify({

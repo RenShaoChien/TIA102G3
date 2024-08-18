@@ -363,6 +363,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<label for="">
 										<p class="menu-text-title">活動強度</p>
 									</label>
+									<br>
 									<input type="radio" id="radio_1" name="intensity" value="1">
 									<label for="radio_1">久坐/沒在運動</label><br>
 									<input type="radio" id="radio_2" name="intensity" value="2">
@@ -374,7 +375,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<input type="radio" id="radio_5" name="intensity" value="5">
 									<label for="radio_5">每周運動訓練2次/勞力工作者</label><br>
 									<div class="text-center">
-										<input class="btn" type="submit" value="提交">
+										<input class="btn" type="submit" id="insertHealth" name="insertHealth" value="提交">
 									</div>
 								</form>
 							</div>
@@ -408,7 +409,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<input type="radio" id="radio_2" name="foodPreference" value="0">
 									<label for="radio_2">不喜歡</label><br>
 									<div class="text-center">
-										<input class="btn" type="submit" value="提交">
+										<input class="btn" type="submit" id="insertFoodPreference" name="insertFoodPreference" value="提交">
 									</div>
 								</form>
 				
@@ -591,6 +592,98 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     $('#tdee').val('');             
                 
             });
+
+			// check health status input
+			// $("form").on("submit", function(event) {
+			// 	let height = $("#height").val().trim();
+			// 	let weight = $("#weight").val().trim();
+			// 	let isValid = true;
+			// 	let errorMessage = "";
+
+			// 	if (height === "" || isNaN(height)) {
+			// 		errorMessage += "請輸入有效的數字作為身高。\n";
+			// 		isValid = false;
+			// 	}
+
+			// 	if (weight === "" || isNaN(weight)) {
+			// 		errorMessage += "請輸入有效的數字作為體重。\n";
+			// 		isValid = false;
+			// 	}
+
+			// 	if (!intensity) {
+			// 		errorMessage += "請選擇一個活動強度。\n";
+			// 		isValid = false;
+			// 	}
+
+			// 	if (!isValid) {
+			// 		alert(errorMessage);
+			// 		event.preventDefault(); // 阻止表單提交
+			// 	}
+			// });
+
+			// check food preference input
+			// $("form").on("submit", function(event) {
+			// 	let foodPreference = $("input[name='foodPreference']:checked").val();
+			// 	let isValid = true;
+			// 	let errorMessage = "";
+
+			// 	if (!foodPreference) {
+			// 		errorMessage += "請選擇一個食物偏好（喜歡或不喜歡）。\n";
+			// 		isValid = false;
+			// 	}
+
+			// 	if (!isValid) {
+			// 		alert(errorMessage);
+			// 		event.preventDefault(); // 阻止表單提交
+			// 	}
+			// });
+
+			// 檢查健康參數表單
+			$("#insertHealth").on("click", function(event) {
+				let height = $("#height").val().trim();
+				let weight = $("#weight").val().trim();
+				let intensity = $("input[name='intensity']:checked").val();
+				let isValid = true;
+				let errorMessage = "";
+
+				if (height === "" || isNaN(height)) {
+					errorMessage += "請輸入有效的數字作為身高。\n";
+					isValid = false;
+				}
+
+				if (weight === "" || isNaN(weight)) {
+					errorMessage += "請輸入有效的數字作為體重。\n";
+					isValid = false;
+				}
+
+				if (!intensity) {
+					errorMessage += "請選擇一個活動強度。\n";
+					isValid = false;
+				}
+
+				if (!isValid) {
+					alert(errorMessage);
+					event.preventDefault(); // 阻止表單提交
+				}
+			});
+
+			// 檢查喜好食材表單
+			$("#insertFoodPreference").on("click", function(event) {
+				let foodPreference = $("input[name='foodPreference']:checked").val();
+				let isValid = true;
+				let errorMessage = "";
+
+				if (!foodPreference) {
+					errorMessage += "請選擇一個食物偏好（喜歡或不喜歡）。\n";
+					isValid = false;
+				}
+
+				if (!isValid) {
+					alert(errorMessage);
+					event.preventDefault(); // 阻止表單提交
+				}
+			});
+
         });
 
 	</script>
