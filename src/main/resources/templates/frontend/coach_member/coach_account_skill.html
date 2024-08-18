@@ -224,27 +224,11 @@
 </head>
 
 <body>
-    <!-- start header_bottom -->
-    <div class="header-bottom">
-        <div class="btn-login">
-            <a href="login.html">Log In</a>
-        </div>
-        <div class="container">
-            <div class="header-bottom_left">
-                <i class="phone"> </i><span>1-200-346-2986</span>
-            </div>
-            <div class="social">
-                <ul>
-                    <li class="facebook"><a href="#"><span> </span></a></li>
-                    <li class="google"><a href="#"><span> </span></a></li>
-                </ul>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <!-- start menu -->
     <div class="menu">
         <div class="container">
+        <div class="logo">
+				<a th:href="@{/index}"><img th:src="@{images/logo.png}" alt=""/></a>
+		 	</div>
             <div class="h_menu4"><!-- start h_menu4 -->
                 <a class="toggleMenu" href="#">Menu</a>
                 <ul class="nav">
@@ -265,13 +249,12 @@
     </div>
     <div class="container-data">
         <div class="sidebar">
-            <a th:href="@{coach_account_information}">修改帳戶資料</a>
-			<a th:href="@{coach_change_password}">修改密碼</a>
-			<a th:href="@{coach_historical_orders}">歷史訂單</a>
-			<a th:href="@{coach_receipt_information}">常用收件資訊</a>
-			<a th:href="@{coach_acc_information}">新增信用卡資訊</a>
-			<a th:href="@{coach_course_status}">查看課程狀態</a>
-			<a th:href="@{coach_course_products}">登入課程商品</a>
+            <a class="nav-link" th:href="@{/coach_account_information}">修改帳戶資料</a>
+			<a class="nav-link" th:href="@{/coach_change_password}">修改密碼</a>
+			<a class="nav-link" th:href="@{/coach_receipt_information}">常用收件資訊</a>
+			<a class="nav-link" th:href="@{/coach_acc_information}">新增信用卡資訊</a>
+			<a class="nav-link" th:href="@{/coach_course_status}">查看課程狀態</a>
+			<a class="nav-link" th:href="@{/coach_course_products}">登錄課程商品</a>
         </div>
         <div class="content-data">
             <h2>教練會員 (<span th:text="${name}"></span>)</h2>
