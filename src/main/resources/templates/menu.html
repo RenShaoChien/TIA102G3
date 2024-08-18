@@ -232,43 +232,25 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <body>
 	<!-- start header_bottom -->
-	<div class="header-bottom">
-		<div class="container">
-			<div class="header-bottom_left">
-				<i class="phone"> </i><span>1-200-346-2986</span>
-			</div>
-			<div class="social">
-				<ul>
-					<li class="facebook"><a href="#"><span> </span></a></li>
-					<li class="twitter"><a href="#"><span> </span></a></li>
-					<li class="pinterest"><a href="#"><span> </span></a></li>
-					<li class="google"><a href="#"><span> </span></a></li>
-					<li class="tumblr"><a href="#"><span> </span></a></li>
-					<li class="instagram"><a href="#"><span> </span></a></li>
-					<li class="rss"><a href="#"><span> </span></a></li>
-				</ul>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
-	<!-- start menu -->
+
+	<!-- end menu -->
 	<div class="menu">
 		<div class="container">
 			<div class="logo">
-				<a href="index.html"><img src="images/logo.png" alt="" /></a>
-			</div>
+					<a th:href="@{/index}"><img th:src="@{images/logo.png}" alt=""/></a>
+				 </div>
 			<div class="h_menu4">
 				<!-- start h_menu4 -->
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
 					<li><a th:href="@{/index}">首頁</a></li>
-					<li><a th:href="@{/account_information}">會員專區</a></li>
-					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
-					<li class="active"><a th:href="@{/menu}">健康餐</a></li>
-					<li><a th:href="@{/pricing}">購物商城</a></li>
+					<li><a th:href="@{/account_information}" data-requires-login="true">會員專區</a></li>
+					<li><a th:href="@{/trainers}" data-requires-login="true">專屬你的訓練</a></li>
+					<li><a th:href="@{/menu}" data-requires-login="true">健康餐</a></li>
+					<li><a th:href="@{/pricing}" data-requires-login="true">購物商城</a></li>
 					<li><a th:href="@{/map}">美食地圖</a></li>
 					<li><a th:href="@{/qa}">客服</a></li>
-					<li><a th:href="@{/logout}" class="logout-button">登出</a></li>
+					<li class="active"><a th:href="@{/loggedIn}">登入</a></li>
 				</ul>
 				<script type="text/javascript" src="js/nav.js"></script>
 			</div>
@@ -276,7 +258,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="clear"></div>
 		</div>
 	</div>
-	<!-- end menu -->
 	<!------------------⬇️以下為修改範圍⬇️------------------------>
 	<div class="main">
 		<div class="about_banner_img">
@@ -344,10 +325,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							</div>
 							<div class="panel-body">
 								<form th:action="@{insertHealthStatus}" method="post" th:object="${healthStatusVO}" enctype="multipart/form-data">
-									<label for="">
+									<label for="" class="hide" >
 										<p class="menu-text-title">會員編號</p>
 									</label>
-									<input class="form-control" type="text" name="memberID" th:value="${loginID}">
+									<input class="form-control hide" type="text" name="memberID" th:value="${loginID}">
 									<label for="">
 										<p class="menu-text-title">身高</p>
 									</label>
@@ -493,13 +474,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	
 
 	<!------------------⬆️以上為修改範圍⬆️------------------------>
+
 	<div class="footer-bottom">
 		<div class="container">
 			<div class="row section group">
 				<div class="col-md-4">
 					<div class="social"
 						 style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
-						<img th:src="@{images/cutecatloge.png}" style="width: 100%; height: 100%">
+						<img src="images/cutecatloge.png" style="width: 100%; height: 100%"/>
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -531,6 +513,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 		</div>
 	</div>
+
 	<div class="copyright">
 		<div class="container">
 			<div class="copy">
@@ -539,31 +522,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="clear"></div>
 		</div>
 	</div>
-	<div class="copyright">
-		<div class="container">
-			<div class="copy">
-				<p>
-					© 2014 Template by <a href="http://w3layouts.com" target="_blank">
-						w3layouts</a>
-				</p>
-			</div>
-			<div class="social">
-				<ul>
-					<li class="facebook"><a href="#"><span> </span></a></li>
-					<li class="twitter"><a href="#"><span> </span></a></li>
-					<li class="pinterest"><a href="#"><span> </span></a></li>
-					<li class="google"><a href="#"><span> </span></a></li>
-					<li class="tumblr"><a href="#"><span> </span></a></li>
-					<li class="instagram"><a href="#"><span> </span></a></li>
-					<li class="rss"><a href="#"><span> </span></a></li>
-				</ul>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
 
-	
-	
 	<script type="text/javascript">
 		$(document).ready(function () {
             console.log('ready');
@@ -635,51 +594,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     $('#tdee').val('');             
                 
             });
-
-			// check health status input
-			// $("form").on("submit", function(event) {
-			// 	let height = $("#height").val().trim();
-			// 	let weight = $("#weight").val().trim();
-			// 	let isValid = true;
-			// 	let errorMessage = "";
-
-			// 	if (height === "" || isNaN(height)) {
-			// 		errorMessage += "請輸入有效的數字作為身高。\n";
-			// 		isValid = false;
-			// 	}
-
-			// 	if (weight === "" || isNaN(weight)) {
-			// 		errorMessage += "請輸入有效的數字作為體重。\n";
-			// 		isValid = false;
-			// 	}
-
-			// 	if (!intensity) {
-			// 		errorMessage += "請選擇一個活動強度。\n";
-			// 		isValid = false;
-			// 	}
-
-			// 	if (!isValid) {
-			// 		alert(errorMessage);
-			// 		event.preventDefault(); // 阻止表單提交
-			// 	}
-			// });
-
-			// check food preference input
-			// $("form").on("submit", function(event) {
-			// 	let foodPreference = $("input[name='foodPreference']:checked").val();
-			// 	let isValid = true;
-			// 	let errorMessage = "";
-
-			// 	if (!foodPreference) {
-			// 		errorMessage += "請選擇一個食物偏好（喜歡或不喜歡）。\n";
-			// 		isValid = false;
-			// 	}
-
-			// 	if (!isValid) {
-			// 		alert(errorMessage);
-			// 		event.preventDefault(); // 阻止表單提交
-			// 	}
-			// });
 
 			// 檢查健康參數表單
 			$("#insertHealth").on("click", function(event) {
