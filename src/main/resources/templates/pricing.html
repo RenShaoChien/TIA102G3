@@ -299,7 +299,7 @@ body {
 			</li>
 			<!-- href要改成客服頁面 -->
 			<li class="question_right"
-				onclick="window.location.href='./product_intro.html'">(課服e-mail)</li>
+				onclick="window.location.href='./product_intro.html'">(客服e-mail)</li>
 			<div class="clear"></div>
 		</div>
 	</ul>
@@ -429,7 +429,7 @@ body {
 	        // 发送 AJAX 请求
 	        $.ajax({
 	            // url: 'http://localhost:8080/redis/save',
-	            url: 'http://localhost:8080/redis/saveOrder',
+	            url: '/redis/saveOrder',
 				// url: 'http://tia102g3.ddns.net/redis/saveOrder',
 	            type: 'POST',
 	            contentType: 'application/json',

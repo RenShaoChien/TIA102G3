@@ -19,6 +19,7 @@ import com.controllers.mark.RedisService;
 import com.tia102g3.adminlogin.service.AdminLoginService;
 import com.tia102g3.food.model.FoodService;
 import com.tia102g3.healthstatus.model.HealthStatusVO;
+import com.tia102g3.likefood.model.LikeFoodService;
 import com.tia102g3.likefood.model.LikeFoodVO;
 import com.tia102g3.member.model.Member;
 import com.tia102g3.member.model.MemberRepository;
@@ -37,6 +38,9 @@ public class MenuPageController {
     private MenuService menuSvc;
     
     @Autowired
+    private LikeFoodService likeFoodService;
+    
+    @Autowired
     private AdminLoginService adminSvc;
     
     @Autowired
@@ -50,6 +54,24 @@ public class MenuPageController {
 
     @GetMapping("/menu")
     public String menu(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String adminUsername = (String) session.getAttribute("adminUsername");
+        Long adminId = adminSvc.getAdminId(adminUsername);
+        System.out.println("adminId: " + adminId);
+        System.out.println("adminUsername: " + session.getAttribute("adminUsername"));
+        
+        int memberID = -1;
+     // get member data
+        if (session != null) {
+            // 從 session 中取出 member 物件
+            Member member = (Member) session.getAttribute("user");
+            if(member != null) {
+                memberID = member.getMemberID();
+                System.out.println("ID: " + member.getMemberID());
+                System.out.println("Account: " + member.getAccount());             
+            }
+        }      
+        
         LikeFoodVO likeFoodVO = new LikeFoodVO();
         HealthStatusVO healthStatusVO = new HealthStatusVO();
 //        List<MenuVO> menuVO = new ArrayList<>();
@@ -64,33 +86,31 @@ public class MenuPageController {
                                           .limit(4)
                                           .collect(Collectors.toList());
         
+        
+        // get insert data
+        likeFoodVO.setMemberID(memberID);
         model.addAttribute("likeFoodVO", likeFoodVO);
         model.addAttribute("healthStatusVO", healthStatusVO);
+        
+        // display front-end data        
+//        List<LikeFoodVO> likeFoodList = likeFoodService.getByMemberID(memberID);
+        model.addAttribute("LikeFoodList", likeFoodService.getByMemberID(memberID));
         model.addAttribute("FoodListData", foodSvc.getAll());
 //        model.addAttribute("menuVO", menuVO);
         model.addAttribute("menuVO", randomMenuVO);
-        
-        HttpSession session = request.getSession();
-        String adminUsername = (String) session.getAttribute("adminUsername");
-        Long adminId = adminSvc.getAdminId(adminUsername);
-        System.out.println("adminId: " + adminId);
-        System.out.println("adminUsername: " + session.getAttribute("adminUsername"));
-        
-        // get member data
-        if (session != null) {
-            // 從 session 中取出 member 物件
-            Member member = (Member) session.getAttribute("user");
-            if(member != null) {
-                System.out.println("ID: " + member.getMemberID());
-                System.out.println("Account: " + member.getAccount());             
-            }
-        }       
+        model.addAttribute("loginID", memberID);
         
         return "menu";
     }
     
     @PostMapping("/updateMenu")
-    public String updateMenu() {
+    public String updateMenu(Model model) {
+     // 確保列表長度至少為四，然後選取前四個
+        List<MenuVO> randomMenuVO = menuSvc.getAll().stream()
+                                          .limit(4)
+                                          .collect(Collectors.toList());
+        model.addAttribute("menuVO", randomMenuVO);
+        
         return "redirect:/menu";
     }
     
@@ -154,7 +174,14 @@ public class MenuPageController {
         }   
         
         List<ProductInfo> productList = redisService.getProductList(String.valueOf(memberID));
+        int totalPrice = 0;
+        for(ProductInfo product : productList) {
+            totalPrice = totalPrice + product.getPrice() * product.getQuantity();
+        }
+        
         model.addAttribute("productList", productList);
+        model.addAttribute("totalPrice", totalPrice);
+        
         Member member = memberSvc.getById(memberID);
         model.addAttribute("member",member);
         
@@ -192,6 +219,35 @@ public class MenuPageController {
         List<ProductVO> products = productservice.getAll();
         return products;
     }
+    
+//    @ModelAttribute("menuVO")
+//    protected List<MenuVO> menuVO(Model model,HttpServletRequest request){
+//        HttpSession session = request.getSession();
+//        int memberID = -1;
+//     // get member data
+//        if (session != null) {
+//            // 從 session 中取出 member 物件
+//            Member member = (Member) session.getAttribute("user");
+//            if(member != null) {
+//                memberID = member.getMemberID();
+//                System.out.println("ID: " + member.getMemberID());
+//                System.out.println("Account: " + member.getAccount());             
+//            }
+//        }      
+//        List<MenuVO> randomMenuVO = menuSvc.getAll();
+//
+//        // 隨機打亂列表
+//        Collections.shuffle(randomMenuVO);
+//
+//        // 確保列表長度至少為四，然後選取前四個
+//        List<MenuVO> menuVO = randomMenuVO.stream()
+//                                          .limit(4)
+//                                          .collect(Collectors.toList());
+//        
+//        
+////        List<MenuVO> menuVO = productservice.getAll();
+//        return menuVO;
+//    }
     
     
     
