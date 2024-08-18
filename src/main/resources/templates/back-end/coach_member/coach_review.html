@@ -1,203 +1,266 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>健肌尋食-教練審核列表</title>
-    <style>
-        .filter-button.-onfocus {
-            background-color: #0056b3; /* 或任何你希望的高亮顏色 */
-            color: #fff;
-        }
+<meta charset="UTF-8">
+<title>健肌尋食-教練審核列表</title>
+<style>
+.filter-button.-onfocus {
+	background-color: #0056b3; /* 或任何你希望的高亮顏色 */
+	color: #fff;
+}
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
+body {
+	font-family: 'Arial', sans-serif;
+	background-color: #f4f4f4;
+	color: #333;
+	margin: 0;
+	padding: 20px;
+}
 
-        .course-list-container {
-            width: 60%;
-            max-width: 1200px;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            margin: 20px auto;
-        }
+.course-list-container {
+	width: 60%;
+	max-width: 1200px;
+	background-color: #fff;
+	padding: 20px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 5px;
+	margin: 20px auto;
+}
 
-        .courseList_header {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-            font-size: 24px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
+.courseList_header {
+	background-color: #007bff;
+	color: white;
+	padding: 10px 0;
+	text-align: center;
+	font-size: 24px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
 
-        .filters {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+.filters {
+	text-align: center;
+	margin-bottom: 20px;
+}
 
-        .filter-button, .browse-button, .btn {
-            padding: 10px 20px;
-            margin: 5px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s, box-shadow 0.3s;
-            font-size: 16px;
-            height: 40px; /* 設置按鈕高度 */
-        }
+.filter-button, .browse-button, .btn {
+	padding: 10px 20px;
+	margin: 5px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s, box-shadow 0.3s;
+	font-size: 16px;
+	height: 40px; /* 設置按鈕高度 */
+}
 
-        .filter-button:hover, .browse-button:hover, .btn:hover {
-            background-color: #0056b3;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+.filter-button:hover, .browse-button:hover, .btn:hover {
+	background-color: #0056b3;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-        .courses {
-            margin-top: 20px;
-        }
+.courses {
+	margin-top: 20px;
+}
 
-        .course-item {
-            padding: 10px;
-            border-bottom: 1px solid #ccc;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.course-item {
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 
-        .course-name {
-            font-size: 16px;
-        }
+.course-name {
+	font-size: 16px;
+}
 
-        .course-actions {
-            display: flex;
-            gap: 10px;
-        }
+.course-actions {
+	display: flex;
+	gap: 10px;
+}
 
-        .course-actions a {
-            text-decoration: none;
-            color: inherit;
-        }
+.course-actions a {
+	text-decoration: none;
+	color: inherit;
+}
 
-        #lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background-color: hsla(0, 0%, 0%, .5);
-        }
+#lightbox {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	background-color: hsla(0, 0%, 0%, .5);
+}
 
-        #lightbox.-on {
-            display: none;
-        }
+#lightbox.-on {
+	display: none;
+}
 
-        #lightbox > article {
-            background-color: white;
-            width: 90%;
-            max-width: 800px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #ddd;
-            padding: 10px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+#lightbox>article {
+	background-color: white;
+	width: 90%;
+	max-width: 800px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px #ddd;
+	padding: 10px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 
-        .btn_modal_close {
-            cursor: pointer;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
+.btn_modal_close {
+	cursor: pointer;
+	padding: 10px 20px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	transition: background-color 0.3s, box-shadow 0.3s;
+}
 
-        .btn_modal_close:hover {
-            background-color: #0056b3;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+.btn_modal_close:hover {
+	background-color: #0056b3;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-        .search-container {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            width: 60%;
-            margin-left: auto;
-            margin-bottom: 4px;
-        }
+.search-container {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	width: 60%;
+	margin-left: auto;
+	margin-bottom: 4px;
+}
 
-        .search-input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            height: 20px; /* 設置輸入框高度 */
-            font-size: 16px;
-            margin-right: 5px; /* 與按鈕之間的間距 */
-        }
+.search-input {
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	height: 20px; /* 設置輸入框高度 */
+	font-size: 16px;
+	margin-right: 5px; /* 與按鈕之間的間距 */
+}
 
-        button {
-            cursor: pointer;
-        }
-    </style>
+button {
+	cursor: pointer;
+}
+
+.btn btn-outline-light {
+	float: left;
+}
+</style>
 </head>
 <body>
-<div>
-    <div>
-        <div class="courseList_header">教練審核列表
-            <div id="lightbox" class="-on">
-                <article>
-                    <h1 id="messageContent" th:if="${message}" th:text="${message}" style="color: black"></h1>
-                    <button type="button" class="btn_modal_close">關閉</button>
-                </article>
-            </div>
-        </div>
-        <div class="search-container">
-            <form id="searchForm" method="post" style="float: right">
-                <input id="coachMembersKeyword" class="search-input" type="text" name="coachMembersKeyword"
-                       placeholder="請輸入查詢關鍵字...">
-                <button type="submit" class="btn">查詢</button>
-            </form>
-        </div>
-    </div>
+	<div>
+		<div>
+			<div class="courseList_header">
+				教練審核列表 <a class="btn btn-outline-light"
+					th:href="@{/coach_member/coachHome_page}" role="button"> <span
+					class="font-weight-bold">回查詢頁</span>
+				</a>
+				<div id="lightbox" class="-on">
+					<article>
+						<h1 id="messageContent" th:if="${message}" th:text="${message}"
+							style="color: black"></h1>
+						<button type="button" class="btn_modal_close">關閉</button>
+					</article>
+				</div>
+			</div>
+			<div class="search-container">
+				<form id="searchForm" method="post" style="float: right">
+					<input id="coachMembersKeyword" class="search-input" type="text"
+						name="coachMembersKeyword" placeholder="請輸入查詢關鍵字...">
+					<button type="submit" class="btn">查詢</button>
+				</form>
+			</div>
+		</div>
 
 
-    <div class="course-list-container">
-        <div class="filters">
-            <button class="filter-button" onclick="filterCourses('進行中', this)">進行中</button>
-            <button class="filter-button" onclick="filterCourses('已結束', this)">已結束</button>
-            <button class="filter-button" onclick="filterCourses('未審核', this)">未審核</button>
-        </div>
-        <div class="courses">
-            <ul id="coachMembers" style="list-style-type: none;">
-
-            </ul>
-        </div>
-    </div>
-    <div style="border: 0px solid red ; width: 60%; margin-left: 20% ; margin-top: 4px" class="center">
-        <input type="button" class="btn" id="firstPageBtn" value="首  頁">
-        <input type="button" class="btn" id="prevPageBtn" value="上一頁">
-        <input type="button" class="btn" id="nextPageBtn" value="下一頁">
-        <input type="button" class="btn" id="lastPageBtn" value="尾  頁">
-    </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script !src="">
+		<div class="course-list-container">
+			<div class="filters">
+				<button class="filter-button"
+					onclick="filterCoachMember('進行中', this)">進行中</button>
+				<button class="filter-button"
+					onclick="filterCoachMembers('已結束', this)">已結束</button>
+				<button class="filter-button"
+					onclick="filterCoachMembers('未審核', this)">未審核</button>
+			</div>
+			<div class="courses">
+				<ul id="coachMembers" style="list-style-type: none;">
+					<li>
+						<div class="course-item">
+							<span class="course-name">♥ 教練：任教練 ♦ 課程：腿舉課程 ♠ 狀態：審核中</span>
+							<div class="course-actions">
+								<button class="browse-button">
+									<a href="#">瀏覽</a>
+								</button>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="course-item">
+							<span class="course-name">♥ 教練：劉教練 ♦ 課程：平板支撐課程 ♠ 狀態：審核通過</span>
+							<div class="course-actions">
+								<button class="browse-button">
+									<a href="#">瀏覽</a>
+								</button>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="course-item">
+							<span class="course-name">♥ 教練：李教練 ♦ 課程：深蹲課程 ♠ 狀態：審核通過</span>
+							<div class="course-actions">
+								<button class="browse-button">
+									<a href="#">瀏覽</a>
+								</button>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="course-item">
+							<span class="course-name">♥ 教練：曾教練 ♦ 課程：臥推槓鈴課程 ♠ 狀態：審核中</span>
+							<div class="course-actions">
+								<button class="browse-button">
+									<a href="#">瀏覽</a>
+								</button>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="course-item">
+							<span class="course-name">♥ 教練：任教練 ♦ 課程：肩推槓鈴課程 ♠ 狀態：審核中</span>
+							<div class="course-actions">
+								<button class="browse-button">
+									<a href="#">瀏覽</a>
+								</button>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div
+			style="border: 0px solid red; width: 60%; margin-left: 20%; margin-top: 4px"
+			class="center">
+			<input type="button" class="btn" id="firstPageBtn" value="首  頁">
+			<input type="button" class="btn" id="prevPageBtn" value="上一頁">
+			<input type="button" class="btn" id="nextPageBtn" value="下一頁">
+			<input type="button" class="btn" id="lastPageBtn" value="尾  頁">
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script>
     var keyword = $('#coachMembersKeyword').val();
     var currentStatus = '進行中';
     var currentPage = 1;
     var totalPages = 1;
 
-    filterCourses(currentStatus, null, 1, 5, keyword);
+    filterCoachMembers(currentStatus, null, 1, 5, keyword);
 
     function updatePageButtons() {
         $('#firstPageBtn').prop('disabled', currentPage === 1);
@@ -213,13 +276,13 @@
             return;
         }
         currentPage = pageNo;
-        filterCourses(currentStatus, null, pageNo);
+        filterCoachMembers(currentStatus, null, pageNo);
     }
 
 
     $('#searchForm').on('submit', function (event) {
         event.preventDefault(); // 阻止表單的默認提交動作
-        filterCourses(currentStatus, null, 1, 5, $('#coachMembersKeyword').val());
+        filterCoachMembers(currentStatus, null, 1, 5, $('#coachMembersKeyword').val());
     });
 
     $('#firstPageBtn').on('click', function () {
@@ -239,7 +302,7 @@
         console.log("Last page button clicked");
     });
 
-    function filterCourses(status, button, pageNo = 1, pageSize = 5, keyword = '') {
+    function filterCoachMembers(status, button, pageNo = 1, pageSize = 5, keyword = '') {
         console.log("Status selected:", status);
         currentStatus = status;
         currentPage = pageNo;
@@ -248,76 +311,6 @@
             $(button).addClass('-onfocus');
         }
         keyword = keyword || $('#coachMembersKeyword').val();
-
-        $.ajax({
-            url: '/course/filterCourses',
-            method: 'GET',
-            data: {status: currentStatus, keyword: keyword, pageNo: currentPage, pageSize: pageSize},
-            success: function (response) {
-                // console.log("Received response:", response);
-                $('#coachMembers').empty();
-                if (response.courses.length > 0) {
-                    $.each(response.courses, function (index, course) {
-                        // console.log(course);
-                        var courseItem = `
-                    <li>
-                        <div class="course-item">
-                            <span class="course-name">♥ 教練：${coachMember.name} ♦ 課程：${course.courseName || '未定義'} ♠ 狀態：${coachMember.status.description || '未定義'}</span>
-                            <div class="course-actions">
-                                <button class="browse-button"><a href="/coach_review_details?cMemberID=${course.id}">瀏覽</a></button>
-                            </div>
-                        </div>
-                    </li>`;
-                        $('#coachMembers').append(courseItem);
-                    });
-                } else {
-                    $('#coachMembers').append('<li>對不起，目前尚無課程!</li>');
-                }
-                totalPages = response.totalPages || 1; // 假設API返回了總頁數
-                updatePageButtons(); // 更新按鈕狀態
-            },
-            error: function () {
-                alert('無法加載內容，請稍後再試。');
-            }
-        });
-    }
-
-    $(document).ready(function () {
-
-
-        var messageContent = $("#messageContent").text().trim();
-        console.log("檢查燈箱內容:", messageContent);
-
-        if (messageContent.length > 0) {
-            console.log("燈箱內有消息");
-
-            // 移除 -on class 並顯示燈箱
-            $("#lightbox").removeClass("-on").fadeIn(1000);
-
-            // 點擊關閉按鈕關閉燈箱
-            $("button.btn_modal_close").on("click", function () {
-                console.log("關閉按鈕被點擊");
-                $("#lightbox").fadeOut(1000, function () {
-                    $("#lightbox").addClass("-on");
-                });
-            });
-
-            // 防止點擊燈箱內部時關閉燈箱
-            $("#lightbox > article").on("click", function (e) {
-                e.stopPropagation();
-            });
-
-            // 點擊燈箱背景關閉燈箱
-            $("#lightbox").on("click", function () {
-                console.log("背景被點擊");
-                $(this).fadeOut(1000, function () {
-                    $(this).addClass("-on");
-                });
-            });
-        } else {
-            console.log("燈箱內無消息");
-        }
-    })
 </script>
 </body>
 </html>
