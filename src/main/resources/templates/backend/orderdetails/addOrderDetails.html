@@ -112,6 +112,7 @@
 <!-- 	</form> -->
 	
     <form th:action="@{/orderdetails/addOrderDetails.do}" method="post" th:object="${orderdetails}" enctype="multipart/form-data">
+        <input type="hidden" name="orderID" th:value="${orderID}">
         <!-- 顯示錯誤信息 -->
         <div th:if="${validationErrors != null}">
             <ul>
@@ -138,12 +139,12 @@
                   th:if="${#fields.hasErrors('quantity')}"></span>
         </div>
 
-        <div class="form-field">
-            <label>訂單編號：</label>
-       		<input th:field="*{orderID}" type="text"/><br/>
-            <span class="error" id="courseName.errors" th:errors="*{orderID}"
-                  th:if="${#fields.hasErrors('orderID')}"></span>
-        </div>
+<!--        <div class="form-field">-->
+<!--            <label>訂單編號：</label>-->
+       		<input type="hidden" th:field="*{orderID}" /><br/>
+<!--            <span class="error" id="courseName.errors" th:errors="*{orderID}"-->
+<!--                  th:if="${#fields.hasErrors('orderID')}"></span>-->
+<!--        </div>-->
 <!--         <div class="form-field"> -->
 <!--             <label>商品簡介：</label> -->
 <!--             <textarea th:field="*{intro}" cols="auto" rows="auto"></textarea><br/> -->

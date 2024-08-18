@@ -33,10 +33,9 @@ public class AdminLoginController {
                 HttpSession session = request.getSession();
                 session.setAttribute("adminUsername", adminUsername);
 
-                // 添加管理者名稱到模型中
                 String adminName = adminService.getAdminName(adminUsername);
                 session.setAttribute("adminName", adminName);
-                
+
                 String location = (String) session.getAttribute("location");
                 if (location != null) {
                     session.removeAttribute("location");
@@ -60,7 +59,7 @@ public class AdminLoginController {
         if (session != null) {
             session.invalidate(); // 使會話無效
         }
-        return "redirect:/adminLogin"; // 重定向到登錄頁面
+        return "redirect:/login"; // 重定向到登入頁面
     }
 
     @GetMapping("/adminRegister")

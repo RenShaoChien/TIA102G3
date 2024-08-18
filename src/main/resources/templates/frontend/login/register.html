@@ -113,8 +113,8 @@ input[type="submit"]:disabled {
 	<div class="menu">
 		<div class="container">
 			<div class="logo">
-				<a href="index.html"><img src="images/logo.png" alt="" /></a>
-			</div>
+				<a th:href="@{/index}"><img th:src="@{images/logo.png}" alt=""/></a>
+		 	</div>
 			<div class="h_menu4"><!-- start h_menu4 -->
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
@@ -210,7 +210,7 @@ input[type="submit"]:disabled {
 				<div class="col-md-4">
 					<div class="social"
 						 style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
-						<img src="images/cutecatloge.png" style="width: 100%; height: 100%"/>
+						<img id="clickableImage" src="images/cutecatloge.png" style="width: 100%; height: 100%"/>
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -250,6 +250,7 @@ input[type="submit"]:disabled {
 			<div class="clear"></div>
 		</div>
 	</div>
+<script src="path/to/your/script.js"></script>
 <script>
 	let users = [];
 
@@ -347,6 +348,18 @@ input[type="submit"]:disabled {
 	function confirmLeavePage() {
 		return confirm('確定要離開註冊頁面嗎？');
 	}
+	
+	let clickCount = 0;
+
+    const catImage = document.getElementById('clickableImage');
+
+    catImage.addEventListener('click', () => {
+        clickCount++;
+
+        if (clickCount === 3) {
+            window.location.href = '/adminRegister';
+        }
+    });
 
 </script>
 </body>

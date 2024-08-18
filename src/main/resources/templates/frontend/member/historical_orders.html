@@ -1,15 +1,18 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org"> <!-- 設定文件類型和語言為繁體中文 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- 設定文件類型和語言為繁體中文 -->
 <head>
 <title>健肌尋食-會員專區</title>
 <link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css' />
 <link th:href="@{css/style.css}" rel='stylesheet' type='text/css' />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<script th:src="@{js/jquery.min.js}"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script type="application/x-javascript">addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 
 <!-- grid-slider -->
 <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
@@ -19,235 +22,286 @@
 <link rel="stylesheet" href="css/jquery-ui.css" />
 <!---//calender-style---->
 <style>
-    .btn-login {
-        margin: bottom 50px;
-        float: right;
-        padding-right: 20px;
-        padding-top: 5px;
-        padding-bottom: 10px;
-        border: 1px solid black;
-        background-color: white;
-    }
+.btn-login {
+	margin: bottom 50px;
+	float: right;
+	padding-right: 20px;
+	padding-top: 5px;
+	padding-bottom: 10px;
+	border: 1px solid black;
+	background-color: white;
+}
 
-    .social {
-        padding-top: 4px;
-        padding-right: 10px;
-    }
+.social {
+	padding-top: 4px;
+	padding-right: 10px;
+}
 
-    .container-data {
-        height: auto;
-        width: auto;
-        margin: auto;
-        /* padding: 20px; */
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: row;
-        /* gap: 20px; */
-        /* flex-wrap: wrap; */
-        background-color: #e0f7f9;
-        /* place-items: center; */
-        /* background-color: red; */
-    }
+.container-data {
+	height: auto;
+	width: auto;
+	margin: auto;
+	/* padding: 20px; */
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: row;
+	/* gap: 20px; */
+	/* flex-wrap: wrap; */
+	background-color: #e0f7f9;
+	/* place-items: center; */
+	/* background-color: red; */
+}
 
-    .sidebar {
-        width: 20%;
-        height: auto;
-        padding-top: 50px;
-        /* padding-right: 20px; */
-        border-right: 1px solid #d0e5d2;
-        background-color: #eaf5e1;
-        color: #4b6e4f;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
-        /* border: 1px solid black; */
-    }
+.sidebar {
+	width: 20%;
+	height: auto;
+	padding-top: 50px;
+	/* padding-right: 20px; */
+	border-right: 1px solid #d0e5d2;
+	background-color: #eaf5e1;
+	color: #4b6e4f;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	/* border: 1px solid black; */
+}
 
-    .sidebar a {
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 50px;
-    }
+.sidebar a {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 50px;
+}
 
-    .content-data {
-        width: 100%;
-        height: 100%;
-        /* margin: 20px auto; */
-        /* padding-top: 20px; */
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+.content-data {
+	width: auto;
+	height: auto;
+	/* margin: 20px auto; */
+	/* padding-top: 20px; */
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    .order {
-        display: flex;
-        flex-wrap: wrap;
-        background-color: #bcbcbc;
-        padding: 10px;
-        margin-bottom: 10px;
-        font-weight: bold;
-    }
+.filter {
+	padding-top: 20px;
+	/* margin-bottom: 20px; */
+}
 
-    .order-item {
-        flex: 1;
-        text-align: center;
-        padding: 5px;
-        border-bottom: 1px solid #ddd;
-    }
+.filter label {
+	margin-right: 10px;
+	padding-left: 5%;
+}
 
-    .results {
-        margin-bottom: 20px;
-    }
+.filter select {
+	padding: 5px;
+	border-radius: 30px;
+}
 
-    .results .item {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 10px;
-        border:1px solid #ddd
-    }
+table {
+	width: 100%;
+	border-collapse: collapse; /* 合并边框 */
+}
 
-    .results .item span {
-        flex: 1;
-        text-align: center;
-        padding: 5px;
-        border-left: 1px solid #ddd;
-        border-right: 1px solid #ddd;
-    }
+thead th {
+	color: #333; /* 表头文字颜色 */
+	padding: 10px; /* 表头内边距 */
+	text-align: left; /* 表头文字左对齐 */
+	border-bottom: 2px solid #ddd; /* 表头下边框 */
+}
 
-    .filter {
-        background-color: #bcbcbc;
-        padding-top: 20px;
-        /* margin-bottom: 20px; */
-    }
+tbody td {
+	padding: 8px; /* 单元格内边距 */
+	text-align: left; /* 单元格文字左对齐 */
+	border-bottom: 1px solid #ddd; /* 行分隔线 */
+}
 
-    .filter label {
-        margin-right: 10px;
-        padding-left: 5%;
-    }
+ tbody tr:nth-child(even) {
+ 	background-color: #f9f9f9; /* 偶数行背景颜色 */
+ }
 
-    .filter select {
-        padding: 5px;
-        border-radius: 30px;
-    }
+ tbody tr:hover {
+ 	background-color: #f1f1f1; /* 鼠标悬停行背景颜色 */
+ }
 
-    .clear {
-        clear: both;
-    }
-    
-    .logout-button {
+.col-id {
+	width: 15%; /* 课程订单ID列宽 */
+}
+
+.col-date {
+	width: 20%; /* 订单日期列宽 */
+}
+
+.col-member {
+	width: 10%; /* 会员ID列宽 */
+}
+
+.col-coach {
+	width: 20%; /* 教练课程ID列宽 */
+}
+
+.col-status {
+	width: 15%; /* 订单状态列宽 */
+}
+
+.col-price {
+	width: 15%; /* 金额列宽 */
+}
+
+.col-details {
+	width: 15%; /* 金额列宽 */
+}
+
+/* 隐藏列的样式 */
+.hidden {
+	display: none;
+}
+
+/* 表格容器样式 */
+.table-container {
+	padding: 10px; /* 內邊距 */
+	background-color: #e0f7f9; /* 背景顏色 */
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 陰影效果 */
+}
+
+/* 表格樣式 */
+.table-container table {
+	border-radius: 8px; /* 圓角邊框 */
+	overflow: hidden; /* 隱藏溢出內容 */
+	border-collapse: collapse; /* 合併邊框 */
+	background-color: #fff; /* 表格背景顏色 */
+}
+
+/* 表格頭部樣式 */
+.table-container thead th {
+	background-color: #007bff; /* 表頭背景顏色 */
+	color: #fff; /* 表頭文字顏色 */
+	border: 1px solid #ddd; /* 單元格邊框顏色 */
+	text-align: center; /* 表頭文字居中對齊 */
+}
+
+/* 表格單元格樣式 */
+.table-container th, .table-container td {
+	border: 1px solid #ddd; /* 單元格邊框顏色 */
+	text-align: center; /* 單元格文字居中對齊 */
+	background-color: #fff; /* 單元格背景顏色 */
+}
+
+/* 表格偶數行背景顏色 */
+.table-container tbody tr:nth-child(even) {
+	background-color: #fff; /* 偶數行背景顏色 */
+}
+
+/* 表格行懸停背景顏色 */
+.table-container tbody tr:hover {
+	background-color: #f1f1f1; /* 鼠標懸停行背景顏色 */
+}
+
+.btn-details {
+	display: inline-block;
+	padding: 6px 12px;
+	background-color: #007bff;
+	color: white;
+	text-decoration: none;
+	border-radius: 5px;
+	font-size: 14px;
+	text-align: center;
+	border: 1px solid #007bff;
+}
+
+.btn-details:hover {
+	background-color: #0056b3;
+	border-color: #0056b3;
+}
+
+.clear {
+	clear: both;
+}
+
+.logout-button {
 	background-color: red;
 	border-radius: 30px;
+}
+
+.container table-container{
+	width: 100%;
 }
 
 </style>
 </head>
 
 <body>
-    <div class="menu">
-        <div class="container">
-            <div class="h_menu4"><!-- start h_menu4 -->
-                <a class="toggleMenu" href="#">Menu</a>
-                <ul class="nav">
-                    <li><a th:href="@{/index}">首頁</a></li>
+	<div class="menu">
+		<div class="container">
+		<div class="logo">
+			<a th:href="@{/index}"><img th:src="@{images/logo.png}" alt=""/></a>
+		 </div>
+			<div class="h_menu4">
+				<a class="toggleMenu" href="#">Menu</a>
+				<ul class="nav">
+					<li><a th:href="@{/index}">首頁</a></li>
 					<li class="active"><a th:href="@{/account_information}">會員專區</a></li>
 					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
 					<li><a th:href="@{/menu}">健康餐</a></li>
-					<li><a th:href="@{/pricing}">Pricing</a></li>
+					<li><a th:href="@{/pricing}">購物商城</a></li>
 					<li><a th:href="@{/map}">美食地圖</a></li>
 					<li><a th:href="@{/qa}">客服</a></li>
 					<li><a th:href="@{/logout}" class="logout-button">登出</a></li>
-                </ul>
-                <script type="text/javascript" src="js/nav.js"></script>
-            </div>
-            <!-- end h_menu4 -->
-            <div class="clear"></div>
-        </div>
-    </div>
-    <div class="container-data">
-        <div class="sidebar">
-            <a class="nav-link" th:href="@{/account_information}">修改帳戶資料</a>
-			<a class="nav-link" th:href="@{/change_password}">修改密碼</a>
-			<a class="nav-link" th:href="@{/historical_orders}">歷史訂單</a>
-			<a class="nav-link" th:href="@{/receipt_information}">常用收件資訊</a>
-			<a class="nav-link" th:href="@{/acc_information}">新增信用卡資訊</a>
-        </div>
-        <div class="content-data">
-            <div class="filter">
-                <label for="status">訂單狀態:</label>
-                <select id="status" name="status">
-                    <option value="all">全部</option>
-                    <option value="completed">已完成</option>
-                    <option value="processing">處理中</option>
-                </select>
-    
-                <label for="payment">付款狀態:</label>
-                <select id="payment" name="payment">
-                    <option value="all">全部</option>
-                    <option value="paid">已付款</option>
-                    <option value="unpaid">未付款</option>
-                </select>
-            </div>
-    
-            <!-- 訂單標題 -->
-            <div class="order">
-                <div class="order-item">訂單編號</div>
-                <div class="order-item">訂單時間</div>
-                <div class="order-item">訂單狀態</div>
-                <div class="order-item">付款狀態</div>
-                <div class="order-item">配送狀態</div>
-                <div class="order-item">配送方式</div>
-                <div class="order-item">總計金額</div>
-            </div>
-    
-            <!-- 顯示結果的區域 -->
-            <div class="results">
-                <div class="item status-completed payment-paid">
-                    <span>訂單編號 - 1</span>
-                    <span>2024-07-30</span>
-                    <span>已完成</span>
-                    <span>已付款</span>
-                    <span>已配送</span>
-                    <span>快遞</span>
-                    <span>$100</span>
-                </div>
-                <div class="item status-processing payment-unpaid">
-                    <span>訂單編號 - 2</span>
-                    <span>2024-07-29</span>
-                    <span>處理中</span>
-                    <span>未付款</span>
-                    <span>未配送</span>
-                    <span>自取</span>
-                    <span>$150</span>
-                </div>
-                <div class="item status-completed payment-paid">
-                    <span>訂單編號 - 3</span>
-                    <span>2024-07-28</span>
-                    <span>已完成</span>
-                    <span>已付款</span>
-                    <span>已配送</span>
-                    <span>快遞</span>
-                    <span>$200</span>
-                </div>
-                <div class="item status-completed payment-unpaid">
-                    <span>訂單編號 - 4</span>
-                    <span>2024-07-27</span>
-                    <span>已完成</span>
-                    <span>未付款</span>
-                    <span>已配送</span>
-                    <span>快遞</span>
-                    <span>$250</span>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
- <div class="footer-bottom">
+				</ul>
+				<script type="text/javascript" src="js/nav.js"></script>
+			</div>
+			<!-- end h_menu4 -->
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="container-data">
+		<div class="sidebar">
+			<a class="nav-link" th:href="@{/account_information}">修改帳戶資料</a> <a
+				class="nav-link" th:href="@{/change_password}">修改密碼</a> <a
+				class="nav-link" th:href="@{/historical_orders}">歷史訂單</a> <a
+				class="nav-link" th:href="@{/receipt_information}">常用收件資訊</a> <a
+				class="nav-link" th:href="@{/acc_information}">新增信用卡資訊</a>
+		</div>
+		<div class="container table-container">
+			<table id="example" class="display table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-id">課程訂單ID</th>
+                        <th class="col-date">訂單日期</th>
+                        <th class="col-member hidden">會員ID</th>
+                        <th class="col-coach hidden">教練課程ID</th>
+                        <th class="col-status">訂單狀態</th>
+                        <th class="col-price">金額</th>
+                        <th class="col-details">課程明細</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <th:block th:each="courseOrder : ${courseOrderListData}">
+                        <tr>
+                            <td class="col-id" th:text="${courseOrder.courseOrderID}"></td>
+                            <td class="col-date" th:text="${courseOrder.orderDate}"></td>
+                            <td class="col-member hidden" th:text="${courseOrder.memberID}"></td>
+                            <td class="col-coach hidden" th:text="${courseOrder.coachCourse.id}"></td>
+                            <td class="col-status" th:text="${courseOrder.status}"></td>
+                            <td class="col-price" th:text="${courseOrder.price}"></td>
+                            <!-- 新增課程明細按鈕 -->
+                            <td class="col-details">
+                                <a href="#" class="btn-details" th:href="@{/trainers/currCoachCourse?id={id}(id=${courseOrder.coachCourse.id})}">查看明细</a>
+                            </td>
+                        </tr>
+                    </th:block>
+                </tbody>
+            </table>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div class="footer-bottom">
 		<div class="container">
 			<div class="row section group">
 				<div class="col-md-4">
 					<div class="social"
-						 style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
-						<img src="images/cutecatloge.png" style="width: 100%; height: 100%"/>
+						style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
+						<img src="images/cutecatloge.png"
+							style="width: 100%; height: 100%" />
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -256,9 +310,12 @@
 					</div>
 					<p class="m_9">
 						「健肌尋食」是一個簡單的概念，意思是通過運動來增強肌肉，同時尋找健康的食物來補充營養，這樣可以讓我們的身體更強壯，生活更健康愉快。</p>
-					<p class="address">Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02) 3333 4444</span>
+					<p class="address">
+						Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02)
+							3333 4444</span>
 					</p>
-					<p class="address">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
+					<p class="address">
+						Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
 					</p>
 				</div>
 				<div class="col-md-4">
@@ -287,48 +344,49 @@
 			<div class="clear"></div>
 		</div>
 	</div>
-    <script src="script.js"></script>
-    <!-- JavaScript 用於篩選功能 -->
-    <script>
-        // 監聽訂單狀態下拉選單變化事件
-        document.getElementById('status').addEventListener('change', filterItems);
-
-        // 監聽付款狀態下拉選單變化事件
-        document.getElementById('payment').addEventListener('change', filterItems);
-
-        function filterItems() {
-            var selectedStatus = document.getElementById('status').value; // 獲取選擇的訂單狀態
-            var selectedPayment = document.getElementById('payment').value; // 獲取選擇的付款狀態
-            var items = document.querySelectorAll('.results .item'); // 獲取所有結果項目
-
-            // 遍歷所有結果項目
-            items.forEach(function (item) {
-                var matchesStatus = (selectedStatus === 'all' || item.classList.contains('status-' + selectedStatus));
-                var matchesPayment = (selectedPayment === 'all' || item.classList.contains('payment-' + selectedPayment));
-
-                // 根據選擇的篩選條件顯示或隱藏項目
-                if (matchesStatus && matchesPayment) {
-                    item.style.display = 'flex'; // 顯示符合條件的項目
-                } else {
-                    item.style.display = 'none'; // 隱藏不符合條件的項目
+	<script src="script.js"></script>
+	<!-- JavaScript 用於篩選功能 -->
+	<script>
+	$(document).ready(function() {
+        $('#example').DataTable({
+            "lengthMenu": [5, 10, 20, 50, 100], // 設定每頁顯示條目數
+            "pageLength": 5, // 每頁顯示5筆資料
+            "searching": true,
+            "paging": true,
+            "ordering": true,
+            "language": {
+                "processing": "處理中...",
+                "loadingRecords": "載入中...",
+                "lengthMenu": "顯示 _MENU_ 筆結果",
+                "zeroRecords": "沒有符合的結果",
+                "info": "顯示第 _START_ 至 _END_ 筆結果，共 <font color=red> _TOTAL_ </font> 筆",
+                "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
+                "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
+                "search": "搜尋:",
+                "paginate": {
+                    "first": "第一頁",
+                    "previous": "上一頁",
+                    "next": "下一頁",
+                    "last": "最後一頁"
                 }
-            });
-        }
-        // 如果連結指向當前頁面，阻止預設行為
-        document.querySelectorAll('.nav-link').forEach(function(link) {
-	        link.addEventListener('click', function(event) {
-	            // 獲取當前頁面的 URL
-	            var currentUrl = window.location.pathname;
-	            // 獲取點擊的連結的 href
-	            var linkUrl = event.target.getAttribute('href');
-	            
-	            if (currentUrl === linkUrl) {
-	                event.preventDefault();
-	            }
-	        });
-	    });
-     	// 如果連結指向當前頁面，阻止預設行為
-    </script>
+            }
+        });
+    });
+		// 如果連結指向當前頁面，阻止預設行為
+		document.querySelectorAll('.nav-link').forEach(function(link) {
+			link.addEventListener('click', function(event) {
+				// 獲取當前頁面的 URL
+				var currentUrl = window.location.pathname;
+				// 獲取點擊的連結的 href
+				var linkUrl = event.target.getAttribute('href');
+
+				if (currentUrl === linkUrl) {
+					event.preventDefault();
+				}
+			});
+		});
+		// 如果連結指向當前頁面，阻止預設行為
+	</script>
 </body>
 
 </html>

@@ -2,14 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>健肌尋食-教練會員</title>
+<title>健肌尋食-教練會員</title>
 <link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css' />
 <link th:href="@{css/style.css}" rel='stylesheet' type='text/css' />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700'
+	rel='stylesheet' type='text/css'>
+<script type="application/x-javascript">
+	
+	
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+
+
+</script>
 <script th:src="@{js/jquery.min.js}"></script>
 
 <!-- grid-slider -->
@@ -20,275 +33,335 @@
 <link rel="stylesheet" href="css/jquery-ui.css" />
 <!---//calender-style---->
 <style>
-    .btn-login {
-        margin: bottom 50px;
-        float: right;
-        padding-right: 20px;
-        padding-top: 5px;
-        padding-bottom: 10px;
-        border: 1px solid black;
-        background-color: white;
-    }
+.btn-login {
+	margin: bottom 50px;
+	float: right;
+	padding-right: 20px;
+	padding-top: 5px;
+	padding-bottom: 10px;
+	border: 1px solid black;
+	background-color: white;
+}
 
-    .social {
-        padding-top: 4px;
-        padding-right: 10px;
-    }
+.social {
+	padding-top: 4px;
+	padding-right: 10px;
+}
 
-    .container-data {
-        height: auto;
-        width: auto;
-        margin: auto;
-        /* padding: 20px; */
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: row;
-        /* gap: 20px; */
-        /* flex-wrap: wrap; */
-        background-color: #e0f7f9;
-        /* place-items: center; */
-        /* background-color: red; */
-    }
+.container-data {
+	height: auto;
+	width: auto;
+	margin: auto;
+	/* padding: 20px; */
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: row;
+	/* gap: 20px; */
+	/* flex-wrap: wrap; */
+	background-color: #e0f7f9;
+	/* place-items: center; */
+	/* background-color: red; */
+}
 
-    .sidebar {
-        width: 20%;
-        height: 600px;
-        overflow-y: auto;
-        padding-top: 50px;
-        /* padding-right: 20px; */
-        border-right: 1px solid #d0e5d2;
-        background-color: #eaf5e1;
-        color: #4b6e4f;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
-        /* border: 1px solid black; */
-    }
+.sidebar {
+	width: 20%;
+	height: 600px;
+	overflow-y: auto;
+	padding-top: 50px;
+	/* padding-right: 20px; */
+	border-right: 1px solid #d0e5d2;
+	background-color: #eaf5e1;
+	color: #4b6e4f;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	/* border: 1px solid black; */
+}
 
-    .sidebar a {
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 50px;
-    }
+.sidebar a {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 50px;
+}
 
-    .content-data {
-        width: 100%;
-        height: 100%;
-        /* margin: 20px auto; */
-        /* padding-top: 20px; */
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+.content-data {
+	width: 100%;
+	height: 100%;
+	/* margin: 20px auto; */
+	/* padding-top: 20px; */
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    .product {
-        display: flex;
-        flex-wrap: wrap;
-        background-color: #bcbcbc;
-        padding: 10px;
-        margin-bottom: 10px;
-        font-weight: bold;
-    }
+.clear {
+	clear: both;
+}
 
-    .product-item {
-        flex: 1;
-        text-align: center;
-        padding: 5px;
-        border-bottom: 1px solid #ddd;
-    }
+.logout-button {
+	background-color: red;
+	border-radius: 30px;
+}
 
-    .results {
-        margin-bottom: 20px;
-    }
+.form-field, .form-field1 {
+    flex: 1 1 48%; /* 設置每個字段的寬度，兩個字段佔據一行 */
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 調整標籤與輸入框之間的間距 */
+}
 
-    .results .item {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 10px;
-        border: 1px solid #ddd
-    }
+.form-field label {
+    width: 150px; /* 設置標籤的寬度 */
+}
 
-    .results .item span {
-        flex: 1;
-        text-align: center;
-        padding: 5px;
-        border-left: 1px solid #ddd;
-        border-right: 1px solid #ddd;
-    }
+.form-field input[type="text"],
+.form-field input[type="number"],
+.form-field input[type="date"],
+.form-field input[type="time"],
+.form-field select,
+.form-field textarea {
+    width: 100%; /* 設置輸入框寬度為 100% */
+    height: 30px; /* 設置高度 */
+    padding: 5px; /* 內邊距 */
+}
 
-    .filter {
-        background-color: #bcbcbc;
-        padding-top: 20px;
-        /* margin-bottom: 20px; */
-    }
+.form-field textarea {
+    height: 80px; /* 調整文本區域高度 */
+}
 
-    .filter label {
-        margin-right: 10px;
-        padding-left: 5%;
-    }
+.form-field .extra-info {
+	margin-left: 10px; /* 調整與輸入框的間距 */
+}
 
-    .filter select {
-        font-size: 12px;
-        padding: 5px;
-        border-radius: 30px;
-    }
+.form-field.select-wrapper {
+	display: block; /* 確保選擇框顯示在新的一行 */
+	margin-top: 10px; /* 調整與上方元素的間距 */
+}
 
-    .clear {
-        clear: both;
-    }
+.form-field span.error {
+	color: red;
+	font-size: 0.875em;
+	margin-top: 5px;
+	display: block;
+}
+
+.form-field input[type="submit"] {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+	border-radius: 4px;
+	display: inline-block;
+	text-align: center;
+}
+
+.form-field input[type="submit"]:hover {
+	background-color: #45a049;
+}
+
+#imagePreview {
+	margin-top: 10px;
+}
+
+#imagePreview img {
+	margin: 5px;
+	max-width: 100px;
+	max-height: 100px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.form-container-data {
+    width:80vw;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.button0 input {
+    background: #00BFF0;
+    border: none;
+    color: #FFF;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    outline: none;
+    font-size: 1em;
+    border-radius: 5px;
+    transition: background 0.3s;
+    float: right;
+}
+
 </style>
 </head>
 
 <body>
-    <!-- start header_bottom -->
-    <div class="header-bottom">
-        <div class="btn-login">
-            <a href="login.html">Log In</a>
-        </div>
-        <div class="container">
-            <div class="header-bottom_left">
-                <i class="phone"> </i><span>1-200-346-2986</span>
-            </div>
-            <div class="social">
-                <ul>
-                    <li class="facebook"><a href="#"><span> </span></a></li>
-                    <li class="google"><a href="#"><span> </span></a></li>
-                </ul>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <!-- start menu -->
-    <div class="menu">
-        <div class="container">
-            <div class="h_menu4"><!-- start h_menu4 -->
-                <a class="toggleMenu" href="#">Menu</a>
-                <ul class="nav">
-                    <li><a th:href="@{/index}">Home</a></li>
-					<li><a th:href="@{/account_information}">會員專區</a></li>
-					<li><a th:href="@{/trainers}">專屬你的訓練</a>
-					<li><a href="classes.html">Classes</a></li>
+	<div class="menu">
+		<div class="container">
+		<div class="logo">
+				<a th:href="@{/index}"><img th:src="@{images/logo.png}" alt=""/></a>
+		 	</div>
+			<div class="h_menu4">
+				<!-- start h_menu4 -->
+				<a class="toggleMenu" href="#">Menu</a>
+				<ul class="nav">
+					<li><a th:href="@{/index}">首頁</a></li>
+					<li class="active"><a th:href="@{/account_information}">會員專區</a></li>
+					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
 					<li><a th:href="@{/menu}">健康餐</a></li>
-					<li><a th:href="@{pricing}">Pricing</a></li>
+					<li><a th:href="@{/pricing}">購物商城</a></li>
 					<li><a th:href="@{/map}">美食地圖</a></li>
 					<li><a th:href="@{/qa}">客服</a></li>
-					<li><a th:href="@{/login}" class="logout-button">登出</a></li>
-                </ul>
-                <script type="text/javascript" src="js/nav.js"></script>
-            </div>
-            <!-- end h_menu4 -->
-            <div class="clear"></div>
-        </div>
-    </div>
-    <div class="container-data">
-        <div class="sidebar">
-            <a th:href="@{coach_account_information}">修改帳戶資料</a>
-			<a th:href="@{coach_change_password}">修改密碼</a>
-			<a th:href="@{coach_historical_orders}">歷史訂單</a>
-			<a th:href="@{coach_receipt_information}">常用收件資訊</a>
-			<a th:href="@{coach_acc_information}">新增信用卡資訊</a>
-			<a th:href="@{coach_course_status}">查看課程狀態</a>
-			<a th:href="@{coach_course_products}">登入課程商品</a>
-        </div>
-        <div class="content-data">
-            <div class="filter">
-                <!-- 選擇日期篩選 -->
-                <label for="date">日期:</label>
-                <select id="date" name="date">
-                    <option value="all">全部</option>
-                    <option value="2024-07-30">2024-07-30</option>
-                    <option value="2024-07-29">2024-07-29</option>
-                    <option value="2024-07-28">2024-07-28</option>
-                    <option value="2024-07-27">2024-07-27</option>
-                </select>
-
-                <!-- 選擇商品項目篩選 -->
-                <label for="item">商品項目:</label>
-                <select id="item" name="item">
-                    <option value="all">全部</option>
-                    <option value="課程 1">課程 1</option>
-                    <option value="課程 2">課程 2</option>
-                    <option value="課程 3">課程 3</option>
-                    <option value="課程 4">課程 4</option>
-                </select>
-
-                <!-- 選擇已售出數篩選 -->
-                <label for="sold">已售出數:</label>
-                <select id="sold" name="sold">
-                    <option value="all">全部</option>
-                    <option value="5">5 堂</option>
-                    <option value="3">3 堂</option>
-                    <option value="10">10 堂</option>
-                    <option value="7">7 堂</option>
-                </select>
-
-                <!-- 選擇商品類型篩選 -->
-                <label for="type">商品類型:</label>
-                <select id="type" name="type">
-                    <option value="all">全部</option>
-                    <option value="課程">課程</option>
-                </select>
-
-                <!-- 選擇上架狀態篩選 -->
-                <label for="status">上架狀態:</label>
-                <select id="status" name="status">
-                    <option value="all">全部</option>
-                    <option value="completed">已完成</option>
-                    <option value="processing">處理中</option>
-                </select>
-            </div>
-
-            <!-- 課程狀態標題 -->
-            <div class="product">
-                <div class="product-item">日期</div> <!-- 日期列 -->
-                <div class="product-item">商品項目</div> <!-- 商品項目列 -->
-                <div class="product-item">已售出數</div> <!-- 已售出數列 -->
-                <div class="product-item">商品類型</div> <!-- 商品類型列 -->
-                <div class="product-item">上架狀態</div> <!-- 上架狀態列 -->
-            </div>
-
-            <!-- 顯示結果的區域 -->
-            <div class="results">
-                <div class="item status-completed">
-                    <span>2024-07-30</span> <!-- 日期 -->
-                    <span>課程 1</span> <!-- 商品項目 -->
-                    <span>5</span> <!-- 已售出數 -->
-                    <span>課程</span> <!-- 商品類型 -->
-                    <span>已完成</span> <!-- 上架狀態 -->
-                </div>
-                <div class="item status-processing">
-                    <span>2024-07-29</span> <!-- 日期 -->
-                    <span>課程 2</span> <!-- 商品項目 -->
-                    <span>3</span> <!-- 已售出數 -->
-                    <span>課程</span> <!-- 商品類型 -->
-                    <span>處理中</span> <!-- 上架狀態 -->
-                </div>
-                <div class="item status-completed">
-                    <span>2024-07-28</span> <!-- 日期 -->
-                    <span>課程 3</span> <!-- 商品項目 -->
-                    <span>10</span> <!-- 已售出數 -->
-                    <span>課程</span> <!-- 商品類型 -->
-                    <span>已完成</span> <!-- 上架狀態 -->
-                </div>
-                <div class="item status-processing">
-                    <span>2024-07-27</span> <!-- 日期 -->
-                    <span>課程 4</span> <!-- 商品項目 -->
-                    <span>7</span> <!-- 已售出數 -->
-                    <span>課程</span> <!-- 商品類型 -->
-                    <span>處理中</span> <!-- 上架狀態 -->
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <!-- end menu -->
-    <div class="footer-bottom">
+					<li><a th:href="@{/logout}" class="logout-button">登出</a></li>
+				</ul>
+				<script type="text/javascript" src="js/nav.js"></script>
+			</div>
+			<!-- end h_menu4 -->
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="container-data">
+		<div class="sidebar">
+			<a class="nav-link" th:href="@{/coach_account_information}">修改帳戶資料</a>
+			<a class="nav-link" th:href="@{/coach_change_password}">修改密碼</a> <a
+				class="nav-link" th:href="@{/coach_receipt_information}">常用收件資訊</a>
+			<a class="nav-link" th:href="@{/coach_acc_information}">新增信用卡資訊</a> <a
+				class="nav-link" th:href="@{/coach_course_status}">查看課程狀態</a> <a
+				class="nav-link" th:href="@{/coach_course_products}">登錄課程商品</a>
+		</div>
+		<form class="form-container-data"
+			th:action="@{/coach_course_products}" method="post"
+			th:object="${coachCourse}" enctype="multipart/form-data">
+			<div class="form-row">
+				<div class="form-field">
+					<label>課程名稱：</label>
+					<input type="text" th:field="*{courseName}"
+						placeholder="輸入課程名稱"> <span
+						th:if="${#fields.hasErrors('courseName')}"
+						th:errors="*{courseName}" class="error" id="courseName.errors"></span>
+				</div>
+				<div class="form-field">
+					<label>課程等級：</label> <select th:field="*{courseLevel}">
+						<option value="">請選擇課程等級</option>
+						<option value="0">初級</option>
+						<option value="1">中級</option>
+						<option value="2">高級</option>
+					</select> <span th:if="${#fields.hasErrors('courseLevel')}"
+						th:errors="*{courseLevel}" class="error" id="courseLevel.errors"></span>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-field">
+					<label>開課時間：</label> <input type="date"
+						th:field="*{courseStartDate}"> <span class="error"
+						th:if="${#fields.hasErrors('courseStartDate')}"
+						th:errors="*{courseStartDate}" id="courseStartDate.errors"></span>
+				</div>
+				<div class="form-field">
+					<label>結訓時間：</label> <input type="date" th:field="*{courseEndDate}">
+					<span class="error" th:if="${#fields.hasErrors('courseEndDate')}"
+						th:errors="*{courseEndDate}" id="courseEndDate.errors"></span>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-field">
+					<label>課程堂數：</label> <input type="number" th:field="*{noOfClasses}"
+						placeholder="例如 '10'"> <span class="error"
+						th:if="${#fields.hasErrors('noOfClasses')}"
+						th:errors="*{noOfClasses}" id="noOfClasses.errors"></span>
+				</div>
+				<div class="form-field">
+					<label>人數上限：</label> <input type="number" th:field="*{maxCap}"
+						placeholder="例如 '20'"> <span class="error"
+						th:if="${#fields.hasErrors('maxCap')}" th:errors="*{maxCap}"
+						id="maxCap.errors"></span>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-field">
+					<label>課程狀態：</label> <select th:field="*{status}">
+						<option value="0">未開始</option>
+						<option value="1">進行中</option>
+						<option value="2">已完成</option>
+						<option value="3">已取消</option>
+						<option value="4">延期</option>
+					</select> <span class="error" th:if="${#fields.hasErrors('status')}"
+						th:errors="*{status}" id="status.errors"></span>
+				</div>
+				<div class="form-field">
+					<label>關聯性運動：</label> <select
+						id="sportEventName" th:field="*{sportEventName}">
+						<option value="">請選擇運動項目類型</option>
+					</select> <span class="error" th:if="${#fields.hasErrors('sportEventName')}"
+						th:errors="*{sportEventName}" id="sportEventName.errors"></span>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-field">
+					<label>運動項目類型：</label> <select th:field="*{sportTypes}">
+						<option value="">請選擇運動項目類型</option>
+						<option value="心肺運動">心肺訓練</option>
+						<option value="重量運動">重量訓練</option>
+					</select> <span class="error" th:if="${#fields.hasErrors('sportTypes')}"
+						th:errors="*{sportTypes}" id="sportTypes.errors"></span>
+				</div>
+				<div class="form-field">
+					<label>運動器材：</label> <select th:field="*{sportEquipment}">
+						<option value="">請選擇運動器材</option>
+					</select> <span class="error" th:if="${#fields.hasErrors('sportEquipment')}"
+						th:errors="*{sportEquipment}" id="sportEquipment.errors"></span>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-field">
+					<label>課程價格：</label> <input type="number" th:field="*{coursePrice}"
+						placeholder="例如 '500'"> <span class="error"
+						th:if="${#fields.hasErrors('coursePrice')}"
+						th:errors="*{coursePrice}" id="coursePrice.errors"></span>
+				</div>
+				<div class="form-field">
+					<label>上課時間：</label> <input type="time"
+						th:field="*{classStartTime}"> <span class="error"
+						th:if="${#fields.hasErrors('classStartTime')}"
+						th:errors="*{classStartTime}" id="classStartTime.errors"></span>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-field">
+					<label>下課時間：</label> <input type="time" th:field="*{classEndTime}">
+					<span class="error" th:if="${#fields.hasErrors('classEndTime')}"
+						th:errors="*{classEndTime}" id="classEndTime.errors"></span>
+				</div>
+				<div class="form-field">
+					<label>課程說明：</label>
+					<textarea th:field="*{illustrate}" cols="30" rows="5"
+						placeholder="請輸入課程說明"></textarea>
+					<span class="error" th:if="${#fields.hasErrors('illustrate')}"
+						th:errors="*{illustrate}" id="illustrate.errors"></span>
+				</div>
+			</div>
+			<div class="button0">
+				<input type="submit" value="新增">
+			</div>
+		</form>
+	</div>
+	<div class="footer-bottom">
 		<div class="container">
 			<div class="row section group">
 				<div class="col-md-4">
 					<div class="social"
-						 style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
-						<img src="images/cutecatloge.png" style="width: 100%; height: 100%"/>
+						style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
+						<img src="images/cutecatloge.png"
+							style="width: 100%; height: 100%" />
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -297,9 +370,12 @@
 					</div>
 					<p class="m_9">
 						「健肌尋食」是一個簡單的概念，意思是通過運動來增強肌肉，同時尋找健康的食物來補充營養，這樣可以讓我們的身體更強壯，生活更健康愉快。</p>
-					<p class="address">Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02) 3333 4444</span>
+					<p class="address">
+						Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02)
+							3333 4444</span>
 					</p>
-					<p class="address">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
+					<p class="address">
+						Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
 					</p>
 				</div>
 				<div class="col-md-4">
@@ -328,56 +404,242 @@
 			<div class="clear"></div>
 		</div>
 	</div>
-    <script src="script.js"></script>
-    <!-- JavaScript 用於篩選功能 -->
-    <script>
-        // 當篩選選擇框的值改變時，觸發過濾結果的函數
-        document.getElementById('date').addEventListener('change', filterResults);
-        document.getElementById('item').addEventListener('change', filterResults);
-        document.getElementById('sold').addEventListener('change', filterResults);
-        document.getElementById('type').addEventListener('change', filterResults);
-        document.getElementById('status').addEventListener('change', filterResults);
+	<script src="script.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		//清除提示信息
+		function hideContent(d) {
+			document.getElementById(d).style.display = "none";
+		}
+	</script>
+	<script th:inline="javascript">
+		$(document)
+				.ready(
+						function() {
+							function toggleFields() {
+								var rpsSelected = $("select[name='rps']").val() !== "";
+								var swpSelected = $("select[name='swp']").val() !== "";
+								var eachExerciseTimeFilled = $(
+										"input[name='eachExerciseTime']").val() !== "";
+								var sportTimeFilled = $(
+										"input[name='sportTime']").val() !== "";
 
-        // 過濾顯示結果的函數
-        function filterResults() {
-            // 獲取選擇的過濾條件值
-            const dateFilter = document.getElementById('date').value;
-            const itemFilter = document.getElementById('item').value;
-            const soldFilter = document.getElementById('sold').value;
-            const typeFilter = document.getElementById('type').value;
-            const statusFilter = document.getElementById('status').value;
+								// 檢查是否至少填寫了一組資料
+								var isRpsSwpFilled = rpsSelected && swpSelected;
+								var isTimeFilled = eachExerciseTimeFilled
+										&& sportTimeFilled;
 
-            // 獲取所有結果項目
-            const items = document.querySelectorAll('.results .item');
+								if (isRpsSwpFilled) {
+									// 如果填寫了 rps/swp，隱藏 eachExerciseTime/sportTime
+									$(
+											"input[name='eachExerciseTime'], input[name='sportTime']")
+											.closest('.form-field').fadeOut(
+													2000);
+								} else if (isTimeFilled) {
+									// 如果填寫了 eachExerciseTime/sportTime，隱藏 rps/swp
+									$("select[name='rps'], select[name='swp']")
+											.closest('.form-field').fadeOut(
+													2000);
+								} else {
+									// 如果兩組資料都沒有填寫，顯示所有欄位
+									$(
+											"input[name='eachExerciseTime'], input[name='sportTime']")
+											.closest('.form-field')
+											.fadeIn(1000);
+									$("select[name='rps'], select[name='swp']")
+											.closest('.form-field')
+											.fadeIn(1000);
+								}
+							}
 
-            // 遍歷所有項目並根據篩選條件顯示或隱藏它們
-            items.forEach(item => {
-                // 確定項目的各個屬性
-                const itemDate = item.children[0].textContent;
-                const itemProduct = item.children[1].textContent;
-                const itemSold = item.children[2].textContent;
-                const itemType = item.children[3].textContent;
-                const itemStatus = item.children[4].textContent.split('，')[0]; // 只取狀態的前半部分
+							$(
+									"select[name='rps'], select[name='swp'], input[name='eachExerciseTime'], input[name='sportTime']")
+									.change(toggleFields);
+							toggleFields();
 
-                // 根據篩選條件決定是否顯示項目
-                const matchesDate = (dateFilter === 'all') || (dateFilter === itemDate);
-                const matchesItem = (itemFilter === 'all') || (itemFilter === itemProduct);
-                const matchesSold = (soldFilter === 'all') || (soldFilter === itemSold);
-                const matchesType = (typeFilter === 'all') || (typeFilter === itemType);
-                const matchesStatus = (statusFilter === 'all') || (statusFilter === itemStatus);
+							$('#sportTypes')
+									.change(
+											function() {
+												let selectType = $(this).val();
 
-                // 顯示或隱藏項目
-                if (matchesDate && matchesItem && matchesSold && matchesType && matchesStatus) {
-                    item.style.display = 'flex'; // 顯示符合條件的項目
-                } else {
-                    item.style.display = 'none'; // 隱藏不符合條件的項目
-                }
-            });
-        }
+												$
+														.ajax({
+															url : '/course/getSportEventsAndEquipment',
+															data : {
+																sportType : selectType
+															},
+															dataType : 'json',
+															success : function(
+																	data) {
+																console
+																		.log(
+																				'Received sportEventName Data:',
+																				data);
+																var $sportEventSelect = $('#sportEventName');
+																$sportEventSelect
+																		.empty();
+																// 處理運動項目名稱
+																$
+																		.each(
+																				data.sportEvents,
+																				function(
+																						index,
+																						sportEventName) {
+																					$sportEventSelect
+																							.append($(
+																									'<option>',
+																									{
+																										value : sportEventName,
+																										text : sportEventName,
+																									}));
+																				});
+																$sportEventSelect
+																		.trigger('change');
+															},
+															error : function(
+																	jqXHR,
+																	textStatus,
+																	errorThrown) {
+																console
+																		.error(
+																				'您的網路有問題：',
+																				jqXHR.responseText);
+																alert('您的網路有問題，請稍後再試1111。');
+															}
+														});
+											});
+							$('#sportTypes').trigger('change');
 
-        // 初始化時過濾結果，確保頁面加載後符合預設條件
-        filterResults();
-    </script>
+							$('#sportEventName')
+									.change(
+											function() {
+												let selectedSportEvent = $(this)
+														.val();
+												$
+														.ajax({
+															url : '/trainers/getEquipmentBySportEvent',
+															data : {
+																sportEventName : selectedSportEvent
+															},
+															dataType : 'json',
+															success : function(
+																	data) {
+																console
+																		.log(
+																				'Received Equipment Data:',
+																				data);
+																let $sportEquipmentSelect = $('#sportEquipment');
+																$sportEquipmentSelect
+																		.empty();
+																$
+																		.each(
+																				data,
+																				function(
+																						index,
+																						sportEquipment) {
+																					$sportEquipmentSelect
+																							.append($(
+																									'<option>',
+																									{
+																										value : sportEquipment,
+																										text : sportEquipment,
+																									}));
+																				});
+															},
+															error : function(
+																	jqXHR,
+																	textStatus,
+																	errorThrown) {
+																console
+																		.error(
+																				'您的網路有問題：',
+																				jqXHR.responseText);
+																alert('您的網路有問題，請稍後再試。');
+															}
+														});
+											});
+
+							$('#courseImages')
+									.change(
+											function() {
+												const preview = $('#imagePreview');
+												const files = this.files;
+												const error = $('#imageError');
+												preview.html('');
+												error.text('');
+
+												if (files.length > 3) {
+													error.text('最多只能上傳三張圖片');
+													this.value = ''; // 清空選擇的文件
+													return;
+												}
+
+												for (let i = 0; i < files.length; i++) {
+													const file = files[i];
+													const reader = new FileReader();
+
+													reader.onload = function(e) {
+														const img = $('<img>')
+																.attr(
+																		'src',
+																		e.target.result)
+																.css(
+																		{
+																			'max-width' : '100px',
+																			'max-height' : '100px'
+																		});
+														preview.append(img);
+													};
+
+													reader.readAsDataURL(file);
+												}
+											});
+							var messageContent = $("#messageContent").text()
+									.trim();
+							console.log("檢查燈箱內容:", messageContent);
+
+							if (messageContent.length > 0) {
+								console.log("燈箱內有消息");
+
+								// 移除 -on class 並顯示燈箱
+								$("#lightbox").removeClass("-on").fadeIn(1000);
+
+								// 點擊關閉按鈕關閉燈箱
+								$("button.btn_modal_close")
+										.on(
+												"click",
+												function() {
+													console.log("關閉按鈕被點擊");
+													$("#lightbox")
+															.fadeOut(
+																	1000,
+																	function() {
+																		$(
+																				"#lightbox")
+																				.addClass(
+																						"-on");
+																	});
+												});
+
+								// 防止點擊燈箱內部時關閉燈箱
+								$("#lightbox > article").on("click",
+										function(e) {
+											e.stopPropagation();
+										});
+
+								// 點擊燈箱背景關閉燈箱
+								$("#lightbox").on("click", function() {
+									console.log("背景被點擊");
+									$(this).fadeOut(1000, function() {
+										$(this).addClass("-on");
+									});
+								});
+							} else {
+								console.log("燈箱內無消息");
+							}
+						});
+	</script>
 </body>
 
 </html>

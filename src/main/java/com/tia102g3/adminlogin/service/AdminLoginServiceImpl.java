@@ -28,9 +28,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
         AdminLogin admin = new AdminLogin();
         admin.setAdminName(adminName);
         admin.setAdminUsername(adminUsername);
-        // @Override
-        // admin.setAdminPassword(passwordEncoder.encode(adminPassword)); // 密碼加密
-        admin.setAdminPassword(adminPassword); // 暫時不加密
+        admin.setAdminPassword(adminPassword);
         admin.setAdminEmail(adminEmail);
         adminRepository.save(admin);
     }

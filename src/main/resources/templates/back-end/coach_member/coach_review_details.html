@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>教練課程</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .course-container {
+            background-color: #fff;
+            padding: 20px;
+            width: 70%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slides {
+            justify-content: center;
+        }
+
+        .slides img {
+            width: 100%;
+            max-height: 350px;
+            height: auto;
+            object-fit: contain;
+            display: none;
+            border-radius: 5px;
+        }
+
+        .custom-text-wrapper {
+            margin-top: 20px;
+            height: 80vh;
+        }
+
+        .custom-text-wrapper div {
+            margin-bottom: 10px;
+        }
+
+        .custom-text-wrapper h2 {
+            text-align: center;
+            color: #76b4f8;
+        }
+
+        button.prev, button.next {
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            background-color: #76b4f8;
+            color: white;
+            font-size: 18px;
+        }
+
+        button:hover {
+            background-color: #5b9cdd;
+        }
+
+        .slide-buttons {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: hsla(0, 0%, 0%, .5);
+            display: none;
+            z-index: 9999;
+        }
+
+        .lightbox > article {
+            background-color: whitesmoke;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ddd;
+            padding: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .lightbox a {
+            color: red;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .lightbox input[type="text"],
+        .lightbox textarea {
+            width: calc(100% - 24px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .lightbox textarea {
+            resize: none;
+        }
+
+        .lightbox button {
+            cursor: pointer;
+            padding: 10px 20px;
+            border: none;
+            background-color: #76b4f8;
+            color: white;
+            font-size: 18px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .lightbox button:hover {
+            background-color: #5b9cdd;
+        }
+
+        button {
+            cursor: pointer;
+            padding: 10px;
+            border: none;
+            background-color: #76b4f8;
+            color: white;
+            font-size: 18px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        .button-container {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="course-container">
+    <div class="slide-buttons">
+        <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
+        <button class="next" onclick="plusSlides(1)">&#10095;</button>
+    </div>
+
+    <div class="custom-text-wrapper" th:object="${coachMember}">
+        <h2 style="margin-right: 25px; display: inline-block" th:text="|姓名：${coachMember.name}|"></h2>
+        <h2 style="margin-left: 25px; display: inline-block" th:text="|課程：${coachCourse.courseName}|"></h2>
+        <div><span th:text="|帳號：${coachMember.account}|"></span></div>
+        <div><span th:text="|手機號碼：${coachMember.phone}|"></span></div>
+        <div><span th:text="|地址：${coachMember.address}|"></span></div>
+        <div><span id="coachMemberStatus" th:text="|審核狀態：${coachMember.status}|"></span></div>
+
+        <div class="button-container">
+            <button id="approveButton" th:disabled="${coachMember.status != 0}" th:data-cMemberID="${coachMember.cMemberID}">審核通過</button>
+            <button id="replyByEmail">Email回覆</button>
+            <button onclick="history.back()">回上頁</button>
+        </div>
+    </div>
+</div>
+
+<div class="lightbox member-list-lightbox">
+    <article>
+        <h1 style="text-align: center;">購買會員列表</h1>
+        <ul class="custom-course-list"></ul>
+    </article>
+</div>
+
+<div class="lightbox email-lightbox">
+    <article>
+        <h1 style="text-align: center;">Email 回覆</h1>
+        <form id="emailForm">
+            <div>
+                <label for="emailTo" th:text="|收件人： ♠ ${coachMember.name} ♦ 教練|"></label>
+                <input id="emailTo" name="emailTo" th:value="${coachMember.email}" readonly>
+            </div>
+            <div>
+                <label for="emailSubject">主題：</label>
+                <input type="text" id="emailSubject" th:value="|關於您申請的課程★${coachCourse.courseName}★|" name="emailSubject" required>
+            </div>
+            <div>
+                <label for="emailBody">內容：</label>
+                <textarea id="emailBody" name="emailBody" rows="10" required></textarea>
+            </div>
+            <button type="submit">發送</button>
+            <button type="button" class="btn_modal_close">取消</button>
+        </form>
+    </article>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script th:inline="javascript">
+    $("#replyByEmail").on("click", function () {
+        $(".email-lightbox").fadeIn(1000);
+    });
+
+    $("#emailForm").on("submit", function (e) {
+        e.preventDefault();
+        let formData = $(this).serialize();
+        $.ajax({
+            url: '/course/sendEmail',
+            type: 'POST',
+            data: formData,
+            success: function(response){
+                alert("郵件已成功發送！");
+                $(".email-lightbox").fadeOut(1000);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('發送郵件失敗：', jqXHR.responseText);
+                alert('發送郵件失敗，請稍後再試。');
+            }
+        });
+    });
+
+    $("#approveButton").on("click", function () {
+        let requestData = $(this).data('cMemberID');
+        $.ajax({
+            url: '/course/approve',
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            data: {id: requestData},
+            success: function (data) {
+                alert('課程已成功審核通過！');
+                $("#approveButton").prop('disabled', true);
+                $("#coachMemberStatus").text("審核狀態：已審核");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('審核失敗：', jqXHR.responseText);
+                alert('審核失敗，請稍後再試。');
+            }
+        });
+    });
+
+    $(".btn_modal").on("click", function () {
+        let requestData = $(this).data('cMemberID');
+        $.ajax({
+            url: '/course/getMemberList',
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            data: {id: requestData},
+            success: function (data) {
+                let $list = $(".custom-course-list");
+                $list.empty();
+                if (data && data.length > 0) {
+                    data.forEach(function (member) {
+                        $list.append('<li><a href="/member/details?memberID=' + member.cMemberID + '">' + '♠ 會員姓名：\t' + member.name + '</a>' + '\t♣會員電話：\t' + member.phone + '</li>');
+                    });
+                } else {
+                    $list.append('<li>未找到相關會員資料。</li>');
+                }
+                $(".member-list-lightbox").fadeIn(1000);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('请求失败：', jqXHR.responseText);
+                alert('请求失败，请检查输入数据或联系管理员。');
+            }
+        });
+    });
+
+    $(".btn_modal_close, .lightbox").on("click", function () {
+        $(this).closest(".lightbox").fadeOut(1000);
+    });
+
+    $(".lightbox > article").on("click", function (e) {
+        e.stopPropagation();
+    });
+
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function showSlides(n) {
+        let slides = document.getElementsByClassName("slides")[0].children;
+        if (n > slides.length) slideIndex = 1;
+        if (n < 1) slideIndex = slides.length;
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex - 1].style.display = "block";
+    }
+</script>
+
+</body>
+</html>
