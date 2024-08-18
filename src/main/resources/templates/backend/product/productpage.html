@@ -159,7 +159,7 @@
             <th class="courseList_th">商品數量</th>
             <th class="courseList_th">商品簡介</th>
             <th class="courseList_th">編輯</th>
-            <th class="courseList_th">刪除</th>
+<!--             <th class="courseList_th">刪除</th> -->
         </tr>
         <tr th:if="${#lists.isEmpty(session.productList)}">
             <td colspan="14">對不起，查無符合的商品!</td>
@@ -177,8 +177,8 @@
             <td class="courseList_td" th:text="*{productQuantity}"></td>
             <td class="courseList_td" th:text="*{intro}"></td>
             <td class="courseList_td"><a th:href="@{|/product/edit?productID=*{productID}|}"><img th:src="@{/images/edit.png}" class="courseList_img" alt="Example Image"/></a>
-            <td class="courseList_td"><img th:src="@{/images/delet.png}" class="courseList_img"
-                                           th:onclick="|delProductID(*{productID}, ${session.pageNo})|"></td>
+<!--             <td class="courseList_td"><img th:src="@{/images/delet.png}" class="courseList_img" -->
+<!--                                            th:onclick="|delProductID(*{productID}, ${session.pageNo})|"></td> -->
         </tr>
     </table>
     <div style="border: 0px solid red ; width: 60%; margin-left: 20% ; margin-top: 4px" class="center">
