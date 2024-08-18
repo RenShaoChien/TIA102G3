@@ -32,4 +32,8 @@ public interface OrderRepository extends JpaRepository<OrderVO, Integer> {
                     "totalPrice LIKE CONCAT('%', :keyword, '%') " ,
             nativeQuery = true)
     Long getOrderCount(@Param("keyword")String keyword);
+	
+
+
+
 }

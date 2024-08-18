@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tia102g3.order.model.OrderVO;
 import com.tia102g3.product.model.ProductVO;
 
 
@@ -81,6 +82,15 @@ public class OrderDetailsService{
 //		ArrayList<Integer> list = new ArrayList<>();
 //		list.add(orderId);
 		return repository.findAllByOrderID(orderId);
+	}
+
+	public OrderDetailsVO findOrderDetailsById(Integer ordDtIID) {
+		return repository.getReferenceById(ordDtIID);
+	}
+
+	public List<OrderDetailsVO> findByOrderID(Integer orderID) {
+		// TODO Auto-generated method stub
+		return repository.findAllByOrderID(orderID);
 	}
 	
 }

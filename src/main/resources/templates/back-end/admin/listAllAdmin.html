@@ -78,7 +78,7 @@ body {
 				<th>管理員編號</th>
 				<th>管理員姓名</th>
 				<th>管理員帳號</th>
-				<th>密碼</th>
+<!-- 				<th>密碼</th> -->
 				<th>信箱</th>
 				<th>修改</th>
 				<th>刪除</th>
@@ -91,7 +91,7 @@ body {
 					<td th:text="${adminVO.admin_ID}"></td>
 					<td th:text="${adminVO.adminName}"></td>
 					<td th:text="${adminVO.adminUsername}"></td>
-					<td th:text="${adminVO.adminPassword}"></td>
+<!-- 					<td th:text="${adminVO.adminPassword}"></td> -->
 					<td th:text="${adminVO.adminEmail}"></td>
 					<td>
 						<form method="post" th:action="@{/admin/getOne_For_Update}"
