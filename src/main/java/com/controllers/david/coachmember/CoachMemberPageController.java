@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachmember.model.CoachMember;
 import com.tia102g3.coachmember.service.CoachMemberService;
 import com.tia102g3.member.model.PasswordChangeDTO;
@@ -41,6 +42,11 @@ public class CoachMemberPageController {
 	
     @Autowired
     SystemCourseServiceImpl scService;
+    
+    @GetMapping("/coach_member/coachMember_review_index")
+	public String coachMember_review_index(Model model) {
+		return "coachMember_review_index";
+	}
 
 	@GetMapping("/coach_member/coachHome_page")
 	public String coachHome_page(Model model) {
@@ -50,6 +56,16 @@ public class CoachMemberPageController {
 	@GetMapping("/coach_member/listAllCoachMember")
 	public String listAllCoachMember(Model model) {
 		return "back-end/coach_member/listAllCoachMember";
+	}
+	
+	@GetMapping("/coach_review")
+	public String coach_review(Model model) {
+		return "back-end/coach_member/coach_review";
+	}
+	
+	@GetMapping("/coach_review_details")
+	public String coach_review_details(Model model) {
+		return "back-end/coach_member/coach_review_details";
 	}
 
 	@ModelAttribute("coachMemberListData") // for select_page.html 第97 109行用 // for listAllMember.html 第85行用
@@ -223,8 +239,11 @@ public class CoachMemberPageController {
 	}
 	
 	@GetMapping("coach_course_products")
-	public String coach_course_products() {
-		return "frontend/coach_member/coach_course_products";
+	public String coach_course_products(Model model) {
+		SystemCourse systemCourse = new SystemCourse();
+        model.addAttribute("systemCourse", systemCourse);
+        model.addAttribute("coachCourse", new CoachCourse());
+	    return "frontend/coach_member/coach_course_products";
 	}
 	
 	@GetMapping("/api/getCoachMemberDetails")
