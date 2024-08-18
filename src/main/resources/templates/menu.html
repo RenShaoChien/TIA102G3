@@ -291,7 +291,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<h3 class="m_2">菜單瀏覽</h3>
 					<div class="price_plans_box">
 						<div class="row">
-							<div class="col-md-3">
+							<div class="col-md-3" th:each="menu : ${menuVO}">
+								<img class="menu_images" th:src="@{'/menu_images/DBGifReader?menuNumber=' + ${menu.menuNumber}}">
+								<div>
+									<span class="menu-name" th:text="${menu.menuName}"></span>
+								</div>
+							</div>
+
+
+							<!-- <div class="col-md-3">
 								<img class="menu_images" th:src="@{'/menu_images/DBGifReader?menuNumber=' + ${menuVO[0].menuNumber}}">
 								<div>
 									<span class="menu-name" th:text="${menuVO[0].menuName}"></span>
@@ -314,7 +322,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<div>
 									<span class="menu-name" th:text="${menuVO[3].menuName}"></span>
 								</div>
-							</div>
+							</div> -->
 						</div>				
 					</div>
 				
@@ -339,7 +347,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<label for="">
 										<p class="menu-text-title">會員編號</p>
 									</label>
-									<input class="form-control" type="text" name="memberID">
+									<input class="form-control" type="text" name="memberID" th:value="${loginID}">
 									<label for="">
 										<p class="menu-text-title">身高</p>
 									</label>
@@ -363,6 +371,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<label for="">
 										<p class="menu-text-title">活動強度</p>
 									</label>
+									<br>
 									<input type="radio" id="radio_1" name="intensity" value="1">
 									<label for="radio_1">久坐/沒在運動</label><br>
 									<input type="radio" id="radio_2" name="intensity" value="2">
@@ -374,7 +383,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<input type="radio" id="radio_5" name="intensity" value="5">
 									<label for="radio_5">每周運動訓練2次/勞力工作者</label><br>
 									<div class="text-center">
-										<input class="btn" type="submit" value="提交">
+										<input class="btn" type="submit" id="insertHealth" name="insertHealth" value="提交">
 									</div>
 								</form>
 							</div>
@@ -389,10 +398,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							</div>
 							<div class="panel-body">
 								<form th:action="@{insertLikeFood}" method="post" th:object="${LikeFoodVO}" enctype="multipart/form-data">
-									<label for="">
+									<label for="" class="hide">
 										<p class="menu-text-title">會員編號</p>
 									</label>
-									<input class="form-control" type="text" name="memberID">
+									<input class="form-control hide" type="text" name="memberID" th:value="${loginID}">
 									<label for="">
 										<p class="menu-text-title">選擇食材</p>
 									</label>
@@ -408,13 +417,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<input type="radio" id="radio_2" name="foodPreference" value="0">
 									<label for="radio_2">不喜歡</label><br>
 									<div class="text-center">
-										<input class="btn" type="submit" value="提交">
+										<input class="btn" type="submit" id="insertFoodPreference" name="insertFoodPreference" value="提交">
 									</div>
 								</form>
 				
 								<!-- Display food preferences -->
 								<div class="table-responsive">
-									<table class="table table-striped">
+									<!-- <table class="table table-striped">
 										<thead>
 											<tr>
 												<th>名稱</th>
@@ -431,7 +440,42 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 												<td>不喜歡</td>
 											</tr>
 										</tbody>
-									</table>
+									</table> -->
+
+									<table class="table table-striped">
+										<thead >
+										  <tr style="background-color:#428bca">
+											<th>名稱</th>
+											<th>喜好</th>
+											<!-- <th>喜好</th>
+											<th>修改</th>
+											<th>刪除</th> -->
+										  </tr>
+										</thead>
+										  
+										<tbody>
+											  <th:block th:each="likeFoodList : ${LikeFoodList}">
+												  <tr>
+													<!-- <td th:text="${likeFoodList.memberID}"></td> -->
+													<td th:text="${likeFoodList.getFoodVO.getFoodName}"></td>
+													<td>
+														<span th:if="${likeFoodList.foodPreference}" th:text="'喜歡'"></span>
+														<span th:if="${!likeFoodList.foodPreference}" th:text="'不喜歡'"></span>
+													</td>
+													<!-- <td>
+														<form method="post" th:action="@{getOne_For_Update}" style="margin-bottom: 0px;">
+														<input type="submit" value="修改">
+													
+													</td>
+													<td>
+														<form method="post" th:action="@{delete}" style="margin-bottom: 0px;">
+														<input type="submit" value="刪除">
+													</td> -->
+													</tr>
+											  </th:block>
+										</tbody>
+									  </table>
+									  
 								</div>
 								<!-- End display food preferences -->
 				
@@ -591,6 +635,98 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     $('#tdee').val('');             
                 
             });
+
+			// check health status input
+			// $("form").on("submit", function(event) {
+			// 	let height = $("#height").val().trim();
+			// 	let weight = $("#weight").val().trim();
+			// 	let isValid = true;
+			// 	let errorMessage = "";
+
+			// 	if (height === "" || isNaN(height)) {
+			// 		errorMessage += "請輸入有效的數字作為身高。\n";
+			// 		isValid = false;
+			// 	}
+
+			// 	if (weight === "" || isNaN(weight)) {
+			// 		errorMessage += "請輸入有效的數字作為體重。\n";
+			// 		isValid = false;
+			// 	}
+
+			// 	if (!intensity) {
+			// 		errorMessage += "請選擇一個活動強度。\n";
+			// 		isValid = false;
+			// 	}
+
+			// 	if (!isValid) {
+			// 		alert(errorMessage);
+			// 		event.preventDefault(); // 阻止表單提交
+			// 	}
+			// });
+
+			// check food preference input
+			// $("form").on("submit", function(event) {
+			// 	let foodPreference = $("input[name='foodPreference']:checked").val();
+			// 	let isValid = true;
+			// 	let errorMessage = "";
+
+			// 	if (!foodPreference) {
+			// 		errorMessage += "請選擇一個食物偏好（喜歡或不喜歡）。\n";
+			// 		isValid = false;
+			// 	}
+
+			// 	if (!isValid) {
+			// 		alert(errorMessage);
+			// 		event.preventDefault(); // 阻止表單提交
+			// 	}
+			// });
+
+			// 檢查健康參數表單
+			$("#insertHealth").on("click", function(event) {
+				let height = $("#height").val().trim();
+				let weight = $("#weight").val().trim();
+				let intensity = $("input[name='intensity']:checked").val();
+				let isValid = true;
+				let errorMessage = "";
+
+				if (height === "" || isNaN(height)) {
+					errorMessage += "請輸入有效的數字作為身高。\n";
+					isValid = false;
+				}
+
+				if (weight === "" || isNaN(weight)) {
+					errorMessage += "請輸入有效的數字作為體重。\n";
+					isValid = false;
+				}
+
+				if (!intensity) {
+					errorMessage += "請選擇一個活動強度。\n";
+					isValid = false;
+				}
+
+				if (!isValid) {
+					alert(errorMessage);
+					event.preventDefault(); // 阻止表單提交
+				}
+			});
+
+			// 檢查喜好食材表單
+			$("#insertFoodPreference").on("click", function(event) {
+				let foodPreference = $("input[name='foodPreference']:checked").val();
+				let isValid = true;
+				let errorMessage = "";
+
+				if (!foodPreference) {
+					errorMessage += "請選擇一個食物偏好（喜歡或不喜歡）。\n";
+					isValid = false;
+				}
+
+				if (!isValid) {
+					alert(errorMessage);
+					event.preventDefault(); // 阻止表單提交
+				}
+			});
+
         });
 
 	</script>
