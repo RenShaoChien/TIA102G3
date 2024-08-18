@@ -344,6 +344,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     // 检查 response.advice 是否存在
                     if (response.advice) {
                         $('#weight-loss-advice').html(response.advice.replace(/\n/g, "<br>"));
+                        cleanUpAdviceText();
                     } else {
                         $('#weight-loss-advice').text("無法獲取減肥建議，請稍後再試。");
                     }
@@ -353,6 +354,23 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 }
             }
         });
+        function cleanUpAdviceText() {
+            $('#weight-loss-advice').contents().filter(function () {
+                return this.nodeType === 3 && /message=|content=/g.test(this.nodeValue);
+            }).each(function () {
+                this.nodeValue = this.nodeValue.replace(/message=|content=/g, '');
+            });
+            $('#weight-loss-advice').contents().filter(function () {
+                return this.nodeType === 3 && this.nodeValue.trim().endsWith('，，');
+            }).each(function () {
+                this.nodeValue = this.nodeValue.replace(/，，$/g, '');
+            });
+            $('#weight-loss-advice').contents().filter(function () {
+                return this.nodeType === 3 && this.nodeValue.trim().startsWith('，，');
+            }).each(function () {
+                this.nodeValue = this.nodeValue.replace(/^，，/g, '');
+            });
+        }
 
         function scrollToTop() {
             window.scrollTo({top: 0, behavior: 'smooth'});
