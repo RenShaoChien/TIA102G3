@@ -18,6 +18,7 @@ import com.controllers.mark.ProductInfo;
 import com.controllers.mark.RedisService;
 import com.tia102g3.adminlogin.service.AdminLoginService;
 import com.tia102g3.food.model.FoodService;
+import com.tia102g3.healthstatus.model.HealthStatusService;
 import com.tia102g3.healthstatus.model.HealthStatusVO;
 import com.tia102g3.likefood.model.LikeFoodService;
 import com.tia102g3.likefood.model.LikeFoodVO;
@@ -39,6 +40,9 @@ public class MenuPageController {
     
     @Autowired
     private LikeFoodService likeFoodService;
+    
+    @Autowired
+    private HealthStatusService healthStatusService;
     
     @Autowired
     private AdminLoginService adminSvc;
