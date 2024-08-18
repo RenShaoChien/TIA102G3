@@ -18,7 +18,9 @@
 	
 	
 	
+	
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
 
 
 
@@ -261,23 +263,23 @@ div.tab_container div.tab_contents div.tab.-on {
 	<div class="menu">
 		<div class="container">
 			<div class="logo">
-				<a th:href="@{/index}"><img th:src="@{images/logo.png}" alt=""/></a>
+				<a th:href="@{/index}"><img th:src="@{images/logo.png}" alt="" /></a>
 			</div>
 			<div class="h_menu4">
 				<!-- start h_menu4 -->
 				<a class="toggleMenu" href="#">選單</a>
 				<ul class="nav">
-					<li><a th:href="@{/index}">Home</a></li>
+					<li><a th:href="@{/index}">首頁</a></li>
 					<li><a th:href="@{/account_information}">會員專區</a></li>
-					<li><a th:href="@{/trainers}">專屬你的訓練</a>
-					<li><a href="classes.html">Classes</a></li>
+					<li><a th:href="@{/trainers}">專屬你的訓練</a></li>
 					<li><a th:href="@{/menu}">健康餐</a></li>
-					<li><a th:href="@{pricing}">Pricing</a></li>
+					<li><a th:href="@{/pricing}">購物商城</a></li>
 					<li><a th:href="@{/map}">美食地圖</a></li>
 					<li><a th:href="@{/qa}">客服</a>
 						<ul>
 							<li><a th:href="@{/contact}">聯繫我們</a></li>
 						</ul></li>
+					<li><a th:href="@{/login}" class="login-button">登入</a></li>
 				</ul>
 				<script type="text/javascript" src="js/nav.js"></script>
 			</div>
@@ -327,7 +329,9 @@ div.tab_container div.tab_contents div.tab.-on {
 							<h2>其他問題</h2>
 							<p>不是常見問題？請聯繫我們！</p>
 							<div class="contact-button">
-								<button onclick="window.location.href='/contact'">客服</button>
+								<button
+									onclick="window.location.href='mailto:bmsf@gmail.com?body=您好：%0D%0A我的帳號是:%0D%0A會員ID是:%0D%0A我有以下問題:'">客服</button>
+
 							</div>
 
 						</div>
@@ -364,7 +368,9 @@ div.tab_container div.tab_contents div.tab.-on {
 							<h2>其他問題</h2>
 							<p>不是常見問題？請聯繫我們！</p>
 							<div class="contact-button">
-								<button onclick="window.location.href='/contact'">客服</button>
+								<button
+									onclick="window.location.href='mailto:bmsf@gmail.com?body=您好：%0D%0A我的帳號是:%0D%0A會員ID是:%0D%0A我有以下問題:'">客服</button>
+
 							</div>
 
 						</div>
@@ -398,7 +404,9 @@ div.tab_container div.tab_contents div.tab.-on {
 							<h2>其他問題</h2>
 							<p>不是常見問題？請聯繫我們！</p>
 							<div class="contact-button">
-								<button onclick="window.location.href='/contact'">客服</button>
+								<button
+									onclick="window.location.href='mailto:bmsf@gmail.com?body=您好：%0D%0A我的帳號是:%0D%0A會員ID是:%0D%0A我有以下問題:'">客服</button>
+
 							</div>
 
 						</div>
@@ -527,17 +535,17 @@ div.tab_container div.tab_contents div.tab.-on {
 						w3layouts</a>
 				</p>
 			</div>
-<!-- 			<div class="social"> -->
-<!-- 				<ul> -->
-<!-- 					<li class="facebook"><a href="#"><span> </span></a></li> -->
-<!-- 					<li class="twitter"><a href="#"><span> </span></a></li> -->
-<!-- 					<li class="pinterest"><a href="#"><span> </span></a></li> -->
-<!-- 					<li class="google"><a href="#"><span> </span></a></li> -->
-<!-- 					<li class="tumblr"><a href="#"><span> </span></a></li> -->
-<!-- 					<li class="instagram"><a href="#"><span> </span></a></li> -->
-<!-- 					<li class="rss"><a href="#"><span> </span></a></li> -->
-<!-- 				</ul> -->
-<!-- 			</div> -->
+			<!-- 			<div class="social"> -->
+			<!-- 				<ul> -->
+			<!-- 					<li class="facebook"><a href="#"><span> </span></a></li> -->
+			<!-- 					<li class="twitter"><a href="#"><span> </span></a></li> -->
+			<!-- 					<li class="pinterest"><a href="#"><span> </span></a></li> -->
+			<!-- 					<li class="google"><a href="#"><span> </span></a></li> -->
+			<!-- 					<li class="tumblr"><a href="#"><span> </span></a></li> -->
+			<!-- 					<li class="instagram"><a href="#"><span> </span></a></li> -->
+			<!-- 					<li class="rss"><a href="#"><span> </span></a></li> -->
+			<!-- 				</ul> -->
+			<!-- 			</div> -->
 			<div class="clear"></div>
 		</div>
 	</div>

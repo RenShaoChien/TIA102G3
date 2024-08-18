@@ -23,11 +23,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     function hideURLbar() {
         window.scrollTo(0, 1);
     } </script>
-    <!--    <script th:src="@{/js/jquery.min.js}"></script>-->
-    <!-- grid-slider -->
-    <!--    <script type="text/javascript" th:src="@{/js/jquery.mousewheel.js}"></script>-->
-    <!--    <script type="text/javascript" th:src="@{/js/jquery.contentcarousel.js}"></script>-->
-    <!-- //grid-slider -->
+        <script th:src="@{/js/jquery.min.js}"></script>
+<!--     grid-slider -->
+        <script type="text/javascript" th:src="@{/js/jquery.mousewheel.js}"></script>
+        <script type="text/javascript" th:src="@{/js/jquery.contentcarousel.js}"></script>
+<!--     //grid-slider -->
     <!---calender-style---->
     <link rel="stylesheet" th:href="@{/css/jquery-ui.css}"/>
     <!---//calender-style---->
@@ -167,26 +167,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 <body>
 <button onclick="scrollToTop()" class="scroll-to-top-btn">Top</button>
-<!-- start header_bottom -->
-<div class="header-bottom">
-    <div class="container">
-        <div class="header-bottom_left">
-            <i class="phone"> </i><span>1-200-346-2986</span>
-        </div>
-        <div class="social">
-            <ul>
-                <li class="facebook"><a href="#"><span> </span></a></li>
-                <li class="twitter"><a href="#"><span> </span></a></li>
-                <li class="pinterest"><a href="#"><span> </span></a></li>
-                <li class="google"><a href="#"><span> </span></a></li>
-                <li class="tumblr"><a href="#"><span> </span></a></li>
-                <li class="instagram"><a href="#"><span> </span></a></li>
-                <li class="rss"><a href="#"><span> </span></a></li>
-            </ul>
-        </div>
-        <div class="clear "></div>
-    </div>
-</div>
+
 <!-- start menu -->
 <div class="menu">
 
@@ -206,7 +187,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <li><a th:href="@{/qa}">客服</a></li>
                 <li><a th:href="@{/logout}" class="logout-button">登出</a></li>
             </ul>
-            <!--            <script type="text/javascript" th:src="@{/js/nav.js}"></script>-->
+                        <script type="text/javascript" th:src="@{/js/nav.js}"></script>
         </div><!-- end h_menu4 -->
         <div class="clear"></div>
     </div>
@@ -345,34 +326,34 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             }
 
 
-
-        async function getWeightLossAdvice(loseWeight, courseName, burnCalories, rpsOrEachExerciseTime, swpOrSportTime, coachCourse) {
-            try {
-                const response = await $.ajax({
-                    url: '/api/getWeightLossAdvice',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        loseWeight: loseWeight,
-                        courseName: courseName,
-                        burnCalories: burnCalories,
-                        rpsOrEachExerciseTime: rpsOrEachExerciseTime,
-                        swpOrSportTime: swpOrSportTime,
-                        coachCourse: coachCourse
-                    })
-                });
-                // 检查 response.advice 是否存在
-                if (response.advice) {
-                    $('#weight-loss-advice').html(response.advice.replace(/\n/g, "<br>"));
-                } else {
+            async function getWeightLossAdvice(loseWeight, courseName, burnCalories, rpsOrEachExerciseTime, swpOrSportTime, coachCourse) {
+                try {
+                    const response = await $.ajax({
+                        url: '/api/getWeightLossAdvice',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            loseWeight: loseWeight,
+                            courseName: courseName,
+                            burnCalories: burnCalories,
+                            rpsOrEachExerciseTime: rpsOrEachExerciseTime,
+                            swpOrSportTime: swpOrSportTime,
+                            coachCourse: coachCourse
+                        })
+                    });
+                    // 检查 response.advice 是否存在
+                    if (response.advice) {
+                        $('#weight-loss-advice').html(response.advice.replace(/\n/g, "<br>"));
+                    } else {
+                        $('#weight-loss-advice').text("無法獲取減肥建議，請稍後再試。");
+                    }
+                } catch (error) {
+                    console.error("请求失败:", error);
                     $('#weight-loss-advice').text("無法獲取減肥建議，請稍後再試。");
                 }
-            } catch (error) {
-                console.error("请求失败:", error);
-                $('#weight-loss-advice').text("無法獲取減肥建議，請稍後再試。");
             }
-        }
         });
+
         function scrollToTop() {
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
@@ -389,27 +370,28 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             e.stopPropagation();
         });
 
-        let slideIndex = 0;
-        showSlides(slideIndex);
 
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-
-        function showSlides(n) {
-            let slides = document.getElementsByClassName("slides")[0].children;
-            if (n >= slides.length) {
-                slideIndex = 0;
-            }
-            if (n < 0) {
-                slideIndex = slides.length - 1;
-            }
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slides[slideIndex].style.display = "block";
-        }
     })();
+    let slideIndex = 0;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function showSlides(n) {
+        let slides = document.getElementsByClassName("slides")[0].children;
+        if (n >= slides.length) {
+            slideIndex = 0;
+        }
+        if (n < 0) {
+            slideIndex = slides.length - 1;
+        }
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slides[slideIndex].style.display = "block";
+    }
 </script>
 
 </body>
