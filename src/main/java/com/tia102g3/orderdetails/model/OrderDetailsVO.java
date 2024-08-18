@@ -16,7 +16,7 @@ public class OrderDetailsVO implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NonNull
-	@Column(name = "ordDtlID")
+	@Column(name = "ordDtIID")
 	private Integer ordDtIID;
 	private Integer productID;
 	private Integer quantity;

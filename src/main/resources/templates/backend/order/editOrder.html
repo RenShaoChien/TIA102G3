@@ -134,7 +134,10 @@
 <div class="form-container">
     <h2>編輯訂單</h2>
     <form th:action="@{/order/edit.do}" method="post" th:object="${order}" enctype="multipart/form-data">
-        <input type="hidden" th:field="*{orderID}" th:text="*{orderID}">
+       <span>訂單編號： <input type="hidden" th:field="*{orderID}" th:text="*{orderID}"></span> <br>
+       <span>會員編號： <input type="hidden" th:field="*{member.memberID}" th:text="*{member.memberID}"></span> <br>
+       <span>訂單日期： <input type="hidden" th:field="*{orderDate}" th:text="*{orderDate}"></span> <br>
+       <span>總金額： <input type="hidden" th:field="*{totalPrice}" th:text="*{totalPrice}"></span> <br>
         <div th:if="${validationErrors != null}">
             <ul>
                 <li th:each="error : ${validationErrors}" th:text="${error}" style="color: red"></li>
@@ -145,23 +148,23 @@
             <input type="text" th:field="*{status}" th:value="*{status}" placeholder="輸入訂單狀態"><br/>
 <!--                        <span th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}" class="error" id="courseName.errors"></span> -->
         </div>
-        <div class="form-field">
-            <label>會員編號：</label>
-            <input type="text" th:field="*{member.memberID}" th:value="*{member.memberID}" placeholder="請確認會員編號"><br/>
-<!--             <span class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}" -->
-<!--                   id="sportTypes.errors"></span> -->
-        </div>
-        <div class="form-field">
-            <label>訂單日期：</label>
-            <input type="text" th:field="*{orderDate}" th:value="*{orderDate}" placeholder="請確認下單日期"><br/>
-<!--        <span class="error" th:if="${#fields.hasErrors('productQuantity')}" th:errors="*{productQuantity}" id="sportEventName.errors"></span> -->
-        </div>
+<!--         <div class="form-field"> -->
+<!--             <label>會員編號：</label> -->
+<!--             <input type="text" th:field="*{member.memberID}" th:value="*{member.memberID}" placeholder="請確認會員編號"><br/> -->
+<!-- <!--             <span class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}" --> 
+<!-- <!--                   id="sportTypes.errors"></span> --> 
+<!--         </div> -->
+<!--         <div class="form-field"> -->
+<!--             <label>訂單日期：</label> -->
+<!--             <input type="text" th:field="*{orderDate}" th:value="*{orderDate}" placeholder="請確認下單日期"><br/> -->
+<!-- <!--        <span class="error" th:if="${#fields.hasErrors('productQuantity')}" th:errors="*{productQuantity}" id="sportEventName.errors"></span> --> 
+<!--         </div> -->
 
-        <div class="form-field">
-            <label>商品簡介：</label>
-            <input type="text" th:field="*{totalPrice}" th:value="*{totalPrice}" placeholder="請確認總金額"></textarea><br/>
-<!--        <span class="error" th:if="${#fields.hasErrors('illustrate')}" th:errors="*{illustrate}" id="illustrate.errors"></span> -->
-        </div>
+<!--         <div class="form-field"> -->
+<!--             <label>商品簡介：</label> -->
+<!--             <input type="text" th:field="*{totalPrice}" th:value="*{totalPrice}" placeholder="請確認總金額"></textarea><br/> -->
+<!-- <!--        <span class="error" th:if="${#fields.hasErrors('illustrate')}" th:errors="*{illustrate}" id="illustrate.errors"></span> --> 
+<!--         </div> -->
         <input type="submit" value="修改">
     </form>
 

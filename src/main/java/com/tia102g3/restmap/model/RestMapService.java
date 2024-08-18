@@ -14,6 +14,7 @@ public class RestMapService {
 
 	@Autowired
 	RestMapRepository repository;
+	
 
 	public void addRestMap(RestMapVO restmapVO) {
 		repository.save(restmapVO);
@@ -23,7 +24,7 @@ public class RestMapService {
 		repository.save(restMapVO);
 	}
 
-	public void deleteDept(Integer mapID) {
+	public void deleteRestMap(Integer mapID) {
 		if (repository.existsById(mapID))
 			repository.deleteById(mapID);
 	}
@@ -38,7 +39,7 @@ public class RestMapService {
 		return repository.findAll();
 	}
 
-	public Set<RestIfoVO> getEmpsByDeptno(Integer mapID) {
+	public Set<RestIfoVO> getRestIfosByMapID(Integer mapID) {
 		return getOneRestMap(mapID).getRestIfos();
 	}
 

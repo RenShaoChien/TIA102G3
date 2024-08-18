@@ -81,13 +81,13 @@ form div div {
 					id="adminUsername.errors"></span>
 			</div>
 
-			<div>
-				<label>密碼:</label> <input type="text" th:field="*{adminPassword}"
-					onclick="hideContent('adminPassword.errors');" /><br /> <span
-					th:if="${#fields.hasErrors('adminPassword')}"
-					th:errors="*{adminPassword}" class="error"
-					id="adminPassword.errors"></span>
-			</div>
+<!-- 			<div> -->
+<!-- 				<label>密碼:</label> <input type="text" th:field="*{adminPassword}" -->
+<!-- 					onclick="hideContent('adminPassword.errors');" /><br /> <span -->
+<!-- 					th:if="${#fields.hasErrors('adminPassword')}" -->
+<!-- 					th:errors="*{adminPassword}" class="error" -->
+<!-- 					id="adminPassword.errors"></span> -->
+<!-- 			</div> -->
 
 			<div>
 				<label>信箱:</label> <input type="text" th:field="*{adminEmail}"
