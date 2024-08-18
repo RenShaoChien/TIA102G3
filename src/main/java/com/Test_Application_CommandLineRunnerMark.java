@@ -11,10 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.tia102g3.food.model.FoodRepository;
 import com.tia102g3.foodlist.model.FoodListRepository;
 import com.tia102g3.healthstatus.model.HealthStatusRepository;
+import com.tia102g3.healthstatus.model.HealthStatusVO;
 import com.tia102g3.likefood.model.LikeFoodRepository;
 import com.tia102g3.membermenulist.model.MemberMenuListRepository;
 import com.tia102g3.menu.model.MenuRepository;
-import com.tia102g3.menu.model.MenuVO;
 
 @SpringBootApplication
 public class Test_Application_CommandLineRunnerMark implements CommandLineRunner {

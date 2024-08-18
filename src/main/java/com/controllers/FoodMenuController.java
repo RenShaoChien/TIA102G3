@@ -247,8 +247,8 @@ public class FoodMenuController {
         model.addAttribute("success", "- (新增成功)");
 
 //        return "redirect:/food/listAllFood";
-        return "menu/backstage";
-//        return "menu/listAllLikeFood"; 
+//        return "menu/backstage";
+        return "menu/listAllLikeFood";
     }
     
     @PostMapping("deleteLikeFood")
