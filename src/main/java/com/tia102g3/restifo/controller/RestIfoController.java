@@ -63,11 +63,11 @@ public class RestIfoController {
 
         /*************************** 2. 開始新增資料 *****************************************/
         // 先創建並保存新的 RestMapVO，並獲取自增的 mapID
-        RestMapVO restMapVO = new RestMapVO();
-        restMapRepository.save(restMapVO);  // 使用RestMapRepository的實例方法保存
+//        RestMapVO restMapVO = new RestMapVO();
+        restMapRepository.save(restIfoVO.getRestMapVO());  // 使用RestMapRepository的實例方法保存
 
         // 將新生成的 RestMapVO 設置到 RestIfoVO 中
-        restIfoVO.setRestMapVO(restMapVO);
+//        restIfoVO.setRestMapVO(restMapVO);
 
         // 保存 RestIfoVO，它的 restLoc 會自動增長，並且與 mapID 關聯
         restIfoSvc.addRestIfo(restIfoVO);
