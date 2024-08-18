@@ -2,23 +2,21 @@ package com.controllers;
 
 
 
-import java.util.List;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.tia102g3.coachcourse.model.CourseStatus;
-import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
-import com.tia102g3.product.model.ProductService;
-import com.tia102g3.product.model.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
+import com.tia102g3.coachcourse.model.CourseStatus;
 import com.tia102g3.coachcourse.service.CoachCourseServiceImpl;
+import com.tia102g3.coachmember.model.CoachMember;
+import com.tia102g3.coachmember.service.CoachMemberService;
+import com.tia102g3.member.model.Member;
+import com.tia102g3.member.service.MemberService;
 import com.tia102g3.product.model.ProductService;
-import com.tia102g3.product.model.ProductVO;
 
 /**
  * ClassName： PageController package：com.controllers Description：
@@ -36,6 +34,12 @@ public class PageController {
 
     @Autowired
     private CoachCourseServiceImpl ccService;
+    
+    @Autowired
+    private MemberService memberSvc;
+    
+    @Autowired
+    private CoachMemberService coachMemberSvc;
 
 //    @Autowired
 //    private FoodService foodSvc;
@@ -45,11 +49,46 @@ public class PageController {
 
 
     @GetMapping({"/", "/index"})
-    public String indexPage(HttpSession session, Model model) {
+    public String indexPage(HttpServletRequest request, HttpSession session, Model model) {
+        // 檢查是否登入
         Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
-        model.addAttribute("loggedIn", loggedIn != null && loggedIn);
-        return "index";
+        if (loggedIn == null || !loggedIn) {
+            // 如果未登入，將 "isLoggedIn" 設為 false
+            model.addAttribute("isLoggedIn", false);
+
+            // 確保未登入的用戶只能訪問特定頁面
+            String uri = request.getRequestURI();
+            if (!uri.equals("/login") && !uri.equals("/index") && !uri.startsWith("/map") && !uri.equals("/qa")) {
+                return "redirect:/login?error=not_logged_in";
+            }
+        } else {
+            model.addAttribute("isLoggedIn", true);
+
+            // 確保用戶在訪問 index 頁面時，session 中有 user 資料
+            Object user = session.getAttribute("user");
+            if (user instanceof Member) { // 如果是一般會員
+                Member member = (Member) user;
+                Integer memberID = member.getMemberID();
+                Member memberDetails = memberSvc.findById(memberID);
+
+                if (memberDetails != null) {
+                    model.addAttribute("member", memberDetails); // 添加 Member 對象到模型中
+                    model.addAttribute("name", memberDetails.getName()); // 添加 name 屬性到模型中
+                }
+            } else if (user instanceof CoachMember) { // 如果是教練會員
+                CoachMember coachMember = (CoachMember) user;
+                Integer coachMemberID = coachMember.getCMemberID();
+                CoachMember coachMemberDetails = coachMemberSvc.findById(coachMemberID);
+
+                if (coachMemberDetails != null) {
+                    model.addAttribute("coachMember", coachMemberDetails); // 添加 CoachMember 對象到模型中
+                    model.addAttribute("name", coachMemberDetails.getName()); // 添加 name 屬性到模型中
+                }
+            }
+        }
+        return "index"; // 返回 index 頁面的視圖名稱
     }
+
 
     @GetMapping("/trainers")
     public String trainers(Model model) {

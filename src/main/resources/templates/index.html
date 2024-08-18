@@ -77,14 +77,14 @@ h2{
 				<!-- start h_menu4 -->
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
-					<li class="active"><a th:href="@{/index}">首頁</a></li>
-        			<li><a class="login-required" th:href="@{/account_information}">會員專區</a></li>
-        			<li><a class="login-required" th:href="@{/trainers}">專屬你的訓練</a></li>
-        			<li><a class="login-required" th:href="@{/menu}">健康餐</a></li>
-        			<li><a class="login-required" th:href="@{/pricing}">購物商城</a></li>
-        			<li><a th:href="@{/map}">美食地圖</a></li>
-        			<li><a th:href="@{/qa}">客服</a></li>
-        			<li><a th:href="@{/loggedIn}">登入</a></li>
+    				<li class="active"><a th:href="@{/index}">首頁</a></li>
+    				<li th:if="${isLoggedIn}"><a th:href="@{/account_information}">會員專區</a></li>
+    				<li th:if="${isLoggedIn}"><a th:href="@{/trainers}">專屬你的訓練</a></li>
+    				<li th:if="${isLoggedIn}"><a th:href="@{/menu}">健康餐</a></li>
+    				<li th:if="${isLoggedIn}"><a th:href="@{/pricing}">購物商城</a></li>
+					<li><a th:href="@{/map}">美食地圖</a></li>
+    				<li><a th:href="@{/qa}">客服</a></li>
+    				<li><a th:href="@{/loggedIn}">登入</a></li>
 				</ul>
 				<script type="text/javascript" src="js/nav.js"></script>
 			</div>
@@ -109,15 +109,47 @@ h2{
 		</div>
 	</div>
 	<script>
-	document.addEventListener("DOMContentLoaded", function() {
-        // 獲取 URL 中的錯誤參數
-        const urlParams = new URLSearchParams(window.location.search);
-        const error = urlParams.get('error');
+	window.onload = function() {
+		const urlParams = new URLSearchParams(window.location.search);
+		const error = urlParams.get('error');
+		const success = urlParams.get('success');
 
-        if (error === 'not_logged_in') {
-            alert('親  請先登入哦！');
-        }
-    });
+		if (error === 'invalid') {
+			alert('登入失敗，請檢查帳號和密碼是否正確。');
+		} else if (error === 'error') {
+			alert('發生錯誤，請稍後再試。');
+		}
+
+		if (success === 'login') {
+			alert('登入成功！');
+		}
+	};
+	document.addEventListener('DOMContentLoaded', function() {
+	    var isLoggedIn = false; // 這裡應根據實際情況設置是否登入
+
+	    // 獲取所有需要登入的連結
+	    var links = document.querySelectorAll('a[data-requires-login="true"]');
+
+	    links.forEach(function(link) {
+	        link.addEventListener('click', function(event) {
+	            if (!isLoggedIn) {
+	                event.preventDefault(); // 防止連結跳轉
+	                alert('親  請先登入哦！');
+	                // 確保回到登入頁面
+	                window.location.href = '/login';
+	            }
+	        });
+	    });
+	});
+	document.addEventListener("DOMContentLoaded", function() {
+	    // 獲取 URL 中的錯誤參數
+	    const urlParams = new URLSearchParams(window.location.search);
+	    const error = urlParams.get('error');
+
+	    if (error === 'not_logged_in') {
+	        alert('請先完成登入');
+	    }
+	});
 	</script>
 </body>
 
