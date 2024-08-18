@@ -200,8 +200,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                     </label></label></label></label></label>
                 </div>
-<!--                <input type="submit" value="確認並前往付款">-->
-                <input type="submit" th:disabled="${result}" th:value="${!result ? '您已購買過課程' : '確認並前往付款'}">
+                <input type="submit" value="確認並前往付款">
+<!--                <input id="submitButton" th:type="submit" th:disabled="${result == 1}" th:value="${result == 1 ? '您已購買過課程' : '確認並前往付款'}">-->
                 <input type="hidden" th:field="*{member.memberID}">
                 <input type="hidden" th:field="*{coachCourse.id}">
                 <div class="price_plans_box">
@@ -263,8 +263,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script th:inline="javascript">
 
+
+
     var coachCourseID = /*[[${courseOrder.coachCourse.id}]]*/ '[[${courseOrder.coachCourse.id}]]';
     (function () {
+        var result = /*[[${result}]]*/ 'result';
+
         $(document).ready(function () {
             if (coachCourseID != null) {
                 $.ajax({
@@ -296,6 +300,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             if (data.maxCap - data.countMembers == 0) {
                                 $('input[type="submit"]').attr('disabled', true);
                                 $('input[type="submit"]').val('已無名額');
+                            }else if (result === 1){
+                                $('input[type="submit"]').attr('disabled', true);
+                                $('input[type="submit"]').val('您已購買');
                             } else {
                                 // 確保按鈕在名額不為0時可點擊並顯示原名
                                 $('input[type="submit"]').attr('disabled', false);

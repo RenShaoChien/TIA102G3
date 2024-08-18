@@ -68,9 +68,10 @@ public class FrontEndCoachCourseController {
             return "redirect:/trainers/currCoachCourse?id=" + courseID;
         }
         Member member = (Member) memberObj;
-        boolean result = coService.getOneByMemberIdAndCourseId(member.getMemberID(), courseID)
-                .map(existingCo -> true)
-                .orElse(false);
+        int result = coService.getOneByMemberIdAndCourseId(member.getMemberID(), courseID)
+                .map(existingCo -> 1)
+                .orElse(0);
+        System.out.println("這裡是有沒有購買的boolean:" + result);
 
         Optional<CoachCourse> optionalCoachCourse = ccService.findOneAllAttr(courseID);
         CoachCourse coachCourse = optionalCoachCourse.get();
