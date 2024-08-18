@@ -8,8 +8,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>專屬你的訓練</title>
-    <link th:href="@{css/bootstrap.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{css/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link th:href="@{http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800}" rel="stylesheet"
@@ -25,11 +25,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     } </script>
     <script th:src="@{js/jquery.min.js}"></script>
     <!-- grid-slider -->
-    <script type="text/javascript" th:src="@{js/jquery.mousewheel.js}"></script>
-    <script type="text/javascript" th:src="@{js/jquery.contentcarousel.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.mousewheel.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.contentcarousel.js}"></script>
     <!-- //grid-slider -->
     <!---calender-style---->
-    <link rel="stylesheet" th:href="@{css/jquery-ui.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery-ui.css}">
     <!---//calender-style---->
     <style>
         * {
@@ -334,7 +334,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
     <div class="container">
         <div class="logo">
-            <a th:href="@{/index}"><img th:src="@{images/logo.png}" alt=""></a>
+            <a th:href="@{/index}"><img th:src="@{/images/logo.png}" alt=""></a>
         </div>
         <div class="h_menu4"><!-- start h_menu4 -->
             <a class="toggleMenu" href="#">Menu</a>

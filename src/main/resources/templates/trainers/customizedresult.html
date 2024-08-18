@@ -12,9 +12,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <link th:href="@{/css/style.css}" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800}' rel='stylesheet'
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet'
           type='text/css'>
-    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700}' rel='stylesheet'
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet'
           type='text/css'>
     <script type="application/x-javascript"> addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
@@ -23,10 +23,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     function hideURLbar() {
         window.scrollTo(0, 1);
     } </script>
-    <script th:src="@{/js/jquery.min.js}"></script>
+    <!--    <script th:src="@{/js/jquery.min.js}"></script>-->
     <!-- grid-slider -->
-    <script type="text/javascript" th:src="@{/js/jquery.mousewheel.js}"></script>
-    <script type="text/javascript" th:src="@{/js/jquery.contentcarousel.js}"></script>
+    <!--    <script type="text/javascript" th:src="@{/js/jquery.mousewheel.js}"></script>-->
+    <!--    <script type="text/javascript" th:src="@{/js/jquery.contentcarousel.js}"></script>-->
     <!-- //grid-slider -->
     <!---calender-style---->
     <link rel="stylesheet" th:href="@{/css/jquery-ui.css}"/>
@@ -206,7 +206,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <li><a th:href="@{/qa}">客服</a></li>
                 <li><a th:href="@{/logout}" class="logout-button">登出</a></li>
             </ul>
-            <script type="text/javascript" th:src="@{/js/nav.js}"></script>
+            <!--            <script type="text/javascript" th:src="@{/js/nav.js}"></script>-->
         </div><!-- end h_menu4 -->
         <div class="clear"></div>
     </div>
@@ -226,32 +226,37 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>
                 </div>
                 <div class="result-group">
-                    <div class="info-item"
+                    <div class="info-item" id="rpsOrEachExerciseTime"
                          th:text="${#strings.isEmpty(systemCourse.rps) ? ' ☹ 一次運動時間約→ ' + systemCourse.eachExerciseTime +' ←': ' ☹ 每組約→ ' + systemCourse.rps + ' ←下'}"></div>
                 </div>
                 <div class="result-group">
-                    <div class="info-item label"
+                    <div class="info-item label" id="swpOrSportTime"
                          th:text="${#strings.isEmpty(systemCourse.swp) ? ' ☹ 總共運動時間約→ ' + systemCourse.sportTime + ' ←': ' ☹ 每次約→ ' + systemCourse.swp + ' ←組'}">
                         運動時間：每組跑 30 分鐘
                     </div>
                 </div>
                 <div class="result-group">
-                    <div class="info-item" th:text="| ☺ 卡路里消耗約→ ${systemCourse.burnCalories} ←卡路里|">
+                    <div class="info-item" id="burnCalories"
+                         th:text="| ☺ 卡路里消耗約→ ${systemCourse.burnCalories} ←卡路里|">
                         卡路里消耗消耗約400卡路里
                     </div>
                 </div>
             </div>
             <div class="result-group">
                 <div class="info-item label">推薦教練課程：
-                    <a th:style="${#strings.isEmpty(coachCourse.courseName) ? 'pointer-events: none; cursor: default; color: black;' : ''}"
+                    <a id="coachCourse"
+                       th:style="${#strings.isEmpty(coachCourse.courseName) ? 'pointer-events: none; cursor: default; color: black;' : ''}"
                        th:href="@{|/trainers/currCoachCourse?id=${coachCourse.id}|}"
                        th:text="| ○ ${#strings.isEmpty(coachCourse.courseName) ? '尚無適合的教練課程' : (coachCourse.courseName)} ● |">課程名稱</a>
                 </div>
             </div>
+            <input type="hidden" id="loseWeight" th:value="${loseWeight}">
         </div>
     </div>
 
     <div class="container" th:style="${#strings.isEmpty(systemCourse.systemCourseID) ? 'display:none' : ''}">
+        <h2>減肥建議</h2>
+        <div id="weight-loss-advice"></div>
         <div class="course-description">
             <div class="description-content">
                 <div>
@@ -324,44 +329,88 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
-    function scrollToTop() {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    }
+    (function () {
 
-    $(".btn_modal").on("click", function () {
-        $("#lightbox").fadeIn(1000);
-    });
+        $(document).ready(function () {
+            var loseWeight = $('#loseWeight').val(); // 獲取用戶輸入的目標減重值
+            var courseName = $('.result-group .info-item.label.m_9').text(); // 獲取選擇的運動名稱
+            var burnCalories = $('#burnCalories').text();
+            var rpsOrEachExerciseTime = $('#rpsOrEachExerciseTime').text();
+            var swpOrSportTime = $('#swpOrSportTime').text();
+            var coachCourse = $('#coachCourse').text();
+
+            if
+            (loseWeight && courseName && burnCalories && rpsOrEachExerciseTime && swpOrSportTime && coachCourse) {
+                getWeightLossAdvice(loseWeight, courseName, burnCalories, rpsOrEachExerciseTime, swpOrSportTime, coachCourse);
+            }
 
 
-    $(".btn_modal_close, #lightbox").on("click", function () {
-        $("#lightbox").fadeOut(1000);
-    });
 
-    $("#lightbox > article").on("click", function (e) {
-        e.stopPropagation();
-    });
-
-    let slideIndex = 0;
-    showSlides(slideIndex);
-
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
-
-    function showSlides(n) {
-        let slides = document.getElementsByClassName("slides")[0].children;
-        if (n >= slides.length) {
-            slideIndex = 0;
+        async function getWeightLossAdvice(loseWeight, courseName, burnCalories, rpsOrEachExerciseTime, swpOrSportTime, coachCourse) {
+            try {
+                const response = await $.ajax({
+                    url: '/api/getWeightLossAdvice',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        loseWeight: loseWeight,
+                        courseName: courseName,
+                        burnCalories: burnCalories,
+                        rpsOrEachExerciseTime: rpsOrEachExerciseTime,
+                        swpOrSportTime: swpOrSportTime,
+                        coachCourse: coachCourse
+                    })
+                });
+                // 检查 response.advice 是否存在
+                if (response.advice) {
+                    $('#weight-loss-advice').html(response.advice.replace(/\n/g, "<br>"));
+                } else {
+                    $('#weight-loss-advice').text("無法獲取減肥建議，請稍後再試。");
+                }
+            } catch (error) {
+                console.error("请求失败:", error);
+                $('#weight-loss-advice').text("無法獲取減肥建議，請稍後再試。");
+            }
         }
-        if (n < 0) {
-            slideIndex = slides.length - 1;
+        });
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        slides[slideIndex].style.display = "block";
-    }
 
+        $(".btn_modal").on("click", function () {
+            $("#lightbox").fadeIn(1000);
+        });
+
+        $(".btn_modal_close, #lightbox").on("click", function () {
+            $("#lightbox").fadeOut(1000);
+        });
+
+        $("#lightbox > article").on("click", function (e) {
+            e.stopPropagation();
+        });
+
+        let slideIndex = 0;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            let slides = document.getElementsByClassName("slides")[0].children;
+            if (n >= slides.length) {
+                slideIndex = 0;
+            }
+            if (n < 0) {
+                slideIndex = slides.length - 1;
+            }
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex].style.display = "block";
+        }
+    })();
 </script>
+
 </body>
 </html>

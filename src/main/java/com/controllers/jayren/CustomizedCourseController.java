@@ -66,7 +66,7 @@ public class CustomizedCourseController {
 
             if (customizedCourses.size() == 0 && customizedCoachCourses.size() == 0)
                 throw new IllegalArgumentException("customizedCourses.size() == 0 && customizedCoachCourses.size() == 0");
-            model.putAll(Map.of("systemCourse", randomCourse, "coachCourse", randomCoachCourse));
+            model.putAll(Map.of("systemCourse", randomCourse, "coachCourse", randomCoachCourse, "loseWeight", loseWeight));
 
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
