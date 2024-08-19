@@ -185,3 +185,4 @@ public class MemberController {
         return result; // 返回更新後的 BindingResult
     }
 }
+
