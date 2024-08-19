@@ -60,7 +60,7 @@
                 // 為標記添加點擊事件監聽器
                 marker.addListener('click', () => {  // 當標記被點擊時，執行此匿名函數
                     const restIfo = restIfoListData[index];  // 根據 index 從 restIfoListData 中獲取對應的餐廳信息
-                    const content = `  // 構建一個包含餐廳詳細信息的 HTML 字符串
+                    const content = `  
                         <div>
                             <h4>${restIfo.restName}</h4>  
                             <p>電話: ${restIfo.restTel}</p>  
@@ -69,7 +69,7 @@
                         </div>
                     `;
                     const infoWindow = new google.maps.InfoWindow({  // 使用 Google Maps API 創建一個信息窗口
-                        content: content  // 設置信息窗口的內容為上面構建的 HTML 字符串
+                        content: content  
                     });
                     infoWindow.open(map, marker);  // 在地圖上打開信息窗口，並將其與相應的標記關聯
                 });
