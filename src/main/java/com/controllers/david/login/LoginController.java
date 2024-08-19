@@ -167,7 +167,7 @@ public class LoginController {
 
 	        return "redirect:/verify_email";
 
-	    } else if ("user".equals(membership)) {
+	    } else if ("coach".equals(membership)) {
 	        CoachMember coachMember = new CoachMember();
 	        coachMember.setAccount(account);
 	        coachMember.setPassword(password);
