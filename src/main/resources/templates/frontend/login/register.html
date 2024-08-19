@@ -2,56 +2,82 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>健肌尋食-會員註冊</title>
+<title>健肌尋食-會員註冊</title>
 <link th:href="@{css/bootstrap.css}" rel='stylesheet' type='text/css' />
 <link th:href="@{css/style.css}" rel='stylesheet' type='text/css' />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700'
+	rel='stylesheet' type='text/css'>
+<script type="application/x-javascript">
+	
+	
+	
+	
+	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
+
+
+
+</script>
 <script th:src="@{js/jquery.min.js}"></script>
-	<style>
+<style>
 .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-    position: relative; /* 确保错误消息在同一位置 */
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 15px;
+	position: relative; /* 确保错误消息在同一位置 */
 }
 
 .form-group label {
-    margin-bottom: 5px;
-    font-weight: bold;
+	margin-bottom: 5px;
+	font-weight: bold;
 }
 
 .form-group .error-message {
-    color: red;
-    font-size: 12px;
-    position: absolute; /* 绝对定位以便与输入框对齐 */
-    top: 100%; /* 将错误消息放置在输入框下方 */
-    left: 0;
-    display: none; /* 默认隐藏错误消息 */
+	color: red;
+	font-size: 12px;
+	position: absolute; /* 绝对定位以便与输入框对齐 */
+	top: 100%; /* 将错误消息放置在输入框下方 */
+	left: 0;
+	display: none; /* 默认隐藏错误消息 */
 }
 
 input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 10px 20px;
-    font-size: 16px;
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	cursor: pointer;
+	padding: 10px 20px;
+	font-size: 16px;
 }
 
 input[type="submit"]:hover {
-    background-color: #45a049;
+	background-color: #45a049;
 }
 
-#accountError{
+#accountError {
 	margin-top: 0;
+	font-size: 13px;
+}
+
+#confirmPasswordError{
+	margin-top: 0;
+	font-size: 13px;
+}
+
+#phoneError{
+	margin-top: 0;
+	font-size: 13px;
 }
 
 .clear {
-    clear: both;
+	clear: both;
 }
 
 .news-letter {
@@ -99,13 +125,10 @@ input[type="submit"]:hover {
 }
 
 input[type="submit"]:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+	background-color: #ccc;
+	cursor: not-allowed;
 }
 
-#accountError {
-	font-size: 13px;
-}
 </style>
 </head>
 
@@ -113,104 +136,104 @@ input[type="submit"]:disabled {
 	<div class="menu">
 		<div class="container">
 			<div class="logo">
-				<a th:href="@{/index}"><img th:src="@{images/logo.png}" alt=""/></a>
-		 	</div>
-			<div class="h_menu4"><!-- start h_menu4 -->
+				<a th:href="@{/index}"><img th:src="@{images/logo.png}" alt="" /></a>
+			</div>
+			<div class="h_menu4">
+				<!-- start h_menu4 -->
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
-                	<li><a th:href="@{/index}" onclick="return confirmLeavePage();">首頁</a></li>
-					<li><a th:href="@{/account_information}" onclick="return promptLogin();">會員專區</a></li>
+					<li><a th:href="@{/index}"
+						onclick="return confirmLeavePage();">首頁</a></li>
+					<li><a th:href="@{/account_information}"
+						onclick="return promptLogin();">會員專區</a></li>
 					<li><a th:href="@{/trainers}" onclick="return promptLogin();">專屬你的訓練</a></li>
 					<li><a th:href="@{/menu}" onclick="return promptLogin();">健康餐</a></li>
 					<li><a th:href="@{/pricing}" onclick="return promptLogin();">購物商城</a></li>
 					<li><a th:href="@{/map}" onclick="return confirmLeavePage();">美食地圖</a></li>
 					<li><a th:href="@{/qa}" onclick="return confirmLeavePage();">客服</a></li>
-					<li class="active"><a th:href="@{/login}" onclick="return confirmLeavePage();">登入</a></li>
+					<li class="active"><a th:href="@{/login}"
+						onclick="return confirmLeavePage();">登入</a></li>
 				</ul>
 				<script type="text/javascript" src="js/nav.js"></script>
-			</div><!-- end h_menu4 -->
+			</div>
+			<!-- end h_menu4 -->
 			<div class="clear"></div>
 		</div>
 	</div>
 	<div class="register-grids">
-    <div class="container">
-        <form id="registerForm" method="post" action="/register">
-            <div class="register-top-grid">
-                <h2>歡迎加入</h2>
-                
-                <div class="form-group">
-                    <label for="account">請輸入帳號</label>
-                    <input type="text" id="account" name="account" required>
-                    <div id="accountError" class="error-message">此帳號已經被使用，請選擇其他帳號。</div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">請輸入密碼</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="name">姓名</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password-confirm">確認密碼</label>
-                    <input type="password" id="password-confirm" name="password-confirm" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">請輸入手機號碼</label>
-                    <input type="text" id="phone" name="phone" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="address">請輸入地址</label>
-                    <input type="text" id="address" name="address" required>
-                </div>
-            </div>
-            
-            <div class="clear"> </div>
-            
-            <div class="register-bottom-grid">
-                <div>
-                    <span>您的身分別是?</span>
-                    <a class="news-letter" href="#">
-                        <label class="radio">
-                            <input type="radio" name="membership" value="general" required><i> </i>一般會員
-                        </label>
-                    </a>
-                    <a class="news-letter" href="#">
-                        <label class="radio">
-                            <input type="radio" name="membership" value="coach" required><i> </i>教練會員
-                        </label>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="clear"> </div>
-            
-            <div th:if="${errorMessage != null}">
-                <p style="color:red;" th:text="${errorMessage}"></p>
-            </div>
-            
-            <div class="button1">
-                <input type="submit" value="送出" disabled>
-            </div>
-            
-            <div class="clear"></div>
-            <div id="message"></div>
-        </form>
-    </div>
-</div>
+		<div class="container">
+			<form id="registerForm" method="post" action="/register">
+				<div class="register-top-grid">
+					<h2>歡迎加入</h2>
+
+					<div class="form-group">
+						<label for="account">請輸入帳號</label> <input type="text" id="account"
+							name="account" required>
+						<div id="accountError" class="error-message">此帳號已經被使用，請選擇其他帳號</div>
+					</div>
+
+					<div class="form-group">
+						<label for="password">請輸入密碼</label> <input type="password"
+							id="password" name="password" required>
+					</div>
+					<div class="form-group">
+						<label for="name">姓名</label> <input type="text" id="name"
+							name="name" required>
+					</div>
+					<div class="form-group">
+						<label for="confirmPassword">確認密碼</label> <input type="password"
+							id="confirmPassword" name="confirmPassword" required>
+						<div id="confirmPasswordError" class="error-message" style="display: none;">密碼不一致，請修正</div>
+					</div>
+
+					<div class="form-group">
+						<label for="phone">請輸入手機號碼</label> <input type="text" id="phone"
+							name="phone" required>
+							<div id="phoneError" class="error-message">請輸入正確的手機格式</div>
+					</div>
+
+					<div class="form-group">
+						<label for="address">請輸入地址</label> <input type="text" id="address"
+							name="address" required>
+					</div>
+				</div>
+
+				<div class="clear"></div>
+
+				<div class="register-bottom-grid">
+					<div>
+						<span>您的身分別是?</span> <a class="news-letter" href="#"> <label
+							class="radio"> <input type="radio" name="membership"
+								value="general" required><i> </i>一般會員
+						</label>
+						</a> <a class="news-letter" href="#"> <label class="radio">
+								<input type="radio" name="membership" value="coach" required><i></i>教練會員
+						</label>
+						</a>
+					</div>
+				</div>
+
+				<div class="clear"></div>
+
+				<div id="message"></div>
+
+				<div class="button1">
+					<input type="submit" value="送出" disabled>
+				</div>
+
+				<div class="clear"></div>
+			</form>
+		</div>
+	</div>
 	<!-- end menu -->
 	<div class="footer-bottom">
 		<div class="container">
 			<div class="row section group">
 				<div class="col-md-4">
 					<div class="social"
-						 style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
-						<img id="clickableImage" src="images/cutecatloge.png" style="width: 100%; height: 100%"/>
+						style="width: 100%; height: 100%; max-width: 200px; max-height: 200px; margin-right: 100px;">
+						<img id="clickableImage" src="images/cutecatloge.png"
+							style="width: 100%; height: 100%" />
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -219,9 +242,12 @@ input[type="submit"]:disabled {
 					</div>
 					<p class="m_9">
 						「健肌尋食」是一個簡單的概念，意思是通過運動來增強肌肉，同時尋找健康的食物來補充營養，這樣可以讓我們的身體更強壯，生活更健康愉快。</p>
-					<p class="address">Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02) 3333 4444</span>
+					<p class="address">
+						Phone : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">(02)
+							3333 4444</span>
 					</p>
-					<p class="address">Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
+					<p class="address">
+						Email : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="m_10">TIA102G3@Tibeme.com</span>
 					</p>
 				</div>
 				<div class="col-md-4">
@@ -250,58 +276,37 @@ input[type="submit"]:disabled {
 			<div class="clear"></div>
 		</div>
 	</div>
-<script src="path/to/your/script.js"></script>
-<script>
-	let users = [];
-
-	function register() {
-		const email = document.getElementById('reg-email').value;
-		const password = document.getElementById('reg-password').value;
-		const passwordConfirm = document.getElementById('reg-password-confirm').value;
-		const membership = document.querySelector('input[name="membership"]:checked').value;
-		const message = document.getElementById('message');
-
-		// 清除之前的訊息
-		message.textContent = '';
-		message.classList.remove('error', 'success');
-
-		// 基本驗證
-		if (!email) {
-			message.textContent = '請輸入電子郵件';
-			message.classList.add('error');
-			return;
-		}
-		if (!password) {
-			message.textContent = '請輸入密碼';
-			message.classList.add('error');
-			return;
-		}
-		if (password !== passwordConfirm) {
-			message.textContent = '密碼不相符';
-			message.classList.add('error');
-			return;
-		}
-		if (users.some(user => user.email === email)) {
-			message.textContent = '用戶名已存在';
-			message.classList.add('error');
-			return;
-		}
-
-		// 儲存用戶資料
-		users.push({ email, password, membership });
-		message.textContent = '註冊成功，請登入';
-		message.classList.add('success');
-
-		// 根據會員類型跳轉到不同的頁面
-		if (membership === 'general') {
-			document.getElementById('generalPageLink').click(); // 一般會員頁面
-		} else if (membership === 'coach') {
-			document.getElementById('coachPageLink').click(); // 教練會員頁面
-		}
-	}
-	$(document).ready(function() {
+	<script src="path/to/your/script.js"></script>
+	<script>
+	document.addEventListener('DOMContentLoaded', function() {
 	    let isAccountValid = false;
+	    let isPhoneValid = false;
+	    let isPasswordValid = false;
 
+	    // 確認密碼
+	    document.getElementById('confirmPassword').addEventListener('input', function() {
+	        const password = document.getElementById('password').value;
+	        const confirmPassword = this.value;
+	        const errorDiv = document.getElementById('confirmPasswordError');
+	        const submitButton = document.querySelector('#registerForm input[type="submit"]');
+
+	        if (password !== confirmPassword) {
+	            errorDiv.style.display = 'block';
+	            isPasswordValid = false;
+	        } else {
+	            errorDiv.style.display = 'none';
+	            isPasswordValid = true;
+	        }
+
+	        // 檢查所有驗證條件來啟用或禁用提交按鈕
+	        if (isAccountValid && isPhoneValid && isPasswordValid) {
+	            submitButton.removeAttribute('disabled');
+	        } else {
+	            submitButton.setAttribute('disabled', 'disabled');
+	        }
+	    });
+
+	    // 帳號驗證
 	    $('#account').on('input', function() {
 	        var account = $(this).val();
 	        if (account.length > 0) {
@@ -313,30 +318,76 @@ input[type="submit"]:disabled {
 	                    if (response) {
 	                        $('#accountError').show();
 	                        isAccountValid = false;
-	                        $('#registerForm input[type="submit"]').attr('disabled', 'disabled');
 	                    } else {
 	                        $('#accountError').hide();
 	                        isAccountValid = true;
-	                        $('#registerForm input[type="submit"]').removeAttr('disabled');
+	                    }
+	                    
+	                    // 檢查所有驗證條件來啟用或禁用提交按鈕
+	                    const submitButton = document.querySelector('#registerForm input[type="submit"]');
+	                    if (isAccountValid && isPhoneValid && isPasswordValid) {
+	                        submitButton.removeAttribute('disabled');
+	                    } else {
+	                        submitButton.setAttribute('disabled', 'disabled');
 	                    }
 	                },
 	                error: function() {
 	                    $('#accountError').text('無法檢查帳號，請稍後再試').show();
 	                    isAccountValid = false;
-	                    $('#registerForm input[type="submit"]').attr('disabled', 'disabled');
+	                    const submitButton = document.querySelector('#registerForm input[type="submit"]');
+	                    submitButton.setAttribute('disabled', 'disabled');
 	                }
 	            });
 	        } else {
 	            $('#accountError').hide();
 	            isAccountValid = true;
-	            $('#registerForm input[type="submit"]').removeAttr('disabled');
+	            
+	            // 檢查所有驗證條件來啟用或禁用提交按鈕
+	            const submitButton = document.querySelector('#registerForm input[type="submit"]');
+	            if (isAccountValid && isPhoneValid && isPasswordValid) {
+	                submitButton.removeAttribute('disabled');
+	            } else {
+	                submitButton.setAttribute('disabled', 'disabled');
+	            }
 	        }
 	    });
 
+	    // 手機號碼驗證
+	    $('#phone').on('input', function() {
+	        var phone = $(this).val();
+	        var phoneRegex = /^09\d{8}$/; // 台灣手機號碼格式：09開頭，10位數
+	        if (phoneRegex.test(phone)) {
+	            $('#phoneError').hide();
+	            isPhoneValid = true;
+	        } else {
+	            $('#phoneError').show();
+	            isPhoneValid = false;
+	        }
+
+	        // 檢查所有驗證條件來啟用或禁用提交按鈕
+	        const submitButton = document.querySelector('#registerForm input[type="submit"]');
+	        if (isAccountValid && isPhoneValid && isPasswordValid) {
+	            submitButton.removeAttribute('disabled');
+	        } else {
+	            submitButton.setAttribute('disabled', 'disabled');
+	        }
+	    });
+
+	    // 表單提交
 	    $('#registerForm').on('submit', function(e) {
+	        let errorMessage = '';
 	        if (!isAccountValid) {
-	            alert('帳號已被使用，請更換帳號後再試。');
-	            e.preventDefault(); // Prevent form submission
+	            errorMessage += '帳號已被使用，請更換帳號後再試。\n';
+	        }
+	        if (!isPhoneValid) {
+	            errorMessage += '手機號碼格式不正確，請修正後再試。\n';
+	        }
+	        if (!isPasswordValid) {
+	            errorMessage += '密碼不一致，請修正後再試。\n';
+	        }
+	        if (errorMessage) {
+	            e.preventDefault();
+	            alert(errorMessage);
 	        }
 	    });
 	});
@@ -360,7 +411,6 @@ input[type="submit"]:disabled {
             window.location.href = '/adminRegister';
         }
     });
-
 </script>
 </body>
 

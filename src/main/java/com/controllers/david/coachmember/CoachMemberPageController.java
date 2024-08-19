@@ -339,6 +339,7 @@ public class CoachMemberPageController {
 	@PostMapping("/submitCoach")
 	public String submitCoach(
 	        @RequestParam(value = "personalPhotos", required = false) MultipartFile personalPhotos, // 上傳的個人照片
+	        @RequestParam(value = "email", required = false) String email, // 會員姓名
 	        @RequestParam(value = "name", required = false) String name, // 教練姓名
 	        @RequestParam(value = "gender", required = false) String gender, // 教練性別
 	        @RequestParam(value = "birthday", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday, // 教練生日，格式為 yyyy-MM-dd
@@ -378,6 +379,8 @@ public class CoachMemberPageController {
 	                
 	            } else { // 如果重定向頁面不是修改密碼
 	                // 更新其他教練資料的邏輯
+	            	if (email != null)
+	            		coachMemberDetails.setEmail(email); // 更新電子郵件
 	                if (name != null)
 	                    coachMemberDetails.setName(name); // 更新姓名
 	                if (gender != null)

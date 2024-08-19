@@ -188,36 +188,51 @@
             return;
         }
 
-        // 生成驗證碼
-        verificationCode = Math.floor(100000 + Math.random() * 900000);
-        console.log('發送的驗證碼是：' + verificationCode);  // 在真實應用中，你會通過電子郵件發送驗證碼
+        // AJAX 檢查電子郵件是否已存在
+        fetch(`/email/check?email=${encodeURIComponent(emailInput.value)}`)
+            .then(response => response.json())
+            .then(isEmailTaken => {
+                if (isEmailTaken) {
+                    message.textContent = '該電子郵件已被註冊';
+                    message.classList.add('error');
+                    emailInput.classList.add('input-error');
+                } else {
+                    // 電子郵件可用，發送驗證碼
+                    verificationCode = Math.floor(100000 + Math.random() * 900000);
+                    console.log('發送的驗證碼是：' + verificationCode);  // 在真實應用中，你會通過電子郵件發送驗證碼
 
-        // 使用AJAX發送POST請求到後端
-        const emailTo = emailInput.value;
-        const emailSubject = '您的驗證碼';
-        const emailBody = `您的驗證碼是：${verificationCode}`;
+                    const emailTo = emailInput.value;
+                    const emailSubject = '您的驗證碼';
+                    const emailBody = `您的驗證碼是：${verificationCode}`;
 
-        fetch('/course/sendEmail', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-                emailTo: emailTo,
-                emailSubject: emailSubject,
-                emailBody: emailBody
+                    fetch('/course/sendEmail', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams({
+                            emailTo: emailTo,
+                            emailSubject: emailSubject,
+                            emailBody: emailBody
+                        })
+                    })
+                    .then(response => response.text())
+                    .then(result => {
+                        message.textContent = result;
+                        message.classList.add(result.includes('成功') ? 'success' : 'error');
+                    })
+                    .catch(error => {
+                        console.error('錯誤:', error);
+                        message.textContent = '發送郵件時發生錯誤';
+                        message.classList.add('error');
+                    });
+                }
             })
-        })
-        .then(response => response.text())
-        .then(result => {
-            message.textContent = result;
-            message.classList.add(result.includes('成功') ? 'success' : 'error');
-        })
-        .catch(error => {
-            console.error('錯誤:', error);
-            message.textContent = '發送郵件時發生錯誤';
-            message.classList.add('error');
-        });
+            .catch(error => {
+                console.error('錯誤:', error);
+                message.textContent = '檢查電子郵件時發生錯誤';
+                message.classList.add('error');
+            });
     }
 
     function verifyCode() {

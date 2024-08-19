@@ -25,6 +25,7 @@ public interface CoachMemberRepository extends JpaRepository<CoachMember, Intege
 	CoachMember findByAccount(String account);
 	boolean existsByAccount(String account);
 	CoachMember findByEmail(String email);
+	boolean existsByEmail(String email);
 	
 	@Transactional
 	@Modifying

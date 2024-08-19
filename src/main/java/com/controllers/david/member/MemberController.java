@@ -96,15 +96,26 @@ public class MemberController {
         // 去除 BindingResult 中 personalPhotos 欄位的 FieldError 紀錄
         result = removeFieldError(member, result, "personalPhotos");
 
-        if (parts[0].isEmpty()) { // 如果使用者未選擇新圖片
+        // 處理圖片上傳
+        if (parts.length > 0 && !parts[0].isEmpty()) { // 如果使用者選擇了新圖片
+            MultipartFile multipartFile = parts[0];
+            byte[] personalPhotos = multipartFile.getBytes();
+            member.setPersonalPhotos(personalPhotos); // 設置新圖片
+        } else { // 如果使用者未選擇新圖片
             byte[] personalPhotos = memberSvc.getOneMember(member.getMemberID()).getPersonalPhotos();
             member.setPersonalPhotos(personalPhotos); // 保留原圖片
-        } else {
-            for (MultipartFile multipartFile : parts) {
-                byte[] personalPhotos = multipartFile.getBytes();
-                member.setPersonalPhotos(personalPhotos); // 設置新圖片
-            }
         }
+
+        // 處理密碼更新
+        Member existingMember = memberSvc.getOneMember(member.getMemberID());
+        if (member.getPassword() == null || member.getPassword().isEmpty()) {
+            // 保持原密碼
+            member.setPassword(existingMember.getPassword());
+        } else {
+            // 更新密碼，應加密處理
+            member.setPassword(encryptPassword(member.getPassword()));
+        }
+
         if (result.hasErrors()) { // 如果有錯誤
             return "back-end/member/update_member_input"; // 返回更新頁面
         }
@@ -112,11 +123,16 @@ public class MemberController {
         // 開始修改資料
         memberSvc.updateMember(member);
 
-        // 修改完成,準備轉交
+        // 修改完成，準備轉交
         model.addAttribute("success", "- (修改成功)"); // 添加成功信息到模型
-        member = memberSvc.getOneMember(Integer.valueOf(member.getMemberID())); // 重新查詢更新後的會員資料
+        member = memberSvc.getOneMember(member.getMemberID()); // 重新查詢更新後的會員資料
         model.addAttribute("member", member); // 添加會員資料到模型
         return "back-end/member/listOneMember"; // 返回單個會員資料頁面
+    }
+
+    private String encryptPassword(String password) {
+        // 使用你自己的加密方法來加密密碼
+        return password; // 暫時不加密，請根據需要替換為實際加密邏輯
     }
 
     /*

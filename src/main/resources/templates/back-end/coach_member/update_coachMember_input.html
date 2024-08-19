@@ -100,6 +100,16 @@
             display: block;
             margin-top: 5px;
         }
+        
+        .hidden {
+            display: none;
+        }
+
+        /* Style for readonly and disabled fields */
+        .readonly-field, .readonly-field:disabled {
+            background-color: #e0e0e0;
+            border: 1px solid #b0b0b0;
+        }
     </style>
 </head>
 <body>
@@ -144,10 +154,10 @@
                     <span th:if="${#fields.hasErrors('account')}" th:errors="*{account}" class="error" id="account.errors"></span>
                 </div>
 
-                <div>
+                <div class="hidden">
                     <label>密碼:</label>
-                    <input type="password" th:field="*{password}" onclick="hideContent('password.errors');" />
-                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error" id="password.errors"></span>
+                    <input type="password" th:field="*{password}" />
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error hidden" id="password.errors"></span>
                 </div>
 
                 <div>
@@ -182,7 +192,7 @@
 
                 <div>
                     <label>註冊日期:</label>
-                    <input type="date" th:field="*{regDate}" onclick="hideContent('regDate.errors');" />
+                    <input type="date" th:field="*{regDate}" class="readonly-field" readonly />
                     <span th:if="${#fields.hasErrors('regDate')}" th:errors="*{regDate}" class="error" id="regDate.errors"></span>
                 </div>
 
@@ -206,31 +216,31 @@
 
                 <div>
                     <label>信用卡持有人姓名:</label>
-                    <input type="text" th:field="*{cardName}" onclick="hideContent('cardName.errors')" />
+                    <input type="text" th:field="*{cardName}" class="readonly-field" onclick="hideContent('cardName.errors')" />
                     <span th:if="${#fields.hasErrors('cardName')}" th:errors="*{cardName}" class="error" id="cardName.errors"></span>
                 </div>
 
                 <div>
                     <label>信用卡號碼:</label>
-                    <input type="text" th:field="*{cardNumber}" onclick="hideContent('cardNumber.errors')" />
+                    <input type="text" th:field="*{cardNumber}" class="readonly-field" readonly/>
                     <span th:if="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}" class="error" id="cardNumber.errors"></span>
                 </div>
 
                 <div>
                     <label>有效日期:</label>
-                    <input type="text" th:field="*{cardValidTime}" onclick="hideContent('cardValidTime.errors')" />
+                    <input type="text" th:field="*{cardValidTime}" class="readonly-field" readonly/>
                     <span th:if="${#fields.hasErrors('cardValidTime')}" th:errors="*{cardValidTime}" class="error" id="cardValidTime.errors"></span>
                 </div>
 
                 <div>
                     <label>安全碼:</label>
-                    <input type="text" th:field="*{cardLast3No}" onclick="hideContent('cardLast3No.errors')" />
+                    <input type="text" th:field="*{cardLast3No}" class="readonly-field" readonly/>
                     <span th:if="${#fields.hasErrors('cardLast3No')}" th:errors="*{cardLast3No}" class="error" id="cardLast3No.errors"></span>
                 </div>
 
                 <div>
-                    <label>卡片綁定電話:</label>
-                    <input type="text" th:field="*{cardPhone}" onclick="hideContent('cardPhone.errors')" />
+                    <label>信用卡綁定電話:</label>
+                    <input type="text" th:field="*{cardPhone}" class="readonly-field" readonly />
                     <span th:if="${#fields.hasErrors('cardPhone')}" th:errors="*{cardPhone}" class="error" id="cardPhone.errors"></span>
                 </div>
 

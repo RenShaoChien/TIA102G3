@@ -18,7 +18,9 @@
 	
 	
 	
+	
 	 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+
 
 
 
@@ -104,29 +106,27 @@
 }
 
 .form-field, .form-field1 {
-    flex: 1 1 48%; /* 設置每個字段的寬度，兩個字段佔據一行 */
-    display: flex;
-    align-items: center;
-    gap: 10px; /* 調整標籤與輸入框之間的間距 */
+	flex: 1 1 48%; /* 設置每個字段的寬度，兩個字段佔據一行 */
+	display: flex;
+	align-items: center;
+	gap: 10px; /* 調整標籤與輸入框之間的間距 */
 }
 
 .form-field label {
-    width: 150px; /* 設置標籤的寬度 */
+	width: 150px; /* 設置標籤的寬度 */
 }
 
-.form-field input[type="text"],
-.form-field input[type="number"],
-.form-field input[type="date"],
-.form-field input[type="time"],
-.form-field select,
-.form-field textarea {
-    width: 100%; /* 設置輸入框寬度為 100% */
-    height: 30px; /* 設置高度 */
-    padding: 5px; /* 內邊距 */
+.form-field input[type="text"], .form-field input[type="number"],
+	.form-field input[type="date"], .form-field input[type="time"],
+	.form-field select, .form-field textarea {
+	width: 100%;
+	height: 30px;
+	padding: 5px;
+	box-sizing: border-box; /* Added for better box model control */
 }
 
 .form-field textarea {
-    height: 80px; /* 調整文本區域高度 */
+	height: 80px; /* 調整文本區域高度 */
 }
 
 .form-field .extra-info {
@@ -174,23 +174,23 @@
 }
 
 .form-container-data {
-    width:80vw;
-    margin: auto;
-    padding: 20px;
-    border-radius: 8px;
-
+	width: 80vw;
+	margin: auto;
+	padding: 20px;
+	border-radius: 8px;
 }
 
 .form-row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 15px;
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 15px;
 }
 
-.button0 input {
-    background: #00BFF0;
+.button0 input,
+.logout-button {
+    background-color: #00BFF0;
     border: none;
-    color: #FFF;
+    color: white;
     padding: 10px 20px;
     cursor: pointer;
     font-family: 'Open Sans', sans-serif;
@@ -201,15 +201,20 @@
     float: right;
 }
 
+.button0 input:hover,
+.logout-button:hover {
+    background-color: #008CBA;
+}
+
 </style>
 </head>
 
 <body>
 	<div class="menu">
 		<div class="container">
-		<div class="logo">
-				<a th:href="@{/index}"><img th:src="@{images/logo.png}" alt=""/></a>
-		 	</div>
+			<div class="logo">
+				<a th:href="@{/index}"><img th:src="@{images/logo.png}" alt="" /></a>
+			</div>
 			<div class="h_menu4">
 				<!-- start h_menu4 -->
 				<a class="toggleMenu" href="#">Menu</a>
@@ -238,14 +243,14 @@
 				class="nav-link" th:href="@{/coach_course_status}">查看課程狀態</a> <a
 				class="nav-link" th:href="@{/coach_course_products}">登錄課程商品</a>
 		</div>
-		<form id="courseForm" class="form-container-data" th:action="@{/coach_course_products}" method="post" th:object="${coachCourse}" enctype="multipart/form-data">
+		<form id="courseForm" class="form-container-data"
+			th:action="@{/coach_course_products}" method="post"
+			th:object="${coachCourse}" enctype="multipart/form-data">
 			<div class="form-row">
 				<div class="form-field">
-					<label>課程名稱：</label>
-					<input type="text" th:field="*{courseName}"
-						placeholder="輸入課程名稱"> <span
-						th:if="${#fields.hasErrors('courseName')}"
-						th:errors="*{courseName}" class="error" id="courseName.errors"></span>
+					<label for="courseName">課程名稱：</label> <input type="text"
+						id="courseName" th:field="*{courseName}" placeholder="輸入課程名稱">
+					<span th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}" class="error" id="courseName.errors" aria-live="polite"></span>
 				</div>
 				<div class="form-field">
 					<label>課程等級：</label> <select th:field="*{courseLevel}">
@@ -296,8 +301,8 @@
 						th:errors="*{status}" id="status.errors"></span>
 				</div>
 				<div class="form-field">
-					<label>關聯性運動：</label> <select
-						id="sportEventName" th:field="*{sportEventName}">
+					<label>關聯性運動：</label> <select id="sportEventName"
+						th:field="*{sportEventName}">
 						<option value="">請選擇運動項目類型</option>
 					</select> <span class="error" th:if="${#fields.hasErrors('sportEventName')}"
 						th:errors="*{sportEventName}" id="sportEventName.errors"></span>
@@ -411,156 +416,230 @@
 			document.getElementById(d).style.display = "none";
 		}
 	</script>
-	<script type="text/javascript">
-    $(document).ready(function() {
-        function toggleFields() {
-            var rpsSelected = $("select[name='rps']").val() !== "";
-            var swpSelected = $("select[name='swp']").val() !== "";
-            var eachExerciseTimeFilled = $("input[name='eachExerciseTime']").val() !== "";
-            var sportTimeFilled = $("input[name='sportTime']").val() !== "";
+	<script type="application/x-javascript">
+		$(document)
+				.ready(
+						function() {
+							function toggleFields() {
+								var rpsSelected = $("select[name='rps']").val() !== "";
+								var swpSelected = $("select[name='swp']").val() !== "";
+								var eachExerciseTimeFilled = $(
+										"input[name='eachExerciseTime']").val() !== "";
+								var sportTimeFilled = $(
+										"input[name='sportTime']").val() !== "";
 
-            var isRpsSwpFilled = rpsSelected && swpSelected;
-            var isTimeFilled = eachExerciseTimeFilled && sportTimeFilled;
+								var isRpsSwpFilled = rpsSelected && swpSelected;
+								var isTimeFilled = eachExerciseTimeFilled
+										&& sportTimeFilled;
 
-            if (isRpsSwpFilled) {
-                $("input[name='eachExerciseTime'], input[name='sportTime']").closest('.form-field').fadeOut(2000);
-            } else if (isTimeFilled) {
-                $("select[name='rps'], select[name='swp']").closest('.form-field').fadeOut(2000);
-            } else {
-                $("input[name='eachExerciseTime'], input[name='sportTime']").closest('.form-field').fadeIn(1000);
-                $("select[name='rps'], select[name='swp']").closest('.form-field').fadeIn(1000);
-            }
-        }
+								if (isRpsSwpFilled) {
+									$(
+											"input[name='eachExerciseTime'], input[name='sportTime']")
+											.closest('.form-field').fadeOut(
+													2000);
+								} else if (isTimeFilled) {
+									$("select[name='rps'], select[name='swp']")
+											.closest('.form-field').fadeOut(
+													2000);
+								} else {
+									$(
+											"input[name='eachExerciseTime'], input[name='sportTime']")
+											.closest('.form-field')
+											.fadeIn(1000);
+									$("select[name='rps'], select[name='swp']")
+											.closest('.form-field')
+											.fadeIn(1000);
+								}
+							}
 
-        $("select[name='rps'], select[name='swp'], input[name='eachExerciseTime'], input[name='sportTime']").change(toggleFields);
-        toggleFields();
+							$(
+									"select[name='rps'], select[name='swp'], input[name='eachExerciseTime'], input[name='sportTime']")
+									.change(toggleFields);
+							toggleFields();
 
-        $('#sportTypes').change(function() {
-            let selectType = $(this).val();
+							$('#sportTypes')
+									.change(
+											function() {
+												let selectType = $(this).val();
 
-            $.ajax({
-                url: '/course/getSportEventsAndEquipment',
-                data: {
-                    sportType: selectType
-                },
-                dataType: 'json',
-                success: function(data) {
-                    console.log('Received sportEventName Data:', data);
-                    var $sportEventSelect = $('#sportEventName');
-                    $sportEventSelect.empty();
-                    $.each(data.sportEvents, function(index, sportEventName) {
-                        $sportEventSelect.append($('<option>', {
-                            value: sportEventName,
-                            text: sportEventName,
-                        }));
-                    });
-                    $sportEventSelect.trigger('change');
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('您的網路有問題：', jqXHR.responseText);
-                    alert('您的網路有問題，請稍後再試1111。');
-                }
-            });
-        });
-        $('#sportTypes').trigger('change');
+												$
+														.ajax({
+															url : '/course/getSportEventsAndEquipment',
+															data : {
+																sportType : selectType
+															},
+															dataType : 'json',
+															success : function(
+																	data) {
+																console
+																		.log(
+																				'Received sportEventName Data:',
+																				data);
+																var $sportEventSelect = $('#sportEventName');
+																$sportEventSelect
+																		.empty();
+																$
+																		.each(
+																				data.sportEvents,
+																				function(
+																						index,
+																						sportEventName) {
+																					$sportEventSelect
+																							.append($(
+																									'<option>',
+																									{
+																										value : sportEventName,
+																										text : sportEventName,
+																									}));
+																				});
+																$sportEventSelect
+																		.trigger('change');
+															},
+															error : function(
+																	jqXHR,
+																	textStatus,
+																	errorThrown) {
+																console
+																		.error(
+																				'您的網路有問題：',
+																				jqXHR.responseText);
+																alert('您的網路有問題，請稍後再試1111。');
+															}
+														});
+											});
+							$('#sportTypes').trigger('change');
 
-        $('#sportEventName').change(function() {
-            let selectedSportEvent = $(this).val();
-            $.ajax({
-                url: '/trainers/getEquipmentBySportEvent',
-                data: {
-                    sportEventName: selectedSportEvent
-                },
-                dataType: 'json',
-                success: function(data) {
-                    console.log('Received Equipment Data:', data);
-                    let $sportEquipmentSelect = $('#sportEquipment');
-                    $sportEquipmentSelect.empty();
-                    $.each(data, function(index, sportEquipment) {
-                        $sportEquipmentSelect.append($('<option>', {
-                            value: sportEquipment,
-                            text: sportEquipment,
-                        }));
-                    });
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('您的網路有問題：', jqXHR.responseText);
-                    alert('您的網路有問題，請稍後再試。');
-                }
-            });
-        });
+							$('#sportEventName')
+									.change(
+											function() {
+												let selectedSportEvent = $(this)
+														.val();
+												$
+														.ajax({
+															url : '/trainers/getEquipmentBySportEvent',
+															data : {
+																sportEventName : selectedSportEvent
+															},
+															dataType : 'json',
+															success : function(
+																	data) {
+																console
+																		.log(
+																				'Received Equipment Data:',
+																				data);
+																let $sportEquipmentSelect = $('#sportEquipment');
+																$sportEquipmentSelect
+																		.empty();
+																$
+																		.each(
+																				data,
+																				function(
+																						index,
+																						sportEquipment) {
+																					$sportEquipmentSelect
+																							.append($(
+																									'<option>',
+																									{
+																										value : sportEquipment,
+																										text : sportEquipment,
+																									}));
+																				});
+															},
+															error : function(
+																	jqXHR,
+																	textStatus,
+																	errorThrown) {
+																console
+																		.error(
+																				'您的網路有問題：',
+																				jqXHR.responseText);
+																alert('您的網路有問題，請稍後再試。');
+															}
+														});
+											});
 
-        $('#courseImages').change(function() {
-            const preview = $('#imagePreview');
-            const files = this.files;
-            const error = $('#imageError');
-            preview.html('');
-            error.text('');
+							$('#courseImages')
+									.change(
+											function() {
+												const preview = $('#imagePreview');
+												const files = this.files;
+												const error = $('#imageError');
+												preview.html('');
+												error.text('');
 
-            if (files.length > 3) {
-                error.text('最多只能上傳三張圖片');
-                this.value = ''; // 清空選擇的文件
-                return;
-            }
+												if (files.length > 3) {
+													error.text('最多只能上傳三張圖片');
+													this.value = ''; // 清空選擇的文件
+													return;
+												}
 
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const reader = new FileReader();
+												for (let i = 0; i < files.length; i++) {
+													const file = files[i];
+													const reader = new FileReader();
 
-                reader.onload = function(e) {
-                    const img = $('<img>')
-                        .attr('src', e.target.result)
-                        .css({
-                            'max-width': '100px',
-                            'max-height': '100px'
-                        });
-                    preview.append(img);
-                };
+													reader.onload = function(e) {
+														const img = $('<img>')
+																.attr(
+																		'src',
+																		e.target.result)
+																.css(
+																		{
+																			'max-width' : '100px',
+																			'max-height' : '100px'
+																		});
+														preview.append(img);
+													};
 
-                reader.readAsDataURL(file);
-            }
-        });
+													reader.readAsDataURL(file);
+												}
+											});
 
-        var messageContent = $("#messageContent").text().trim();
-        console.log("檢查燈箱內容:", messageContent);
+							var messageContent = $("#messageContent").text()
+									.trim();
+							console.log("檢查燈箱內容:", messageContent);
 
-        if (messageContent.length > 0) {
-            console.log("燈箱內有消息");
-            // 移除 -on class 並... (Note: The continuation of this part is missing)
-        }
-    });
-    $(document).ready(function() {
-        $("#courseForm").on("submit", function(event) {
-            event.preventDefault(); // 防止表單的默認提交行為
+							if (messageContent.length > 0) {
+								console.log("燈箱內有消息");
+								// 移除 -on class 並... (Note: The continuation of this part is missing)
+							}
+						});
+		$(document).ready(function() {
+			$("#courseForm").on("submit", function(event) {
+				event.preventDefault(); // 防止表單的默認提交行為
 
-            // 直接顯示成功提示框
-            alert('新增成功！');
+				// 直接顯示成功提示框
+				alert('新增成功！');
 
-            // 可以選擇在這裡進行表單實際的提交，或者僅僅顯示提示後不提交表單
-            // this.submit(); // 取消 event.preventDefault() 並提交表單
-        });
-    });
-    
-//     $(document).ready(function() {
-//         $("#courseForm").on("submit", function(event) {
-//             event.preventDefault(); // 防止表單的默認提交行為
+				// 可以選擇在這裡進行表單實際的提交，或者僅僅顯示提示後不提交表單
+				// this.submit(); // 取消 event.preventDefault() 並提交表單
+			});
+		});
+		
+		addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); 
+	    function hideURLbar(){ 
+	        window.scrollTo(0,1); 
+	    } 
 
-//             $.ajax({
-//                 url: $(this).attr('action'), // 使用表單的 action 屬性作為請求 URL
-//                 type: 'POST', // 提交類型
-//                 data: $(this).serialize(), // 序列化表單數據
-//                 success: function(response) {
-//                     // 顯示成功提示框
-//                     alert('新增成功！');
-//                 },
-//                 error: function(jqXHR, textStatus, errorThrown) {
-//                     // 顯示錯誤提示框
-//                     alert('新增失敗，請稍後再試。');
-//                 }
-//             });
-//         });
-//     });
-</script>
+		//     $(document).ready(function() {
+		//         $("#courseForm").on("submit", function(event) {
+		//             event.preventDefault(); // 防止表單的默認提交行為
+
+		//             $.ajax({
+		//                 url: $(this).attr('action'), // 使用表單的 action 屬性作為請求 URL
+		//                 type: 'POST', // 提交類型
+		//                 data: $(this).serialize(), // 序列化表單數據
+		//                 success: function(response) {
+		//                     // 顯示成功提示框
+		//                     alert('新增成功！');
+		//                 },
+		//                 error: function(jqXHR, textStatus, errorThrown) {
+		//                     // 顯示錯誤提示框
+		//                     alert('新增失敗，請稍後再試。');
+		//                 }
+		//             });
+		//         });
+		//     });
+	</script>
 </body>
 
 </html>

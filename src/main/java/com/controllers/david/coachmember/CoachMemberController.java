@@ -91,32 +91,48 @@ public class CoachMemberController {
 	 */
 	@PostMapping("update")
 	public String update(@Valid CoachMember coachMember, BindingResult result, ModelMap model,
-			@RequestParam("personalPhotos") MultipartFile[] parts) throws IOException {
+	        @RequestParam("personalPhotos") MultipartFile[] parts) throws IOException {
 
-		// 去除BindingResult中upFiles欄位的FieldError紀錄
-		result = removeFieldError(coachMember, result, "personalPhotos");
+	    // 去除BindingResult中upFiles欄位的FieldError紀錄
+	    result = removeFieldError(coachMember, result, "personalPhotos");
 
-		if (parts[0].isEmpty()) { // 如果使用者未選擇新圖片
-			byte[] personalPhotos = coachMemberSvc.getOneCoachMember(coachMember.getCMemberID()).getPersonalPhotos();
-			coachMember.setPersonalPhotos(personalPhotos); // 保留原圖片
-		} else {
-			for (MultipartFile multipartFile : parts) {
-				byte[] personalPhotos = multipartFile.getBytes();
-				coachMember.setPersonalPhotos(personalPhotos); // 設置新圖片
-			}
-		}
-		if (result.hasErrors()) { // 如果有錯誤
-			return "back-end/coach_member/update_coachMember_input"; // 返回更新頁面
-		}
+	    // 處理圖片上傳
+	    if (parts.length > 0 && !parts[0].isEmpty()) {
+	        MultipartFile multipartFile = parts[0];
+	        byte[] personalPhotos = multipartFile.getBytes();
+	        coachMember.setPersonalPhotos(personalPhotos);
+	    } else {
+	        byte[] personalPhotos = coachMemberSvc.getOneCoachMember(coachMember.getCMemberID()).getPersonalPhotos();
+	        coachMember.setPersonalPhotos(personalPhotos); // 保留原圖片
+	    }
 
-		// 開始修改資料
-		coachMemberSvc.updateCoachMember(coachMember);
+	    // 處理密碼更新
+	    CoachMember existingMember = coachMemberSvc.getOneCoachMember(coachMember.getCMemberID());
+	    if (coachMember.getPassword() == null || coachMember.getPassword().isEmpty()) {
+	        // 保持原密碼
+	        coachMember.setPassword(existingMember.getPassword());
+	    } else {
+	        // 更新密碼，應加密處理
+	        coachMember.setPassword(encryptPassword(coachMember.getPassword()));
+	    }
 
-		// 修改完成,準備轉交
-		model.addAttribute("success", "- (修改成功)"); // 添加成功信息到模型
-		coachMember = coachMemberSvc.getOneCoachMember(Integer.valueOf(coachMember.getCMemberID())); // 重新查詢更新後的員工資料
-		model.addAttribute("coachMember", coachMember); // 添加員工資料到模型
-		return "back-end/coach_member/listOneCoachMember"; // 返回單個員工資料頁面
+	    if (result.hasErrors()) {
+	        return "back-end/coach_member/update_coachMember_input"; // 返回更新頁面
+	    }
+
+	    // 開始修改資料
+	    coachMemberSvc.updateCoachMember(coachMember);
+
+	    // 修改完成,準備轉交
+	    model.addAttribute("success", "- (修改成功)"); // 添加成功信息到模型
+	    coachMember = coachMemberSvc.getOneCoachMember(Integer.valueOf(coachMember.getCMemberID())); // 重新查詢更新後的員工資料
+	    model.addAttribute("coachMember", coachMember); // 添加員工資料到模型
+	    return "back-end/coach_member/listOneCoachMember"; // 返回單個員工資料頁面
+	}
+
+	private String encryptPassword(String password) {
+	    // 使用你自己的加密方法來加密密碼
+	    return password; // 暫時不加密，請根據需要替換為實際加密邏輯
 	}
 
 	/*

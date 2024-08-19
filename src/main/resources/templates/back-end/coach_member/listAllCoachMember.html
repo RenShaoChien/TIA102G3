@@ -21,7 +21,7 @@
                 "loadingRecords": "載入中...",
                 "lengthMenu": "顯示 _MENU_ 筆結果",
                 "zeroRecords": "沒有符合的結果",
-                "info": "顯示第 _START_ 至 _END_ 筆結果，共 <font color=red> _TOTAL_ </font> 筆",
+                "info": "顯示第 _START_ 至 _END_ 筆結果，共 <font color='red'>_TOTAL_</font> 筆",
                 "infoEmpty": "顯示第 0 至 0 筆結果，共 0 筆",
                 "infoFiltered": "(從 _MAX_ 筆結果中過濾)",
                 "search": "搜尋:",
@@ -138,7 +138,7 @@ h2 {
                 <th:block th:each="coachMember : ${coachMemberListData}">
                     <tr>
                         <td th:text="${coachMember.cMemberID}"></td>
-                        <td><img th:src="@{/coach_member/DBGifReader} + '?cMemberID=' + ${coachMember.cMemberID}" alt="Profile Picture"></td>
+                        <td><img th:src="@{/coach_member/DBGifReader(cMemberID=${coachMember.cMemberID})}" alt="Profile Picture"></td>
                         <td th:text="${coachMember.status}"></td>
                         <td th:text="${coachMember.name}"></td>
                         <td th:text="${coachMember.account}"></td>
