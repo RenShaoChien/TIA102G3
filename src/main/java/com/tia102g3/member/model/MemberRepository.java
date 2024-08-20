@@ -23,6 +23,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
 	Member findByAccount(String account);
 	boolean existsByAccount(String account);
 	Member findByEmail(String email);
+	boolean existsByEmail(String email);
 
 	@Transactional
 	@Modifying

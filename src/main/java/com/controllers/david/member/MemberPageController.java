@@ -299,6 +299,7 @@ public class MemberPageController {
 	@PostMapping("/submit")
 	public String submitAccountInformation(
 	        @RequestParam(value = "personalPhotos", required = false) MultipartFile personalPhotos, // 上傳的個人照片
+	        @RequestParam(value = "email", required = false) String email, // 會員電子郵件
 	        @RequestParam(value = "name", required = false) String name, // 會員姓名
 	        @RequestParam(value = "gender", required = false) String gender, // 會員性別
 	        @RequestParam(value = "birthday", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday, // 會員生日，格式為 yyyy-MM-dd
@@ -338,6 +339,8 @@ public class MemberPageController {
 	                
 	            } else { // 如果重定向頁面不是修改密碼
 	                // 更新其他會員資料的邏輯
+	            	if (email != null)
+	                    memberDetails.setEmail(email); // 更新電子郵件
 	                if (name != null)
 	                    memberDetails.setName(name); // 更新姓名
 	                if (gender != null)

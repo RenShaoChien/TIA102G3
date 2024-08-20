@@ -34,7 +34,15 @@ public class CoachMemberService {
 	public boolean existsByAccount(String account) {
 	    return repository.existsByAccount(account);
 	}
+	
+	public CoachMember findByEmail(String email) {
+        return repository.findByEmail(email); // 根據電子郵件查找會員
+    }
 
+	public boolean existsByEmail(String email) {
+		return repository.existsByAccount(email);
+	}
+	
 	// 更新會員資料的方法
 	public void updateCoachMember(CoachMember coachMember) {
 		repository.save(coachMember); // 使用 repository 更新會員資料

@@ -1,8 +1,6 @@
 package com.controllers.david.login;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import javax.mail.MessagingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +21,7 @@ import com.tia102g3.adminlogin.model.AdminLoginRepository;
 import com.tia102g3.coachmember.model.CoachMember;
 import com.tia102g3.coachmember.model.CoachMemberRepository;
 import com.tia102g3.coachmember.service.CoachMemberService;
+import com.tia102g3.email.EmailServiceImpl;
 import com.tia102g3.member.model.Member;
 import com.tia102g3.member.model.MemberRepository;
 import com.tia102g3.member.service.MemberService;
@@ -45,6 +44,9 @@ public class LoginController {
 
 	@Autowired
 	private CoachMemberService coachMemberService;
+	
+	@Autowired
+	private EmailServiceImpl emailService;
 
 	@PostMapping("/login")
 	public RedirectView login(@RequestParam String username, @RequestParam String password,
@@ -57,17 +59,15 @@ public class LoginController {
 
 	    HttpSession session = request.getSession();
 
-	    // 一般会员登录逻辑
 	    if (member != null && member.getPassword().equals(password)) {
 	        session.setAttribute("user", member);
 	        session.setAttribute("loggedIn", true);
 	        addLoginCookie(response, username);
 
-	        // 处理待定课程的逻辑
 	        if (session.getAttribute("pendingCourseID") != null) {
 	            return handlePendingCourse(session);
 	        }
-	        return new RedirectView("/account_information"); // 一般会员页面
+	        return new RedirectView("/account_information");
 	    } 
 
 	    else if (coachMember != null && coachMember.getPassword().equals(password)) {
@@ -141,13 +141,27 @@ public class LoginController {
 
 	@PostMapping("/register")
 	public String register(
-			@RequestParam("account") String account, 
-			@RequestParam("password") String password,
+	        @RequestParam("account") String account, 
+	        @RequestParam("password") String password,
+	        @RequestParam("confirmPassword") String confirmPassword,
 	        @RequestParam("name") String name, 
 	        @RequestParam("phone") String phone,
 	        @RequestParam("address") String address, 
-	        @RequestParam("membership") 
-			String membership, HttpSession session,Model model) {
+	        @RequestParam("membership") String membership, 
+	        HttpSession session,
+	        Model model) {
+
+	    // 檢查帳號是否已存在
+	    if (memberService.existsByAccount(account) || coachMemberService.existsByAccount(account)) {
+	        model.addAttribute("error", "該帳號已被註冊");
+	        return "register"; // 返回註冊頁面並顯示錯誤
+	    }
+
+	    // 檢查密碼和確認密碼是否一致
+	    if (!password.equals(confirmPassword)) {
+	        model.addAttribute("error", "密碼和確認密碼不一致");
+	        return "register"; // 返回註冊頁面並顯示錯誤
+	    }
 
 	    session.setAttribute("account", account);
 
@@ -178,7 +192,7 @@ public class LoginController {
 
 	        coachMemberService.addCoachMember(coachMember);
 
-	        // 儲存 memberID 到 Session
+	        // 儲存 cMemberID 到 Session
 	        session.setAttribute("cMemberID", coachMember.getCMemberID());
 
 	        return "redirect:/coach_verify_email";
@@ -187,6 +201,91 @@ public class LoginController {
 	    return "redirect:/register?error=true";
 	}
 
+	@PostMapping("/verifyEmail")
+	public String saveEmail(@RequestParam("email") String email, HttpSession session, Model model) {
+
+	    // 檢查電子郵件是否已存在
+	    if (memberService.existsByEmail(email) || coachMemberService.existsByEmail(email)) {
+	        model.addAttribute("error", "該電子郵件已被註冊");
+	        return "verify_email"; // 返回驗證頁面並顯示錯誤
+	    }
+
+	    // 從 Session 中獲取 memberID 和 cMemberID
+	    Integer memberID = (Integer) session.getAttribute("memberID");
+	    Integer cMemberID = (Integer) session.getAttribute("cMemberID");
+
+	    // 處理一般會員
+	    if (memberID != null) {
+	        // 根據 memberID 查詢會員
+	        Member member = memberService.findById(memberID);
+
+	        if (member != null) {
+	            // 更新會員的電子郵件
+	            member.setEmail(email);
+	            memberService.updateMember(member);
+
+	            return "redirect:/complete_page";
+	        }
+	    }
+
+	    // 處理教練會員
+	    if (cMemberID != null) {
+	        // 根據 cMemberID 查詢教練會員
+	        CoachMember coachMember = coachMemberService.findById(cMemberID);
+
+	        if (coachMember != null) {
+	            // 更新教練會員的電子郵件
+	            coachMember.setEmail(email);
+	            coachMemberService.updateCoachMember(coachMember);
+
+	            return "redirect:/coach_skill";
+	        }
+	    }
+
+	    // 錯誤處理
+	    return "redirect:/verify_email?error=true";
+	}
+
+	@PostMapping("/sendTempPassword")
+	@ResponseBody
+	public String sendTempPassword(@RequestParam("email") String email, 
+			@RequestParam("tempPassword") String tempPassword) {
+		// 查找會員或教練會員
+		Member member = memberService.findByEmail(email);
+		if (member != null) {
+			// 更新會員密碼
+			member.setPassword(tempPassword);
+			memberService.updateMember(member);
+			
+			// 發送臨時密碼郵件
+			try {
+				emailService.sendEmail(email, "您的臨時密碼", "您的臨時密碼是：" + tempPassword);
+			} catch (MessagingException e) {
+				return "發送郵件時出錯：" + e.getMessage();
+			}
+			
+			return "臨時密碼已成功發送至您的郵箱";
+		}
+		
+		CoachMember coachMember = coachMemberService.findByEmail(email);
+		if (coachMember != null) {
+			// 更新教練會員密碼
+			coachMember.setPassword(tempPassword);
+			coachMemberService.updateCoachMember(coachMember);
+			
+			// 發送臨時密碼郵件
+			try {
+				emailService.sendEmail(email, "您的臨時密碼", "您的臨時密碼是：" + tempPassword);
+			} catch (MessagingException e) {
+				return "發送郵件時出錯：" + e.getMessage();
+			}
+			
+			return "臨時密碼已成功發送至您的郵箱";
+		}
+		
+		return "無法找到與此電子郵件對應的會員";
+	}
+	
 	@GetMapping("/check-account")
 	public ResponseEntity<Boolean> checkAccount(@RequestParam("account") String account) {
 		boolean exists = memberService.existsByAccount(account) || coachMemberService.existsByAccount(account);
@@ -213,7 +312,6 @@ public class LoginController {
 				return "redirect:/complete_page";
 			}
 		}
-
 		// 處理教練會員
 		if (cMemberID != null) {
 			// 根據 cMemberID 查詢教練會員
@@ -227,68 +325,20 @@ public class LoginController {
 				return "redirect:/coach_skill";
 			}
 		}
-
 		// 錯誤處理
 		return "redirect:/verify_email?error=true";
 	}
 	
-	@PostMapping("/verifyEmail")
-	public String verifyEmail(@RequestParam("email") String email, @RequestParam("code") String code, HttpSession session) {
-	    // 從 Session 中獲取驗證碼和會員 ID
-	    String storedCode = (String) session.getAttribute("verificationCode");
-	    Integer memberID = (Integer) session.getAttribute("memberID");
-	    Integer cMemberID = (Integer) session.getAttribute("cMemberID");
+	@GetMapping("/email/check")
+    public ResponseEntity<Boolean> checkEmail(@RequestParam("email") String email) {
+        // 檢查是否有一般會員使用該電子郵件
+        boolean isEmailTaken = memberService.findByEmail(email) != null;
 
-	    // 驗證碼比對
-	    if (storedCode == null || !storedCode.equals(code)) {
-	        return "redirect:/verify_email?error=invalid_code";
-	    }
+        // 如果該電子郵件未被一般會員使用，繼續檢查是否有教練會員使用該電子郵件
+        if (!isEmailTaken) {
+            isEmailTaken = coachMemberService.findByEmail(email) != null;
+        }
 
-	    // 處理一般會員
-	    if (memberID != null) {
-	        Member member = memberService.findById(memberID);
-
-	        if (member != null) {
-	            // 更新會員的電子郵件
-	            member.setEmail(email);
-	            memberService.updateMember(member);
-
-	            // 設置 session 變數並重定向到 modify_forgotten_password
-	            session.setAttribute("verifiedMemberID", memberID);
-	            return "redirect:/modify_forgotten_password";
-	        }
-	    }
-	    
-	    // 處理教練會員
-	    if (cMemberID != null) {
-	        CoachMember coachMember = coachMemberService.findById(cMemberID);
-
-	        if (coachMember != null) {
-	            // 更新教練會員的電子郵件
-	            coachMember.setEmail(email);
-	            coachMemberService.updateCoachMember(coachMember);
-
-	            // 設置 session 變數並重定向到 modify_forgotten_password
-	            session.setAttribute("verifiedMemberID", cMemberID);
-	            return "redirect:/modify_forgotten_password";
-	        }
-	    }
-
-	    // 錯誤處理
-	    return "redirect:/verify_email?error=true";
-	}
-    
-	@PostMapping("/getMemberID")
-	@ResponseBody
-	public Map<String, Object> getMemberID(@RequestParam("email") String email) {
-	    Member member = memberService.findByEmail(email);
-	    Map<String, Object> response = new HashMap<>();
-	    if (member != null) {
-	        response.put("success", true);
-	        response.put("memberID", member.getMemberID());
-	    } else {
-	        response.put("success", false);
-	    }
-	    return response;
-	}
+        return ResponseEntity.ok(isEmailTaken);
+    }
 }

@@ -57,6 +57,10 @@ public class MemberService {
     public boolean existsByAccount(String account) {
         return repository.existsByAccount(account); // 檢查帳號是否存在
     }
+    
+    public boolean existsByEmail(String email) {
+        return repository.existsByEmail(email);
+    }
 
     /**
      * 保存會員資料（新增或更新）
