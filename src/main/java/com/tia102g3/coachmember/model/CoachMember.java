@@ -3,6 +3,8 @@ package com.tia102g3.coachmember.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tia102g3.coachcourse.model.CoachCourse;
 import com.tia102g3.coachspecialty.model.CoachSpecialty;
+
+import groovyjarjarantlr4.v4.runtime.misc.Nullable;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,7 +29,7 @@ public class CoachMember implements Serializable {
     @Lob
     private byte[] personalPhotos;
 
-    @NotNull(message = "狀態不能為空")
+    @Nullable
     @Enumerated(EnumType.ORDINAL)
     private CoachStatus status;
 
@@ -41,12 +43,10 @@ public class CoachMember implements Serializable {
     
     private String password;
 
-    @NotBlank(message = "電子郵件不能為空")
-    @Email(message = "電子郵件格式不正確")
+    @Nullable
     private String email;
 
-    @NotBlank(message = "性別不能為空")
-    @Pattern(regexp = "男|女", message = "性別必須是男或女")
+    @Nullable
     private String gender;
 
     @NotBlank(message = "電話號碼不能為空")
@@ -56,7 +56,7 @@ public class CoachMember implements Serializable {
     @NotBlank(message = "地址不能為空")
     private String address;
 
-    @NotNull(message = "生日不能為空")
+    @Nullable
     private Date bD;
 
     private Date regDate;
@@ -69,12 +69,10 @@ public class CoachMember implements Serializable {
 
     private String cardName;
 
-    @Pattern(regexp = "\\d{16}", message = "信用卡號必須是16位數字")
     private String cardNumber;
 
     private String cardValidTime;
 
-    @Pattern(regexp = "\\d{3}", message = "信用卡后三碼必須是3位數字")
     private String cardLast3No;
 
     private String cardPhone;
